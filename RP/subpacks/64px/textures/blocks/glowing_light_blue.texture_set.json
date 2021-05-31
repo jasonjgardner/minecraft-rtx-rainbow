@@ -1,0 +1,8 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:texture_set": {
+        "color": "glowing_light_blue",
+        "metalness_emissive_roughness": "glowing_light_blue_mer",
+        "normal": "glowing_light_blue_normal"
+    }
+}

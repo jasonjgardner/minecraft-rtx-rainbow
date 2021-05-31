@@ -1,0 +1,9 @@
+{
+    "type": "minecraftBedrock",
+    "name": "RAINBOW!",
+    "namespace": "rainbow",
+    "author": "Jason Gardner",
+    "targetVersion": "1.16.210",
+    "description": "Glowing rainbow blocks",
+    "packs": { "behaviorPack": "./BP", "resourcePack": "./RP" }
+}

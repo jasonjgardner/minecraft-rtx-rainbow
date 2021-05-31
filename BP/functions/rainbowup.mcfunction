@@ -1,0 +1,15 @@
+give @s rainbow:rainbow_block
+give @s rainbow:glowing_pink
+give @s rainbow:glowing_purple
+give @s rainbow:glowing_magenta
+give @s rainbow:glowing_red
+give @s rainbow:glowing_orange
+give @s rainbow:glowing_yellow
+give @s rainbow:glowing_lime
+give @s rainbow:glowing_green
+give @s rainbow:glowing_cyan
+give @s rainbow:glowing_light_blue
+give @s rainbow:glowing_blue
+give @s rainbow:glowing_white
+give @s rainbow:glowing_cool
+give @s rainbow:glowing_warm

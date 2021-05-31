@@ -1,0 +1,23 @@
+{
+	"format_version": "1.16.0",
+	"minecraft:block": {
+		"description": {
+			"identifier": "rainbow:glowing_yellow",
+			"is_experimental": false,
+            "register_to_creative_menu": true
+		},
+		"components": {
+			"minecraft:block_light_emission": 0.9,
+			"minecraft:destroy_time": 0,
+			"minecraft:flammable": {
+				"burn_odds": 0,
+				"flame_odds": 0
+			},
+			"minecraft:breakonpush": false,
+			"minecraft:friction": 0.5,
+			"minecraft:explosion_resistance": 0,
+			"minecraft:block_light_absorption": 0,
+			"minecraft:map_color": "#ffee00"
+		}
+	}
+}

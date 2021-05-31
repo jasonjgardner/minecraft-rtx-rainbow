@@ -1,0 +1,56 @@
+{
+	"num_mip_levels": 4,
+	"padding": 8,
+	"resource_pack_name": "RAINBOW!",
+	"texture_name": "atlas.terrain",
+	"texture_data": {
+		"rainbow_glowing_red": {
+			"textures": "textures/blocks/glowing_red"
+		},
+		"rainbow_glowing_blue": {
+			"textures": "textures/blocks/glowing_blue"
+		},
+		"rainbow_glowing_cool": {
+			"textures": "textures/blocks/glowing_cool"
+		},
+		"rainbow_glowing_warm": {
+			"textures": "textures/blocks/glowing_warm"
+		},
+		"rainbow_glowing_cyan": {
+			"textures": "textures/blocks/glowing_cyan"
+		},
+		"rainbow_glowing_green": {
+			"textures": "textures/blocks/glowing_green"
+		},
+		"rainbow_glowing_light_blue": {
+			"textures": "textures/blocks/glowing_light_blue"
+		},
+		"rainbow_glowing_lime": {
+			"textures": "textures/blocks/glowing_lime"
+		},
+		"rainbow_glowing_magenta": {
+			"textures": "textures/blocks/glowing_magenta"
+		},
+		"rainbow_glowing_orange": {
+			"textures": "textures/blocks/glowing_orange"
+		},
+		"rainbow_glowing_pink": {
+			"textures": "textures/blocks/glowing_pink"
+		},
+		"rainbow_glowing_purple": {
+			"textures": "textures/blocks/glowing_purple"
+		},
+		"rainbow_glowing_white": {
+			"textures": "textures/blocks/glowing_white"
+		},
+		"rainbow_glowing_yellow": {
+			"textures": "textures/blocks/glowing_yellow"
+		},
+		"rainbow_bubble_mirror": {
+			"textures": "textures/blocks/bubble_mirror"
+		},
+		"rainbow_block": {
+			"textures": "textures/blocks/rainbow_block"
+		}
+	}
+}

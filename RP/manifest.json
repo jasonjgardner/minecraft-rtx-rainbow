@@ -1,0 +1,60 @@
+{
+	"format_version": 2,
+	"header": {
+		"name": "RAINBOW!",
+		"description": "Glowing rainbow blocks",
+		"min_engine_version": [
+			1,
+			16,
+			210
+		],
+		"uuid": "8fa62ba1-8320-44ed-ad06-f5789b506f21",
+		"version": [
+			1,
+			0,
+			0
+		]
+	},
+	"modules": [
+		{
+			"description": "Glowing rainbow blocks",
+			"type": "resources",
+			"uuid": "7a027e15-58d0-4a9d-bd73-284d09fdd1f1",
+			"version": [
+				1,
+				0,
+				0
+			]
+		}
+	],
+	"capabilities": [
+		"raytraced"
+	],
+	"subpacks": [
+		{
+			"folder_name": "16px",
+			"name": "16px",
+			"memory_tier": 0
+		},
+		{
+			"folder_name": "32px",
+			"name": "32px",
+			"memory_tier": 1
+		},
+		{
+			"folder_name": "64px",
+			"name": "64px",
+			"memory_tier": 2
+		},
+		{
+			"folder_name": "128px",
+			"name": "128px",
+			"memory_tier": 3
+		},
+		{
+			"folder_name": "256px",
+			"name": "256px",
+			"memory_tier": 4
+		}
+	]
+}

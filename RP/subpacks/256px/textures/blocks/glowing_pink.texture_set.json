@@ -1,0 +1,8 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:texture_set": {
+        "color": "glowing_pink",
+        "metalness_emissive_roughness": "glowing_pink_mer",
+        "normal": "glowing_pink_normal"
+    }
+}
