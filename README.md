@@ -3,60 +3,87 @@
 
 ---
 
-#### [Download .mcaddon](https://github.com/jasonjgardner/minecraft-rtx-rainbow/releases/download/1.0.0-beta/RAINBOW.mcaddon)
+#### [Download .mcaddon](https://github.com/jasonjgardner/minecraft-rtx-rainbow/releases/download/1.0.0/RAINBOW.mcaddon)
 
 ---
 
 ## Does not replace any existing blocks!
 The *RAINBOW!* behavior pack adds 16 new blocks:
 
-__Glowing Red__
-`rainbow:glowing_red`
+### Glowing Red
+```
+/give @s rainbow:glowing_red
+```
 
-__Glowing Blue__
-`rainbow:glowing_blue`
+### Glowing Orange
+```
+/give @s rainbow:glowing_orange
+```
 
-__Glowing Cyan__
-`rainbow:glowing_cyan`
+### Glowing Yellow
+```
+/give @s rainbow:glowing_yellow
+```
 
-__Glowing Green__
-`rainbow:glowing_green`
+### Glowing Lime
+```
+/give @s rainbow:glowing_lime
+```
 
-__Glowing Light Blue__
-`rainbow:glowing_light_blue`
+### Glowing Green
+```
+/give @s rainbow:glowing_green
+```
 
-__Glowing Lime__
-`rainbow:glowing_lime`
+### Glowing Cyan
+```
+/give @s rainbow:glowing_cyan
+```
 
-__Glowing Magenta__
-`rainbow:glowing_magenta`
+### Glowing Light Blue
+```
+/give @s rainbow:glowing_light_blue
+```
 
-__Glowing Orange__
-`rainbow:glowing_orange`
+### Glowing Blue
+```
+/give @s rainbow:glowing_blue
+```
 
-__Glowing Purple__
-`rainbow:glowing_purple`
+### Glowing Purple
+```
+/give @s rainbow:glowing_purple
+```
 
-__Glowing Pink__
-`rainbow:glowing_pink`
+### Glowing Magenta
+```
+/give @s rainbow:glowing_magenta
+```
 
-__Glowing White__
-`rainbow:glowing_white`
+### Glowing Pink
+```
+/give @s rainbow:glowing_pink
+```
 
-__Glowing Yellow__
-`rainbow:glowing_yellow`
+### Animated Glowing Rainbow
+```
+/give @s rainbow:rainbow_block
+```
 
-__Animated Glowing Rainbow__
-`rainbow:rainbow_block`
+### Glowing Warm Light
+```
+/give @s rainbow:glowing_warm
+```
 
-__Glowing Cool Light__
-`rainbow:glowing_cool`
+### Glowing Cool Light
+```
+/give @s rainbow:glowing_cool
+```
 
-__Glowing Warm Light__
-`rainbow:glowing_warm`
-
-__Bumpy Mirror__
-`rainbow:bubble_mirror`
+### Bumpy Mirror
+```
+/give @s rainbow:bubble_mirror
+```
 
 ## Usage
 
@@ -69,4 +96,9 @@ __Bumpy Mirror__
 This will add all *RAINBOW!* blocks to your inventory.
 
 ## 🏳‍🌈
-*RAINBOW!* is a contribution to the [Planet Minecraft Pride Month Community Event](https://www.planetminecraft.com/forums/pmc/events/pride-month-event-634637/).
+[__*RAINBOW!*__](https://www.planetminecraft.com/texture-pack/rtx-glowing-rainbow-custom-blocks-add-on/) is a contribution to the [Planet Minecraft Pride Month Community Event](https://www.planetminecraft.com/forums/pmc/events/pride-month-event-634637/).
+
+## License
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
+
+<em xmlns:dct="http://purl.org/dc/terms/" property="dct:title">RAINBOW!</em> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
