@@ -1,6 +1,6 @@
 {
-	"num_mip_levels": 4,
-	"padding": 8,
+	"num_mip_levels": 0,
+	"padding": 0,
 	"resource_pack_name": "RAINBOW!",
 	"texture_name": "atlas.terrain",
 	"texture_data": {
