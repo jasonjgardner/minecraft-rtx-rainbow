@@ -3,7 +3,7 @@
 
 ---
 
-#### [Download .mcaddon](https://github.com/jasonjgardner/minecraft-rtx-rainbow/releases/download/1.0.0/RAINBOW.mcaddon)
+#### [Download .mcaddon](https://github.com/jasonjgardner/minecraft-rtx-rainbow/releases/download/1.0.1/RAINBOW.mcaddon)
 
 ---
 
