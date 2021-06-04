@@ -3,38 +3,10 @@
     "header": {
         "name": "RAINBOW!",
         "description": "Glowing rainbow blocks",
-        "min_engine_version": [
-            1,
-            16,
-            2
-        ],
+        "min_engine_version": [ 1, 16, 220 ],
         "uuid": "81aca67d-f714-43aa-a378-6f6e1d758373",
-        "version": [
-            1,
-            0,
-            0
-        ]
+        "version": [ 1, 0, 2 ]
     },
-    "modules": [
-        {
-            "description": "Glowing rainbow blocks",
-            "type": "data",
-            "uuid": "fd593fd3-6f1d-46b8-bad1-161804fd5d75",
-            "version": [
-                1,
-                0,
-                0
-            ]
-        }
-    ],
-    "dependencies": [
-        {
-            "uuid": "8fa62ba1-8320-44ed-ad06-f5789b506f21",
-            "version": [
-                1,
-                0,
-                0
-            ]
-        }
-    ]
+    "modules": [{ "description": "Custom blocks and functions", "type": "data", "uuid": "fd593fd3-6f1d-46b8-bad1-161804fd5d75", "version": [ 1, 0, 2 ]}],
+    "dependencies": [{ "uuid": "8fa62ba1-8320-44ed-ad06-f5789b506f21", "version": [ 1, 0, 1 ]}]
 }
