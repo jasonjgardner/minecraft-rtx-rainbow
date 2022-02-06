@@ -1,7 +1,0 @@
-[
-    {
-        "flipbook_texture": "textures/blocks/rainbow_block",
-        "atlas_tile": "rainbow_block",
-        "ticks_per_frame": 13
-    }
-]

@@ -1,8 +1,0 @@
-{
-    "format_version": "1.16.100",
-    "minecraft:texture_set": {
-        "color": "glowing_lime",
-        "metalness_emissive_roughness": "glowing_lime_mer",
-        "normal": "glowing_lime_normal"
-    }
-}

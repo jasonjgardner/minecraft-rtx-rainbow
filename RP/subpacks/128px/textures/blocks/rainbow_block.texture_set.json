@@ -1,8 +1,0 @@
-{
-    "format_version": "1.16.100",
-    "minecraft:texture_set": {
-        "color": "rainbow_block",
-        "metalness_emissive_roughness": "rainbow_block_mer",
-        "normal": "rainbow_block_normal"
-    }
-}

@@ -1,8 +1,0 @@
-{
-    "format_version": "1.16.100",
-    "minecraft:texture_set": {
-        "color": "glowing_blue",
-        "metalness_emissive_roughness": "glowing_blue_mer",
-        "normal": "glowing_blue_normal"
-    }
-}
