@@ -137,6 +137,14 @@ export function rainbowTrailFunction() {
       replaceWith: "rainbow:amber_500_glowing_75",
     },
     {
+      replaceWhat: "minecraft:sandstone",
+      replaceWith: "rainbow:amber_600_glowing_50",
+    },
+    {
+      replaceWhat: "minecraft:red_sandstone",
+      replaceWith: "rainbow:red_700_glowing_50",
+    },
+    {
       replaceWhat: "minecraft:dirt",
       replaceWith: "rainbow:brown_700_glowing_50",
     },
@@ -149,23 +157,27 @@ export function rainbowTrailFunction() {
       replaceWith: "rainbow:grey_400_glowing_50",
     },
     {
+      replaceWhat: "minecraft:gravel",
+      replaceWith: "rainbow:grey_500_glowing_50",
+    },
+    {
       replaceWhat: "minecraft:leaves",
-      replaceWith: "rainbow:pink_600_glowing_100",
+      replaceWith: "rainbow:green_600_glowing_50",
       where: "~-4 ~-4 ~-4 ~4 ~-1 ~4".split(" "),
     },
     {
       replaceWhat: "minecraft:leaves2",
-      replaceWith: "rainbow:pink_600_glowing_100",
+      replaceWith: "rainbow:green_600_glowing_50",
       where: "~-4 ~-4 ~-4 ~4 ~-1 ~4".split(" "),
     },
     {
       replaceWhat: "minecraft:log",
-      replaceWith: "rainbow:red_400_metallic_75",
+      replaceWith: "rainbow:brown_400_metallic_75",
       where: "~-2 ~-2 ~-2 ~2 ~-1 ~2".split(" "),
     },
     {
       replaceWhat: "minecraft:log2",
-      replaceWith: "rainbow:red_400_metallic_75",
+      replaceWith: "rainbow:brown_400_metallic_75",
       where: "~-2 ~-2 ~-2 ~2 ~-1 ~2".split(" "),
     },
   ].map((fmt: IFormatTrail) => formatTrail(fmt)).join(EOL.CRLF);

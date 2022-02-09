@@ -1,8 +1,13 @@
 import titleCase from "https://deno.land/x/case@v2.1.0/titleCase.ts";
-import blocks from "./_blocks.ts";
-import type { IMaterial, LanguageId, MinecraftEvent, RGB } from "./types.ts";
-import { hex2rgb } from "./_utils.ts";
-import { NAMESPACE } from "./_config.ts";
+import type {
+  IBlock,
+  IMaterial,
+  LanguageId,
+  MinecraftEvent,
+  RGB,
+} from "./types.ts";
+import { channelPercentage, hex2rgb } from "./_utils.ts";
+import { BEHAVIOR_BLOCK_FORMAT_VERSION, NAMESPACE } from "./_config.ts";
 
 export default class BlockEntry {
   _id!: string;
@@ -14,19 +19,29 @@ export default class BlockEntry {
   _material: IMaterial;
   _level: number;
   _value!: string;
-  constructor(key: string, material: IMaterial, level: number) {
-    const lastDash = key.lastIndexOf("_");
-    this._tint = key.substring(lastDash + 1);
-    this._hue = key.substring(0, lastDash);
+  _color!: string;
+  constructor({ name, color }: IBlock, material: IMaterial, level: number) {
+    if (typeof name !== 'string')  {
+      name = name.en_US
+    }
+
+    const lastDash = name.lastIndexOf("_");
+    this._tint = name.substring(lastDash + 1);
+    this._hue = name.substring(0, lastDash);
     this._level = Math.abs(level);
     this._material = material;
-    this._id = key;
+    this._id = name;
+    this._color = color;
   }
 
   getTitle(lang: LanguageId) {
     return `${this._level}% ${
       this._material.name[lang]
     } ${this.color} ${this.tint}`;
+  }
+
+  get material() {
+    return this._material;
   }
 
   get level() {
@@ -64,7 +79,7 @@ export default class BlockEntry {
 
   get textureSet() {
     return {
-      color: "#ff" + blocks[this._id].color.substring(1),
+      color: this.aHexColor,
       metalness_emissive_roughness: <RGB> [
         this._material.metalness(this._level),
         this._material.emissive(this._level),
@@ -74,145 +89,138 @@ export default class BlockEntry {
     } as const;
   }
 
-  get sound() {
-    return this._material.sound || "dirt";
+  get blocksData() {
+    return {
+      pbr_emissive_brightness: this._material.label === "emissive" ? 0.5 : 0,
+      brightness_gamma: this._material.label === "emissive" ? -1 : 0,
+      textures: this.resourceId,
+      sound: this._material.sound || "dirt",
+    };
+  }
+
+  get terrainData() {
+    return {
+      textures: `textures/blocks/${this.id}`,
+    };
+  }
+
+  toString(prevBlock: BlockEntry, nextBlock: BlockEntry) {
+    return JSON.stringify(
+      {
+        format_version: BEHAVIOR_BLOCK_FORMAT_VERSION,
+        "minecraft:block": {
+          description: {
+            identifier: this.behaviorId,
+            is_experimental: false,
+            register_to_creative_menu: true,
+            properties: this.properties(),
+          },
+          components: this.behaviors(),
+          events: this.events(prevBlock, nextBlock),
+          permutations: this.permutations(),
+        },
+      },
+      null,
+      2,
+    );
+  }
+
+  get aHexColor() {
+    const opacityLevel = this._material.opacity(this._level);
+
+    if (opacityLevel >= 1) {
+      return `#ff${this._color.substring(1)}`;
+    }
+
+    const alpha = 100 - channelPercentage(opacityLevel);
+
+    return "#" + (alpha < 7 ? "0" : "") + alpha.toString(16) +
+      this._color.substring(1);
   }
 
   hexColor() {
-    return blocks[this._id].color;
+    return this._color;
   }
 
   valueOf() {
-    return hex2rgb(this.hexColor());
+    return hex2rgb(this._color);
   }
 
   setPosition(offset: number) {
     return [
       `~`,
-      `~${this.level + offset}`,
+      `~${offset}`,
       `~`,
     ].join(" ");
   }
 
+  permutations() {
+    return [];
+  }
+
   properties() {
-    return {
-      "rainbow:is_ignited": [true, false],
-      "rainbow:drip_level": [1, 2, 3, 4, 5],
-    };
+    return {};
   }
 
   behaviors() {
     return {
       "minecraft:creative_category": {
-        "category": "construction",
-        "group": "itemGroup.name.concrete",
-        },
-        "minecraft:unit_cube": {},
+        category: "construction",
+        group: this._material.label === "glass"
+          ? "itemGroup.name.glass"
+          : "itemGroup.name.concrete",
+      },
+      "minecraft:unit_cube": {},
       "minecraft:breakonpush": false,
+      "minecraft:material_instances": {
+        "*": {
+          texture: this.resourceId,
+          render_method: this._material.label === "glass" ? "blend" : "opaque",
+          face_dimming: this._material.label !== "emissive",
+          ambient_occlusion: this._material.label === "emissive",
+        },
+      },
       "minecraft:flammable": this._material.flammable,
       "minecraft:friction": this._material.friction,
       "minecraft:explosion_resistance": this._material.explosionResistance || 0,
       "minecraft:map_color": this.hexColor(),
       "minecraft:block_light_absorption": this._material.lightAbsorption(
-        this._level,
+        this.level,
       ),
       "minecraft:block_light_emission": this._material.lightEmission(
-        this._level,
+        this.level,
       ),
-      // "minecraft:ticking": {
-      //   "range": [1, 1],
-      //   "looping": true,
-      //   "on_tick": {
-      //     "event": "rainbow:set_fire",
-      //     "target": "self",
-      //     "condition": "query.block_property('rainbow:is_ignited') == false",
-      //   },
-      // },
       "minecraft:on_interact": {
-        "event": "rainbow:recolor1",
+        // Recolor when holding rainbow
+        condition:
+          `query.equipped_item_any_tag('slot.weapon.offhand','${NAMESPACE}.rainbow_trail_key')`,
+        event: `${NAMESPACE}:recolor1`,
       },
       "minecraft:on_step_on": {
-        "event": "rainbow:recolor2",
-      },
-      "minecraft:on_fall_on": {
-        "event": "rainbow:start_drip",
+        event: `${NAMESPACE}:recolor2`,
       },
     } as const;
   }
 
-  events(prevBlock?: BlockEntry, nextBlock?: BlockEntry) {
+  events(prevBlock: BlockEntry, nextBlock: BlockEntry) {
     const eventData: Array<
       [
         string,
         MinecraftEvent,
       ]
-    > = [
-      // ["rainbow:set_fire", {
-      //   "sequence": [
-      //     {
-      //       "set_block_property": {
-      //         "rainbow:is_ignited": true,
-      //       },
-      //     },
-      //     {
-      //       "run_command": {
-      //         "command": ["effect @e[r=1] minecraft:is_ignited 2 2 false"],
-      //       },
-      //     },
-      //     {
-      //       "set_block_property": {
-      //         "rainbow:is_ignited": false,
-      //       },
-      //     },
-      //   ],
-      // }],
-    // ["rainbow:start_drip", {
-    //         "set_block_property": {
-    //           "rainbow:drip_level": 1,
-    //         },
-    //       }
-    // ],
-    //         ["rainbow:drip", {
-    //             "sequence": [
-    //                 {
-    //                     "set_block_property": {
-    //                   "rainbow:drip_level": ""
-    //               }
-    //           }
-    //       ]
-    //   }],
-    ];
+    > = [];
 
-    if (prevBlock !== undefined) {
-      eventData.push(["rainbow:recolor1", {
-        "set_block": {
-          "block_type": prevBlock.behaviorId,
-        },
-      }], ["rainbow:grow_x", {
-        "set_block_at_pos": {
-          "block_offset": [1, 0, 0],
-          "block_type": prevBlock.behaviorId,
-        },
-      }], ["rainbow:grow_y", {
-        "set_block_at_pos": {
-          "block_offset": [0, 1, 0],
-          "block_type": prevBlock.behaviorId,
-        },
-      }], ["rainbow:grow_z", {
-        "set_block_at_pos": {
-          "block_offset": [0, 0, 1],
-          "block_type": prevBlock.behaviorId,
-        },
-      }]);
-    }
+    eventData.push([`${NAMESPACE}:recolor1`, {
+      set_block: {
+        block_type: prevBlock.behaviorId,
+      },
+    }]);
 
-    if (nextBlock !== undefined) {
-      eventData.push(["rainbow:recolor2", {
-        "set_block": {
-          "block_type": nextBlock.behaviorId,
-        },
-      }]);
-    }
+    eventData.push([`${NAMESPACE}:recolor2`, {
+      set_block: {
+        block_type: nextBlock.behaviorId,
+      },
+    }]);
 
     return Object.fromEntries(eventData);
   }
