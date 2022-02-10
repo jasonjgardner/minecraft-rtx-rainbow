@@ -27,6 +27,11 @@ jobs:
 
       - name: Run build script
         run: deno run -A --unstable --allow-env src/mod.ts
+        env:
+          RP_PACK_UUID: ${{ secrets.RP_PACK_UUID }}
+          BP_PACK_UUID: ${{ secrets.BP_PACK_UUID }}
+          RP_MODULE_UUID: ${{ secrets.RP_MODULE_UUID }}
+          BP_MODULE_UUID: ${{ secrets.BP_MODULE_UUID }}
 
       - name: Package output
         run: |
