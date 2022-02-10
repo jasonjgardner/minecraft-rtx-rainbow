@@ -2,8 +2,21 @@ import "https://deno.land/x/dotenv/load.ts";
 import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
 import { sprintf } from "https://deno.land/std@0.125.0/fmt/printf.ts";
 import { EOL } from "https://deno.land/std@0.125.0/fs/mod.ts";
-import type { IBlock, IMaterial, LanguageId, MinecraftData, MinecraftTerrainData } from "./types.ts";
-import { DIR_BP, DIR_RP, MIP_LEVELS, NAMESPACE } from "./_config.ts";
+import type {
+  IBlock,
+  IMaterial,
+  LanguageId,
+  LanguagesContainer,
+  MinecraftData,
+  MinecraftTerrainData,
+} from "./types.ts";
+import {
+  DIR_BP,
+  DIR_RP,
+  MIP_LEVELS,
+  NAMESPACE,
+  RELEASE_TYPE,
+} from "./_config.ts";
 import { filteredBlocks } from "./_blocks.ts";
 import BlockEntry from "./BlockEntry.ts";
 import { materials } from "./_materials.ts";
@@ -11,8 +24,8 @@ import { entityTrailFunction, rainbowTrailFunction } from "./mcfunctions.ts";
 import { writeFlipbooks } from "./flipbook.ts";
 import { deployToDev, resetDev } from "./deploy.ts";
 import setup from "./_setup.ts";
-import itemsOutput from "./items.ts";
-import manifestOutput from "./manifest.ts";
+import { createItems } from "./items.ts";
+import { createManifests } from "./manifest.ts";
 import print from "./printer.ts";
 
 const res: BlockEntry[] = [];
@@ -21,8 +34,8 @@ let textureData: MinecraftTerrainData = {};
 
 let blocksData: MinecraftData = {};
 
-const languages: Record<LanguageId, string[]> = {
-  "en_US": [],
+let languages: LanguagesContainer = {
+  en_US: [],
 };
 materials.forEach((material: IMaterial) => {
   filteredBlocks.forEach((block: IBlock) => {
@@ -42,6 +55,8 @@ materials.forEach((material: IMaterial) => {
 ////////
 
 await setup();
+await createManifests(RELEASE_TYPE);
+await createItems();
 
 const mcfunctions: Record<string, string[]> = {
   rainbowstack: [],
@@ -50,7 +65,9 @@ const mcfunctions: Record<string, string[]> = {
 let lastColor: string | undefined;
 let atlasGroup: BlockEntry[] = [];
 
-for (let itr = 0, len = res.length; itr < len; itr++) {
+const len = res.length;
+
+for (let itr = 0; itr < len; itr++) {
   const block = res[itr];
 
   blocksData[block.behaviorId] = block.blocksData;
@@ -99,8 +116,12 @@ for (let itr = 0, len = res.length; itr < len; itr++) {
     lastColor !== undefined &&
     lastColor !== block.color
   ) {
-    [blocksData, textureData] = await writeFlipbooks(atlasGroup, blocksData, textureData);
-    
+    // FIXME: Dumbass dependencies injection
+    [blocksData, textureData, languages] = await writeFlipbooks(atlasGroup, {
+      blocksData,
+      textureData,
+      languages,
+    });
 
     atlasGroup = [];
   }
@@ -166,16 +187,6 @@ for (const languageKey in languages) {
 await Deno.writeTextFile(
   `${DIR_RP}/texts/languages.json`,
   JSON.stringify(Object.keys(languages)),
-);
-
-// Process
-await Promise.all(
-  [
-    //resetDev()
-    ...[...manifestOutput, ...itemsOutput].map(([dest, data]) =>
-      Deno.writeTextFile(dest, data)
-    ),
-  ],
 );
 
 await print(res);

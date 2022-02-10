@@ -91,8 +91,8 @@ export default class BlockEntry {
 
   get blocksData() {
     return {
-      pbr_emissive_brightness: this._material.label === "emissive" ? 0.5 : 0,
-      brightness_gamma: this._material.label === "emissive" ? -1 : 0,
+      // pbr_emissive_brightness: this._material.label === "emissive" ? 0 : 0,
+      // brightness_gamma: this._material.label === "emissive" ? 0 : 0,
       textures: this.resourceId,
       sound: this._material.sound || "dirt",
     };
@@ -192,8 +192,7 @@ export default class BlockEntry {
       ),
       "minecraft:on_interact": {
         // Recolor when holding rainbow
-        condition:
-          `query.equipped_item_any_tag('slot.weapon.offhand','${NAMESPACE}.rainbow_trail_key')`,
+       // condition: `query.get_equipped_item_name('slot.weapon.mainhand') == '${NAMESPACE}.rainbow_trail_key'`,
         event: `${NAMESPACE}:recolor1`,
       },
       "minecraft:on_step_on": {

@@ -1,11 +1,11 @@
-// import type { ReleaseType } from "https://deno.land/x/semver/mod.ts";
-// import { inc } from "https://deno.land/x/semver/mod.ts";
-// import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
-import type { OutputMap } from "./types.ts";
+import type { ReleaseType } from "https://deno.land/x/semver/mod.ts";
+import { inc } from "https://deno.land/x/semver/mod.ts";
+import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
 import {
   BP_MODULE_UUID,
   BP_PACK_UUID,
   DIR_BP,
+  DIR_ROOT,
   DIR_RP,
   PACK_DESCRIPTION,
   PACK_NAME,
@@ -13,32 +13,31 @@ import {
   RP_PACK_UUID,
   TARGET_VERSION,
 } from "./_config.ts";
+import { semverVector } from "./_utils.ts";
 
-// export async function getBuildVersion(releaseType = "patch") {
-//   const DEFAULT_VERSION = "1.0.0";
-//   const { RP, BP } = JSON.parse(
-//     await Deno.readTextFile(join(DIR_ROOT, "versions.json")),
-//   );
+async function getBuildVersion(
+  releaseType: ReleaseType = "patch",
+  defaultVersion = "1.0.0",
+): Promise<{ RP: number[]; BP: number[] }> {
+  const { RP, BP } = JSON.parse(
+    await Deno.readTextFile(join(DIR_ROOT, "versions.json")),
+  );
 
-//   return {
-//     RP:
-//       (inc(RP || DEFAULT_VERSION, <ReleaseType> releaseType) ?? DEFAULT_VERSION)
-//         .split("."),
-//     BP:
-//       (inc(BP || DEFAULT_VERSION, <ReleaseType> releaseType) ?? DEFAULT_VERSION)
-//         .split("."),
-//   };
-// }
+  return {
+    RP: semverVector(
+      inc(RP || defaultVersion, <ReleaseType> releaseType) ?? defaultVersion,
+    ),
+    BP: semverVector(
+      inc(BP || defaultVersion, <ReleaseType> releaseType) ?? defaultVersion,
+    ),
+  };
+}
 
-// const { RP: rpVersion, BP: bpVersion } = await getBuildVersion();
+export async function createManifests(releaseType?: ReleaseType) {
+  const { RP: rpVersion, BP: bpVersion } = await getBuildVersion(releaseType);
 
-const rpVersion = [1, 0, 0];
-const bpVersion = [1, 0, 0];
-const output: OutputMap = [];
-
-output.push(
-  [
-    `${DIR_RP}/manifest.json`,
+  await Deno.writeTextFile(
+    join(DIR_RP, "manifest.json"),
     JSON.stringify(
       {
         format_version: 2,
@@ -68,9 +67,10 @@ output.push(
       null,
       2,
     ),
-  ],
-  [
-    `${DIR_BP}/manifest.json`,
+  );
+
+  await Deno.writeTextFile(
+    join(DIR_BP, "manifest.json"),
     JSON.stringify(
       {
         format_version: 2,
@@ -103,7 +103,5 @@ output.push(
       null,
       2,
     ),
-  ],
-);
-
-export default output;
+  );
+}
