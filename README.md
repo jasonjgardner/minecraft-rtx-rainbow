@@ -1,6 +1,8 @@
 # 🌈 RAINBOW!
 **VERSION 2**
 
+[![Magic Workflow](https://github.com/jasonjgardner/minecraft-rtx-rainbow/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/jasonjgardner/minecraft-rtx-rainbow/actions/workflows/build.yml)
+
 - Adds over **2500** uniform-color blocks to _Bedrock Minecraft_.
 - Each color comes in glowing, glass, metallic and plastic varieties.
 - Intended to be played with __RTX ON__, but still functions without raytracing effects.
@@ -22,14 +24,14 @@ _RAINBOW!_ v2 is compiled through [one amazing build script](/src/mod.ts).
 - Converts pixel art into a `.mcfunction` file full of `/fill` commands
   - **_Bonus:_** Converts [this repository's Stargazers' avatars](https://github.com/jasonjgardner/minecraft-rtx-rainbow/stargazers) into fill commands. Enter `/function printer/stargazers/` for auto-complete options in command.
 - Automatically copies build to `development_resource_packs` when running locally
-- Creates distributable .mcaddon through GitHub Actions
+- Creates distributable [.mcaddon through GitHub Actions](https://github.com/jasonjgardner/minecraft-rtx-rainbow/actions/workflows/build.yml)
 
 ## 🦕 Run with [Deno](https://deno.land/)
 You _can_ clone the repository to control its output. You do not need to build from source to use the add-on. A .mcaddon file is available if you do not wish to customize the pack.
 
 ### Customization
 
-- Place your own pixel art into the [`/src/assets/pixel_art`](/src/assets/pixel_art) directory.
+- Place your own pixel art into the [`src/assets/pixel_art`](/src/assets/pixel_art) directory.
 - Modify [`src/store/_blocks.ts`](/src/store/_blocks.ts) to enable/disable or add color options.
 - Modify [`src/store/_materials.ts`](/src/store/_materials.ts) to adjust block parameters:
   - Block behavior components can be changed
