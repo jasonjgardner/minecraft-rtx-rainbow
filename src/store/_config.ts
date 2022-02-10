@@ -1,7 +1,7 @@
 import "https://deno.land/x/dotenv/load.ts";
-import type { ReleaseType } from "https://deno.land/x/semver/mod.ts";
-import { semverVector } from "./_utils.ts";
 import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
+import { semverVector } from "../_utils.ts";
+import type { ReleaseType } from "https://deno.land/x/semver/mod.ts";
 export const NAMESPACE = "rainbow";
 export const BEHAVIOR_BLOCK_FORMAT_VERSION = "1.16.100";
 

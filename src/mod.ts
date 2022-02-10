@@ -9,24 +9,27 @@ import type {
   LanguagesContainer,
   MinecraftData,
   MinecraftTerrainData,
-} from "./types.ts";
+} from "../typings/types.ts";
 import {
   DIR_BP,
   DIR_RP,
   MIP_LEVELS,
   NAMESPACE,
   RELEASE_TYPE,
-} from "./_config.ts";
-import { filteredBlocks } from "./_blocks.ts";
-import BlockEntry from "./BlockEntry.ts";
-import { materials } from "./_materials.ts";
-import { entityTrailFunction, rainbowTrailFunction } from "./mcfunctions.ts";
-import { writeFlipbooks } from "./flipbook.ts";
-import { deployToDev, resetDev } from "./deploy.ts";
-import setup from "./_setup.ts";
-import { createItems } from "./items.ts";
-import { createManifests } from "./manifest.ts";
-import print from "./printer.ts";
+} from "./store/_config.ts";
+import { filteredBlocks } from "./store/_blocks.ts";
+import BlockEntry from "./components/BlockEntry.ts";
+import { materials } from "./store/_materials.ts";
+import {
+  entityTrailFunction,
+  rainbowTrailFunction,
+} from "./components/mcfunctions.ts";
+import { writeFlipbooks } from "./components/flipbook.ts";
+import { deployToDev, resetDev } from "./components/deploy.ts";
+import setup from "./components/_setup.ts";
+import { createItems } from "./components/items.ts";
+import { createManifests } from "./components/manifest.ts";
+import print from "./components/printer.ts";
 
 const res: BlockEntry[] = [];
 

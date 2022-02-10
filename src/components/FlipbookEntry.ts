@@ -1,4 +1,4 @@
-import type { IBlock, IMaterial, LanguageId, RGB } from "./types.ts";
+import type { IBlock, IMaterial, LanguageId, RGB } from "../../typings/types.ts";
 import BlockEntry from "./BlockEntry.ts";
 
 export function formatFlipbookName(color: string, material?: string): string {

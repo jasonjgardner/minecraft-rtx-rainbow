@@ -1,5 +1,5 @@
-import type { IMaterial } from "./types.ts";
-import { channelPercentage } from "./_utils.ts";
+import type { IMaterial } from "../../typings/types.ts";
+import { channelPercentage } from "../_utils.ts";
 export const materials: IMaterial[] = [
   {
     name: { en_US: "Plastic" },

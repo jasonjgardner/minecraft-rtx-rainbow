@@ -5,9 +5,9 @@ import type {
   LanguageId,
   MinecraftEvent,
   RGB,
-} from "./types.ts";
-import { channelPercentage, hex2rgb } from "./_utils.ts";
-import { BEHAVIOR_BLOCK_FORMAT_VERSION, NAMESPACE } from "./_config.ts";
+} from "../../typings/types.ts";
+import { channelPercentage, hex2rgb } from "../_utils.ts";
+import { BEHAVIOR_BLOCK_FORMAT_VERSION, NAMESPACE } from "../store/_config.ts";
 
 export default class BlockEntry {
   _id!: string;
@@ -21,8 +21,8 @@ export default class BlockEntry {
   _value!: string;
   _color!: string;
   constructor({ name, color }: IBlock, material: IMaterial, level: number) {
-    if (typeof name !== 'string')  {
-      name = name.en_US
+    if (typeof name !== "string") {
+      name = name.en_US;
     }
 
     const lastDash = name.lastIndexOf("_");
@@ -192,7 +192,7 @@ export default class BlockEntry {
       ),
       "minecraft:on_interact": {
         // Recolor when holding rainbow
-       // condition: `query.get_equipped_item_name('slot.weapon.mainhand') == '${NAMESPACE}.rainbow_trail_key'`,
+        // condition: `query.get_equipped_item_name('slot.weapon.mainhand') == '${NAMESPACE}.rainbow_trail_key'`,
         event: `${NAMESPACE}:recolor1`,
       },
       "minecraft:on_step_on": {

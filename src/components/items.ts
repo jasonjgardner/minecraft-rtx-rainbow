@@ -1,4 +1,4 @@
-import { DIR_BP, DIR_RP, NAMESPACE } from "./_config.ts";
+import { DIR_BP, DIR_RP, NAMESPACE } from "../store/_config.ts";
 
 export async function createItems() {
   await Deno.writeTextFile(
