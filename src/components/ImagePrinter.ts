@@ -70,7 +70,9 @@ export async function pixelPrinter(
     : decoded;
 
   const OFFSET_Z = -1;
-  const axises = ["x", "y", "z"];
+
+  const axises = ["x", "y", "z"] as const;
+
   await Promise.all(materials.map(async ({ label }: IMaterial) => {
     const materialPalette = palette.filter(({ material }: BlockEntry) =>
       label === material.label
