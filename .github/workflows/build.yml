@@ -1,0 +1,40 @@
+name: Magic
+
+on:
+  watch:
+    types: [started]
+  
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v2
+
+      - name: Setup Deno
+        # uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@004814556e37c54a2f6e31384c9e18e983317366
+        with:
+          deno-version: v1.x
+          
+      - name: Setup zip
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install zip
+
+      - name: Run build script
+        run: deno run -A --unstable --allow-env src/mod.ts
+
+      - name: Package output
+        run: |
+          zip -r -0 RAINBOW.mcaddon ${{ GITHUB.WORKSPACE }}/dist
+          
+      - name: Upload output
+        uses: actions/upload-artifact@v2
+        with:
+          name: RAINBOW.mcaddon
+          path: |
+            *.mcaddon
