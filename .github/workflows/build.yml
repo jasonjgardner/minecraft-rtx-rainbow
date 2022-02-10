@@ -30,6 +30,7 @@ jobs:
 
       - name: Package output
         run: |
+          cd ${{ GITHUB.WORKSPACE }}
           zip -r -0 RAINBOW.mcaddon ${{ GITHUB.WORKSPACE }}/dist
           
       - name: Upload output
