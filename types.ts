@@ -54,6 +54,8 @@ export type MultiLingual = {
   [key in LanguageId]: string;
 };
 
+export type LanguagesContainer = Record<LanguageId, string[]> 
+
 export interface IMaterial {
   name: MultiLingual;
   label?: string;

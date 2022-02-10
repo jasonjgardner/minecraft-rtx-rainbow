@@ -1,12 +1,15 @@
 import type {
   FlipbookComponent,
   IMaterial,
+  LanguageId,
+  LanguagesContainer,
   MinecraftData,
   MinecraftTerrainData,
   PackSizes,
 } from "./types.ts";
 import { Image } from "https://deno.land/x/imagescript/mod.ts";
 import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
+import { sprintf } from "https://deno.land/std@0.125.0/fmt/printf.ts";
 import { DIR_BP, DIR_RP } from "./_config.ts";
 import { materials } from "./_materials.ts";
 
@@ -60,14 +63,14 @@ async function flipbookData(
     flipbook_texture: `textures/blocks/${flipbookBlock.id}`,
     frames: flipbookFrames,
     atlas_tile: flipbookBlock.id,
-    ticks_per_frame: Math.floor(frameCount * 0.666), /// Approx 30fps
-    blend_frames: true,
+    ticks_per_frame: 10, //Math.floor(frameCount * 1.666),
+    blend_frames: false,
   };
 }
 
 export async function makeAtlas(blocks: BlockEntry[], size?: PackSizes) {
   const frames = blocks.map((block) => block.valueOf());
-  const frameCount = Math.min(20, frames.length);
+  const frameCount = frames.length;
   const s = size || 16;
   const atlasOutput = new Image(s, s * frameCount);
 
@@ -88,9 +91,13 @@ export async function makeAtlas(blocks: BlockEntry[], size?: PackSizes) {
 
 export async function writeFlipbooks(
   frames: BlockEntry[],
-  blocksData: MinecraftData,
-  textureData: MinecraftTerrainData,
-): Promise<[MinecraftData, MinecraftTerrainData]> {
+  dependencies: {
+    blocksData: MinecraftData;
+    textureData: MinecraftTerrainData;
+    languages: LanguagesContainer;
+  },
+): Promise<[MinecraftData, MinecraftTerrainData, LanguagesContainer]> {
+  const { blocksData, textureData, languages } = dependencies;
   const frameCount = frames.length;
   const lastBlock = frames[frameCount - 1];
 
@@ -109,11 +116,22 @@ export async function writeFlipbooks(
     JSON.stringify(
       await Promise.all(
         materials.filter(({ label }: IMaterial) => label !== "glass").map(
-          (material: IMaterial) => {
+          async (material: IMaterial) => {
             const flipbookBlock = new FlipbookEntry(lastBlock, material);
             blocksData[flipbookBlock.behaviorId] = flipbookBlock.blocksData;
             textureData[flipbookBlock.resourceId] = flipbookBlock.terrainData;
-            flipbookData(
+
+            for (const languageKey in languages) {
+              languages[<LanguageId> languageKey].push(
+                sprintf(
+                  "tile.%s.name=%s",
+                  flipbookBlock.behaviorId,
+                  flipbookBlock.name[<LanguageId> languageKey],
+                ),
+              );
+            }
+
+            return await flipbookData(
               [
                 flipbookBlock,
                 frames[0],
@@ -129,5 +147,5 @@ export async function writeFlipbooks(
     ),
   );
 
-  return [blocksData, textureData];
+  return [blocksData, textureData, languages];
 }

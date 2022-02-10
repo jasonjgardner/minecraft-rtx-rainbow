@@ -24,7 +24,9 @@ export async function encodeRGBColor(layerValue: number[], size = 16) {
   return await imgOutput.encode(0);
 }
 
-
+export function semverVector(ver: string): number[] {
+  return ver.split(".", 3).map((v: string) => parseInt(v, 10));
+}
 
 export function getArg(
   key: string,
