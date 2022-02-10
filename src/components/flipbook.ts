@@ -1,3 +1,6 @@
+import { Image } from "https://deno.land/x/imagescript/mod.ts";
+import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
+import { sprintf } from "https://deno.land/std@0.125.0/fmt/printf.ts";
 import type {
   FlipbookComponent,
   IMaterial,
@@ -6,15 +9,16 @@ import type {
   MinecraftData,
   MinecraftTerrainData,
   PackSizes,
-} from "./types.ts";
-import { Image } from "https://deno.land/x/imagescript/mod.ts";
-import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
-import { sprintf } from "https://deno.land/std@0.125.0/fmt/printf.ts";
-import { DIR_BP, DIR_RP } from "./_config.ts";
-import { materials } from "./_materials.ts";
+  RGB
+} from "../../typings/types.ts";
 
-import BlockEntry from "./BlockEntry.ts";
-import FlipbookEntry, { formatFlipbookName } from "./FlipbookEntry.ts";
+import { DIR_BP, DIR_RP } from "../store/_config.ts";
+import { materials } from "../store/_materials.ts";
+
+import BlockEntry from "../components/BlockEntry.ts";
+import FlipbookEntry, {
+  formatFlipbookName,
+} from "../components/FlipbookEntry.ts";
 
 async function flipbookData(
   blocks: [FlipbookEntry, BlockEntry, BlockEntry],
@@ -69,7 +73,7 @@ async function flipbookData(
 }
 
 export async function makeAtlas(blocks: BlockEntry[], size?: PackSizes) {
-  const frames = blocks.map((block) => block.valueOf());
+  const frames: RGB[] = blocks.map((block) => block.valueOf());
   const frameCount = frames.length;
   const s = size || 16;
   const atlasOutput = new Image(s, s * frameCount);

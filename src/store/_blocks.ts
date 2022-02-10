@@ -1,4 +1,4 @@
-import type { IBlock } from "./types.ts";
+import type { IBlock } from "../../typings/types.ts";
 const blocks: IBlock[] = [
   { name: "red_50", enabled: true, color: "#ffebee" },
   { name: "red_100", enabled: true, color: "#ffcdd2" },

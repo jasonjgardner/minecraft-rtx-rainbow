@@ -1,12 +1,13 @@
 import { Image } from "https://deno.land/x/imagescript/mod.ts";
 import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
 import { sprintf } from "https://deno.land/std@0.125.0/fmt/printf.ts";
-import type { IMaterial, OutputMap, RGB } from "./types.ts";
 import { EOL } from "https://deno.land/std@0.125.0/fs/mod.ts";
-import { materials } from "./_materials.ts";
+import { materials } from "../store/_materials.ts";
 import BlockEntry from "./BlockEntry.ts";
-import { DIR_BP } from "./_config.ts";
-import { hex2rgb } from "./_utils.ts";
+import { DIR_BP } from "../store/_config.ts";
+import { hex2rgb } from "../_utils.ts";
+
+import type { IMaterial, RGB } from "../../typings/types.ts";
 
 const MAX_PRINT_SIZE = 3 * 16;
 const MASK_COLOR = Image.rgbToColor(...hex2rgb("#ff00ff"));

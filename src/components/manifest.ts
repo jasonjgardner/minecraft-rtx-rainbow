@@ -12,15 +12,16 @@ import {
   RP_MODULE_UUID,
   RP_PACK_UUID,
   TARGET_VERSION,
-} from "./_config.ts";
-import { semverVector } from "./_utils.ts";
+} from "../store/_config.ts";
+import { semverVector } from "../_utils.ts";
+import { DIR_SRC } from "../store/_config.ts";
 
 async function getBuildVersion(
   releaseType: ReleaseType = "patch",
   defaultVersion = "1.0.0",
 ): Promise<{ RP: number[]; BP: number[] }> {
   const { RP, BP } = JSON.parse(
-    await Deno.readTextFile(join(DIR_ROOT, "versions.json")),
+    await Deno.readTextFile(join(DIR_SRC, "versions.json")),
   );
 
   return {

@@ -1,13 +1,17 @@
 import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
 import { copy } from "https://deno.land/std@0.125.0/fs/copy.ts";
-import { emptyDir, ensureDir } from "https://deno.land/std@0.123.0/fs/mod.ts";
-import { DIR_DIST, NAMESPACE } from "./_config.ts";
+import { emptyDir } from "https://deno.land/std@0.123.0/fs/mod.ts";
+import { DIR_DIST, NAMESPACE } from "../store/_config.ts";
 
 const appData = Deno.env.get("LOCALAPPDATA") || "%LocalAppData%";
 
 const comMojang = join(
   appData,
-  "\\Packages\\Microsoft.MinecraftUWP_8wekyb3d8bbwe\\LocalState\\games\\com.mojang",
+  "Packages",
+  "Microsoft.MinecraftUWP_8wekyb3d8bbwe",
+  "LocalState",
+  "games",
+  "com.mojang",
 );
 
 const buildBehaviorPacks = join(DIR_DIST, `${NAMESPACE} BP`);
