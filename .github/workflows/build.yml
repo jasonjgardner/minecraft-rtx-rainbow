@@ -34,11 +34,10 @@ jobs:
           mkdir dist
           cd build
           zip -r -0 ../dist/RAINBOW.mcaddon ./rainbow\ *
-          cd ../dist/
           
       - name: Upload output
         uses: actions/upload-artifact@v2
         with:
           name: RAINBOW.mcaddon
           path: |
-            *.mcaddon
+            dist/*.mcaddon
