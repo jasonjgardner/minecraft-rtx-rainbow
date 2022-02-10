@@ -162,7 +162,7 @@ await Deno.writeTextFile(
 );
 
 await Deno.writeTextFile(
-  `${DIR_RP}/blocks.json`,
+  join(DIR_RP, "blocks.json"),
   JSON.stringify({ format_version: [1, 1, 0], ...blocksData }, null, 2),
 );
 await Deno.writeTextFile(
@@ -195,4 +195,6 @@ await Deno.writeTextFile(
 await print(res);
 
 // Cleanup
-await deployToDev();
+if (Deno.build.os === "windows") {
+  await deployToDev();
+}

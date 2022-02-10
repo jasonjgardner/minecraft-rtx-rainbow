@@ -31,7 +31,7 @@ jobs:
       - name: Package output
         run: |
           cd ${{ GITHUB.WORKSPACE }}
-          zip -r -0 RAINBOW.mcaddon ./dist
+          zip -r -0 RAINBOW.mcaddon ./build/rainbow RP ./build/rainbow BP
           
       - name: Upload output
         uses: actions/upload-artifact@v2
