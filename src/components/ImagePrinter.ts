@@ -1,5 +1,5 @@
-import { Image } from "https://deno.land/x/imagescript/mod.ts";
-import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
+import { Frame, GIF, Image } from "https://deno.land/x/imagescript/mod.ts";
+import { extname, join } from "https://deno.land/std@0.123.0/path/mod.ts";
 import { sprintf } from "https://deno.land/std@0.125.0/fmt/printf.ts";
 import { EOL } from "https://deno.land/std@0.125.0/fs/mod.ts";
 import { materials } from "../store/_materials.ts";
@@ -10,7 +10,9 @@ import { hex2rgb } from "../_utils.ts";
 import type { IMaterial, RGB } from "../../typings/types.ts";
 
 const MAX_PRINT_SIZE = 3 * 16;
-const MASK_COLOR = Image.rgbToColor(...hex2rgb("#ff00ff"));
+const MASK_COLOR = Image.rgbaToColor(255, 255, 255, 0); // Image.rgbToColor(...hex2rgb("#ff00ff"));
+const FUNCTIONS_NAMESPACE = "printer";
+const DIR_FUNCTIONS = join(DIR_BP, "functions", FUNCTIONS_NAMESPACE);
 
 type Axis = "x" | "y" | "z";
 
@@ -40,7 +42,7 @@ function writeFill(
   x: number,
   y: number,
   z: number,
-  fillWith?: BlockEntry,
+  fillWith = "air",
   flipAxis?: Axis,
 ): string {
   const position = sprintf(
@@ -51,7 +53,71 @@ function writeFill(
       ? [x, z, y]
       : [x, y, z]),
   );
-  return `fill ${position} ${position} ${fillWith?.behaviorId || "air"} 0 keep`;
+  return `fill ${position} ${position} ${fillWith} 0 keep`;
+}
+
+async function printDecoded(
+  name: string,
+  idx: number,
+  img: Image | Frame,
+  palette: BlockEntry[],
+  offset: number[],
+  nextFn?: string | undefined,
+) {
+  const axises = ["x", "y", "z"] as const;
+
+  // TODO: Add 10000 line limit
+
+  let lastMaterial: string = '';
+
+  return await Promise.all(
+    materials.flatMap(async ({ label }: IMaterial) => {
+      const materialPalette = palette.filter(({ material }: BlockEntry) =>
+        label === material.label
+      );
+
+      return await Promise.all(axises.map(async (axis) => {
+        const func: string[] = [];
+
+        
+
+        for (const [x, y, c] of img.iterateWithColors()) {
+          const nearest = c !== MASK_COLOR
+            ? getNearestColor(<RGB> Image.colorToRGB(c), materialPalette)
+              .behaviorId
+            : "air";
+
+          func.push(
+            writeFill(
+              x + offset[0],
+              Math.abs((y + offset[1]) - img.height), // Starts print row at top
+              offset[2],
+              nearest,
+              <Axis> axis,
+            ),
+          );
+        }
+
+        if (idx > 1 && nextFn && label && lastMaterial !== label) {
+          //func.push(`function ${FUNCTIONS_NAMESPACE}/${nextFn}`);
+          lastMaterial = label;
+        }
+
+        // FIXME: Use sprintf
+        const filename = `${name + (idx ? `_${idx}` : "")}_${label || ""}_${axis}`;
+
+        await Deno.writeTextFile(
+          join(
+            DIR_FUNCTIONS,
+            `${filename}.mcfunction`,
+          ),
+          func.join(EOL.CRLF),
+        );
+
+        return filename;
+      }));
+    }),
+  );
 }
 
 export async function pixelPrinter(
@@ -61,48 +127,36 @@ export async function pixelPrinter(
   chunks = 2,
 ) {
   const res = await fetch(imageUrl.href);
-  const decoded = await Image.decode(new Uint8Array(await res.arrayBuffer()));
+  const data = new Uint8Array(await res.arrayBuffer());
+
+  const frames = (extname(imageUrl.href) !== ".gif")
+    ? [await Image.decode(data)]
+    : (await GIF.decode(data, false));
 
   const size = Math.min(MAX_PRINT_SIZE, chunks * 16);
 
-  const img = decoded.width > size
-    ? decoded.resize(size, Image.RESIZE_AUTO)
-    : decoded;
+  let fnNames: Array<string | undefined> = [];
+  let idx = 0;
 
-  const OFFSET_Z = -1;
+  for await (const frame of frames) {
+    if (frame.width > size) {
+      frame.resize(size, Image.RESIZE_AUTO, Image.RESIZE_NEAREST_NEIGHBOR);
+    }
 
-  const axises = ["x", "y", "z"] as const;
+    // Align frames end-to-end
+    //const offsets = [(idx * frame.width) + 1, 0, idx + 1];
+    
+    // Align frames as stack
+    const offsets = [0, 0, idx];
 
-  await Promise.all(materials.map(async ({ label }: IMaterial) => {
-    const materialPalette = palette.filter(({ material }: BlockEntry) =>
-      label === material.label
-    );
-
-    await Promise.all(axises.map(async (axis) => {
-      const func: string[] = [];
-      for (const [x, y, c] of img.iterateWithColors()) {
-        const nearest = c !== MASK_COLOR
-          ? getNearestColor(<RGB> Image.colorToRGB(c), materialPalette)
-          : undefined;
-
-        func.push(
-          writeFill(
-            x,
-            Math.abs(y - img.height),
-            OFFSET_Z,
-            nearest,
-            <Axis> axis,
-          ),
-        );
-
-        await Deno.writeTextFile(
-          join(
-            DIR_BP,
-            `functions/printer/${name}_${label || ""}_${axis}.mcfunction`,
-          ),
-          func.join(EOL.CRLF),
-        );
-      }
-    }));
-  }));
+    fnNames = (await printDecoded(
+      name,
+      idx,
+      frame,
+      palette,
+      offsets,
+      fnNames[fnNames.length - 1],
+    ))[0];
+    idx++;
+  }
 }

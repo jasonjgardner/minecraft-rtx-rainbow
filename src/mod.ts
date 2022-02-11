@@ -195,6 +195,6 @@ await Deno.writeTextFile(
 await print(res);
 
 // Cleanup
-if (Deno.build.os === "windows") {
+if (Deno.build.os === "windows" && Deno.env.get('GITHUB_ACTIONS') === undefined) {
   await deployToDev();
 }

@@ -1,7 +1,6 @@
 import "https://deno.land/x/dotenv/load.ts";
 import {
   basename,
-  dirname,
   extname,
   join,
   toFileUrl,
@@ -11,7 +10,6 @@ import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
 import BlockEntry from "./BlockEntry.ts";
 import { pixelPrinter } from "./ImagePrinter.ts";
 import { DIR_SRC } from "../store/_config.ts";
-import { getArg } from "../_utils.ts";
 
 async function githubAvatars(
   owner: string,
@@ -58,7 +56,7 @@ async function githubAvatars(
 
 export default async function print(palette: BlockEntry[], chunks = 6) {
   // Exclude super-bright blocks from palette
-  const prinatablePalette = palette.filter(({ level, material }: BlockEntry) =>
+  const printablePalette = palette.filter(({ level, material }: BlockEntry) =>
     material.label !== "emissive" || level <= 90
   );
 
@@ -69,26 +67,21 @@ export default async function print(palette: BlockEntry[], chunks = 6) {
       await pixelPrinter(
         basename(entry.name, extname(entry.name)),
         toFileUrl(entry.path),
-        prinatablePalette,
+        printablePalette,
         Math.max(1, Math.min(16, chunks)),
       );
     }
   }
 
-  const repoOwner: string = getArg(
-    "GITHUB_USER",
-    Deno.env.get("GITHUB_USER") ?? "",
+  const actionRepo = (Deno.env.get("GITHUB_ACTION_REPOSITORY") || "").split(
+    "/",
+    2,
   );
 
-  if (repoOwner.length) {
-    const repo = getArg(
-      "GITHUB_REPO",
-      Deno.env.get("GITHUB_REPO") ?? basename(dirname(Deno.cwd())),
-    );
-
+  if (actionRepo.length > 1) {
     try {
       // Print images from GitHub API
-      await githubAvatars(repoOwner, repo, prinatablePalette);
+      await githubAvatars(actionRepo[0], actionRepo[1], printablePalette);
     } catch (err) {
       console.error("Failed adding Stargazers: %s", err);
     }
