@@ -10,7 +10,10 @@ import { hex2rgb } from "../_utils.ts";
 import type { IMaterial, RGB } from "../../typings/types.ts";
 
 const MAX_PRINT_SIZE = 3 * 16;
-const MASK_COLOR = Image.rgbaToColor(255, 255, 255, 0); // Image.rgbToColor(...hex2rgb("#ff00ff"));
+const MASK_COLOR = [
+  Image.rgbaToColor(255, 255, 255, 0),
+  Image.rgbaToColor(0, 0, 0, 0),
+]; // Image.rgbToColor(...hex2rgb("#ff00ff"));
 const FUNCTIONS_NAMESPACE = "printer";
 const DIR_FUNCTIONS = join(DIR_BP, "functions", FUNCTIONS_NAMESPACE);
 
@@ -62,13 +65,10 @@ async function printDecoded(
   img: Image | Frame,
   palette: BlockEntry[],
   offset: number[],
-  nextFn?: string | undefined,
 ) {
   const axises = ["x", "y", "z"] as const;
 
   // TODO: Add 10000 line limit
-
-  let lastMaterial: string = '';
 
   return await Promise.all(
     materials.flatMap(async ({ label }: IMaterial) => {
@@ -79,13 +79,11 @@ async function printDecoded(
       return await Promise.all(axises.map(async (axis) => {
         const func: string[] = [];
 
-        
-
         for (const [x, y, c] of img.iterateWithColors()) {
-          const nearest = c !== MASK_COLOR
-            ? getNearestColor(<RGB> Image.colorToRGB(c), materialPalette)
-              .behaviorId
-            : "air";
+          const nearest = MASK_COLOR.includes(c)
+            ? "air"
+            : getNearestColor(<RGB> Image.colorToRGB(c), materialPalette)
+              .behaviorId;
 
           func.push(
             writeFill(
@@ -98,13 +96,10 @@ async function printDecoded(
           );
         }
 
-        if (idx > 1 && nextFn && label && lastMaterial !== label) {
-          //func.push(`function ${FUNCTIONS_NAMESPACE}/${nextFn}`);
-          lastMaterial = label;
-        }
-
         // FIXME: Use sprintf
-        const filename = `${name + (idx ? `_${idx}` : "")}_${label || ""}_${axis}`;
+        const filename = `${name + (idx ? `_${idx}` : "")}_${
+          label || ""
+        }_${axis}`;
 
         await Deno.writeTextFile(
           join(
@@ -145,18 +140,17 @@ export async function pixelPrinter(
 
     // Align frames end-to-end
     //const offsets = [(idx * frame.width) + 1, 0, idx + 1];
-    
+
     // Align frames as stack
     const offsets = [0, 0, idx];
 
-    fnNames = (await printDecoded(
+    await printDecoded(
       name,
       idx,
       frame,
       palette,
       offsets,
-      fnNames[fnNames.length - 1],
-    ))[0];
+    );
     idx++;
   }
 }
