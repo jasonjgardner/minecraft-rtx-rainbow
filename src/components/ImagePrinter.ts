@@ -2,6 +2,7 @@ import { Frame, GIF, Image } from "https://deno.land/x/imagescript/mod.ts";
 import { extname, join } from "https://deno.land/std@0.123.0/path/mod.ts";
 import { sprintf } from "https://deno.land/std@0.125.0/fmt/printf.ts";
 import { EOL } from "https://deno.land/std@0.125.0/fs/mod.ts";
+import * as log from "https://deno.land/std@0.125.0/log/mod.ts";
 import { materials } from "../store/_materials.ts";
 import BlockEntry from "./BlockEntry.ts";
 import { DIR_BP } from "../store/_config.ts";
@@ -9,6 +10,7 @@ import { hex2rgb } from "../_utils.ts";
 
 import type { IMaterial, RGB } from "../../typings/types.ts";
 
+const MAX_FRAMES = 10;
 const MAX_PRINT_SIZE = 3 * 16;
 const MASK_COLOR = [
   Image.rgbaToColor(255, 255, 255, 0),
@@ -16,6 +18,7 @@ const MASK_COLOR = [
 ]; // Image.rgbToColor(...hex2rgb("#ff00ff"));
 const FUNCTIONS_NAMESPACE = "printer";
 const DIR_FUNCTIONS = join(DIR_BP, "functions", FUNCTIONS_NAMESPACE);
+const logger = log.getLogger();
 
 type Axis = "x" | "y" | "z";
 
@@ -61,7 +64,6 @@ function writeFill(
 
 async function printDecoded(
   name: string,
-  idx: number,
   img: Image | Frame,
   palette: BlockEntry[],
   offset: number[],
@@ -96,10 +98,7 @@ async function printDecoded(
           );
         }
 
-        // FIXME: Use sprintf
-        const filename = `${name + (idx ? `_${idx}` : "")}_${
-          label || ""
-        }_${axis}`;
+        const filename = sprintf("%s_%s_%s", name, label, axis);
 
         await Deno.writeTextFile(
           join(
@@ -109,7 +108,7 @@ async function printDecoded(
           func.join(EOL.CRLF),
         );
 
-        return filename;
+        return { label, axis, func: filename };
       }));
     }),
   );
@@ -129,9 +128,12 @@ export async function pixelPrinter(
     : (await GIF.decode(data, false));
 
   const size = Math.min(MAX_PRINT_SIZE, chunks * 16);
+  const frameCount = Math.min(MAX_FRAMES, frames.length);
+  frames.length = frameCount;
 
-  let fnNames: Array<string | undefined> = [];
   let idx = 0;
+
+  const groupFn = [];
 
   for await (const frame of frames) {
     if (frame.width > size) {
@@ -144,13 +146,41 @@ export async function pixelPrinter(
     // Align frames as stack
     const offsets = [0, 0, idx];
 
-    await printDecoded(
-      name,
-      idx,
-      frame,
-      palette,
-      offsets,
+    groupFn.push(
+      ...await printDecoded(
+        frameCount > 1 ? sprintf("%s_%02s", name, `${idx}`) : name,
+        frame,
+        palette,
+        offsets,
+      ),
     );
     idx++;
+  }
+
+  if (groupFn.length < 2) {
+    return;
+  }
+
+  const fns: { [key: string]: string[] } = {};
+  groupFn.forEach((group) => {
+    group.forEach((g) => {
+      const key = `${g.label}_${g.axis}`;
+
+      if (!Array.isArray(fns[key])) {
+        fns[key] = [];
+      }
+      fns[key].push(g.func);
+    });
+  });
+
+  for (const materialPositionKey in fns) {
+    const filename = `${name}_${materialPositionKey}.mcfunction`;
+
+    await Deno.writeTextFile(
+      join(DIR_FUNCTIONS, filename),
+      fns[materialPositionKey].map((f) =>
+        `function ${FUNCTIONS_NAMESPACE}/${f}`
+      ).join(EOL.CRLF),
+    );
   }
 }
