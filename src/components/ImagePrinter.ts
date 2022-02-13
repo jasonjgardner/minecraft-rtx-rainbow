@@ -1,8 +1,14 @@
 import { Frame, GIF, Image } from "https://deno.land/x/imagescript/mod.ts";
-import { extname, join } from "https://deno.land/std@0.123.0/path/mod.ts";
+import {
+  basename,
+  extname,
+  join,
+  relative,
+} from "https://deno.land/std@0.123.0/path/mod.ts";
 import { sprintf } from "https://deno.land/std@0.125.0/fmt/printf.ts";
-import { EOL } from "https://deno.land/std@0.125.0/fs/mod.ts";
+import { ensureDir } from "https://deno.land/std@0.123.0/fs/mod.ts";
 import * as log from "https://deno.land/std@0.125.0/log/mod.ts";
+import { EOL } from "https://deno.land/std@0.125.0/fs/mod.ts";
 import { materials } from "../store/_materials.ts";
 import BlockEntry from "./BlockEntry.ts";
 import { DIR_BP } from "../store/_config.ts";
@@ -10,17 +16,22 @@ import { hex2rgb } from "../_utils.ts";
 
 import type { IMaterial, RGB } from "../../typings/types.ts";
 
+const GLASS_ID = "glass";
 const MAX_FRAMES = 10;
-const MAX_PRINT_SIZE = 3 * 16;
-const MASK_COLOR = [
-  Image.rgbaToColor(255, 255, 255, 0),
-  Image.rgbaToColor(0, 0, 0, 0),
-]; // Image.rgbToColor(...hex2rgb("#ff00ff"));
+const MAX_PRINT_SIZE = 24 * 16;
 const FUNCTIONS_NAMESPACE = "printer";
 const DIR_FUNCTIONS = join(DIR_BP, "functions", FUNCTIONS_NAMESPACE);
+
 const logger = log.getLogger();
 
+export type Alignment = "e2e" | "b2b" | "even" | "odd" | "none";
 type Axis = "x" | "y" | "z";
+
+interface PrinterResult {
+  label: string;
+  axis: Axis;
+  func: string;
+}
 
 function colorDistance(color1: RGB, color2: RGB) {
   return Math.sqrt(
@@ -30,13 +41,23 @@ function colorDistance(color1: RGB, color2: RGB) {
 }
 
 export function getNearestColor(
-  color: RGB,
+  color: number[],
   palette: BlockEntry[],
+  crystal = false,
 ): BlockEntry {
+  const rgbColor = <RGB> [color[0] || 0, color[1] || 0, color[2] || 0];
+  const alpha = color[3] || 0;
+
+  // Substitute with glass for transparency
+  const materialPalette = (alpha >= 100 && !crystal)
+    ? palette
+    : palette.filter(({ material }: BlockEntry) => material.label === "glass" // Restrict semi-opaque pixels to glass palette
+    );
+
   // https://gist.github.com/Ademking/560d541e87043bfff0eb8470d3ef4894?permalink_comment_id=3720151#gistcomment-3720151
-  return palette.reduce(
+  return materialPalette.reduce(
     (prev: [number, BlockEntry], curr: BlockEntry): [number, BlockEntry] => {
-      const distance = colorDistance(color, hex2rgb(curr.hexColor()));
+      const distance = colorDistance(rgbColor, hex2rgb(curr.hexColor()));
 
       return (distance < prev[0]) ? [distance, curr] : prev;
     },
@@ -67,58 +88,120 @@ async function printDecoded(
   img: Image | Frame,
   palette: BlockEntry[],
   offset: number[],
+  dest: string,
 ) {
   const axises = ["x", "y", "z"] as const;
+  const glassAvailable = palette.some(({ material }: BlockEntry) =>
+    material.label === GLASS_ID
+  );
 
-  // TODO: Add 10000 line limit
+  let maxLines = 10000;
 
   return await Promise.all(
     materials.flatMap(async ({ label }: IMaterial) => {
+      if (maxLines <= 0) {
+        logger.warning("Function %s has exceeded max length", name);
+      }
+
+      // Glass sculptures get extra attention
+      const thisIsGlass = glassAvailable && label === GLASS_ID;
       const materialPalette = palette.filter(({ material }: BlockEntry) =>
-        label === material.label
+        label === material.label || thisIsGlass // Always include glass for semi-opaque pixels
       );
 
-      return await Promise.all(axises.map(async (axis) => {
-        const func: string[] = [];
+      return await Promise.all(
+        axises.map(async (axis): Promise<PrinterResult> => {
+          const func: string[] = [];
 
-        for (const [x, y, c] of img.iterateWithColors()) {
-          const nearest = MASK_COLOR.includes(c)
-            ? "air"
-            : getNearestColor(<RGB> Image.colorToRGB(c), materialPalette)
-              .behaviorId;
+          for (const [x, y, c] of img.iterateWithColors()) {
+            const rgba = Image.colorToRGBA(c);
+            const nearest = rgba[3] < 50 // Minimum alpha of 50%
+              ? "air"
+              : getNearestColor(rgba, materialPalette, thisIsGlass) // TODO: Don't use RGBA if glass material isn't available
+                .behaviorId;
 
-          func.push(
-            writeFill(
-              x + offset[0],
-              Math.abs((y + offset[1]) - img.height), // Starts print row at top
-              offset[2],
-              nearest,
-              <Axis> axis,
+            func.push(
+              writeFill(
+                x + offset[0],
+                Math.abs((y + offset[1]) - img.height), // Starts print row at top
+                offset[2],
+                nearest,
+                <Axis> axis,
+              ),
+            );
+          }
+
+          const filename = sprintf("%s_%s_%s.mcfunction", name, label, axis);
+
+          await Deno.writeTextFile(
+            join(
+              dest,
+              filename,
             ),
+            func.join(EOL.CRLF),
           );
-        }
 
-        const filename = sprintf("%s_%s_%s", name, label, axis);
+          maxLines -= func.length;
 
-        await Deno.writeTextFile(
-          join(
-            DIR_FUNCTIONS,
-            `${filename}.mcfunction`,
-          ),
-          func.join(EOL.CRLF),
-        );
-
-        return { label, axis, func: filename };
-      }));
+          return { label, axis, func: filename };
+        }),
+      );
     }),
   );
 }
 
+function getAlignment(
+  align: Alignment,
+  options?: { idx: number; frame: Image | Frame; coords?: number[] },
+): number[] {
+  const idx = options?.idx || 1;
+  const [x, y, z] = options?.coords && options.coords.length >= 3
+    ? options.coords
+    : [0, 0, 0];
+
+  if (align === "e2e" && options !== undefined) {
+    // End-to-end alignment
+    // (Places blocks like sprite sheet row)
+    return [
+      x + (idx * options.frame.width),
+      y,
+      z,
+    ];
+  }
+
+  if (align === "b2b") {
+    // Back-to-back alignment
+    // (Places block in a stack. Offsets by index.)
+    return [0, 0, idx];
+  }
+
+  // Back-to-back alternating options
+  if (align === "even") {
+    return [x, y, idx % 2 === 0 ? z + idx : 1 + z + idx];
+  }
+
+  if (align === "odd") {
+    return [x, y, idx % 2 ? z + idx : 1 + z + idx];
+  }
+
+  // Align in-place
+  return [x, y, z];
+}
+
+/**
+ * @param name File name
+ * @param imageUrl Source image
+ * @param palette Color options
+ * @param options Alignment and chunk size
+ */
 export async function pixelPrinter(
   name: string,
   imageUrl: URL,
   palette: BlockEntry[],
-  chunks = 2,
+  options: {
+    alignment?: Alignment;
+    chunks?: number;
+  },
 ) {
   const res = await fetch(imageUrl.href);
   const data = new Uint8Array(await res.arrayBuffer());
@@ -127,49 +210,81 @@ export async function pixelPrinter(
     ? [await Image.decode(data)]
     : (await GIF.decode(data, false));
 
-  const size = Math.min(MAX_PRINT_SIZE, chunks * 16);
+  const size = Math.min(MAX_PRINT_SIZE, (options.chunks ?? 2) * 16);
   const frameCount = Math.min(MAX_FRAMES, frames.length);
   frames.length = frameCount;
 
   let idx = 0;
 
   const groupFn = [];
+  const alignGroup = options.alignment || "b2b";
 
   for await (const frame of frames) {
     if (frame.width > size) {
       frame.resize(size, Image.RESIZE_AUTO, Image.RESIZE_NEAREST_NEIGHBOR);
     }
 
-    // Align frames end-to-end
-    //const offsets = [(idx * frame.width) + 1, 0, idx + 1];
+    let dest = DIR_FUNCTIONS;
+    let fileName = name;
 
-    // Align frames as stack
-    const offsets = [0, 0, idx];
+    if (frameCount > 1) {
+      fileName = sprintf("%s_%02s", name, `${idx}`);
+      dest = join(DIR_FUNCTIONS, name);
+      await ensureDir(relative(Deno.cwd(), dest));
+    }
 
     groupFn.push(
       ...await printDecoded(
-        frameCount > 1 ? sprintf("%s_%02s", name, `${idx}`) : name,
+        fileName,
         frame,
         palette,
-        offsets,
+        getAlignment(alignGroup, {
+          idx,
+          frame,
+        }),
+        dest,
       ),
     );
     idx++;
   }
 
-  if (groupFn.length < 2) {
+  if (frameCount < 2) {
     return;
   }
 
+  // GIFs with "none" alignment get delay to animate fill
+  await createParentFunction(name, groupFn, alignGroup === "none" ? 20 : 0);
+}
+
+async function createParentFunction(
+  name: string,
+  groupFn: Array<PrinterResult[]>,
+  delay = 0,
+) {
   const fns: { [key: string]: string[] } = {};
   groupFn.forEach((group) => {
-    group.forEach((g) => {
-      const key = `${g.label}_${g.axis}`;
+    group.forEach(({ label, axis, func }) => {
+      const key = `${label}_${axis}`;
 
       if (!Array.isArray(fns[key])) {
         fns[key] = [];
       }
-      fns[key].push(g.func);
+
+      const line = `function ${FUNCTIONS_NAMESPACE}/${name}/${
+        basename(func, ".mcfunction")
+      }`;
+
+      if (!delay) {
+        fns[key].push(line);
+        return;
+      }
+
+      // FIXME: How to make fill repeat in place?
+      fns[key].push(
+        //  "scoreboard players add @e[scores=time,tag=1] time 0",
+        line,
+        // "scoreboard players add @e[scores=time,tag=0] time 1",
+      );
     });
   });
 
@@ -178,9 +293,7 @@ export async function pixelPrinter(
 
     await Deno.writeTextFile(
       join(DIR_FUNCTIONS, filename),
-      fns[materialPositionKey].map((f) =>
-        `function ${FUNCTIONS_NAMESPACE}/${f}`
-      ).join(EOL.CRLF),
+      fns[materialPositionKey].join(EOL.CRLF),
     );
   }
 }

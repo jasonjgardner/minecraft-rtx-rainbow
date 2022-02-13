@@ -29,7 +29,11 @@ import { deployToDev, resetDev } from "./components/deploy.ts";
 import setup from "./components/_setup.ts";
 import { createItems } from "./components/items.ts";
 import { createManifests } from "./components/manifest.ts";
-import print from "./components/printer.ts";
+import {
+  getPrintablePalette,
+  printPatrons,
+  printPixelArt,
+} from "./components/printer.ts";
 
 const res: BlockEntry[] = [];
 
@@ -192,9 +196,26 @@ await Deno.writeTextFile(
   JSON.stringify(Object.keys(languages)),
 );
 
-await print(res);
+try {
+  const printPalette = getPrintablePalette(res);
+
+  await printPixelArt(printPalette);
+
+  const thisRepo = Deno.env.get("GITHUB_ACTION_REPOSITORY") ?? "";
+
+  if (thisRepo !== undefined) {
+    await printPatrons(printPalette, {
+      repo: thisRepo,
+      chunks: 3,
+    });
+  }
+} catch (err) {
+  console.error(err);
+}
 
 // Cleanup
-if (Deno.build.os === "windows" && Deno.env.get('GITHUB_ACTIONS') === undefined) {
+if (
+  Deno.build.os === "windows" && Deno.env.get("GITHUB_ACTIONS") === undefined
+) {
   await deployToDev();
 }

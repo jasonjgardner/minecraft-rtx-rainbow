@@ -58,7 +58,7 @@ export type LanguagesContainer = Record<LanguageId, string[]>
 
 export interface IMaterial {
   name: MultiLingual;
-  label?: string;
+  label: string;
   normal?: string;
   sound?: string;
   friction: MaterialMultiplier;
@@ -79,6 +79,7 @@ export interface IMaterial {
 
   minimumLevel: number;
   maximumLevel: number;
+  paletteLevel: number;
 
   endStep: number;
 
