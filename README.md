@@ -36,6 +36,16 @@ You _can_ clone the repository to control its output. You do not need to build f
 - Modify [`src/store/_materials.ts`](/src/store/_materials.ts) to adjust block parameters:
   - Block behavior components can be changed
   - Material options can be increased/reduced
+
+## Screenshots
+![RAINBOW screenshot](https://user-images.githubusercontent.com/1903667/153769488-95da1fba-a51c-4399-9ee8-63f7b0af5338.png)
+
+> ![RAINBOW screenshot](https://user-images.githubusercontent.com/1903667/153769512-5fe0cd77-d929-4458-8982-44475ac0fdd4.png)
+> Entities leave light trails! These yellow lines were left by salmon flopping to death.
+
+> ![RAINBOW screenshot](https://user-images.githubusercontent.com/1903667/153769607-6b26c959-7bbe-41d1-b7a3-9016a634bf4f.png)
+> ![RAINBOW screenshot](https://user-images.githubusercontent.com/1903667/153769616-ab9dbdd7-b107-4dd5-84f1-d935b8f68e52.png)
+> My RAINBOW! test world
   
 ## License
 CC-BY-NC-SA
