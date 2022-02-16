@@ -21,8 +21,8 @@ export function entityTrailFunction() {
     replaceWith: "rainbow:pink_800_metallic_75",
     who: "@e[type=pig]",
   }, {
-    replaceWith: "rainbow:brown_600_metallic_75",
-    who: "@e[type=cow]",
+    replaceWith: "rainbow:pink_200_metallic_75",
+    who: "@e[type=rabbit]",
   }, {
     replaceWith: "rainbow:brown_600_metallic_75",
     who: "@e[type=cow]",
@@ -51,6 +51,12 @@ export function entityTrailFunction() {
     replaceWith: "rainbow:grey_50_plastic_75",
     who: "@e[type=panda]",
   }, {
+    replaceWith: "rainbow:lime_400_metallic_75",
+    who: "@e[type=ocelot]",
+  }, {
+    replaceWith: "rainbow:teal_500_metallic_75",
+    who: "@e[type=turtle]",
+  }, {
     replaceWith: "rainbow:red_900_glowing_50",
     who: "@e[type=cave_spider]",
   }, {
@@ -68,6 +74,22 @@ export function entityTrailFunction() {
     replaceWith: "rainbow:red_800_glowing_100",
     replaceWhat: "minecraft:dirt",
     who: "@e[type=salmon]",
+  }, {
+    replaceWith: "rainbow:orange_800_glowing_50",
+    replaceWhat: "minecraft:air",
+    who: "@e[type=salmon]",
+  }, {
+    replaceWith: "rainbow:blue_400_glowing_50",
+    replaceWhat: "minecraft:air",
+    who: "@e[type=pufferfish]",
+  }, {
+    replaceWith: "rainbow:green_400_glowing_50",
+    replaceWhat: "minecraft:air",
+    who: "@e[type=cod]",
+  }, {
+    replaceWith: "rainbow:teal_600_glowing_50",
+    replaceWhat: "minecraft:air",
+    who: "@e[type=tropicalfish]",
   }, {
     replaceWith: "rainbow:brown_700_glowing_50",
     replaceWhat: "minecraft:water",
@@ -105,6 +127,9 @@ export function entityTrailFunction() {
     replaceWhat: "minecraft:dirt",
     who: "@e[type=dolphin]",
   }, {
+    replaceWith: "rainbow:orange_800_glowing_50",
+    who: "@e[family=villager]",
+  }, {
     replaceWith: "rainbow:green_700_glowing_75",
     replaceWhat: "minecraft:air",
     who: "@e[type=arrow]",
@@ -115,10 +140,25 @@ export function entityTrailFunction() {
     who: "@e[type=thrown_trident]",
     where: ["~", "~-2", "~", "~", "~-1", "~"],
   }, {
-    replaceWith: "rainbow:light_blue_100_plastic_100",
+    replaceWith: "rainbow:light_blue_100_glowing_50",
     replaceWhat: "minecraft:air",
     who: "@e[type=snowball]",
     where: ["~", "~-2", "~", "~", "~-1", "~"],
+  }, {
+    replaceWith: "rainbow:red_800_glowing_50",
+    replaceWhat: "minecraft:air",
+    who: "@e[type=falling_block]",
+    where: ["~", "~2", "~", "~", "~2", "~"],
+  }, {
+    replaceWith: "rainbow:green_600_glowing_50",
+    replaceWhat: "minecraft:air",
+    who: "@e[type=falling_block]",
+    where: ["~1", "~2", "~", "~1", "~2", "~"],
+  }, {
+    replaceWith: "rainbow:blue_600_glowing_50",
+    replaceWhat: "minecraft:air",
+    who: "@e[type=falling_block]",
+    where: ["~", "~2", "~1", "~", "~2", "~1"],
   }].map((fmt: IFormatTrail) => formatTrail(fmt)).join(EOL.CRLF);
 }
 
@@ -131,6 +171,14 @@ export function rainbowTrailFunction() {
     {
       replaceWhat: "minecraft:water",
       replaceWith: "rainbow:blue_200_glowing_50",
+    },
+    {
+      replaceWhat: "minecraft:lava",
+      replaceWith: "rainbow:deep_orange_800_glowing_50",
+    },
+    {
+      replaceWhat: "minecraft:magma",
+      replaceWith: "rainbow:orange_700_glowing_50",
     },
     {
       replaceWhat: "minecraft:sand",
@@ -153,12 +201,64 @@ export function rainbowTrailFunction() {
       replaceWith: "rainbow:grey_200_glowing_75",
     },
     {
+      replaceWhat: "minecraft:ice",
+      replaceWith: "rainbow:blue_700_glowing_50",
+    },
+    {
+      replaceWhat: "minecraft:packed_ice",
+      replaceWith: "rainbow:indigo_700_glowing_50",
+    },
+    {
       replaceWhat: "minecraft:stone",
       replaceWith: "rainbow:grey_400_glowing_50",
     },
     {
       replaceWhat: "minecraft:gravel",
       replaceWith: "rainbow:grey_500_glowing_50",
+    },
+    {
+      replaceWhat: "minecraft:blackstone",
+      replaceWith: "rainbow:grey_700_glowing_50",
+    },
+    {
+      replaceWhat: "minecraft:cobblestone",
+      replaceWith: "rainbow:grey_400_glowing_50",
+    },
+    {
+      replaceWhat: "minecraft:brown_mushroom_block",
+      replaceWith: "rainbow:brown_400_glowing_50",
+    },
+    {
+      replaceWhat: "minecraft:brown_mushroom_block",
+      replaceWith: "rainbow:brown_100_metallic_75",
+    },
+    {
+      replaceWhat: "minecraft:crimson_hyphae",
+      replaceWith: "rainbow:red_700_glowing_75",
+    },
+    {
+      replaceWhat: "minecraft:nether_wart_block",
+      replaceWith: "rainbow:red_900_glowing_50",
+    },
+    {
+      replaceWhat: "minecraft:netherrack",
+      replaceWith: "rainbow:red_400_glowing_75",
+    },
+    {
+      replaceWhat: "minecraft:warped_hyphae",
+      replaceWith: "rainbow:red_700_glowing_75",
+    },
+    {
+      replaceWhat: "minecraft:end_stone",
+      replaceWith: "rainbow:amber_100_glowing_50",
+    },
+    {
+      replaceWhat: "minecraft:mycelium",
+      replaceWith: "rainbow:purple_300_glowing_50",
+    },
+    {
+      replaceWhat: "minecraft:podzol",
+      replaceWith: "rainbow:brown_600_glowing_50",
     },
     {
       replaceWhat: "minecraft:leaves",
@@ -173,12 +273,31 @@ export function rainbowTrailFunction() {
     {
       replaceWhat: "minecraft:log",
       replaceWith: "rainbow:brown_400_metallic_75",
-      where: "~-2 ~-2 ~-2 ~2 ~-1 ~2".split(" "),
+      where: "^-2 ^-2 ^-2 ^2 ^-1 ^2".split(" "),
     },
     {
       replaceWhat: "minecraft:log2",
       replaceWith: "rainbow:brown_400_metallic_75",
-      where: "~-2 ~-2 ~-2 ~2 ~-1 ~2".split(" "),
+      where: "^-2 ^-2 ^-2 ^2 ^-1 ^2".split(" "),
     },
   ].map((fmt: IFormatTrail) => formatTrail(fmt)).join(EOL.CRLF);
+}
+
+export function fishTree() {
+  return [{
+    // Spawn cod at salmon locations
+    target: "@e[type=salmon,c=1]",
+    entity: "minecraft:cod",
+  }, {
+    // Spawn pufferfish at cod locations
+    target: "@e[type=cod,c=1]",
+    entity: "minecraft:pufferfish",
+  }, // Spawn salmon at pufferfish locations
+  {
+    target: "@e[type=pufferfish,c=1]",
+    entity: "minecraft:salmon",
+  } // Spawn bat when fish
+  ].map(({ target, entity }) =>
+    `execute ${target} ~-1 ~-1 ~ summon ${entity} ~ ~1 ~ minecraft:entity_spawned`
+  ).join(EOL.CRLF);
 }
