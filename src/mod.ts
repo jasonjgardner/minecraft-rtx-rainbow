@@ -134,8 +134,8 @@ for (let itr = 0; itr < len; itr++) {
 }
 
 const tickers: string[] = [
-  "rainbowtrail",
-  "entitytrail",
+//  "rainbowtrail",
+//  "entitytrail",
 ];
 
 for (const func in mcfunctions) {
