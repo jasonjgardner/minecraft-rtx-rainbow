@@ -171,7 +171,6 @@ export default class BlockEntry {
           : "itemGroup.name.concrete",
       },
       "minecraft:unit_cube": {},
-      "minecraft:breakonpush": false,
       "minecraft:material_instances": {
         "*": {
           texture: this.resourceId,
@@ -189,15 +188,7 @@ export default class BlockEntry {
       ),
       "minecraft:block_light_emission": this._material.lightEmission(
         this.level,
-      ),
-      "minecraft:on_interact": {
-        // Recolor when holding rainbow
-        // condition: `query.get_equipped_item_name('slot.weapon.mainhand') == '${NAMESPACE}.rainbow_trail_key'`,
-        event: `${NAMESPACE}:recolor1`,
-      },
-      "minecraft:on_step_on": {
-        event: `${NAMESPACE}:recolor2`,
-      },
+      )
     } as const;
   }
 
@@ -208,18 +199,6 @@ export default class BlockEntry {
         MinecraftEvent,
       ]
     > = [];
-
-    eventData.push([`${NAMESPACE}:recolor1`, {
-      set_block: {
-        block_type: prevBlock.behaviorId,
-      },
-    }]);
-
-    eventData.push([`${NAMESPACE}:recolor2`, {
-      set_block: {
-        block_type: nextBlock.behaviorId,
-      },
-    }]);
 
     return Object.fromEntries(eventData);
   }
