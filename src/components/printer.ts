@@ -73,7 +73,7 @@ export default async function print(palette: BlockEntry[], chunks = 6) {
     }
   }
 
-  const actionRepo = (Deno.env.get("GITHUB_ACTION_REPOSITORY") || "").split(
+  const actionRepo = (Deno.env.get("GITHUB_REPOSITORY") || "").split(
     "/",
     2,
   );
