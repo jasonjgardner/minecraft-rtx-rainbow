@@ -3,4 +3,5 @@
     "deno.lint": true,
     "deno.unstable": true,
     "editor.defaultFormatter": "denoland.vscode-deno"
+    "nuxt.isNuxtApp": false,
 }

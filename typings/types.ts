@@ -90,4 +90,19 @@ export interface IBlock {
   name: string | MultiLingual;
   enabled?: boolean;
   color: string;
+  tint: number
+}
+
+export interface IPermutation {
+  name: string,
+  enabled?: boolean;
+  experimental?: boolean;
+  properties: MinecraftData,
+  events: MinecraftEvent,
+  permutations: MinecraftData[]
+}
+
+export interface DepthMap {
+  heightmap: boolean;
+  texture: string;
 }

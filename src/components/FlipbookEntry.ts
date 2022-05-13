@@ -1,4 +1,6 @@
-import type { IBlock, IMaterial, LanguageId, RGB } from "../../typings/types.ts";
+import type Material from "/src/components/Material.ts";
+import type HueBlock from "/src/components/blocks/HueBlock.ts";
+import type { LanguageId, RGB } from "/typings/types.ts";
 import BlockEntry from "./BlockEntry.ts";
 
 export function formatFlipbookName(color: string, material?: string): string {
@@ -6,38 +8,34 @@ export function formatFlipbookName(color: string, material?: string): string {
     .replace(/[_ ]+/g, "_");
 }
 
-export default class FlipbookEntry extends BlockEntry implements IBlock {
-    _base!: string;
-  constructor(block: BlockEntry, material: IMaterial) {
+export default class FlipbookEntry extends BlockEntry {
+  _base!: string;
+  constructor(block: HueBlock, material: Material) {
     super(
-      {
-        name: block.color,
-        color: block.hexColor(),
-      },
+      block,
       material,
-      75,
     );
 
-    this._base = formatFlipbookName(block.color);
+    this._base = formatFlipbookName(block.name);
   }
 
   get id() {
-    return formatFlipbookName(this._id, this._material.name.en_US);
+    return formatFlipbookName(this._base, this._material.label);
   }
 
   getTitle(lang: LanguageId) {
-    return `${this._material.name[lang]} ${this.color} ${this.tint} Flipbook`;
+    return `${this._material.title(lang)} ${this.color.title(lang)} Flipbook`;
   }
 
   get textureSet() {
     return {
       color: this._base,
       metalness_emissive_roughness: <RGB> [
-        this._material.metalness(this._level),
-        this._material.emissive(this._level),
-        this._material.roughness(this._level),
+        this._material.metalness,
+        this._material.emissive,
+        this._material.roughness,
       ],
-      normal: this._material.normal || "block_normal",
+      ...this._material.depthMap,
     } as const;
   }
 }

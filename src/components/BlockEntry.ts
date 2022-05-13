@@ -1,66 +1,84 @@
-import titleCase from "https://deno.land/x/case@v2.1.0/titleCase.ts";
 import type {
-  IBlock,
-  IMaterial,
+  IPermutation,
   LanguageId,
+  MinecraftData,
   MinecraftEvent,
-  RGB,
-} from "../../typings/types.ts";
-import { channelPercentage, hex2rgb } from "../_utils.ts";
-import { BEHAVIOR_BLOCK_FORMAT_VERSION, NAMESPACE } from "../store/_config.ts";
+  RGB
+} from "/typings/types.ts";
+import { Label } from "/typings/enums.ts";
+import {
+  BEHAVIOR_BLOCK_FORMAT_VERSION,
+  NAMESPACE,
+} from "/src/store/_config.ts";
+import titleCase from "case/titleCase.ts";
+import { sprintf } from "fmt/printf.ts";
+import HueBlock from "/src/components/blocks/HueBlock.ts";
+import Material from "/src/components/Material.ts";
+
+interface TextureSet {
+    heightmap?: string;
+    normal?: string;
+    color: string | RGB | number[];
+    metalness_emissive_roughness?: RGB | number[];
+}
+
+interface BlockComponents {
+  description: MinecraftData;
+  components: MinecraftData;
+  events: { [k: string]: MinecraftEvent };
+  permutations: MinecraftData[];
+}
+
+export const labelLanguage: LanguageId = "en_US";
+
+export function formatTag(tagName: string) {
+  return {
+    [
+      sprintf(
+        "tag:%s:%s",
+        NAMESPACE,
+        tagName.replace(/\s+/, "").toLowerCase(),
+      )
+    ]: {},
+  };
+}
 
 export default class BlockEntry {
-  _id!: string;
+  _idx!: number;
 
-  _hue!: string;
+  _hue!: HueBlock;
 
-  _tint!: string | number;
+  _material!: Material;
 
-  _material: IMaterial;
-  _level: number;
-  _value!: string;
-  _color!: string;
-  constructor({ name, color }: IBlock, material: IMaterial, level: number) {
-    if (typeof name !== "string") {
-      name = name.en_US;
-    }
+  _permutations?: IPermutation[];
 
-    const lastDash = name.lastIndexOf("_");
-    this._tint = name.substring(lastDash + 1);
-    this._hue = name.substring(0, lastDash);
-    this._level = Math.abs(level);
+  _printable?: boolean;
+  constructor(block: HueBlock, material: Material) {
+    this._hue = block;
     this._material = material;
-    this._id = name;
-    this._color = color;
   }
 
-  getTitle(lang: LanguageId) {
-    return `${this._level}% ${
-      this._material.name[lang]
-    } ${this.color} ${this.tint}`;
+  set printable(value: boolean) {
+    this._printable = value
+  }
+
+  get printable() {
+    return this._printable !== false;
+  }
+  get color() {
+    return this._hue;
   }
 
   get material() {
     return this._material;
   }
 
-  get level() {
-    return Math.max(0, Math.min(100, this._level));
-  }
-
-  get color() {
-    return titleCase(this._hue);
-  }
-
-  get tint(): string | number {
-    return isNaN(+this._tint)
-      ? `${this._tint}`.toUpperCase()
-      : parseInt(`${this._tint}`, 10);
-  }
-
   get id() {
-    return `${this._id}_${this._material.name.en_US}_${this._level}`
-      .toLowerCase();
+    return sprintf(
+      "%s_%s",
+      this._hue.name,
+      this._material.label,
+    ).toLowerCase();
   }
 
   get behaviorId() {
@@ -71,156 +89,125 @@ export default class BlockEntry {
     return `${NAMESPACE}_${this.id}`;
   }
 
-  get name() {
-    return {
-      en_US: this.getTitle("en_US"),
-    };
+  title(lang: LanguageId) {
+    return titleCase(sprintf(
+      "%s %s",
+      this._material.title(lang),
+      this._hue.title(lang),
+    ));
   }
 
-  get textureSet() {
+  get name() {
+    return this.title(labelLanguage);
+  }
+
+  get textureSet(): TextureSet {
     return {
-      color: this.aHexColor,
-      metalness_emissive_roughness: <RGB> [
-        this._material.metalness(this._level),
-        this._material.emissive(this._level),
-        this._material.roughness(this._level),
-      ],
-      normal: this._material.normal || "block_normal",
-    } as const;
+      ...this._hue.textureSet,
+      ...this._material.textureSet,
+    };
   }
 
   get blocksData() {
     return {
-      // pbr_emissive_brightness: this._material.label === "emissive" ? 0 : 0,
-      // brightness_gamma: this._material.label === "emissive" ? 0 : 0,
       textures: this.resourceId,
-      sound: this._material.sound || "dirt",
-    };
+      ...this._material.blocksData,
+    } as const;
   }
 
   get terrainData() {
     return {
       textures: `textures/blocks/${this.id}`,
-    };
+    } as const;
   }
 
-  toString(prevBlock: BlockEntry, nextBlock: BlockEntry) {
+  get permutations(): IPermutation[] | [] {
+    return this._permutations || [];
+  }
+
+  get block() {
+    const formatEvent = (
+      { name, events }: IPermutation,
+    ): [string, MinecraftEvent] => {
+      return [sprintf("%s:%s_%s", NAMESPACE, name, Label.BlockEvent), events];
+    };
+
+    const formatProperty = (
+      { name, properties }: IPermutation,
+    ): [string, MinecraftData] => {
+      return [
+        sprintf("%s:%s%s", NAMESPACE, name, Label.BlockProperty),
+        properties,
+      ];
+    };
+
+    const permutes = this.permutations.filter(({ enabled }: IPermutation) =>
+      enabled !== false
+    );
+
+    const block: BlockComponents = {
+      description: {
+        identifier: this.behaviorId,
+        is_experimental: permutes.some((
+          { experimental }: IPermutation,
+        ) => experimental === true),
+        register_to_creative_menu: "minecraft:creative_category" in
+            this.components ||
+          this.permutations.some(({ permutations }: IPermutation) =>
+            permutations.filter((
+              { ["minecraft:creative_category"]: category },
+            ) => category !== undefined)
+          ),
+        properties: {},
+      },
+      components: this.components,
+      events: {},
+      permutations: [],
+    };
+
+    if (permutes.length) {
+      block.description.properties = Object.fromEntries(
+        permutes.map(formatProperty),
+      );
+      block.events = Object.fromEntries(permutes.map(formatEvent));
+
+      block.permutations = permutes.flatMap((
+        { permutations }: IPermutation,
+      ) => permutations);
+    }
+
+    return block;
+  }
+
+  toString() {
     return JSON.stringify(
       {
         format_version: BEHAVIOR_BLOCK_FORMAT_VERSION,
-        "minecraft:block": {
-          description: {
-            identifier: this.behaviorId,
-            is_experimental: false,
-            register_to_creative_menu: true,
-            properties: this.properties(),
-          },
-          components: this.behaviors(),
-          events: this.events(prevBlock, nextBlock),
-          permutations: this.permutations(),
-        },
+        "minecraft:block": this.block,
       },
       null,
       2,
     );
   }
 
-  get aHexColor() {
-    const opacityLevel = this._material.opacity(this._level);
-
-    if (opacityLevel >= 1) {
-      return `#ff${this._color.substring(1)}`;
-    }
-
-    const alpha = 100 - channelPercentage(opacityLevel);
-
-    return "#" + (alpha < 7 ? "0" : "") + alpha.toString(16) +
-      this._color.substring(1);
-  }
-
-  hexColor() {
-    return this._color;
-  }
-
-  valueOf() {
-    return hex2rgb(this._color);
-  }
-
-  setPosition(offset: number) {
-    return [
-      `~`,
-      `~${offset}`,
-      `~`,
-    ].join(" ");
-  }
-
-  permutations() {
-    return [];
-  }
-
-  properties() {
-    return {};
-  }
-
-  behaviors() {
+  get materialInstances() {
+    // TODO: Allow material instance per face/bone
     return {
-      "minecraft:creative_category": {
-        category: "construction",
-        group: this._material.label === "glass"
-          ? "itemGroup.name.glass"
-          : "itemGroup.name.concrete",
-      },
-      "minecraft:unit_cube": {},
-      "minecraft:breakonpush": false,
-      "minecraft:material_instances": {
-        "*": {
-          texture: this.resourceId,
-          render_method: this._material.label === "glass" ? "blend" : "opaque",
-          face_dimming: this._material.label !== "emissive",
-          ambient_occlusion: this._material.label === "emissive",
-        },
-      },
-      "minecraft:flammable": this._material.flammable,
-      "minecraft:friction": this._material.friction,
-      "minecraft:explosion_resistance": this._material.explosionResistance || 0,
-      "minecraft:map_color": this.hexColor(),
-      "minecraft:block_light_absorption": this._material.lightAbsorption(
-        this.level,
-      ),
-      "minecraft:block_light_emission": this._material.lightEmission(
-        this.level,
-      ),
-      "minecraft:on_interact": {
-        // Recolor when holding rainbow
-        // condition: `query.get_equipped_item_name('slot.weapon.mainhand') == '${NAMESPACE}.rainbow_trail_key'`,
-        event: `${NAMESPACE}:recolor1`,
-      },
-      "minecraft:on_step_on": {
-        event: `${NAMESPACE}:recolor2`,
+      "*": {
+        texture: this.resourceId,
+        ...this._material.materialInstance,
       },
     } as const;
   }
 
-  events(prevBlock: BlockEntry, nextBlock: BlockEntry) {
-    const eventData: Array<
-      [
-        string,
-        MinecraftEvent,
-      ]
-    > = [];
-
-    eventData.push([`${NAMESPACE}:recolor1`, {
-      set_block: {
-        block_type: prevBlock.behaviorId,
-      },
-    }]);
-
-    eventData.push([`${NAMESPACE}:recolor2`, {
-      set_block: {
-        block_type: nextBlock.behaviorId,
-      },
-    }]);
-
-    return Object.fromEntries(eventData);
+  get components() {
+    return {
+      ...formatTag(this._hue.name),
+      ...formatTag(
+        `material:${this._material.name}`,
+      ),
+      ...this._hue.components,
+      ...this._material.components,
+    } as const;
   }
 }

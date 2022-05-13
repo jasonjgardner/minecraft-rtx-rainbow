@@ -1,9 +1,9 @@
-import "https://deno.land/x/dotenv/load.ts";
+import "dotenv/load.ts";
 import * as log from "https://deno.land/std@0.125.0/log/mod.ts";
-import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
-import { ensureDir } from "https://deno.land/std@0.123.0/fs/mod.ts";
-import { getConfig, semverVector } from "../_utils.ts";
-import type { ReleaseType } from "https://deno.land/x/semver/mod.ts";
+import { join } from "path/mod.ts";
+import { ensureDir } from "fs/mod.ts";
+import { getConfig, semverVector } from "/src/_utils.ts";
+import type { ReleaseType } from "semver/mod.ts";
 
 /**
  * Project root directory
@@ -13,19 +13,19 @@ export const DIR_ROOT = Deno.cwd();
 /**
  * Project scripts and assets
  */
-export const DIR_SRC = join(DIR_ROOT, "/src");
+export const DIR_SRC = join(DIR_ROOT, "src");
 
 /**
  * Build output directory
  */
-export const DIR_DIST = join(DIR_ROOT, "/build");
+export const DIR_DIST = join(DIR_ROOT, "build");
+
+export const DIR_AMULET = join(DIR_ROOT, "dist", "amulet");
 
 export const BEHAVIOR_BLOCK_FORMAT_VERSION = "1.16.100";
 
-export const MIP_LEVELS = 0;
-
 export const TARGET_VERSION = semverVector(
-  Deno.env.get("TARGET_VERSION") || "1.18.2",
+  Deno.env.get("TARGET_VERSION") || "1.18.3",
 );
 
 const DIR_LOGS = join(DIR_DIST, "logs");
@@ -93,3 +93,16 @@ export const DIR_RP = join(DIR_DIST, `/${NAMESPACE} RP`);
 export const DIR_BP = join(DIR_DIST, `/${NAMESPACE} BP`);
 
 export const RELEASE_TYPE = <ReleaseType> getConfig("RELEASE_TYPE", "patch");
+
+// Magic numbers
+export const MIP_LEVELS: number = parseInt(`${getConfig("MIP_LEVELS", 0) ?? 0}`, 10);
+
+/**
+ * Emissive level at which ambient occlusion is disabled on a block's face
+ */
+export const AO_EMISSIVE_THRESHOLD = 50;
+
+/**
+ * Default sound ID applied in blocks.json
+ */
+export const DEFAULT_BLOCK_SOUND = "dirt";

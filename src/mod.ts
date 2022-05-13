@@ -1,31 +1,32 @@
-import "https://deno.land/x/dotenv/load.ts";
-import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
-import { sprintf } from "https://deno.land/std@0.125.0/fmt/printf.ts";
-import { EOL } from "https://deno.land/std@0.125.0/fs/mod.ts";
+import "dotenv/load.ts";
+import { join } from "path/mod.ts";
+import { sprintf } from "fmt/printf.ts";
+import { EOL } from "fs/mod.ts";
 import type {
-  IBlock,
-  IMaterial,
   LanguageId,
   LanguagesContainer,
   MinecraftData,
   MinecraftTerrainData,
-} from "../typings/types.ts";
+} from "/typings/types.ts";
 import {
+  DIR_AMULET,
   DIR_BP,
   DIR_RP,
   MIP_LEVELS,
   NAMESPACE,
   RELEASE_TYPE,
 } from "./store/_config.ts";
-import { filteredBlocks } from "./store/_blocks.ts";
 import BlockEntry from "./components/BlockEntry.ts";
-import { materials } from "./store/_materials.ts";
+import { getBlocks, HueBlock } from "/src/components/blocks/index.ts";
+import Material from "/src/components/Material.ts";
+import { getMaterials } from "/src/components/materials/index.ts";
 import {
   entityTrailFunction,
+  fishTree,
   rainbowTrailFunction,
 } from "./components/mcfunctions.ts";
 import { writeFlipbooks } from "./components/flipbook.ts";
-import { deployToDev, resetDev } from "./components/deploy.ts";
+import { deployToDev } from "./components/deploy.ts";
 import setup from "./components/_setup.ts";
 import { createItems } from "./components/items.ts";
 import { createManifests } from "./components/manifest.ts";
@@ -34,6 +35,8 @@ import {
   printPatrons,
   printPixelArt,
 } from "./components/printer.ts";
+//import { renderBlock } from "./components/render.ts";
+//import { permutes } from "./components/permutations.ts";
 
 const res: BlockEntry[] = [];
 
@@ -44,19 +47,12 @@ let blocksData: MinecraftData = {};
 let languages: LanguagesContainer = {
   en_US: [],
 };
-materials.forEach((material: IMaterial) => {
-  filteredBlocks.forEach((block: IBlock) => {
-    let itr = material.endStep;
-    while (itr >= 0) {
-      if (
-        itr >= material.minimumLevel && itr <= material.maximumLevel
-      ) {
-        res.push(new BlockEntry(block, material, itr));
-      }
 
-      itr -= material.step;
-    }
-  });
+// Join base textures with PBR materials
+const baseTextures = getBlocks()
+const materials = getMaterials();
+materials.forEach((material: Material) => {
+  baseTextures.forEach((base: HueBlock) => res.push(new BlockEntry(base, material)));
 });
 
 ////////
@@ -65,9 +61,10 @@ await setup();
 await createManifests(RELEASE_TYPE);
 await createItems();
 
-const mcfunctions: Record<string, string[]> = {
-  rainbowstack: [],
-};
+const mcfunctions: Record<string, string[]> = {};
+
+//const amuletBlockOutput = join(DIR_AMULET, "textures", "blocks");
+const textureList = [];
 
 let lastColor: string | undefined;
 let atlasGroup: BlockEntry[] = [];
@@ -86,23 +83,22 @@ for (let itr = 0; itr < len; itr++) {
       sprintf(
         "tile.%s.name=%s",
         block.behaviorId,
-        block.name[<LanguageId> languageKey],
+        block.title(<LanguageId> languageKey),
       ),
     );
   }
 
   /// Write behavior block
   await Deno.writeTextFile(
-    `${DIR_BP}/blocks/${block.id}.json`,
-    block.toString(
-      itr === 0 ? res[len - 1] : res[itr - 1],
-      itr === len - 1 ? res[0] : res[itr + 1],
-    ),
+    join(DIR_BP, "blocks", `${block.id}.json`),
+    block.toString(),
   );
 
   /// Write texture
+  const texturePath = `textures/blocks/${block.id}`;
+
   await Deno.writeTextFile(
-    `${DIR_RP}/textures/blocks/${block.id}.texture_set.json`,
+    join(DIR_RP, `${texturePath}.texture_set.json`),
     JSON.stringify(
       {
         format_version: "1.16.100",
@@ -113,15 +109,13 @@ for (let itr = 0; itr < len; itr++) {
     ),
   );
 
-  /// Add to functions
-  mcfunctions.rainbowstack.push(
-    `setblock ${block.setPosition(itr)} ${block.behaviorId}`,
-  );
+  /// Add to texture list
+  textureList.push(texturePath);
 
   if (
     atlasGroup.length > 1 &&
     lastColor !== undefined &&
-    lastColor !== block.color
+    lastColor !== block.color.name
   ) {
     // FIXME: Dumbass dependencies injection
     [blocksData, textureData, languages] = await writeFlipbooks(atlasGroup, {
@@ -133,13 +127,19 @@ for (let itr = 0; itr < len; itr++) {
     atlasGroup = [];
   }
 
-  lastColor = block.color;
+  lastColor = block.color.name;
   atlasGroup.push(block);
+
+  // Encode blocks for Amulet
+  // await Deno.writeFile(
+  //   join(amuletBlockOutput, `${block.resourceId}.png`),
+  //   await renderBlock(block.valueOf(), 16),
+  // );
 }
 
 const tickers: string[] = [
-  "rainbowtrail",
-  "entitytrail",
+  // "rainbowtrail",
+  // "entitytrail",
 ];
 
 for (const func in mcfunctions) {
@@ -149,12 +149,14 @@ for (const func in mcfunctions) {
   );
 }
 
-await Deno.writeTextFile(
-  `${DIR_BP}/functions/tick.json`,
-  JSON.stringify({
-    "values": tickers,
-  }),
-);
+if (tickers.length) {
+  await Deno.writeTextFile(
+    `${DIR_BP}/functions/tick.json`,
+    JSON.stringify({
+      "values": tickers,
+    }),
+  );
+}
 
 await Deno.writeTextFile(
   `${DIR_BP}/functions/rainbowtrail.mcfunction`,
@@ -163,6 +165,10 @@ await Deno.writeTextFile(
 await Deno.writeTextFile(
   `${DIR_BP}/functions/entitytrail.mcfunction`,
   entityTrailFunction(),
+);
+await Deno.writeTextFile(
+  `${DIR_BP}/functions/fishtree.mcfunction`,
+  fishTree(),
 );
 
 await Deno.writeTextFile(
@@ -174,7 +180,7 @@ await Deno.writeTextFile(
   JSON.stringify(
     {
       num_mip_levels: MIP_LEVELS,
-      padding: MIP_LEVELS * 2,
+      padding: (2 * MIP_LEVELS),
       resource_pack_name: NAMESPACE,
       texture_name: "atlas.terrain",
       texture_data: textureData,
@@ -184,10 +190,19 @@ await Deno.writeTextFile(
   ),
 );
 
+await Deno.writeTextFile(
+  join(DIR_RP, "/textures/texture_list.json"),
+  JSON.stringify(
+    textureList,
+    null,
+    2,
+  ),
+);
+
 for (const languageKey in languages) {
   await Deno.writeTextFile(
     `${DIR_RP}/texts/${languageKey}.lang`,
-    languages[<LanguageId> languageKey].join(EOL.CRLF),
+    [...new Set(languages[<LanguageId> languageKey])].join(EOL.CRLF),
   );
 }
 
@@ -201,9 +216,9 @@ try {
 
   await printPixelArt(printPalette);
 
-  const thisRepo = Deno.env.get("GITHUB_ACTION_REPOSITORY") ?? "";
+  const thisRepo = Deno.env.get("GITHUB_REPOSITORY") ?? "";
 
-  if (thisRepo !== undefined) {
+  if (thisRepo !== undefined && thisRepo.length > 1) {
     await printPatrons(printPalette, {
       repo: thisRepo,
       chunks: 3,

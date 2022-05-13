@@ -1,11 +1,10 @@
 import type { ReleaseType } from "https://deno.land/x/semver/mod.ts";
-import { inc } from "https://deno.land/x/semver/mod.ts";
-import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
+import { inc } from "semver/mod.ts";
+import { join } from "path/mod.ts";
 import {
   BP_MODULE_UUID,
   BP_PACK_UUID,
   DIR_BP,
-  DIR_ROOT,
   DIR_RP,
   PACK_DESCRIPTION,
   PACK_NAME,
@@ -95,10 +94,10 @@ export async function createManifests(releaseType?: ReleaseType) {
             uuid: RP_PACK_UUID,
             version: rpVersion,
           },
-          {
-            uuid: RP_MODULE_UUID,
-            version: rpVersion,
-          },
+          // {
+          //   uuid: RP_MODULE_UUID,
+          //   version: rpVersion,
+          // },
         ],
       },
       null,

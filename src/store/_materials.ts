@@ -1,19 +1,20 @@
-import type { IMaterial } from "../../typings/types.ts";
-import { channelPercentage } from "../_utils.ts";
+import type { IMaterial } from "/typings/types.ts";
+import { channelPercentage } from "/src/_utils.ts";
+
 export const materials: IMaterial[] = [
   {
     name: { en_US: "Plastic" },
     label: "rough",
     normal: "block_normal",
     sound: "note.snare",
-    friction: (idx: number) => Math.min(0.9, Math.max(0.1, idx * 0.01)),
+    friction: (idx: number) => Math.min(0.4, Math.max(0.1, idx * 0.01)),
     minimumLevel: 50,
     maximumLevel: 100,
     paletteLevel: 75,
     endStep: 100,
     step: 25,
     explosionResistance: (idx: number) => Math.min(1, Math.max(0, idx * 0.01)),
-    lightAbsorption: (itr: number) => Math.max(0, Math.min(16, Math.round(itr * 0.5))),
+    lightAbsorption: (itr: number) => Math.max(0, Math.min(1, itr * 0.01)),
     lightEmission: () => 0,
     metalness: () => 0,
     emissive: () => 0,
@@ -25,7 +26,7 @@ export const materials: IMaterial[] = [
     label: "metal",
     normal: "block_normal",
     sound: "note.iron_xylophone",
-    friction: (idx: number) => Math.min(0.5, Math.max(0.001, idx * 0.01)),
+    friction: (idx: number) => Math.min(0.2, Math.max(0.001, idx * 0.01)),
     minimumLevel: 50,
     maximumLevel: 100,
     paletteLevel: 75,
@@ -52,7 +53,7 @@ export const materials: IMaterial[] = [
     step: 25,
     explosionResistance: (idx: number) => Math.min(1, Math.max(0, idx * 0.01)),
     lightAbsorption: () => 0,
-    lightEmission: (itr: number) => Math.max(0, Math.min(16, Math.round(itr * 0.666))),
+    lightEmission: (itr: number) => Math.max(0, Math.min(1, itr * 0.01)),
     metalness: () => 0,
     emissive: (idx: number) => channelPercentage(idx),
     roughness: () => 0,
@@ -63,7 +64,7 @@ export const materials: IMaterial[] = [
     label: "glass",
     normal: "block_normal",
     sound: "glass",
-    friction: () => 0.2,
+    friction: () => 0.125,
     minimumLevel: 40,
     maximumLevel: 80,
     paletteLevel: 75,
@@ -71,7 +72,7 @@ export const materials: IMaterial[] = [
     step: 20,
     explosionResistance: () => 0,
     lightAbsorption: () => 0,
-    lightEmission: () => 0,
+    lightEmission: () => 0.05,
     metalness: () => 0,
     emissive: () => 0,
     roughness: () => 60,

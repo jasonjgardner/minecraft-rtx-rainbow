@@ -1,20 +1,14 @@
-import { Frame, GIF, Image } from "https://deno.land/x/imagescript/mod.ts";
-import {
-  basename,
-  extname,
-  join,
-  relative,
-} from "https://deno.land/std@0.123.0/path/mod.ts";
-import { sprintf } from "https://deno.land/std@0.125.0/fmt/printf.ts";
-import { ensureDir } from "https://deno.land/std@0.123.0/fs/mod.ts";
+import { Frame, GIF, Image } from "imagescript/mod.ts";
+import { basename, extname, join, relative } from "path/mod.ts";
+import { sprintf } from "fmt/printf.ts";
 import * as log from "https://deno.land/std@0.125.0/log/mod.ts";
-import { EOL } from "https://deno.land/std@0.125.0/fs/mod.ts";
+import { ensureDir, EOL } from "fs/mod.ts";
 import { materials } from "../store/_materials.ts";
 import BlockEntry from "./BlockEntry.ts";
 import { DIR_BP } from "../store/_config.ts";
 import { hex2rgb } from "../_utils.ts";
 
-import type { IMaterial, RGB } from "../../typings/types.ts";
+import type { IMaterial, RGB } from "/typings/types.ts";
 
 const GLASS_ID = "glass";
 const MAX_FRAMES = 10;
@@ -48,16 +42,14 @@ export function getNearestColor(
   const rgbColor = <RGB> [color[0] || 0, color[1] || 0, color[2] || 0];
   const alpha = color[3] || 0;
 
-  // Substitute with glass for transparency
   const materialPalette = (alpha >= 100 && !crystal)
     ? palette
-    : palette.filter(({ material }: BlockEntry) => material.label === "glass" // Restrict semi-opaque pixels to glass palette
-    );
+    : palette.filter(({ color: { rgba } }: BlockEntry) => rgba[3] < 1); // Restrict palette to blocks with transparency
 
   // https://gist.github.com/Ademking/560d541e87043bfff0eb8470d3ef4894?permalink_comment_id=3720151#gistcomment-3720151
   return materialPalette.reduce(
     (prev: [number, BlockEntry], curr: BlockEntry): [number, BlockEntry] => {
-      const distance = colorDistance(rgbColor, hex2rgb(curr.hexColor()));
+      const distance = colorDistance(rgbColor, hex2rgb(curr.color.hex));
 
       return (distance < prev[0]) ? [distance, curr] : prev;
     },
@@ -115,10 +107,11 @@ async function printDecoded(
 
           for (const [x, y, c] of img.iterateWithColors()) {
             const rgba = Image.colorToRGBA(c);
-            const nearest = rgba[3] < 50 // Minimum alpha of 50%
+            const alpha = glassAvailable ? rgba[3] : 100;
+
+            const nearest = alpha < 50 // Minimum alpha of 50%
               ? "air"
-              : getNearestColor(rgba, materialPalette, thisIsGlass) // TODO: Don't use RGBA if glass material isn't available
-                .behaviorId;
+              : getNearestColor(rgba, materialPalette, thisIsGlass)?.behaviorId || "stone";
 
             func.push(
               writeFill(
@@ -253,13 +246,13 @@ export async function pixelPrinter(
   }
 
   // GIFs with "none" alignment get delay to animate fill
-  await createParentFunction(name, groupFn, alignGroup === "none" ? 20 : 0);
+  await createParentFunction(name, groupFn, size);
 }
 
 async function createParentFunction(
   name: string,
   groupFn: Array<PrinterResult[]>,
-  delay = 0,
+  size: number,
 ) {
   const fns: { [key: string]: string[] } = {};
   groupFn.forEach((group) => {
@@ -274,25 +267,16 @@ async function createParentFunction(
         basename(func, ".mcfunction")
       }`;
 
-      if (!delay) {
-        fns[key].push(line);
-        return;
-      }
-
-      // FIXME: How to make fill repeat in place?
-      fns[key].push(
-        //  "scoreboard players add @e[scores=time,tag=1] time 0",
-        line,
-        // "scoreboard players add @e[scores=time,tag=0] time 1",
-      );
+      fns[key].push(line);
     });
   });
 
   for (const materialPositionKey in fns) {
-    const filename = `${name}_${materialPositionKey}.mcfunction`;
+    const structureId = `${name}_${materialPositionKey}`;
+    //fns[materialPositionKey] = `structure save ~ ~ ~ ~${size} ~${size} `
 
     await Deno.writeTextFile(
-      join(DIR_FUNCTIONS, filename),
+      join(DIR_FUNCTIONS, `${structureId}.mcfunction`),
       fns[materialPositionKey].join(EOL.CRLF),
     );
   }

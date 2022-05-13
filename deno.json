@@ -1,0 +1,27 @@
+{
+    "tasks": {
+        "build": "deno run --import-map=import_map.json --allow-write --allow-read --allow-net --allow-env ./src/mod.ts"
+    },
+    "fmt": {
+        "files": {
+            "include": ["src/", "typings/"],
+            "exclude": ["build/", "dist/"]
+        },
+        "options": {
+            "indentWidth": 2,
+            "singleQuote": false,
+            "useTabs": false,
+            "proseWrap": "preserve"
+        }
+    },
+    "lint": {
+        "files": {
+            "include": ["src/"],
+            "exclude": ["build/", "dist/"]
+        },
+        "rules": {
+            "tags": ["recommended"]
+        }
+    },
+    "importMap": "./import_map.json"
+}

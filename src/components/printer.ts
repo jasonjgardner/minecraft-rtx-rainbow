@@ -1,17 +1,11 @@
-import "https://deno.land/x/dotenv/load.ts";
-import {
-  basename,
-  dirname,
-  extname,
-  join,
-  toFileUrl,
-} from "https://deno.land/std@0.125.0/path/mod.ts";
-import { walk } from "https://deno.land/std@0.125.0/fs/walk.ts";
+import "dotenv/load.ts";
+import type { Alignment } from "./ImagePrinter.ts";
+import { basename, dirname, extname, join, toFileUrl } from "path/mod.ts";
+import { walk } from "fs/walk.ts";
 import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
 import BlockEntry from "./BlockEntry.ts";
 import { pixelPrinter } from "./ImagePrinter.ts";
-import { DIR_SRC } from "../store/_config.ts";
-import type { Alignment } from "./ImagePrinter.ts";
+import { DIR_SRC } from "/src/store/_config.ts";
 
 async function githubAvatars(
   owner: string,
@@ -60,9 +54,7 @@ async function githubAvatars(
 }
 
 export function getPrintablePalette(palette: BlockEntry[]) {
-  const filtered = palette.filter(({ level, material }: BlockEntry) =>
-    level <= material.paletteLevel && level >= material.minimumLevel
-  );
+  const filtered = palette.filter(({ printable }: BlockEntry) => printable === true);
 
   if (filtered.length) {
     return filtered;
@@ -106,13 +98,23 @@ export async function printPixelArt(palette: BlockEntry[], options?: {
   for await (const entry of walk(srcsDir)) {
     const alignment = <Alignment> basename(dirname(entry.path));
 
-    if (entry.isFile) {
-      await pixelPrinter(
-        basename(entry.name, extname(entry.name)),
-        toFileUrl(entry.path),
-        printablePalette,
-        { alignment, chunks },
-      );
+    if (!entry.isFile) {
+      continue;
     }
+
+    const fileExt = extname(entry.name);
+    const fileUrl = toFileUrl(entry.path);
+    const structureName = basename(entry.name, fileExt);
+
+    // if (fileExt === 'psd') {
+
+    // }
+
+    await pixelPrinter(
+      structureName,
+      fileUrl,
+      printablePalette,
+      { alignment, chunks },
+    );
   }
 }
