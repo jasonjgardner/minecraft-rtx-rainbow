@@ -1,12 +1,12 @@
 import { Frame, GIF, Image } from "imagescript/mod.ts";
-import { basename, extname, join, relative } from "path/mod.ts";
+import { basename, extname, join } from "path/mod.ts";
 import { sprintf } from "fmt/printf.ts";
-import * as log from "https://deno.land/std@0.125.0/log/mod.ts";
-import { ensureDir, EOL } from "fs/mod.ts";
-import { materials } from "../store/_materials.ts";
+import * as log from "log/mod.ts";
+import { EOL } from "fs/mod.ts";
+import { materials } from "/src/store/_materials.ts";
 import BlockEntry from "./BlockEntry.ts";
-import { DIR_BP } from "../store/_config.ts";
-import { hex2rgb } from "../_utils.ts";
+import { hex2rgb, fetchData } from "/src/_utils.ts";
+import { addToBehaviorPack } from "/src/components/_state.ts";
 
 import type { IMaterial, RGB } from "/typings/types.ts";
 
@@ -14,7 +14,7 @@ const GLASS_ID = "glass";
 const MAX_FRAMES = 10;
 const MAX_PRINT_SIZE = 24 * 16;
 const FUNCTIONS_NAMESPACE = "printer";
-const DIR_FUNCTIONS = join(DIR_BP, "functions", FUNCTIONS_NAMESPACE);
+const DIR_FUNCTIONS = join("functions", FUNCTIONS_NAMESPACE);
 
 const logger = log.getLogger();
 
@@ -75,7 +75,7 @@ function writeFill(
   return `fill ${position} ${position} ${fillWith} 0 keep`;
 }
 
-async function printDecoded(
+function printDecoded(
   name: string,
   img: Image | Frame,
   palette: BlockEntry[],
@@ -89,58 +89,55 @@ async function printDecoded(
 
   let maxLines = 10000;
 
-  return await Promise.all(
-    materials.flatMap(async ({ label }: IMaterial) => {
-      if (maxLines <= 0) {
-        logger.warning("Function %s has exceeded max length", name);
+  return materials.flatMap(({ label }: IMaterial) => {
+    if (maxLines <= 0) {
+      logger.warning("Function %s has exceeded max length", name);
+    }
+
+    // Glass sculptures get extra attention
+    const thisIsGlass = glassAvailable && label === GLASS_ID;
+    const materialPalette = palette.filter(({ material }: BlockEntry) =>
+      label === material.label || thisIsGlass // Always include glass for semi-opaque pixels
+    );
+
+    return axises.map((axis): PrinterResult => {
+      const func: string[] = [];
+
+      for (const [x, y, c] of img.iterateWithColors()) {
+        const rgba = Image.colorToRGBA(c);
+        const alpha = glassAvailable ? rgba[3] : 100;
+
+        const nearest = alpha < 50 // Minimum alpha of 50%
+          ? "air"
+          : getNearestColor(rgba, materialPalette, thisIsGlass)?.behaviorId ||
+            "stone";
+
+        func.push(
+          writeFill(
+            x + offset[0],
+            Math.abs((y + offset[1]) - img.height), // Starts print row at top
+            offset[2],
+            nearest,
+            <Axis> axis,
+          ),
+        );
       }
 
-      // Glass sculptures get extra attention
-      const thisIsGlass = glassAvailable && label === GLASS_ID;
-      const materialPalette = palette.filter(({ material }: BlockEntry) =>
-        label === material.label || thisIsGlass // Always include glass for semi-opaque pixels
+      const filename = sprintf("%s_%s_%s.mcfunction", name, label, axis);
+
+      addToBehaviorPack(
+        join(
+          dest,
+          filename,
+        ),
+        func.join(EOL.CRLF),
       );
 
-      return await Promise.all(
-        axises.map(async (axis): Promise<PrinterResult> => {
-          const func: string[] = [];
+      maxLines -= func.length;
 
-          for (const [x, y, c] of img.iterateWithColors()) {
-            const rgba = Image.colorToRGBA(c);
-            const alpha = glassAvailable ? rgba[3] : 100;
-
-            const nearest = alpha < 50 // Minimum alpha of 50%
-              ? "air"
-              : getNearestColor(rgba, materialPalette, thisIsGlass)?.behaviorId || "stone";
-
-            func.push(
-              writeFill(
-                x + offset[0],
-                Math.abs((y + offset[1]) - img.height), // Starts print row at top
-                offset[2],
-                nearest,
-                <Axis> axis,
-              ),
-            );
-          }
-
-          const filename = sprintf("%s_%s_%s.mcfunction", name, label, axis);
-
-          await Deno.writeTextFile(
-            join(
-              dest,
-              filename,
-            ),
-            func.join(EOL.CRLF),
-          );
-
-          maxLines -= func.length;
-
-          return { label, axis, func: filename };
-        }),
-      );
-    }),
-  );
+      return { label, axis, func: filename };
+    });
+  });
 }
 
 function getAlignment(
@@ -196,8 +193,7 @@ export async function pixelPrinter(
     chunks?: number;
   },
 ) {
-  const res = await fetch(imageUrl.href);
-  const data = new Uint8Array(await res.arrayBuffer());
+  const data = await fetchData(imageUrl)
 
   const frames = (extname(imageUrl.href) !== ".gif")
     ? [await Image.decode(data)]
@@ -209,7 +205,7 @@ export async function pixelPrinter(
 
   let idx = 0;
 
-  const groupFn = [];
+  const groupFn: Array<PrinterResult[]> = [];
   const alignGroup = options.alignment || "b2b";
 
   for await (const frame of frames) {
@@ -223,11 +219,11 @@ export async function pixelPrinter(
     if (frameCount > 1) {
       fileName = sprintf("%s_%02s", name, `${idx}`);
       dest = join(DIR_FUNCTIONS, name);
-      await ensureDir(relative(Deno.cwd(), dest));
+      //await ensureDir(relative(Deno.cwd(), dest));
     }
 
     groupFn.push(
-      ...await printDecoded(
+      printDecoded(
         fileName,
         frame,
         palette,
@@ -246,13 +242,13 @@ export async function pixelPrinter(
   }
 
   // GIFs with "none" alignment get delay to animate fill
-  await createParentFunction(name, groupFn, size);
+  createParentFunction(name, groupFn, size);
 }
 
-async function createParentFunction(
+function createParentFunction(
   name: string,
   groupFn: Array<PrinterResult[]>,
-  size: number,
+  _size: number,
 ) {
   const fns: { [key: string]: string[] } = {};
   groupFn.forEach((group) => {
@@ -275,7 +271,7 @@ async function createParentFunction(
     const structureId = `${name}_${materialPositionKey}`;
     //fns[materialPositionKey] = `structure save ~ ~ ~ ~${size} ~${size} `
 
-    await Deno.writeTextFile(
+    addToBehaviorPack(
       join(DIR_FUNCTIONS, `${structureId}.mcfunction`),
       fns[materialPositionKey].join(EOL.CRLF),
     );

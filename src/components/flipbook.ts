@@ -1,6 +1,3 @@
-import { Image } from "imagescript/mod.ts";
-import { join } from "path/mod.ts";
-import { sprintf } from "fmt/printf.ts";
 import type {
   FlipbookComponent,
   LanguageId,
@@ -9,42 +6,37 @@ import type {
   MinecraftTerrainData,
   PackSizes,
   RGB,
-} from "../../typings/types.ts";
+} from "/typings/types.ts";
 import type Material from "/src/components/Material.ts";
-import { DIR_BP, DIR_RP } from "../store/_config.ts";
 
-import BlockEntry from "../components/BlockEntry.ts";
+import { Image } from "imagescript/mod.ts";
+import { sprintf } from "fmt/printf.ts";
+
+import BlockEntry from "/src/components/BlockEntry.ts";
 import FlipbookEntry, {
   formatFlipbookName,
-} from "../components/FlipbookEntry.ts";
+} from "/src/components/FlipbookEntry.ts";
 import { getMaterials } from "/src/components/materials/index.ts";
-async function flipbookData(
+import {
+  addToBehaviorPack,
+  addToResourcePack,
+} from "/src/components/_state.ts";
+function flipbookData(
   flipbookBlock: FlipbookEntry,
   frameCount: number,
-): Promise<FlipbookComponent> {
-  await Deno.writeTextFile(
-    join(
-      DIR_RP,
-      "textures",
-      "blocks",
-      `${flipbookBlock.id}.texture_set.json`,
-    ),
+): FlipbookComponent {
+  addToResourcePack(
+    `textures/blocks/${flipbookBlock.id}.texture_set.json`,
     JSON.stringify(
       {
         format_version: "1.16.100",
         "minecraft:texture_set": flipbookBlock.textureSet,
       },
-      null,
-      2,
     ),
   );
 
-  await Deno.writeTextFile(
-    join(
-      DIR_BP,
-      "blocks",
-      `${flipbookBlock.id}.json`,
-    ),
+  addToBehaviorPack(
+    `blocks/${flipbookBlock.id}.json`,
     flipbookBlock.toString(),
   );
 
@@ -101,47 +93,38 @@ export async function writeFlipbooks(
   const frameCount = frames.length;
   const lastBlock = frames[frameCount - 1];
 
-  await Deno.writeFile(
-    join(
-      DIR_RP,
-      "textures",
-      "blocks",
-      formatFlipbookName(lastBlock.color.name) + ".png",
-    ),
+  addToResourcePack(
+    `textures/blocks/${formatFlipbookName(lastBlock.color.name)}.png`,
     await makeAtlas(frames),
   );
 
   const materials = getMaterials();
 
-  await Deno.writeTextFile(
-    join(DIR_RP, "/textures/flipbook_textures.json"),
+  addToResourcePack(
+    "textures/flipbook_textures.json",
     JSON.stringify(
-      await Promise.all(
-        materials.map(
-          async (material: Material) => {
-            const flipbookBlock = new FlipbookEntry(lastBlock.color, material);
-            blocksData[flipbookBlock.behaviorId] = flipbookBlock.blocksData;
-            textureData[flipbookBlock.resourceId] = flipbookBlock.terrainData;
+      materials.map(
+        (material: Material) => {
+          const flipbookBlock = new FlipbookEntry(lastBlock.color, material);
+          blocksData[flipbookBlock.behaviorId] = flipbookBlock.blocksData;
+          textureData[flipbookBlock.resourceId] = flipbookBlock.terrainData;
 
-            for (const languageKey in languages) {
-              languages[<LanguageId> languageKey].push(
-                sprintf(
-                  "tile.%s.name=%s",
-                  flipbookBlock.behaviorId,
-                  flipbookBlock.title(<LanguageId> languageKey),
-                ),
-              );
-            }
-
-            return await flipbookData(
-              flipbookBlock,
-              frameCount,
+          for (const languageKey in languages) {
+            languages[<LanguageId> languageKey].push(
+              sprintf(
+                "tile.%s.name=%s",
+                flipbookBlock.behaviorId,
+                flipbookBlock.title(<LanguageId> languageKey),
+              ),
             );
-          },
-        ),
+          }
+
+          return flipbookData(
+            flipbookBlock,
+            frameCount,
+          );
+        },
       ),
-      null,
-      2,
     ),
   );
 

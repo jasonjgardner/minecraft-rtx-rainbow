@@ -115,7 +115,7 @@ export default class Material {
 
   get blocksData(): MinecraftData {
     return {
-      pbr_emissive_brightness: (this.emissive / 255).toFixed(2) || 0,
+      //pbr_emissive_brightness: (this.emissive / 255).toFixed(2) || 0,
       sound: DEFAULT_BLOCK_SOUND,
     };
   }
@@ -143,16 +143,16 @@ export default class Material {
     const emissivePercentage = this.emissive / 255;
 
     return {
-      [
-        sprintf(
-          "tag:%s:%s",
-          NAMESPACE,
-          this.label.replace(/\s+/, ""),
-        )
-      ]: {},
+      // [
+      //   sprintf(
+      //     "tag:%s:%s",
+      //     NAMESPACE,
+      //     this.label.replace(/\s+/, ""),
+      //   )
+      // ]: {},
       "minecraft:material_instances": this.materialInstance,
       "minecraft:block_light_filter": clampBlockLightFilter(emissivePercentage),
-      "minecraft:block_light_emission": emissivePercentage.toFixed(2),
+      "minecraft:block_light_emission": emissivePercentage,
     } as const;
   }
 

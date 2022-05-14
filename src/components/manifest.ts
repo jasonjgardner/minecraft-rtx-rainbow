@@ -1,43 +1,89 @@
-import type { ReleaseType } from "https://deno.land/x/semver/mod.ts";
+import type { ReleaseType } from "https://deno.land/x/semver@v1.4.0/mod.ts";
 import { inc } from "semver/mod.ts";
 import { join } from "path/mod.ts";
 import {
   BP_MODULE_UUID,
   BP_PACK_UUID,
-  DIR_BP,
-  DIR_RP,
+  DIR_SRC,
   PACK_DESCRIPTION,
   PACK_NAME,
   RP_MODULE_UUID,
   RP_PACK_UUID,
   TARGET_VERSION,
-} from "../store/_config.ts";
-import { semverVector } from "../_utils.ts";
-import { DIR_SRC } from "../store/_config.ts";
+} from "/src/store/_config.ts";
+import { semverVector } from "/src/_utils.ts";
+import {
+  addToBehaviorPack,
+  addToResourcePack,
+} from "/src/components/_state.ts";
+
+function getMetadata(
+  buildHistory: string[],
+) {
+  const tools: { [k: string]: string[] } = {};
+
+  const workflow = Deno.env.get("GITHUB_WORKFLOW");
+
+  if (workflow && workflow.length > 0) {
+    tools[workflow] = buildHistory;
+
+    const workflowRef = Deno.env.get("GITHUB_REF_NAME");
+
+    if (workflowRef && Deno.env.get("GITHUB_REF_TYPE") === "tag") {
+      tools[workflow].push(workflowRef.toString());
+    }
+  }
+
+  return {
+    metadata: {
+      authors: [
+        ...new Set([
+          Deno.env.get("GITHUB_REPOSITORY_OWNER"),
+          Deno.env.get("GITHUB_ACTOR"),
+        ]),
+      ],
+      license: Deno.env.get("LICENSE"), //?? await lookupLicense()
+      url: `${Deno.env.get("GITHUB_SERVER_URL")}/${
+        Deno.env.get("GITHUB_REPOSITORY")
+      }`,
+      generated_with: {
+        ...tools,
+      },
+    },
+  };
+}
 
 async function getBuildVersion(
   releaseType: ReleaseType = "patch",
   defaultVersion = "1.0.0",
-): Promise<{ RP: number[]; BP: number[] }> {
-  const { RP, BP } = JSON.parse(
+): Promise<{ RP: number[]; BP: number[]; version_history: string[] }> {
+  const { RP, BP, version_history } = JSON.parse(
     await Deno.readTextFile(join(DIR_SRC, "versions.json")),
   );
 
+  const rpVersion = semverVector(
+    inc(RP || defaultVersion, <ReleaseType> releaseType) ?? defaultVersion,
+  );
+
+  const bpVersion = semverVector(
+    inc(BP || defaultVersion, <ReleaseType> releaseType) ?? defaultVersion,
+  );
+
   return {
-    RP: semverVector(
-      inc(RP || defaultVersion, <ReleaseType> releaseType) ?? defaultVersion,
-    ),
-    BP: semverVector(
-      inc(BP || defaultVersion, <ReleaseType> releaseType) ?? defaultVersion,
-    ),
+    version_history,
+    RP: rpVersion,
+    BP: bpVersion,
   };
 }
 
 export async function createManifests(releaseType?: ReleaseType) {
-  const { RP: rpVersion, BP: bpVersion } = await getBuildVersion(releaseType);
+  const { RP: rpVersion, BP: bpVersion, version_history } =
+    await getBuildVersion(releaseType);
 
-  await Deno.writeTextFile(
-    join(DIR_RP, "manifest.json"),
+  const metadata = getMetadata(version_history,);
+
+  addToResourcePack(
+    "manifest.json",
     JSON.stringify(
       {
         format_version: 2,
@@ -63,14 +109,13 @@ export async function createManifests(releaseType?: ReleaseType) {
           },
         ],
         capabilities: ["raytraced"],
+        metadata,
       },
-      null,
-      2,
     ),
   );
 
-  await Deno.writeTextFile(
-    join(DIR_BP, "manifest.json"),
+  addToBehaviorPack(
+    "manifest.json",
     JSON.stringify(
       {
         format_version: 2,
@@ -99,9 +144,8 @@ export async function createManifests(releaseType?: ReleaseType) {
           //   version: rpVersion,
           // },
         ],
+        metadata,
       },
-      null,
-      2,
     ),
   );
 }

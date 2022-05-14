@@ -1,8 +1,12 @@
-import { DIR_BP, DIR_RP, NAMESPACE } from "../store/_config.ts";
+import { NAMESPACE } from "/src/store/_config.ts";
+import {
+  addToBehaviorPack,
+  addToResourcePack,
+} from "/src/components/_state.ts";
 
-export async function createItems() {
-  await Deno.writeTextFile(
-    `${DIR_RP}/textures/item_texture.json`,
+export function createItems() {
+  addToResourcePack(
+    "textures/item_texture.json",
     JSON.stringify(
       {
         resource_pack_name: NAMESPACE,
@@ -13,13 +17,10 @@ export async function createItems() {
           },
         },
       },
-      null,
-      2,
     ),
   );
-
-  await Deno.writeTextFile(
-    `${DIR_BP}/items/rainbow_trail.json`,
+  addToBehaviorPack(
+    "items/rainbow_trail.json",
     JSON.stringify(
       {
         format_version: "1.16.100",
@@ -56,13 +57,10 @@ export async function createItems() {
           },
         },
       },
-      null,
-      2,
     ),
   );
-
-  await Deno.writeTextFile(
-    `${DIR_BP}/entities/player.json`,
+  addToBehaviorPack(
+    "entities/player.json",
     JSON.stringify(
       {
         format_version: "1.16.0",
@@ -84,13 +82,10 @@ export async function createItems() {
           },
         },
       },
-      null,
-      2,
     ),
   );
-
-  await Deno.writeTextFile(
-    `${DIR_BP}/items/rainbow_trail.json`,
+  addToBehaviorPack(
+    "items/rainbow_trail.json",
     JSON.stringify(
       {
         format_version: "1.16.100",
@@ -127,13 +122,10 @@ export async function createItems() {
           },
         },
       },
-      null,
-      2,
     ),
   );
-
-  await Deno.writeTextFile(
-    `${DIR_BP}/animations/player.json`,
+  addToBehaviorPack(
+    "animations/player.json",
     JSON.stringify(
       {
         format_version: "1.10.0",
@@ -142,13 +134,11 @@ export async function createItems() {
             timeline: {
               "0.0": ["/function rainbowtrail", "/function entitytrail"],
             },
-            animation_length: 0.05,
+            animation_length: 0.01,
             loop: true,
           },
         },
       },
-      null,
-      2,
     ),
   );
 }

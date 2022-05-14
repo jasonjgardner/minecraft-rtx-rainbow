@@ -3,7 +3,7 @@ import type {
   LanguageId,
   MinecraftData,
   MinecraftEvent,
-  RGB
+  RGB,
 } from "/typings/types.ts";
 import { Label } from "/typings/enums.ts";
 import {
@@ -16,10 +16,10 @@ import HueBlock from "/src/components/blocks/HueBlock.ts";
 import Material from "/src/components/Material.ts";
 
 interface TextureSet {
-    heightmap?: string;
-    normal?: string;
-    color: string | RGB | number[];
-    metalness_emissive_roughness?: RGB | number[];
+  heightmap?: string;
+  normal?: string;
+  color: string | RGB | number[];
+  metalness_emissive_roughness?: RGB | number[];
 }
 
 interface BlockComponents {
@@ -59,7 +59,7 @@ export default class BlockEntry {
   }
 
   set printable(value: boolean) {
-    this._printable = value
+    this._printable = value;
   }
 
   get printable() {
@@ -185,8 +185,6 @@ export default class BlockEntry {
         format_version: BEHAVIOR_BLOCK_FORMAT_VERSION,
         "minecraft:block": this.block,
       },
-      null,
-      2,
     );
   }
 
@@ -202,10 +200,10 @@ export default class BlockEntry {
 
   get components() {
     return {
-      ...formatTag(this._hue.name),
-      ...formatTag(
-        `material:${this._material.name}`,
-      ),
+      // ...formatTag(this._hue.name),
+      // ...formatTag(
+      //   `material:${this._material.label}`,
+      // ),
       ...this._hue.components,
       ...this._material.components,
     } as const;

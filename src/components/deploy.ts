@@ -31,6 +31,11 @@ const devResourcePacks = join(
 );
 
 export async function deployToDev() {
+  if (
+    Deno.build.os !== "windows" || Deno.env.get("GITHUB_ACTIONS") !== undefined
+  ) {
+    throw Error("Can not deploy in current environment");
+  }
   await resetDev();
   return await Promise.all([
     copy(buildBehaviorPacks, devBehaviorPacks, { overwrite: true }),
@@ -39,6 +44,11 @@ export async function deployToDev() {
 }
 
 export async function resetDev() {
+  if (
+    Deno.build.os !== "windows" || Deno.env.get("GITHUB_ACTIONS") !== undefined
+  ) {
+    throw Error("Can not reset development packs in current environment");
+  }
   const paths = [
     devBehaviorPacks,
     devResourcePacks,

@@ -48,7 +48,7 @@ export default class HueBlock {
 
   get components(): MinecraftData {
     return {
-      ...formatTag(this.name),
+      //e...formatTag(this.name),
       "minecraft:map_color": this.hex,
     };
   }

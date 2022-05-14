@@ -54,7 +54,9 @@ async function githubAvatars(
 }
 
 export function getPrintablePalette(palette: BlockEntry[]) {
-  const filtered = palette.filter(({ printable }: BlockEntry) => printable === true);
+  const filtered = palette.filter(({ printable }: BlockEntry) =>
+    printable === true
+  );
 
   if (filtered.length) {
     return filtered;
@@ -110,11 +112,19 @@ export async function printPixelArt(palette: BlockEntry[], options?: {
 
     // }
 
-    await pixelPrinter(
-      structureName,
-      fileUrl,
-      printablePalette,
-      { alignment, chunks },
-    );
+    try {
+      await pixelPrinter(
+        structureName,
+        fileUrl,
+        printablePalette,
+        { alignment, chunks },
+      );
+    } catch (err) {
+      console.error(
+        'Failed creating pixel art for file %s: "%s"',
+        entry.name,
+        err,
+      );
+    }
   }
 }

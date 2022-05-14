@@ -6,11 +6,13 @@
     "semver/": "https://deno.land/x/semver@v1.4.0/",
     "imagescript/": "https://deno.land/x/imagescript@v1.2.12/",
     "nbt_parser/": "https://deno.land/x/nbt_parser@v1.3.0/",
+    "jszip/": "https://deno.land/x/jszip@0.11.0/",
     "canvas/": "https://deno.land/x/canvas@v1.4.1/",
     "culori/": "https://deno.land/x/culori@v2.1.0-alpha.0/",
     "case/": "https://deno.land/x/case@v2.1.0/",
     "path/": "https://deno.land/std@0.138.0/path/",
     "fs/": "https://deno.land/std@0.138.0/fs/",
-    "fmt/": "https://deno.land/std@0.138.0/fmt/"
+    "fmt/": "https://deno.land/std@0.138.0/fmt/",
+    "log/": "https://deno.land/std@0.125.0/log/"
   }
 }

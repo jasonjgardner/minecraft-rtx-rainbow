@@ -1,5 +1,4 @@
 import "dotenv/load.ts";
-import { join } from "path/mod.ts";
 import { sprintf } from "fmt/printf.ts";
 import { EOL } from "fs/mod.ts";
 import type {
@@ -8,33 +7,27 @@ import type {
   MinecraftData,
   MinecraftTerrainData,
 } from "/typings/types.ts";
-import {
-  DIR_AMULET,
-  DIR_BP,
-  DIR_RP,
-  MIP_LEVELS,
-  NAMESPACE,
-  RELEASE_TYPE,
-} from "./store/_config.ts";
-import BlockEntry from "./components/BlockEntry.ts";
+import { MIP_LEVELS, NAMESPACE, RELEASE_TYPE } from "/src/store/_config.ts";
+import BlockEntry from "/src/components/BlockEntry.ts";
 import { getBlocks, HueBlock } from "/src/components/blocks/index.ts";
 import Material from "/src/components/Material.ts";
 import { getMaterials } from "/src/components/materials/index.ts";
-import {
-  entityTrailFunction,
-  fishTree,
-  rainbowTrailFunction,
-} from "./components/mcfunctions.ts";
-import { writeFlipbooks } from "./components/flipbook.ts";
-import { deployToDev } from "./components/deploy.ts";
+import createFunctions from '/src/components/mcfunctions/index.ts'
+import { writeFlipbooks } from "/src/components/flipbook.ts";
+//import { deployToDev } from "./components/deploy.ts";
 import setup from "./components/_setup.ts";
-import { createItems } from "./components/items.ts";
-import { createManifests } from "./components/manifest.ts";
+import { createItems } from "/src/components/items.ts";
+import { createManifests } from "/src/components/manifest.ts";
 import {
   getPrintablePalette,
   printPatrons,
   printPixelArt,
-} from "./components/printer.ts";
+} from "/src/components/printer.ts";
+import {
+  addToBehaviorPack,
+  addToResourcePack,
+  createArchive,
+} from "/src/components/_state.ts";
 //import { renderBlock } from "./components/render.ts";
 //import { permutes } from "./components/permutations.ts";
 
@@ -49,19 +42,19 @@ let languages: LanguagesContainer = {
 };
 
 // Join base textures with PBR materials
-const baseTextures = getBlocks()
+const baseTextures = getBlocks();
 const materials = getMaterials();
 materials.forEach((material: Material) => {
-  baseTextures.forEach((base: HueBlock) => res.push(new BlockEntry(base, material)));
+  baseTextures.forEach((base: HueBlock) =>
+    res.push(new BlockEntry(base, material))
+  );
 });
 
 ////////
 
 await setup();
 await createManifests(RELEASE_TYPE);
-await createItems();
-
-const mcfunctions: Record<string, string[]> = {};
+createItems();
 
 //const amuletBlockOutput = join(DIR_AMULET, "textures", "blocks");
 const textureList = [];
@@ -88,24 +81,21 @@ for (let itr = 0; itr < len; itr++) {
     );
   }
 
-  /// Write behavior block
-  await Deno.writeTextFile(
-    join(DIR_BP, "blocks", `${block.id}.json`),
-    block.toString(),
-  );
-
-  /// Write texture
   const texturePath = `textures/blocks/${block.id}`;
 
-  await Deno.writeTextFile(
-    join(DIR_RP, `${texturePath}.texture_set.json`),
+  /// Write behavior block
+  addToBehaviorPack(
+    `blocks/${block.id}.json`,
+    block.toString(),
+  );
+  // Write texture set
+  addToResourcePack(
+    `${texturePath}.texture_set.json`,
     JSON.stringify(
       {
         format_version: "1.16.100",
         "minecraft:texture_set": block.textureSet,
       },
-      null,
-      2,
     ),
   );
 
@@ -137,46 +127,14 @@ for (let itr = 0; itr < len; itr++) {
   // );
 }
 
-const tickers: string[] = [
-  // "rainbowtrail",
-  // "entitytrail",
-];
+//createFunctions()
 
-for (const func in mcfunctions) {
-  await Deno.writeTextFile(
-    `${DIR_BP}/functions/${func}.mcfunction`,
-    mcfunctions[func].join(EOL.CRLF),
-  );
-}
-
-if (tickers.length) {
-  await Deno.writeTextFile(
-    `${DIR_BP}/functions/tick.json`,
-    JSON.stringify({
-      "values": tickers,
-    }),
-  );
-}
-
-await Deno.writeTextFile(
-  `${DIR_BP}/functions/rainbowtrail.mcfunction`,
-  rainbowTrailFunction(),
+addToResourcePack(
+  "blocks.json",
+  JSON.stringify({ format_version: [1, 1, 0], ...blocksData }),
 );
-await Deno.writeTextFile(
-  `${DIR_BP}/functions/entitytrail.mcfunction`,
-  entityTrailFunction(),
-);
-await Deno.writeTextFile(
-  `${DIR_BP}/functions/fishtree.mcfunction`,
-  fishTree(),
-);
-
-await Deno.writeTextFile(
-  join(DIR_RP, "blocks.json"),
-  JSON.stringify({ format_version: [1, 1, 0], ...blocksData }, null, 2),
-);
-await Deno.writeTextFile(
-  join(DIR_RP, "/textures/terrain_texture.json"),
+addToResourcePack(
+  "textures/terrain_texture.json",
   JSON.stringify(
     {
       num_mip_levels: MIP_LEVELS,
@@ -185,52 +143,42 @@ await Deno.writeTextFile(
       texture_name: "atlas.terrain",
       texture_data: textureData,
     },
-    null,
-    2,
   ),
 );
-
-await Deno.writeTextFile(
-  join(DIR_RP, "/textures/texture_list.json"),
+addToResourcePack(
+  "textures/texture_list.json",
   JSON.stringify(
     textureList,
-    null,
-    2,
   ),
 );
 
 for (const languageKey in languages) {
-  await Deno.writeTextFile(
-    `${DIR_RP}/texts/${languageKey}.lang`,
+  addToResourcePack(
+    `texts/${languageKey}.lang`,
     [...new Set(languages[<LanguageId> languageKey])].join(EOL.CRLF),
   );
 }
 
-await Deno.writeTextFile(
-  `${DIR_RP}/texts/languages.json`,
+addToResourcePack(
+  "texts/languages.json",
   JSON.stringify(Object.keys(languages)),
 );
 
-try {
-  const printPalette = getPrintablePalette(res);
+// try {
+//   const printPalette = getPrintablePalette(res);
 
-  await printPixelArt(printPalette);
+//   await printPixelArt(printPalette);
 
-  const thisRepo = Deno.env.get("GITHUB_REPOSITORY") ?? "";
+//   const thisRepo = Deno.env.get("GITHUB_REPOSITORY") ?? "";
 
-  if (thisRepo !== undefined && thisRepo.length > 1) {
-    await printPatrons(printPalette, {
-      repo: thisRepo,
-      chunks: 3,
-    });
-  }
-} catch (err) {
-  console.error(err);
-}
+//   if (thisRepo !== undefined && thisRepo.length > 1) {
+//     await printPatrons(printPalette, {
+//       repo: thisRepo,
+//       chunks: 3,
+//     });
+//   }
+// } catch (err) {
+//   console.error(err);
+// }
 
-// Cleanup
-if (
-  Deno.build.os === "windows" && Deno.env.get("GITHUB_ACTIONS") === undefined
-) {
-  await deployToDev();
-}
+await createArchive();

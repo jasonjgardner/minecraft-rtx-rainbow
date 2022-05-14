@@ -1,7 +1,9 @@
 {
+    "deno.importMap": "./import_map.json",
+    "deno.config": "./deno.json",
     "deno.enable": true,
     "deno.lint": true,
     "deno.unstable": true,
-    "editor.defaultFormatter": "denoland.vscode-deno"
-    "nuxt.isNuxtApp": false,
+    "editor.defaultFormatter": "denoland.vscode-deno",
+    "nuxt.isNuxtApp": false
 }

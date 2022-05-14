@@ -1,4 +1,4 @@
-import { Image } from "https://deno.land/x/imagescript/mod.ts";
+import { Image } from "imagescript/mod.ts";
 
 export function hex2rgb(hex: string): [number, number, number] {
   const result = /^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -45,4 +45,9 @@ export function getConfig(
 
 export function channelPercentage(percentage: number) {
   return Math.ceil((Math.max(0, percentage) * 255) / 100);
+}
+
+export async function fetchData(source: URL): Promise<Uint8Array> {
+  const res = await fetch(source.href)
+  return new Uint8Array(await res.arrayBuffer())
 }
