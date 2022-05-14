@@ -6,12 +6,8 @@
 - Adds over **2500** uniform-color blocks to _Bedrock Minecraft_.
 - Each color comes in glowing, glass, metallic and plastic varieties.
 - Intended to be played with __RTX ON__, but still functions without raytracing effects.
-- Works with RTX packs _up to_ 256px resolution.
-- Adds uniform-color blocks to the __Concretes__ creative category.
+- Adds uniform-color blocks to the __Concretes__ and __Glass__ creative category.
 - Color palette based on [2014 Material Design colors](https://material.io/design/color/the-color-system.html).
-- Players leave a trail of glowing blocks in their wake.
-- Entities, mobs, and projectiles leave trails as well.
-- Walk over blocks to cycle through block colors.
 - Includes nifty `/function` commands.
 
 ## 🪄 Made with Magic
