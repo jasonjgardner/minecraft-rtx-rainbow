@@ -32,15 +32,21 @@ export function getArg(
   key: string,
   defaultValue: string | number | boolean,
 ): string {
-  return `${Deno.args[Deno.args.indexOf(`--${key}`) + 1] ?? defaultValue}`;
+  const keyPos = Deno.args.indexOf(`--${key}`);
+  return keyPos >= 0
+    ? `${Deno.args[keyPos + 1] ?? defaultValue}`
+    : `${defaultValue}`;
 }
 
 export function getConfig(
   key: string,
   defaultValue?: string | number,
 ): string | number | undefined {
-  return (Deno.args[Deno.args.indexOf(`--${key}`) + 1] ?? Deno.env.get(key)) ||
-    defaultValue;
+  const keyPos = Deno.args.indexOf(`--${key}`);
+  return keyPos >= 0
+    ? (Deno.args[keyPos + 1] ?? Deno.env.get(key)) ||
+      defaultValue
+    : defaultValue;
 }
 
 export function channelPercentage(percentage: number) {

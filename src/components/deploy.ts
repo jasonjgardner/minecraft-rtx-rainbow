@@ -1,7 +1,7 @@
-import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
-import { copy } from "https://deno.land/std@0.125.0/fs/copy.ts";
-import { emptyDir } from "https://deno.land/std@0.123.0/fs/mod.ts";
-import { DIR_DIST, NAMESPACE } from "../store/_config.ts";
+import { join } from "path/mod.ts";
+import { copy } from "fs/copy.ts";
+import { emptyDir } from "fs/mod.ts";
+import { DIR_DIST, NAMESPACE } from "/src/store/_config.ts";
 
 const appData = Deno.env.get("LOCALAPPDATA") || "%LocalAppData%";
 
@@ -31,8 +31,16 @@ const devResourcePacks = join(
 );
 
 export async function deployToDev() {
+  if (
+    Deno.build.os !== "windows" || Deno.env.get("GITHUB_ACTIONS") !== undefined
+  ) {
+    throw Error(
+      "Can not deploy to development directory in current environment.",
+    );
+  }
+
   await resetDev();
-  return await Promise.all([
+  return Promise.all([
     copy(buildBehaviorPacks, devBehaviorPacks, { overwrite: true }),
     copy(buildResourcePacks, devResourcePacks, { overwrite: true }),
   ]);

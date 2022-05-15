@@ -1,7 +1,7 @@
-import "https://deno.land/x/dotenv/load.ts";
-import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
-import { sprintf } from "https://deno.land/std@0.125.0/fmt/printf.ts";
-import { EOL } from "https://deno.land/std@0.125.0/fs/mod.ts";
+import "dotenv/load.ts";
+import { join } from "path/mod.ts";
+import { sprintf } from "fmt/printf.ts";
+import { EOL } from "fs/mod.ts";
 import type {
   IBlock,
   IMaterial,
@@ -9,7 +9,7 @@ import type {
   LanguagesContainer,
   MinecraftData,
   MinecraftTerrainData,
-} from "../typings/types.ts";
+} from "/typings/types.ts";
 import {
   DIR_BP,
   DIR_RP,
@@ -17,6 +17,7 @@ import {
   NAMESPACE,
   RELEASE_TYPE,
 } from "./store/_config.ts";
+import { getConfig } from "/src/_utils.ts";
 import { filteredBlocks } from "./store/_blocks.ts";
 import BlockEntry from "./components/BlockEntry.ts";
 import { materials } from "./store/_materials.ts";
@@ -25,7 +26,7 @@ import {
   rainbowTrailFunction,
 } from "./components/mcfunctions.ts";
 import { writeFlipbooks } from "./components/flipbook.ts";
-import { deployToDev, resetDev } from "./components/deploy.ts";
+import { deployToDev } from "./components/deploy.ts";
 import setup from "./components/_setup.ts";
 import { createItems } from "./components/items.ts";
 import { createManifests } from "./components/manifest.ts";
@@ -134,8 +135,8 @@ for (let itr = 0; itr < len; itr++) {
 }
 
 const tickers: string[] = [
-//  "rainbowtrail",
-//  "entitytrail",
+  //  "rainbowtrail",
+  //  "entitytrail",
 ];
 
 for (const func in mcfunctions) {
@@ -194,7 +195,6 @@ await Deno.writeTextFile(
 
 await print(res);
 
-// Cleanup
-if (Deno.build.os === "windows" && Deno.env.get('GITHUB_ACTIONS') === undefined) {
+if (getConfig("DEPLOY", "false") !== "false") {
   await deployToDev();
 }
