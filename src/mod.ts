@@ -1,6 +1,6 @@
 import "dotenv/load.ts";
-import { sprintf } from "fmt/printf.ts";
-import { EOL } from "fs/mod.ts";
+
+import type { ReleaseType } from "semver/mod.ts";
 import type {
   LanguageId,
   LanguagesContainer,
@@ -8,7 +8,11 @@ import type {
   MinecraftTerrainData,
   PackSizes,
 } from "/typings/types.ts";
-import { MIP_LEVELS, NAMESPACE, RELEASE_TYPE } from "/src/store/_config.ts";
+
+import { sprintf } from "fmt/printf.ts";
+import { EOL } from "fs/mod.ts";
+
+import { MIP_LEVELS, NAMESPACE } from "/src/store/_config.ts";
 import BlockEntry from "/src/components/BlockEntry.ts";
 import { getBlocks, HueBlock } from "/src/components/blocks/index.ts";
 import Material from "/src/components/Material.ts";
@@ -28,37 +32,37 @@ import {
 //import { renderBlock } from "./components/render.ts";
 //import { permutes } from "./components/permutations.ts";
 
-const res: BlockEntry[] = [];
+export interface CreationParameters {
+  size: PackSizes;
+  blockColors?: HueBlock[];
+  materialOptions?: Material[];
 
-const textureData: MinecraftTerrainData = {};
+  outputFunctions?: boolean;
 
-const blocksData: MinecraftData = {};
+  outputPixelArt?: boolean;
+  releaseType?: ReleaseType;
+}
 
 export const languages: LanguagesContainer = {
   en_US: [],
 };
 
 // Join base textures with PBR materials
-const baseTextures = getBlocks();
-const materials = getMaterials();
-materials.forEach((material: Material) => {
-  baseTextures.forEach((base: HueBlock) =>
-    res.push(new BlockEntry(base, material))
-  );
-});
+function compileMaterials(baseTextures: HueBlock[], materials: Material[]) {
+  const res: BlockEntry[] = [];
+  materials.forEach((material: Material) => {
+    baseTextures.forEach((base: HueBlock) => {
+      res.push(new BlockEntry(base, material));
+    });
+  });
 
-////////
+  return res;
+}
 
-export default async function createAddon(size: PackSizes = 64) {
-  await setup(size); // TODO: Setup subpacks
-  await createManifests(RELEASE_TYPE);
-  createItems();
-
-  //const amuletBlockOutput = join(DIR_AMULET, "textures", "blocks");
-  // let lastColor: string | undefined;
-  // let atlasGroup: BlockEntry[] = [];
-
-  const textureList = [];
+function createTextures(res: BlockEntry[]) {
+  const textureData: MinecraftTerrainData = {};
+  const blocksData: MinecraftData = {};
+  const textureList: string[] = [];
   const len = res.length;
 
   for (let itr = 0; itr < len; itr++) {
@@ -73,7 +77,7 @@ export default async function createAddon(size: PackSizes = 64) {
         sprintf(
           "tile.%s.name=%s",
           block.behaviorId,
-          block.title(<LanguageId> languageKey),
+          block.title(<LanguageId> languageKey).replace(/[#]+/g, ""),
         ),
       );
     }
@@ -85,6 +89,7 @@ export default async function createAddon(size: PackSizes = 64) {
       `blocks/${block.id}.json`,
       block.toString(),
     );
+
     // Write texture set
     addToResourcePack(
       `${texturePath}.texture_set.json`,
@@ -98,30 +103,6 @@ export default async function createAddon(size: PackSizes = 64) {
 
     /// Add to texture list
     textureList.push(texturePath);
-
-    // if (
-    //   atlasGroup.length > 1 &&
-    //   lastColor !== undefined &&
-    //   lastColor !== block.color.name
-    // ) {
-    //   // FIXME: Dumbass dependencies injection
-    //   [blocksData, textureData, languages] = await writeFlipbooks(atlasGroup, {
-    //     blocksData,
-    //     textureData,
-    //     languages,
-    //   });
-
-    //   atlasGroup = [];
-    // }
-
-    // lastColor = block.color.name;
-    // atlasGroup.push(block);
-
-    // Encode blocks for Amulet
-    // await Deno.writeFile(
-    //   join(amuletBlockOutput, `${block.resourceId}.png`),
-    //   await renderBlock(block.valueOf(), 16),
-    // );
   }
 
   addToResourcePack(
@@ -132,7 +113,7 @@ export default async function createAddon(size: PackSizes = 64) {
     "textures/terrain_texture.json",
     JSON.stringify(
       {
-        num_mip_levels: MIP_LEVELS,
+        num_mip_levels: MIP_LEVELS, // TODO: Calculate mip levels based on texture size
         padding: (2 * MIP_LEVELS),
         resource_pack_name: NAMESPACE,
         texture_name: "atlas.terrain",
@@ -146,7 +127,9 @@ export default async function createAddon(size: PackSizes = 64) {
       textureList,
     ),
   );
+}
 
+function createLanguages() {
   for (const languageKey in languages) {
     addToResourcePack(
       `texts/${languageKey}.lang`,
@@ -158,14 +141,39 @@ export default async function createAddon(size: PackSizes = 64) {
     "texts/languages.json",
     JSON.stringify(Object.keys(languages)),
   );
+}
 
-  // TODO: Allow the following steps to be toggled
-  createFunctions();
+export default async function createAddon({
+  size,
+  blockColors,
+  materialOptions,
+  outputFunctions,
+  outputPixelArt,
+  releaseType,
+}: CreationParameters) {
+  const res = compileMaterials(
+    blockColors && blockColors.length ? blockColors : getBlocks(),
+    materialOptions && materialOptions.length
+      ? materialOptions
+      : getMaterials(),
+  );
 
-  try {
-    await printer(res);
-  } catch (err) {
-    console.warn("Failed creating pixel art functions: %s", err);
+  await setup(size); // TODO: Setup subpacks
+  await createManifests(releaseType ?? "prerelease");
+  createTextures(res);
+  createLanguages();
+  createItems();
+
+  if (outputFunctions === true) {
+    createFunctions();
+
+    if (outputPixelArt === true) {
+      try {
+        await printer(res);
+      } catch (err) {
+        console.warn("Failed creating pixel art functions: %s", err);
+      }
+    }
   }
 
   return createArchive();

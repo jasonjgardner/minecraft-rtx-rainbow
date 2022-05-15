@@ -19,7 +19,7 @@ export default function createFunctions() {
       tickers.push(fnName);
     }
 
-    addToBehaviorPack(`functions/${fnName}`, contents);
+    addToBehaviorPack(`functions/${fnName}.mcfunction`, contents);
   });
 
   if (tickers.length) {

@@ -57,7 +57,15 @@ export function createArchive() {
   zip.addFile(
     sanitizeFilename("RP/contents.json"),
     JSON.stringify({
-      content: contentsFile,
+      content: contentsFile.filter(({ path }) => `${path}`.startsWith("rp/")),
+      version: 1,
+    }),
+  );
+
+  zip.addFile(
+    sanitizeFilename("BP/contents.json"),
+    JSON.stringify({
+      content: contentsFile.filter(({ path }) => `${path}`.startsWith("bp/")),
       version: 1,
     }),
   );

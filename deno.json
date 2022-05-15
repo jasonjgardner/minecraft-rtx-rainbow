@@ -1,27 +1,28 @@
 {
-    "tasks": {
-        "build": "deno run --allow-read --allow-net --allow-env --allow-write ./src/app.ts --save"
+  "tasks": {
+    "build": "deno run --allow-read --allow-net --allow-env --allow-write ./src/app.ts --save",
+    "serve": "deno run --allow-read --allow-net --allow-env ./src/app.ts"
+  },
+  "fmt": {
+    "files": {
+      "include": ["src/", "typings/"],
+      "exclude": ["build/", "dist/"]
     },
-    "fmt": {
-        "files": {
-            "include": ["src/", "typings/"],
-            "exclude": ["build/", "dist/"]
-        },
-        "options": {
-            "indentWidth": 2,
-            "singleQuote": false,
-            "useTabs": false,
-            "proseWrap": "preserve"
-        }
+    "options": {
+      "indentWidth": 2,
+      "singleQuote": false,
+      "useTabs": false,
+      "proseWrap": "preserve"
+    }
+  },
+  "lint": {
+    "files": {
+      "include": ["src/"],
+      "exclude": ["build/", "dist/"]
     },
-    "lint": {
-        "files": {
-            "include": ["src/"],
-            "exclude": ["build/", "dist/"]
-        },
-        "rules": {
-            "tags": ["recommended"]
-        }
-    },
-    "importMap": "./import_map.json"
+    "rules": {
+      "tags": ["recommended"]
+    }
+  },
+  "importMap": "./import_map.json"
 }

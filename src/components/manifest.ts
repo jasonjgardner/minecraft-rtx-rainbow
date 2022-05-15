@@ -1,4 +1,4 @@
-import type { ReleaseType } from "https://deno.land/x/semver@v1.4.0/mod.ts";
+import type { ReleaseType } from "semver/mod.ts";
 import { inc } from "semver/mod.ts";
 import { join } from "path/mod.ts";
 import {
@@ -80,7 +80,7 @@ export async function createManifests(releaseType?: ReleaseType) {
   const { RP: rpVersion, BP: bpVersion, version_history } =
     await getBuildVersion(releaseType);
 
-  const metadata = getMetadata(version_history,);
+  const metadata = getMetadata(version_history);
 
   addToResourcePack(
     "manifest.json",

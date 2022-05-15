@@ -4,7 +4,7 @@ import type {
   MultiLingual,
   RGB,
 } from "/typings/types.ts";
-import { sprintf } from "fmt/printf.ts";
+//import { sprintf } from "fmt/printf.ts";
 import {
   AO_EMISSIVE_THRESHOLD,
   DEFAULT_BLOCK_SOUND,
@@ -161,7 +161,7 @@ export default class Material {
       "minecraft:material_instances": this.materialInstance,
       "minecraft:block_light_filter": clampBlockLightFilter(emissivePercentage),
       "minecraft:block_light_emission": emissivePercentage,
-    } as const;
+    };
   }
 
   get intensityRange() {
