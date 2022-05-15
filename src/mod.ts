@@ -12,17 +12,13 @@ import BlockEntry from "/src/components/BlockEntry.ts";
 import { getBlocks, HueBlock } from "/src/components/blocks/index.ts";
 import Material from "/src/components/Material.ts";
 import { getMaterials } from "/src/components/materials/index.ts";
-import createFunctions from '/src/components/mcfunctions/index.ts'
-import { writeFlipbooks } from "/src/components/flipbook.ts";
+import createFunctions from "/src/components/mcfunctions/index.ts";
+//import { writeFlipbooks } from "/src/components/flipbook.ts";
 //import { deployToDev } from "./components/deploy.ts";
 import setup from "./components/_setup.ts";
 import { createItems } from "/src/components/items.ts";
 import { createManifests } from "/src/components/manifest.ts";
-import {
-  getPrintablePalette,
-  printPatrons,
-  printPixelArt,
-} from "/src/components/printer.ts";
+import printer from "/src/components/printer.ts";
 import {
   addToBehaviorPack,
   addToResourcePack,
@@ -33,11 +29,11 @@ import {
 
 const res: BlockEntry[] = [];
 
-let textureData: MinecraftTerrainData = {};
+const textureData: MinecraftTerrainData = {};
 
-let blocksData: MinecraftData = {};
+const blocksData: MinecraftData = {};
 
-let languages: LanguagesContainer = {
+const languages: LanguagesContainer = {
   en_US: [],
 };
 
@@ -52,16 +48,15 @@ materials.forEach((material: Material) => {
 
 ////////
 
-await setup();
+await setup(64); // TODO: Setup subpacks
 await createManifests(RELEASE_TYPE);
 createItems();
 
 //const amuletBlockOutput = join(DIR_AMULET, "textures", "blocks");
+// let lastColor: string | undefined;
+// let atlasGroup: BlockEntry[] = [];
+
 const textureList = [];
-
-let lastColor: string | undefined;
-let atlasGroup: BlockEntry[] = [];
-
 const len = res.length;
 
 for (let itr = 0; itr < len; itr++) {
@@ -102,23 +97,23 @@ for (let itr = 0; itr < len; itr++) {
   /// Add to texture list
   textureList.push(texturePath);
 
-  if (
-    atlasGroup.length > 1 &&
-    lastColor !== undefined &&
-    lastColor !== block.color.name
-  ) {
-    // FIXME: Dumbass dependencies injection
-    [blocksData, textureData, languages] = await writeFlipbooks(atlasGroup, {
-      blocksData,
-      textureData,
-      languages,
-    });
+  // if (
+  //   atlasGroup.length > 1 &&
+  //   lastColor !== undefined &&
+  //   lastColor !== block.color.name
+  // ) {
+  //   // FIXME: Dumbass dependencies injection
+  //   [blocksData, textureData, languages] = await writeFlipbooks(atlasGroup, {
+  //     blocksData,
+  //     textureData,
+  //     languages,
+  //   });
 
-    atlasGroup = [];
-  }
+  //   atlasGroup = [];
+  // }
 
-  lastColor = block.color.name;
-  atlasGroup.push(block);
+  // lastColor = block.color.name;
+  // atlasGroup.push(block);
 
   // Encode blocks for Amulet
   // await Deno.writeFile(
@@ -126,8 +121,6 @@ for (let itr = 0; itr < len; itr++) {
   //   await renderBlock(block.valueOf(), 16),
   // );
 }
-
-//createFunctions()
 
 addToResourcePack(
   "blocks.json",
@@ -164,21 +157,12 @@ addToResourcePack(
   JSON.stringify(Object.keys(languages)),
 );
 
-// try {
-//   const printPalette = getPrintablePalette(res);
+// TODO: Allow the following steps to be toggled
+createFunctions();
 
-//   await printPixelArt(printPalette);
-
-//   const thisRepo = Deno.env.get("GITHUB_REPOSITORY") ?? "";
-
-//   if (thisRepo !== undefined && thisRepo.length > 1) {
-//     await printPatrons(printPalette, {
-//       repo: thisRepo,
-//       chunks: 3,
-//     });
-//   }
-// } catch (err) {
-//   console.error(err);
-// }
-
+try {
+  await printer(res);
+} catch (err) {
+  console.warn("Failed creating pixel art functions: %s", err);
+}
 await createArchive();

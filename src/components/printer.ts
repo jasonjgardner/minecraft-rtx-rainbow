@@ -7,6 +7,8 @@ import BlockEntry from "./BlockEntry.ts";
 import { pixelPrinter } from "./ImagePrinter.ts";
 import { DIR_SRC } from "/src/store/_config.ts";
 
+const MIN_PALETTE_LENGTH = 2;
+
 async function githubAvatars(
   owner: string,
   repo: string,
@@ -127,4 +129,38 @@ export async function printPixelArt(palette: BlockEntry[], options?: {
       );
     }
   }
+}
+
+export function printStarGazers(res: BlockEntry[]) {
+  const thisRepo = Deno.env.get("GITHUB_REPOSITORY") ?? "";
+
+  if (!thisRepo || thisRepo.length < 1) {
+    throw Error("Can not find GitHub repo stargazer source");
+  }
+
+  return printPatrons(getPrintablePalette(res), {
+    repo: thisRepo,
+    chunks: 3,
+  });
+}
+
+export function printPixelArtDirectory(res: BlockEntry[]) {
+  try {
+    const printPalette = getPrintablePalette(res);
+
+    return printPixelArt(printPalette);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export default function printer(res: BlockEntry[]) {
+  if (res.length < MIN_PALETTE_LENGTH) {
+    throw Error("Can not print pixel art. Palette source is too small.");
+  }
+
+  return Promise.allSettled([
+    printStarGazers(res),
+    printPixelArtDirectory(res),
+  ]);
 }
