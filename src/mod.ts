@@ -6,6 +6,7 @@ import type {
   LanguagesContainer,
   MinecraftData,
   MinecraftTerrainData,
+  PackSizes,
 } from "/typings/types.ts";
 import { MIP_LEVELS, NAMESPACE, RELEASE_TYPE } from "/src/store/_config.ts";
 import BlockEntry from "/src/components/BlockEntry.ts";
@@ -33,7 +34,7 @@ const textureData: MinecraftTerrainData = {};
 
 const blocksData: MinecraftData = {};
 
-const languages: LanguagesContainer = {
+export const languages: LanguagesContainer = {
   en_US: [],
 };
 
@@ -48,121 +49,124 @@ materials.forEach((material: Material) => {
 
 ////////
 
-await setup(64); // TODO: Setup subpacks
-await createManifests(RELEASE_TYPE);
-createItems();
+export default async function createAddon(size: PackSizes = 64) {
+  await setup(size); // TODO: Setup subpacks
+  await createManifests(RELEASE_TYPE);
+  createItems();
 
-//const amuletBlockOutput = join(DIR_AMULET, "textures", "blocks");
-// let lastColor: string | undefined;
-// let atlasGroup: BlockEntry[] = [];
+  //const amuletBlockOutput = join(DIR_AMULET, "textures", "blocks");
+  // let lastColor: string | undefined;
+  // let atlasGroup: BlockEntry[] = [];
 
-const textureList = [];
-const len = res.length;
+  const textureList = [];
+  const len = res.length;
 
-for (let itr = 0; itr < len; itr++) {
-  const block = res[itr];
+  for (let itr = 0; itr < len; itr++) {
+    const block = res[itr];
 
-  blocksData[block.behaviorId] = block.blocksData;
+    blocksData[block.behaviorId] = block.blocksData;
 
-  textureData[block.resourceId] = block.terrainData;
+    textureData[block.resourceId] = block.terrainData;
 
-  for (const languageKey in languages) {
-    languages[<LanguageId> languageKey].push(
-      sprintf(
-        "tile.%s.name=%s",
-        block.behaviorId,
-        block.title(<LanguageId> languageKey),
+    for (const languageKey in languages) {
+      languages[<LanguageId> languageKey].push(
+        sprintf(
+          "tile.%s.name=%s",
+          block.behaviorId,
+          block.title(<LanguageId> languageKey),
+        ),
+      );
+    }
+
+    const texturePath = `textures/blocks/${block.id}`;
+
+    /// Write behavior block
+    addToBehaviorPack(
+      `blocks/${block.id}.json`,
+      block.toString(),
+    );
+    // Write texture set
+    addToResourcePack(
+      `${texturePath}.texture_set.json`,
+      JSON.stringify(
+        {
+          format_version: "1.16.100",
+          "minecraft:texture_set": block.textureSet,
+        },
       ),
     );
+
+    /// Add to texture list
+    textureList.push(texturePath);
+
+    // if (
+    //   atlasGroup.length > 1 &&
+    //   lastColor !== undefined &&
+    //   lastColor !== block.color.name
+    // ) {
+    //   // FIXME: Dumbass dependencies injection
+    //   [blocksData, textureData, languages] = await writeFlipbooks(atlasGroup, {
+    //     blocksData,
+    //     textureData,
+    //     languages,
+    //   });
+
+    //   atlasGroup = [];
+    // }
+
+    // lastColor = block.color.name;
+    // atlasGroup.push(block);
+
+    // Encode blocks for Amulet
+    // await Deno.writeFile(
+    //   join(amuletBlockOutput, `${block.resourceId}.png`),
+    //   await renderBlock(block.valueOf(), 16),
+    // );
   }
 
-  const texturePath = `textures/blocks/${block.id}`;
-
-  /// Write behavior block
-  addToBehaviorPack(
-    `blocks/${block.id}.json`,
-    block.toString(),
-  );
-  // Write texture set
   addToResourcePack(
-    `${texturePath}.texture_set.json`,
+    "blocks.json",
+    JSON.stringify({ format_version: [1, 1, 0], ...blocksData }),
+  );
+  addToResourcePack(
+    "textures/terrain_texture.json",
     JSON.stringify(
       {
-        format_version: "1.16.100",
-        "minecraft:texture_set": block.textureSet,
+        num_mip_levels: MIP_LEVELS,
+        padding: (2 * MIP_LEVELS),
+        resource_pack_name: NAMESPACE,
+        texture_name: "atlas.terrain",
+        texture_data: textureData,
       },
     ),
   );
-
-  /// Add to texture list
-  textureList.push(texturePath);
-
-  // if (
-  //   atlasGroup.length > 1 &&
-  //   lastColor !== undefined &&
-  //   lastColor !== block.color.name
-  // ) {
-  //   // FIXME: Dumbass dependencies injection
-  //   [blocksData, textureData, languages] = await writeFlipbooks(atlasGroup, {
-  //     blocksData,
-  //     textureData,
-  //     languages,
-  //   });
-
-  //   atlasGroup = [];
-  // }
-
-  // lastColor = block.color.name;
-  // atlasGroup.push(block);
-
-  // Encode blocks for Amulet
-  // await Deno.writeFile(
-  //   join(amuletBlockOutput, `${block.resourceId}.png`),
-  //   await renderBlock(block.valueOf(), 16),
-  // );
-}
-
-addToResourcePack(
-  "blocks.json",
-  JSON.stringify({ format_version: [1, 1, 0], ...blocksData }),
-);
-addToResourcePack(
-  "textures/terrain_texture.json",
-  JSON.stringify(
-    {
-      num_mip_levels: MIP_LEVELS,
-      padding: (2 * MIP_LEVELS),
-      resource_pack_name: NAMESPACE,
-      texture_name: "atlas.terrain",
-      texture_data: textureData,
-    },
-  ),
-);
-addToResourcePack(
-  "textures/texture_list.json",
-  JSON.stringify(
-    textureList,
-  ),
-);
-
-for (const languageKey in languages) {
   addToResourcePack(
-    `texts/${languageKey}.lang`,
-    [...new Set(languages[<LanguageId> languageKey])].join(EOL.CRLF),
+    "textures/texture_list.json",
+    JSON.stringify(
+      textureList,
+    ),
   );
+
+  for (const languageKey in languages) {
+    addToResourcePack(
+      `texts/${languageKey}.lang`,
+      [...new Set(languages[<LanguageId> languageKey])].join(EOL.CRLF),
+    );
+  }
+
+  addToResourcePack(
+    "texts/languages.json",
+    JSON.stringify(Object.keys(languages)),
+  );
+
+  // TODO: Allow the following steps to be toggled
+  createFunctions();
+
+  try {
+    await printer(res);
+  } catch (err) {
+    console.warn("Failed creating pixel art functions: %s", err);
+  }
+
+  return createArchive();
 }
-
-addToResourcePack(
-  "texts/languages.json",
-  JSON.stringify(Object.keys(languages)),
-);
-
-// TODO: Allow the following steps to be toggled
-createFunctions();
-
-try {
-  await printer(res);
-} catch (err) {
-  console.warn("Failed creating pixel art functions: %s", err);
-}
-await createArchive();

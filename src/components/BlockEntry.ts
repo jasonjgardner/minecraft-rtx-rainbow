@@ -78,7 +78,7 @@ export default class BlockEntry {
       "%s_%s",
       this._hue.name,
       this._material.label,
-    ).toLowerCase();
+    ).replace(/\s+/g, "_").toLowerCase();
   }
 
   get behaviorId() {
@@ -112,13 +112,13 @@ export default class BlockEntry {
     return {
       textures: this.resourceId,
       ...this._material.blocksData,
-    } as const;
+    };
   }
 
   get terrainData() {
     return {
       textures: `textures/blocks/${this.id}`,
-    } as const;
+    };
   }
 
   get permutations(): IPermutation[] | [] {
@@ -195,7 +195,7 @@ export default class BlockEntry {
         texture: this.resourceId,
         ...this._material.materialInstance,
       },
-    } as const;
+    };
   }
 
   get components() {
@@ -206,6 +206,6 @@ export default class BlockEntry {
       // ),
       ...this._hue.components,
       ...this._material.components,
-    } as const;
+    };
   }
 }

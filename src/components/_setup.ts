@@ -8,8 +8,8 @@ import {
 
 type OutputSizes = 16 | 32 | 64 | 128 | 256;
 
-export default async function setup(outputSize: OutputSizes) {
-  const iconUrl = toFileUrl(join(DIR_SRC, "assets", "img", "pack_icon.png"));
+export default async function setup(outputSize: OutputSizes, iconSrc?: URL) {
+  const iconUrl = iconSrc ?? toFileUrl(join(DIR_SRC, "assets", "img", "pack_icon.png"));
   try {
     // TODO: Generate pack icon with each build
     const packIcon = await fetchData(iconUrl);

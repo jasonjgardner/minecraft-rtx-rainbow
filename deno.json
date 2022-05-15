@@ -1,6 +1,6 @@
 {
     "tasks": {
-        "build": "deno run --allow-read --allow-net --allow-env --allow-write ./src/mod.ts"
+        "build": "deno run --allow-read --allow-net --allow-env --allow-write ./src/app.ts --save"
     },
     "fmt": {
         "files": {

@@ -32,15 +32,17 @@ export function getArg(
   key: string,
   defaultValue: string | number | boolean,
 ): string {
-  return `${Deno.args[Deno.args.indexOf(`--${key}`) + 1] ?? defaultValue}`;
+  const k = Deno.args.indexOf(`--${key}`);
+  return `${(k > -1 ? Deno.args[k + 1] : null) ?? defaultValue}`;
 }
 
 export function getConfig(
   key: string,
   defaultValue?: string | number,
 ): string | number | undefined {
-  return (Deno.args[Deno.args.indexOf(`--${key}`) + 1] ?? Deno.env.get(key)) ||
-    defaultValue;
+  const k = Deno.args.indexOf(`--${key}`);
+  return (k > -1 ? Deno.args[k + 1] : null) ?? (Deno.env.get(key) ||
+    defaultValue);
 }
 
 export function channelPercentage(percentage: number) {
@@ -48,6 +50,6 @@ export function channelPercentage(percentage: number) {
 }
 
 export async function fetchData(source: URL): Promise<Uint8Array> {
-  const res = await fetch(source.href)
-  return new Uint8Array(await res.arrayBuffer())
+  const res = await fetch(source.href);
+  return new Uint8Array(await res.arrayBuffer());
 }

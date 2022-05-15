@@ -1,10 +1,16 @@
-import type { LanguageId, MultiLingual, RGB, MinecraftData } from "/typings/types.ts";
+import type {
+  LanguageId,
+  MinecraftData,
+  MultiLingual,
+  RGB,
+} from "/typings/types.ts";
 import { sprintf } from "fmt/printf.ts";
 import {
   AO_EMISSIVE_THRESHOLD,
   DEFAULT_BLOCK_SOUND,
   NAMESPACE,
 } from "/src/store/_config.ts";
+import { requireHeightMap } from "/src/components/depthMap.ts";
 
 //import { labelLanguage } from '/src/components/BlockEntry.ts'
 
@@ -46,7 +52,7 @@ export default class Material {
    */
   _useHeightMap = false;
 
-   /**
+  /**
    * 1 - 100
    */
   _intensity = 1;
@@ -60,7 +66,7 @@ export default class Material {
     this._name = name;
     this._intensity = intensity;
   }
-  
+
   set label(value: string) {
     this._label = value.trim().toLowerCase();
   }
@@ -99,18 +105,20 @@ export default class Material {
     if (hasNormalMap && !this._useHeightMap) {
       return {
         normal: this._normalMap,
-      } as const;
+      };
     }
 
     if (
-      this._heightMap !== undefined && (this._useHeightMap || !hasNormalMap)
+      !this._heightMap && (this._useHeightMap || !hasNormalMap)
     ) {
-      return {
-        heightmap: this._heightMap,
-      } as const;
+      // generate heightmap
+      this._heightMap = "default_heightmap";
+      requireHeightMap(this._heightMap, 32);
     }
 
-    return undefined;
+    return {
+      heightmap: this._heightMap,
+    };
   }
 
   get blocksData(): MinecraftData {

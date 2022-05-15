@@ -1,7 +1,5 @@
 import "dotenv/load.ts";
-import * as log from "https://deno.land/std@0.125.0/log/mod.ts";
 import { join } from "path/mod.ts";
-import { ensureDir } from "fs/mod.ts";
 import { getConfig, semverVector } from "/src/_utils.ts";
 import type { ReleaseType } from "semver/mod.ts";
 
@@ -28,33 +26,6 @@ export const TARGET_VERSION = semverVector(
   Deno.env.get("TARGET_VERSION") || "1.18.3",
 );
 
-const DIR_LOGS = join(DIR_DIST, "logs");
-
-await ensureDir(DIR_LOGS);
-
-await log.setup({
-  handlers: {
-    console: new log.handlers.ConsoleHandler("DEBUG"),
-
-    file: new log.handlers.FileHandler("WARNING", {
-      filename: join(DIR_LOGS, "/warnings.log"),
-      formatter: "{levelName} {msg}",
-    }),
-  },
-
-  loggers: {
-    default: {
-      level: "DEBUG",
-      handlers: ["console", "file"],
-    },
-
-    tasks: {
-      level: "ERROR",
-      handlers: ["console"],
-    },
-  },
-});
-
 function getUuid(rp = true, pack = true): string {
   const key = `${rp ? "RP" : "BP"}_${pack ? "PACK" : "MODULE"}_UUID`;
   const envVar = Deno.env.get(key);
@@ -64,9 +35,8 @@ function getUuid(rp = true, pack = true): string {
   }
 
   const fallbackUuid = crypto.randomUUID();
-  const logger = log.getLogger();
 
-  logger.warning(
+  console.log(
     `Using generated UUID for ${rp ? "resource" : "behavior"} ${
       pack ? "pack" : "module"
     }: ${fallbackUuid}`,

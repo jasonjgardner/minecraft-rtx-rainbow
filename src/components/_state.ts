@@ -1,15 +1,14 @@
 import { JSZip } from "jszip/mod.ts";
-import { Image } from "imagescript/mod.ts";
-import { encode } from "https://deno.land/std@0.139.0/encoding/base64.ts";
+import { encode } from "encoding/base64.ts";
 import { extname } from "path/mod.ts";
-
-interface PackState {
-  [k: string]: string;
-}
 
 const zip = new JSZip();
 
-const state: PackState = {};
+const contentsFile: Array<{ path: string }> = [];
+
+function sanitizeFilename(filepath: string) {
+  return filepath.trim().toLowerCase().replaceAll(/\s+/g, "_");
+}
 
 function addToPack(filepath: string, contents: string | Uint8Array) {
   const ext = extname(filepath).toLowerCase();
@@ -17,12 +16,17 @@ function addToPack(filepath: string, contents: string | Uint8Array) {
     [".gif", ".jpeg", ".jpg", ".png"].includes(ext);
 
   const data = isImage ? encode(contents) : contents;
+  const filename = sanitizeFilename(filepath);
 
   zip.addFile(
-    filepath.trim().toLowerCase().replaceAll(/\s+/g, "_"),
+    filename,
     data,
-    { base64: isImage },
+    { base64: isImage, createFolders: true },
   );
+
+  contentsFile.push({
+    path: filename,
+  });
 }
 
 export function addToBehaviorPack(
@@ -47,12 +51,24 @@ export function addToResourcePack(
   }
 }
 
-export function getState() {
-  return {
-    ...state,
-  };
-}
+export function createArchive() {
+  // Generate contents.json on finish
+  // https://wiki.bedrock.dev/concepts/contents.html#contents-json
+  zip.addFile(
+    sanitizeFilename("RP/contents.json"),
+    JSON.stringify({
+      content: contentsFile,
+      version: 1,
+    }),
+  );
 
-export async function createArchive() {
-  await zip.writeZip("./rainbow.mcaddon");
+  return zip.generateAsync({
+    mimeType: "application/zip", // TODO: Does .mcaddon have a mimetype?
+    platform: "DOS",
+    type: "blob",
+    compression: "DEFLATE",
+    compressionOptions: {
+      level: 1,
+    },
+  });
 }
