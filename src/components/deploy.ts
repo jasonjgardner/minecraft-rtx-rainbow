@@ -1,5 +1,5 @@
 import { join } from "path/mod.ts";
-import { copy } from "fs/copy.ts";
+import { copy } from "https://deno.land/std@0.138.0/fs/copy.ts";
 import { emptyDir } from "fs/mod.ts";
 import { DIR_DIST, NAMESPACE } from "/src/store/_config.ts";
 
