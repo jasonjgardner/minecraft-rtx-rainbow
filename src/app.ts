@@ -1,6 +1,8 @@
 import type { PackSizes } from "/typings/types.ts";
 import { serve } from "http/server.ts";
 import { NAMESPACE } from "/src/store/_config.ts";
+import { DEFAULT_PACK_SIZE } from "/typings/constants.ts";
+import { getNearestPackSize } from "/src/components/_resize.ts";
 import getPalette from "/src/components/palettes/fromImage.ts";
 import createAddon, { languages } from "./mod.ts";
 
@@ -30,6 +32,14 @@ import createAddon, { languages } from "./mod.ts";
 //   Deno.exit();
 // }
 
+function getPackSize(data: FormData): PackSizes {
+  const size = data.get("size") ?? DEFAULT_PACK_SIZE;
+
+  return !isNaN(+size)
+    ? getNearestPackSize(parseInt(`${size}`, 10))
+    : DEFAULT_PACK_SIZE;
+}
+
 async function handleRequest(request: Request): Promise<Response> {
   const { pathname, searchParams } = new URL(request.url);
   const isPost = request.method === "POST";
@@ -41,12 +51,6 @@ async function handleRequest(request: Request): Promise<Response> {
   try {
     if (data && pathname.startsWith("/download")) {
       const filename = `${data.get("namespace") ?? NAMESPACE}.mcaddon`;
-      const outputSize = data.get("size") ?? "16";
-
-      if (typeof outputSize !== "string" || isNaN(+outputSize)) {
-        throw Error("Invalid output size");
-      }
-
       const paletteSource = (data && isPost) ? data.get("paletteSource") : null;
 
       const uuids: [string, string, string, string] = [
@@ -57,7 +61,7 @@ async function handleRequest(request: Request): Promise<Response> {
       ];
 
       const mcaddon = await createAddon(uuids, {
-        size: <PackSizes> parseInt(outputSize, 10),
+        size: getPackSize(data),
         blockColors: await getPalette(paletteSource),
         pixelArtSource: paletteSource,
       });

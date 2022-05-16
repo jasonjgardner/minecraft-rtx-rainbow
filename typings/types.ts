@@ -5,7 +5,7 @@ export type RGBA = [number, number, number, number];
 
 export type RgbaObj = { r: number; g: number; b: number; alpha: number };
 
-export type PackSizes = 16 | 32 | 64 | 128 | 256;
+export type PackSizes = 16 | 32 | 64 | 128 | 256 | 512 | 1024;
 
 export type LanguageId = "en_US";
 
