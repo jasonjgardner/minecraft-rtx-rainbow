@@ -4,6 +4,10 @@ import {
   addToResourcePack,
 } from "/src/components/_state.ts";
 
+/**
+ * Create item data
+ * @returns TRUE if function generation is required
+ */
 export function createItems() {
   addToResourcePack(
     "textures/item_texture.json",
@@ -141,4 +145,6 @@ export function createItems() {
       },
     ),
   );
+
+  return true;
 }

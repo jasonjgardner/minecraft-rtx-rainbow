@@ -1,11 +1,10 @@
 import { Frame, GIF, Image } from "imagescript/mod.ts";
 import { basename, extname, join } from "path/mod.ts";
 import { sprintf } from "fmt/printf.ts";
-import * as log from "log/mod.ts";
 import { EOL } from "fs/mod.ts";
 import { materials } from "/src/store/_materials.ts";
 import BlockEntry from "./BlockEntry.ts";
-import { hex2rgb, fetchData } from "/src/_utils.ts";
+import { fetchData, hex2rgb } from "/src/_utils.ts";
 import { addToBehaviorPack } from "/src/components/_state.ts";
 
 import type { IMaterial, RGB } from "/typings/types.ts";
@@ -15,8 +14,6 @@ const MAX_FRAMES = 10;
 const MAX_PRINT_SIZE = 24 * 16;
 const FUNCTIONS_NAMESPACE = "printer";
 const DIR_FUNCTIONS = join("functions", FUNCTIONS_NAMESPACE);
-
-const logger = log.getLogger();
 
 export type Alignment = "e2e" | "b2b" | "even" | "odd" | "none";
 type Axis = "x" | "y" | "z";
@@ -91,7 +88,7 @@ function printDecoded(
 
   return materials.flatMap(({ label }: IMaterial) => {
     if (maxLines <= 0) {
-      logger.warning("Function %s has exceeded max length", name);
+      throw Error(sprintf("Function %s has exceeded max length", name));
     }
 
     // Glass sculptures get extra attention
@@ -193,7 +190,7 @@ export async function pixelPrinter(
     chunks?: number;
   },
 ) {
-  const data = await fetchData(imageUrl)
+  const data = await fetchData(imageUrl);
 
   const frames = (extname(imageUrl.href) !== ".gif")
     ? [await Image.decode(data)]

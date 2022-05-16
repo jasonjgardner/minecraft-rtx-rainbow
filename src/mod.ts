@@ -162,9 +162,8 @@ export default async function createAddon({
   await createManifests(releaseType ?? "prerelease");
   createTextures(res);
   createLanguages();
-  createItems();
 
-  if (outputFunctions === true) {
+  if (createItems() || outputFunctions === true) {
     createFunctions();
 
     if (outputPixelArt === true) {
