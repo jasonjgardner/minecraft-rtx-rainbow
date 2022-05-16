@@ -1,19 +1,18 @@
 import { Frame, GIF, Image } from "imagescript/mod.ts";
-import { basename, extname, join } from "path/mod.ts";
+import { basename } from "path/mod.ts";
 import { sprintf } from "fmt/printf.ts";
 import { EOL } from "fs/mod.ts";
-import { materials } from "/src/store/_materials.ts";
 import BlockEntry from "./BlockEntry.ts";
-import { fetchData, hex2rgb } from "/src/_utils.ts";
+import { hex2rgb } from "/src/_utils.ts";
 import { addToBehaviorPack } from "/src/components/_state.ts";
-
-import type { IMaterial, RGB } from "/typings/types.ts";
+import type Material from "/src/components/Material.ts";
+import type { RGB } from "/typings/types.ts";
 
 const GLASS_ID = "glass";
 const MAX_FRAMES = 10;
 const MAX_PRINT_SIZE = 24 * 16;
 const FUNCTIONS_NAMESPACE = "printer";
-const DIR_FUNCTIONS = join("functions", FUNCTIONS_NAMESPACE);
+const DIR_FUNCTIONS = `functions/${FUNCTIONS_NAMESPACE}`;
 
 export type Alignment = "e2e" | "b2b" | "even" | "odd" | "none";
 type Axis = "x" | "y" | "z";
@@ -76,6 +75,7 @@ function printDecoded(
   name: string,
   img: Image | Frame,
   palette: BlockEntry[],
+  materials: Material[],
   offset: number[],
   dest: string,
 ) {
@@ -86,7 +86,7 @@ function printDecoded(
 
   let maxLines = 10000;
 
-  return materials.flatMap(({ label }: IMaterial) => {
+  return materials.flatMap(({ label }: Material) => {
     if (maxLines <= 0) {
       throw Error(sprintf("Function %s has exceeded max length", name));
     }
@@ -121,14 +121,14 @@ function printDecoded(
       }
 
       const filename = sprintf("%s_%s_%s.mcfunction", name, label, axis);
+      const filePath = `${dest}/${filename}`;
 
       addToBehaviorPack(
-        join(
-          dest,
-          filename,
-        ),
+        filePath,
         func.join(EOL.CRLF),
       );
+
+      console.log("Added %s to behavior pack", filePath);
 
       maxLines -= func.length;
 
@@ -177,24 +177,24 @@ function getAlignment(
 
 /**
  * @param name File name
- * @param imageUrl Source image
+ * @param imageData Source image
  * @param palette Color options
  * @param options Alignment and chunk size
  */
 export async function pixelPrinter(
   name: string,
-  imageUrl: URL,
+  imageData: Uint8Array,
   palette: BlockEntry[],
+  materials: Material[],
   options: {
+    hasFrames?: boolean;
     alignment?: Alignment;
     chunks?: number;
   },
 ) {
-  const data = await fetchData(imageUrl);
-
-  const frames = (extname(imageUrl.href) !== ".gif")
-    ? [await Image.decode(data)]
-    : (await GIF.decode(data, false));
+  const frames = options.hasFrames === true
+    ? [await Image.decode(imageData)]
+    : (await GIF.decode(imageData, false));
 
   const size = Math.min(MAX_PRINT_SIZE, (options.chunks ?? 2) * 16);
   const frameCount = Math.min(MAX_FRAMES, frames.length);
@@ -215,8 +215,7 @@ export async function pixelPrinter(
 
     if (frameCount > 1) {
       fileName = sprintf("%s_%02s", name, `${idx}`);
-      dest = join(DIR_FUNCTIONS, name);
-      //await ensureDir(relative(Deno.cwd(), dest));
+      dest += `/${name}`;
     }
 
     groupFn.push(
@@ -224,6 +223,7 @@ export async function pixelPrinter(
         fileName,
         frame,
         palette,
+        materials,
         getAlignment(alignGroup, {
           idx,
           frame,
@@ -269,7 +269,7 @@ function createParentFunction(
     //fns[materialPositionKey] = `structure save ~ ~ ~ ~${size} ~${size} `
 
     addToBehaviorPack(
-      join(DIR_FUNCTIONS, `${structureId}.mcfunction`),
+      `${DIR_FUNCTIONS}/${structureId}.mcfunction`,
       fns[materialPositionKey].join(EOL.CRLF),
     );
   }

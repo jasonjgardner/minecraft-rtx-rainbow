@@ -1,47 +1,38 @@
-import { toFileUrl } from "path/mod.ts";
+import type { PaletteInput, RGBA } from "/typings/types.ts";
+
 import { Image } from "imagescript/mod.ts";
 import HueBlock from "/src/components/blocks/HueBlock.ts";
-import { fetchData } from "/src/_utils.ts";
+import { handlePaletteInput } from "/src/_utils.ts";
 import getDefaultPalette from "/src/components/palettes/default.ts";
 
 const MAX_PALETTE_SIZE = 255 ** 3;
 const DEFAULT_IMAGE_URL = "https://placekitten.com/64/64";
-async function getImageFromUrl(src: string): Promise<Image> {
-  return Image.decode(
-    await fetchData(
-      (src.toLowerCase().startsWith("http://") ||
-          src.toLowerCase().startsWith("https://"))
-        ? new URL(src)
-        : toFileUrl(src),
-    ),
-  );
-}
+const BOUNDARY_X = 128;
+const BOUNDARY_Y = 128;
 
-function getImageFromFile(src: File): Promise<Image> {
-  return new Promise((res, rej) => {
-    const reader = new FileReader();
-    reader.onload = () =>
-      reader.result
-        ? res(Image.decode(new Uint8Array(<ArrayBuffer> reader.result)))
-        : rej("Failed reading file to array buffer");
-    reader.readAsArrayBuffer(src);
-  });
-}
 export default async function getPalette(
-  src: File | string | null,
+  src: PaletteInput,
 ): Promise<HueBlock[]> {
-  if (src === null) {
+  if (!src) {
     return getDefaultPalette();
   }
 
-  const img = (src && typeof src !== "string")
-    ? await getImageFromFile(src)
-    : await getImageFromUrl(src ?? DEFAULT_IMAGE_URL);
+  const img = await handlePaletteInput(src, DEFAULT_IMAGE_URL);
 
   const colors: number[] = [];
 
-  for (const [_x, _y, c] of img.iterateWithColors()) {
+  let skippedColors = 0;
+
+  for (const [x, y, c] of img.iterateWithColors()) {
+    if (x > BOUNDARY_X || y > BOUNDARY_Y) {
+      skippedColors++;
+      continue;
+    }
     colors.push(c);
+  }
+
+  if (skippedColors) {
+    console.log("Skipped %d colors outside of boundaries", skippedColors);
   }
 
   const palette = [...new Set(colors)];
@@ -51,7 +42,5 @@ export default async function getPalette(
     console.log("Palette size has been truncated.");
   }
 
-  return palette.map((color) =>
-    new HueBlock(`rgba(${Image.colorToRGBA(color).join(",")})`)
-  );
+  return palette.map((color) => new HueBlock(<RGBA> Image.colorToRGBA(color)));
 }

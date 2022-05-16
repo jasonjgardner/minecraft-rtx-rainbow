@@ -47,11 +47,12 @@ async function handleRequest(request: Request): Promise<Response> {
         throw Error("Invalid output size");
       }
 
+      const paletteSource = (data && isPost) ? data.get("paletteSource") : null
+
       const mcaddon = await createAddon({
         size: <PackSizes> parseInt(outputSize, 10),
-        blockColors: await getPalette(
-          (data && isPost) ? data.get("paletteSource") : null,
-        ),
+        blockColors: await getPalette(paletteSource),
+        pixelArtSource: paletteSource
       });
       return new Response(mcaddon, {
         status: 200,

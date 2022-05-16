@@ -7,6 +7,7 @@ import type {
   MinecraftData,
   MinecraftTerrainData,
   PackSizes,
+  PaletteInput,
 } from "/typings/types.ts";
 
 import { sprintf } from "fmt/printf.ts";
@@ -36,10 +37,9 @@ export interface CreationParameters {
   size: PackSizes;
   blockColors?: HueBlock[];
   materialOptions?: Material[];
-
   outputFunctions?: boolean;
-
   outputPixelArt?: boolean;
+  pixelArtSource?: PaletteInput;
   releaseType?: ReleaseType;
 }
 
@@ -149,13 +149,15 @@ export default async function createAddon({
   materialOptions,
   outputFunctions,
   outputPixelArt,
+  pixelArtSource,
   releaseType,
 }: CreationParameters) {
+  const materials = materialOptions && materialOptions.length
+    ? materialOptions
+    : getMaterials();
   const res = compileMaterials(
     blockColors && blockColors.length ? blockColors : getBlocks(),
-    materialOptions && materialOptions.length
-      ? materialOptions
-      : getMaterials(),
+    materials,
   );
 
   await setup(size); // TODO: Setup subpacks
@@ -163,12 +165,12 @@ export default async function createAddon({
   createTextures(res);
   createLanguages();
 
-  if (createItems() || outputFunctions === true) {
+  if (createItems() || pixelArtSource || outputFunctions === true) {
     createFunctions();
 
-    if (outputPixelArt === true) {
+    if (pixelArtSource || outputPixelArt === true) {
       try {
-        await printer(res);
+        await printer(res, materials, pixelArtSource);
       } catch (err) {
         console.warn("Failed creating pixel art functions: %s", err);
       }

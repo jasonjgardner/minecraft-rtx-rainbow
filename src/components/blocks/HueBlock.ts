@@ -1,22 +1,33 @@
 import titleCase from "case/titleCase.ts";
-import type { LanguageId, MultiLingual, MinecraftData } from "/typings/types.ts";
-import { formatHex, parse } from "culori/index.js";
+import type {
+  LanguageId,
+  MinecraftData,
+  MultiLingual,
+  RGB,
+  RGBA,
+  RgbaObj,
+} from "/typings/types.ts";
+import { clamp, formatAhex, formatHex } from "/src/_utils.ts";
 
-import { formatTag, labelLanguage } from "/src/components/BlockEntry.ts";
-
-type RgbColor = { mode: "rgb"; r: number; g: number; b: number; alpha: number };
+import { labelLanguage } from "/src/components/BlockEntry.ts";
 
 export default class HueBlock {
-  _color!: RgbColor;
+  _color!: RgbaObj;
   _name?: MultiLingual;
-  constructor(color: string, name?: MultiLingual) {
-    this._color = parse(color);
+  constructor(color: RGB | RGBA, name?: MultiLingual) {
+    this._color = {
+      r: clamp(color[0], 255),
+      g: clamp(color[1], 255),
+      b: clamp(color[2], 255),
+      alpha: color.length === 4 ? clamp(color[3], 1) : 1,
+    };
     this._name = name;
   }
 
   title(lang: LanguageId = "en_US") {
     return titleCase(
-      (this._name ? this._name[lang] : false) || `${formatHex(this._color)}`,
+      (this._name ? this._name[lang] : false) ||
+        `${formatHex(this._color).replace("#", "").toUpperCase()}`,
     );
   }
 
@@ -42,7 +53,7 @@ export default class HueBlock {
 
   get textureSet() {
     return {
-      color: this.rgba
+      color: formatAhex(this._color),
     };
   }
 

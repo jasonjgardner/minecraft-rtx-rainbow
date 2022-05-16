@@ -1,4 +1,9 @@
+// TODO: type guard RGB(A)
 export type RGB = [number, number, number];
+
+export type RGBA = [number, number, number, number];
+
+export type RgbaObj = { r: number; g: number; b: number; alpha: number };
 
 export type PackSizes = 16 | 32 | 64 | 128 | 256;
 
@@ -9,6 +14,8 @@ export type OutputMap = [string, string][];
 export type DataOutputMap = [string, Uint8Array][];
 
 export type CopyMap = [string, string[]][];
+
+export type PaletteInput = File | string | null;
 
 export interface FlipbookComponent {
   flipbook_texture: string;
@@ -25,7 +32,7 @@ export type MaterialMultiplier = (idx: number) => number;
 export type MinecraftTerrainData = {
   [key: string]: {
     textures: string | string[];
-  }
+  };
 };
 
 export type MinecraftRecordTypes = boolean | string | number;
@@ -54,52 +61,22 @@ export type MultiLingual = {
   [key in LanguageId]: string;
 };
 
-export type LanguagesContainer = Record<LanguageId, string[]> 
-
-export interface IMaterial {
-  name: MultiLingual;
-  label: string;
-  normal?: string;
-  sound?: string;
-  friction: MaterialMultiplier;
-  flammable?: {
-    burn_odds: number;
-    flame_odds: number;
-  };
-
-  explosionResistance: MaterialMultiplier;
-
-  lightAbsorption: MaterialMultiplier;
-
-  lightEmission: MaterialMultiplier;
-  metalness: MaterialMultiplier;
-  emissive: MaterialMultiplier;
-  roughness: MaterialMultiplier;
-  opacity: MaterialMultiplier;
-
-  minimumLevel: number;
-  maximumLevel: number;
-  paletteLevel: number;
-
-  endStep: number;
-
-  step: number;
-}
+export type LanguagesContainer = Record<LanguageId, string[]>;
 
 export interface IBlock {
   name: string | MultiLingual;
   enabled?: boolean;
   color: string;
-  tint: number
+  tint: number;
 }
 
 export interface IPermutation {
-  name: string,
+  name: string;
   enabled?: boolean;
   experimental?: boolean;
-  properties: MinecraftData,
-  events: MinecraftEvent,
-  permutations: MinecraftData[]
+  properties: MinecraftData;
+  events: MinecraftEvent;
+  permutations: MinecraftData[];
 }
 
 export interface DepthMap {
