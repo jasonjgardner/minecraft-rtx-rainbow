@@ -175,27 +175,17 @@ function getAlignment(
   return [x, y, z];
 }
 
-/**
- * @param name File name
- * @param imageData Source image
- * @param palette Color options
- * @param options Alignment and chunk size
- */
 export async function pixelPrinter(
   name: string,
-  imageData: Uint8Array,
+  imageData: Image | GIF,
   palette: BlockEntry[],
   materials: Material[],
   options: {
-    hasFrames?: boolean;
     alignment?: Alignment;
     chunks?: number;
   },
 ) {
-  const frames = options.hasFrames === true
-    ? [await Image.decode(imageData)]
-    : (await GIF.decode(imageData, false));
-
+  const frames = Array.isArray(imageData) ? imageData : [imageData];
   const size = Math.min(MAX_PRINT_SIZE, (options.chunks ?? 2) * 16);
   const frameCount = Math.min(MAX_FRAMES, frames.length);
   frames.length = frameCount;

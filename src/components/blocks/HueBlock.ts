@@ -1,4 +1,3 @@
-import titleCase from "case/titleCase.ts";
 import type {
   LanguageId,
   MinecraftData,
@@ -25,10 +24,9 @@ export default class HueBlock {
   }
 
   title(lang: LanguageId = "en_US") {
-    return titleCase(
-      (this._name ? this._name[lang] : false) ||
-        `${formatHex(this._color).replace("#", "").toUpperCase()}`,
-    );
+    return this._name
+      ? this._name[lang]
+      : `${formatHex(this._color).replace("#", "").toUpperCase()}`;
   }
 
   get name() {

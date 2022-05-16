@@ -1,5 +1,5 @@
-import type { RGB, RgbaObj, PaletteInput } from "/typings/types.ts";
-import { Image } from "imagescript/mod.ts";
+import type { PaletteInput, RGB, RgbaObj } from "/typings/types.ts";
+import { GIF, Image } from "imagescript/mod.ts";
 import { toFileUrl } from "path/mod.ts";
 export function hex2rgb(hex: string): [number, number, number] {
   const result = /^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -20,7 +20,7 @@ const hexValue = (values: number[] | RGB) =>
   values.map((v: number) => v.toString(16).padStart(2, "0")).join("");
 
 export function formatAhex({ r, g, b, alpha }: RgbaObj) {
-  return "#" + hexValue([channelPercentage(alpha), r, g, b]);
+  return "#" + hexValue([channelPercentage(alpha * 100), r, g, b]);
 }
 
 export function formatHex(color: RgbaObj) {
@@ -42,14 +42,12 @@ export async function encodeRGBColor(layerValue: number[], size = 16) {
   return await imgOutput.encode(0);
 }
 
-async function getImageFromUrl(src: string): Promise<Image> {
-  return Image.decode(
-    await fetchData(
-      (src.toLowerCase().startsWith("http://") ||
-          src.toLowerCase().startsWith("https://"))
-        ? new URL(src)
-        : toFileUrl(src),
-    ),
+function getImageFromUrl(src: string): Promise<Image | GIF> {
+  return fetchData(
+    (src.toLowerCase().startsWith("http://") ||
+        src.toLowerCase().startsWith("https://"))
+      ? new URL(src)
+      : toFileUrl(src),
   );
 }
 
@@ -59,6 +57,7 @@ export function handlePaletteInput(src: PaletteInput, defaultSrc: string) {
     : getImageFromUrl(src ?? defaultSrc));
 }
 
+// TODO: Use Deno.open instead of FileReader?
 export function getImageFromFile(src: File): Promise<Image> {
   return new Promise((res, rej) => {
     const reader = new FileReader();
@@ -95,7 +94,11 @@ export function channelPercentage(percentage: number) {
   return Math.ceil((Math.max(0, percentage) * 255) / 100);
 }
 
-export async function fetchData(source: URL): Promise<Uint8Array> {
+export async function fetchData(source: URL): Promise<Image | GIF> {
   const res = await fetch(source.href);
-  return new Uint8Array(await res.arrayBuffer());
+  const data = new Uint8Array(await res.arrayBuffer());
+  const isGif =
+    res.headers.get("content-type")?.startsWith("image/gif") === true;
+
+  return isGif ? GIF.decode(data) : Image.decode(data);
 }

@@ -2,13 +2,9 @@ import type { ReleaseType } from "semver/mod.ts";
 import { inc } from "semver/mod.ts";
 import { join } from "path/mod.ts";
 import {
-  BP_MODULE_UUID,
-  BP_PACK_UUID,
   DIR_SRC,
   PACK_DESCRIPTION,
   PACK_NAME,
-  RP_MODULE_UUID,
-  RP_PACK_UUID,
   TARGET_VERSION,
 } from "/src/store/_config.ts";
 import { semverVector } from "/src/_utils.ts";
@@ -54,7 +50,7 @@ function getMetadata(
 }
 
 async function getBuildVersion(
-  releaseType: ReleaseType = "patch",
+  releaseType: ReleaseType = "major",
   defaultVersion = "1.0.0",
 ): Promise<{ RP: number[]; BP: number[]; version_history: string[] }> {
   const { RP, BP, version_history } = JSON.parse(
@@ -76,7 +72,10 @@ async function getBuildVersion(
   };
 }
 
-export async function createManifests(releaseType?: ReleaseType) {
+export async function createManifests(
+  uuids: [string, string, string, string],
+  releaseType?: ReleaseType,
+) {
   const { RP: rpVersion, BP: bpVersion, version_history } =
     await getBuildVersion(releaseType);
 
@@ -90,7 +89,7 @@ export async function createManifests(releaseType?: ReleaseType) {
         header: {
           name: PACK_NAME,
           description: PACK_DESCRIPTION,
-          uuid: RP_PACK_UUID,
+          uuid: uuids[0],
           version: rpVersion,
           min_engine_version: TARGET_VERSION,
         },
@@ -98,13 +97,13 @@ export async function createManifests(releaseType?: ReleaseType) {
           {
             description: `${PACK_NAME} generated textures`,
             type: "resources",
-            uuid: RP_MODULE_UUID,
+            uuid: uuids[1],
             version: rpVersion,
           },
         ],
         dependencies: [
           {
-            uuid: BP_PACK_UUID,
+            uuid: uuids[2],
             version: bpVersion,
           },
         ],
@@ -122,7 +121,7 @@ export async function createManifests(releaseType?: ReleaseType) {
         header: {
           name: `${PACK_NAME} Behavior Pack`,
           description: `${PACK_NAME} data dependency`,
-          uuid: BP_PACK_UUID,
+          uuid: uuids[2],
           version: bpVersion,
           min_engine_version: TARGET_VERSION,
         },
@@ -130,13 +129,13 @@ export async function createManifests(releaseType?: ReleaseType) {
           {
             description: `${PACK_NAME} generated block data`,
             type: "data",
-            uuid: BP_MODULE_UUID,
+            uuid: uuids[3],
             version: bpVersion,
           },
         ],
         dependencies: [
           {
-            uuid: RP_PACK_UUID,
+            uuid: uuids[1],
             version: rpVersion,
           },
           // {

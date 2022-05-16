@@ -143,15 +143,18 @@ function createLanguages() {
   );
 }
 
-export default async function createAddon({
-  size,
-  blockColors,
-  materialOptions,
-  outputFunctions,
-  outputPixelArt,
-  pixelArtSource,
-  releaseType,
-}: CreationParameters) {
+export default async function createAddon(
+  uuids: [string, string, string, string],
+  {
+    size,
+    blockColors,
+    materialOptions,
+    outputFunctions,
+    outputPixelArt,
+    pixelArtSource,
+    releaseType,
+  }: CreationParameters,
+) {
   const materials = materialOptions && materialOptions.length
     ? materialOptions
     : getMaterials();
@@ -161,7 +164,7 @@ export default async function createAddon({
   );
 
   await setup(size); // TODO: Setup subpacks
-  await createManifests(releaseType ?? "prerelease");
+  await createManifests(uuids, releaseType ?? "prerelease");
   createTextures(res);
   createLanguages();
 

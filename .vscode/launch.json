@@ -1,16 +1,23 @@
 {
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
             "request": "launch",
-            "name": "Work magic",
+            "name": "Serve",
             "type": "pwa-node",
-            "program": "${workspaceFolder}/src/mod.ts",
+            "program": "${workspaceFolder}/src/app.ts",
             "cwd": "${workspaceFolder}",
             "runtimeExecutable": "C:\\Users\\jason\\.deno\\bin\\deno.EXE",
             "runtimeArgs": [
                 "run",
                 "--unstable",
+                "--import-map",
+                "./import_map.json",
+                "--config",
+                "./deno.json",
                 "--inspect",
                 "--allow-all"
             ],

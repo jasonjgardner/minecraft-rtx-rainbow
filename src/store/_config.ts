@@ -65,7 +65,10 @@ export const DIR_BP = join(DIR_DIST, `/${NAMESPACE} BP`);
 export const RELEASE_TYPE = <ReleaseType> getConfig("RELEASE_TYPE", "patch");
 
 // Magic numbers
-export const MIP_LEVELS: number = parseInt(`${getConfig("MIP_LEVELS", 0) ?? 0}`, 10);
+export const MIP_LEVELS: number = parseInt(
+  `${getConfig("MIP_LEVELS", 0) ?? 0}`,
+  10,
+);
 
 /**
  * Emissive level at which ambient occlusion is disabled on a block's face

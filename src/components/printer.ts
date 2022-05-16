@@ -18,7 +18,7 @@ async function githubAvatars(
   palette: BlockEntry[],
   materials: Material[],
 ) {
-  const sponsorChunkSize = 4;
+  const sponsorChunkSize = 3;
   const octokit = new Octokit();
 
   const { status, data } = await octokit.request(
@@ -133,7 +133,7 @@ export async function printPixelArt(
         await fetchData(fileUrl),
         printablePalette,
         materials,
-        { alignment, chunks, hasFrames: fileExt === ".gif" },
+        { alignment, chunks },
       );
     } catch (err) {
       console.error(
@@ -184,7 +184,7 @@ async function printPaletteInput(
 
   return pixelPrinter(
     "Input",
-    await paletteImageSource.encode(),
+    paletteImageSource,
     res,
     materials,
     {
@@ -212,16 +212,16 @@ export default function printer(
     }
   }
 
-  try {
-    // TODO: Check to see if directory exists or is needed before calling function
-    const pxArtDir = printPixelArtDirectory(res, materials);
+  // try {
+  //   // TODO: Check to see if directory exists or is needed before calling function
+  //   const pxArtDir = printPixelArtDirectory(res, materials);
 
-    if (pxArtDir !== undefined) {
-      tasks.push(pxArtDir);
-    }
-  } catch (err) {
-    console.log("Failed printing from pixel art directory: %s", err);
-  }
+  //   if (pxArtDir !== undefined) {
+  //     tasks.push(pxArtDir);
+  //   }
+  // } catch (err) {
+  //   console.log("Failed printing from pixel art directory: %s", err);
+  // }
 
   if (Deno.env.get("GITHUB_REPOSITORY") !== undefined) {
     try {

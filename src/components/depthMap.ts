@@ -26,5 +26,5 @@ export function createHeightMap(size: PackSizes) {
 }
 
 export async function requireHeightMap(name: string, size: PackSizes) {
-  addToResourcePack(`textures/blocks/${name}`, await createHeightMap(size));
+  addToResourcePack(`textures/blocks/${name}.png`, await createHeightMap(size));
 }
