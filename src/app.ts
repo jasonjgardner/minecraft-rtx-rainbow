@@ -1,44 +1,9 @@
-import type { PackSizes } from "/typings/types.ts";
 import { serve } from "http/server.ts";
-import { NAMESPACE } from "/src/store/_config.ts";
-import { DEFAULT_PACK_SIZE } from "/typings/constants.ts";
-import { getNearestPackSize } from "/src/components/_resize.ts";
+import { sanitizeNamespace } from "/src/_utils.ts";
+import { getFormPackSize } from "/src/components/_resize.ts";
 import getPalette from "/src/components/palettes/fromImage.ts";
+import { DEFAULT_NAMESPACE } from "/typings/constants.ts";
 import createAddon, { languages } from "./mod.ts";
-
-// const destination = Deno.args.includes("--save")
-//   ? `${getArg("save", Deno.cwd())}`
-//   : null;
-
-// if (
-//   destination &&
-//   Deno.permissions.query({
-//     name: "write",
-//     path: destination,
-//   })
-// ) {
-//   console.log("Saving .mcaddon locally");
-//   const packName = getArg("namespace", NAMESPACE);
-//   const filename = `${packName}.mcaddon`;
-
-//   const mcaddon = await createAddon({
-//     size: <PackSizes> parseInt(getArg("size", 64), 10),
-//   });
-//   await Deno.writeFile(
-//     join(destination, filename),
-//     new Uint8Array(await mcaddon.arrayBuffer()),
-//   );
-
-//   Deno.exit();
-// }
-
-function getPackSize(data: FormData): PackSizes {
-  const size = data.get("size") ?? DEFAULT_PACK_SIZE;
-
-  return !isNaN(+size)
-    ? getNearestPackSize(parseInt(`${size}`, 10))
-    : DEFAULT_PACK_SIZE;
-}
 
 async function handleRequest(request: Request): Promise<Response> {
   const { pathname, searchParams } = new URL(request.url);
@@ -50,8 +15,14 @@ async function handleRequest(request: Request): Promise<Response> {
 
   try {
     if (data && pathname.startsWith("/download")) {
-      const filename = `${data.get("namespace") ?? NAMESPACE}.mcaddon`;
       const paletteSource = (data && isPost) ? data.get("paletteSource") : null;
+      let ns = sanitizeNamespace(
+        data.get("namespace") ?? paletteSource ?? DEFAULT_NAMESPACE,
+      );
+
+      if (ns.length < 1) {
+        ns = DEFAULT_NAMESPACE;
+      }
 
       const uuids: [string, string, string, string] = [
         crypto.randomUUID(),
@@ -61,15 +32,16 @@ async function handleRequest(request: Request): Promise<Response> {
       ];
 
       const mcaddon = await createAddon(uuids, {
-        size: getPackSize(data),
+        size: getFormPackSize(data),
         blockColors: await getPalette(paletteSource),
         pixelArtSource: paletteSource,
+        namespace: ns,
       });
       return new Response(mcaddon, {
         status: 200,
         headers: {
           "content-type": "application/zip",
-          "content-disposition": `attachment; filename="${filename}"`,
+          "content-disposition": `attachment; filename="${ns}.mcaddon"`,
           "content-language": Object.keys(languages).map((langId) =>
             langId.replace("_", "-")
           ).join(", "),
@@ -117,6 +89,10 @@ async function handleRequest(request: Request): Promise<Response> {
         <form method="post" action="/download" enctype="multipart/form-data">
           <label for="paletteSource">Submit color palette source image</label>
           <input id="paletteSource" name="paletteSource" type="file" accept="image/*">
+
+          <label for="namepsace">Pack Namespace</label>
+          <input id="namespace" name="namespace" type="text" pattern="^[a-z]+[a-z0-9]*">
+
           <button type="submit">Upload Palette</button>
         </form>
 

@@ -1,16 +1,18 @@
 import "dotenv/load.ts";
-import type { PaletteInput } from "/typings/types.ts";
-import type { Alignment } from "./ImagePrinter.ts";
+import type { Alignment, PaletteInput } from "/typings/types.ts";
 import type Material from "/src/components/Material.ts";
 import { basename, dirname, extname, join, toFileUrl } from "path/mod.ts";
 import { walk } from "fs/walk.ts";
-import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
-import BlockEntry from "./BlockEntry.ts";
-import { pixelPrinter } from "./ImagePrinter.ts";
+import { Octokit } from "@octokit/core";
+import {
+  DEFAULT_PRINT_CHUNKS,
+  MAX_PRINT_CHUNKS,
+  MIN_PALETTE_LENGTH,
+} from "/typings/constants.ts";
+import BlockEntry from "/src/components/BlockEntry.ts";
+import { pixelPrinter } from "/src/components/ImagePrinter.ts";
 import { DIR_SRC } from "/src/store/_config.ts";
-import { fetchData, handlePaletteInput } from "/src/_utils.ts";
-
-const MIN_PALETTE_LENGTH = 2;
+import { fetchImage, handlePaletteInput } from "/src/_utils.ts";
 
 async function githubAvatars(
   owner: string,
@@ -18,7 +20,7 @@ async function githubAvatars(
   palette: BlockEntry[],
   materials: Material[],
 ) {
-  const sponsorChunkSize = 3;
+  const sponsorChunkSize = Math.min(MAX_PRINT_CHUNKS, DEFAULT_PRINT_CHUNKS + 1);
   const octokit = new Octokit();
 
   const { status, data } = await octokit.request(
@@ -45,7 +47,7 @@ async function githubAvatars(
       try {
         await pixelPrinter(
           `stargazers/${res.login}`,
-          await fetchData(new URL(res.avatar_url)),
+          await fetchImage(new URL(res.avatar_url)),
           palette,
           materials,
           {
@@ -104,7 +106,10 @@ export async function printPixelArt(
     chunks?: number;
   },
 ) {
-  const chunks = Math.max(1, Math.min(16, options?.chunks ?? 4));
+  const chunks = Math.max(
+    1,
+    Math.min(MAX_PRINT_CHUNKS, options?.chunks ?? DEFAULT_PRINT_CHUNKS),
+  );
 
   // Exclude unpalatable blocks
   const printablePalette = getPrintablePalette(palette);
@@ -130,7 +135,7 @@ export async function printPixelArt(
     try {
       await pixelPrinter(
         structureName,
-        await fetchData(fileUrl),
+        await fetchImage(fileUrl),
         printablePalette,
         materials,
         { alignment, chunks },
@@ -180,7 +185,13 @@ async function printPaletteInput(
     throw Error("Invalid palette input source");
   }
 
-  const paletteImageSource = await handlePaletteInput(artSrc, "");
+  // TODO: Create default palette source. Currently using default pack icon as source
+  const paletteImageSource = await handlePaletteInput(
+    artSrc,
+    await fetchImage(
+      toFileUrl(join(DIR_SRC, "assets", "img", "pack_icon.png")),
+    ),
+  );
 
   return pixelPrinter(
     "Input",

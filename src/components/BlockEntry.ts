@@ -1,49 +1,27 @@
 import type {
+  BlockComponents,
   IPermutation,
   LanguageId,
   MinecraftData,
   MinecraftEvent,
-  RGB,
+  TextureSet,
 } from "/typings/types.ts";
 import { Label } from "/typings/enums.ts";
 import {
   BEHAVIOR_BLOCK_FORMAT_VERSION,
-  NAMESPACE,
-} from "/src/store/_config.ts";
+  DEFAULT_NAMESPACE,
+} from "/typings/constants.ts";
 import titleCase from "case/titleCase.ts";
 import { sprintf } from "fmt/printf.ts";
+import { deepMerge } from "collections/mod.ts";
+import { sanitizeNamespace } from "/src/_utils.ts";
 import HueBlock from "/src/components/blocks/HueBlock.ts";
 import Material from "/src/components/Material.ts";
 
-interface TextureSet {
-  heightmap?: string;
-  normal?: string;
-  color: string | RGB | number[];
-  metalness_emissive_roughness?: RGB | number[];
-}
-
-interface BlockComponents {
-  description: MinecraftData;
-  components: MinecraftData;
-  events: { [k: string]: MinecraftEvent };
-  permutations: MinecraftData[];
-}
-
 export const labelLanguage: LanguageId = "en_US";
 
-export function formatTag(tagName: string) {
-  return {
-    [
-      sprintf(
-        "tag:%s:%s",
-        NAMESPACE,
-        tagName.replace(/\s+/, "").toLowerCase(),
-      )
-    ]: {},
-  };
-}
-
 export default class BlockEntry {
+  _namespace!: string;
   _idx!: number;
 
   _hue!: HueBlock;
@@ -53,9 +31,18 @@ export default class BlockEntry {
   _permutations?: IPermutation[];
 
   _printable?: boolean;
-  constructor(block: HueBlock, material: Material) {
+  constructor(namespace: string, block: HueBlock, material: Material) {
+    this.namespace = namespace;
     this._hue = block;
     this._material = material;
+  }
+
+  set namespace(value: string) {
+    this._namespace = sanitizeNamespace(value);
+  }
+
+  get namespace() {
+    return this._namespace ?? DEFAULT_NAMESPACE;
   }
 
   set printable(value: boolean) {
@@ -82,11 +69,11 @@ export default class BlockEntry {
   }
 
   get behaviorId() {
-    return `${NAMESPACE}:${this.id}`;
+    return sprintf("%s:%s", this.namespace, this.id);
   }
 
   get resourceId() {
-    return `${NAMESPACE}_${this.id}`;
+    return sprintf("%s_%s", this.namespace, this.id);
   }
 
   title(lang: LanguageId) {
@@ -101,18 +88,14 @@ export default class BlockEntry {
     return this.title(labelLanguage);
   }
 
-  get textureSet(): TextureSet {
-    return {
-      ...this._hue.textureSet,
-      ...this._material.textureSet,
-    };
+  get textureSet() {
+    return deepMerge(this._hue.textureSet, this._material.textureSet);
   }
 
   get blocksData() {
-    return {
+    return deepMerge({
       textures: this.resourceId,
-      ...this._material.blocksData,
-    };
+    }, this._material.blocksData);
   }
 
   get terrainData() {
@@ -125,22 +108,25 @@ export default class BlockEntry {
     return this._permutations || [];
   }
 
+  formatEvent(
+    { name, events }: IPermutation,
+  ): [string, MinecraftEvent] {
+    return [
+      sprintf("%s:%s_%s", this.namespace, name, Label.BlockEvent),
+      events,
+    ];
+  }
+
+  formatProperty(
+    { name, properties }: IPermutation,
+  ): [string, MinecraftData] {
+    return [
+      sprintf("%s:%s%s", this.namespace, name, Label.BlockProperty),
+      properties,
+    ];
+  }
+
   get block() {
-    const formatEvent = (
-      { name, events }: IPermutation,
-    ): [string, MinecraftEvent] => {
-      return [sprintf("%s:%s_%s", NAMESPACE, name, Label.BlockEvent), events];
-    };
-
-    const formatProperty = (
-      { name, properties }: IPermutation,
-    ): [string, MinecraftData] => {
-      return [
-        sprintf("%s:%s%s", NAMESPACE, name, Label.BlockProperty),
-        properties,
-      ];
-    };
-
     const permutes = this.permutations.filter(({ enabled }: IPermutation) =>
       enabled !== false
     );
@@ -167,9 +153,11 @@ export default class BlockEntry {
 
     if (permutes.length) {
       block.description.properties = Object.fromEntries(
-        permutes.map(formatProperty),
+        permutes.map((p) => this.formatProperty(p)),
       );
-      block.events = Object.fromEntries(permutes.map(formatEvent));
+      block.events = Object.fromEntries(
+        permutes.map((p) => this.formatEvent(p)),
+      );
 
       block.permutations = permutes.flatMap((
         { permutations }: IPermutation,
@@ -189,23 +177,19 @@ export default class BlockEntry {
   }
 
   get materialInstances() {
-    // TODO: Allow material instance per face/bone
-    return {
+    return deepMerge({
       "*": {
         texture: this.resourceId,
-        ...this._material.materialInstance,
       },
-    };
+    }, this._material.materialInstance);
   }
 
   get components() {
-    return {
-      // ...formatTag(this._hue.name),
-      // ...formatTag(
-      //   `material:${this._material.label}`,
-      // ),
-      ...this._hue.components,
-      ...this._material.components,
-    };
+    return deepMerge(
+      {
+        "minecraft:material_instances": this.materialInstances,
+      },
+      deepMerge(this._hue.components, this._material.components),
+    );
   }
 }

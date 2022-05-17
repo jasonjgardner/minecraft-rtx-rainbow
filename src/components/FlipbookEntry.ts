@@ -1,7 +1,7 @@
 import type Material from "/src/components/Material.ts";
 import type HueBlock from "/src/components/blocks/HueBlock.ts";
 import type { LanguageId, RGB } from "/typings/types.ts";
-import BlockEntry from "./BlockEntry.ts";
+import BlockEntry from "/src/components/BlockEntry.ts";
 
 export function formatFlipbookName(color: string, material?: string): string {
   return `${color}_${material ? `${material}_` : ""}_flipbook`.toLowerCase()
@@ -10,8 +10,9 @@ export function formatFlipbookName(color: string, material?: string): string {
 
 export default class FlipbookEntry extends BlockEntry {
   _base!: string;
-  constructor(block: HueBlock, material: Material) {
+  constructor(namespace: string, block: HueBlock, material: Material) {
     super(
+      namespace,
       block,
       material,
     );

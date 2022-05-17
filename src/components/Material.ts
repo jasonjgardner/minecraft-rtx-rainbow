@@ -5,12 +5,14 @@ import type {
   RGB,
 } from "/typings/types.ts";
 //import { sprintf } from "fmt/printf.ts";
+
 import {
   AO_EMISSIVE_THRESHOLD,
   DEFAULT_BLOCK_SOUND,
-  NAMESPACE,
-} from "/src/store/_config.ts";
+  DEFAULT_HEIGHTMAP_NAME,
+} from "/typings/constants.ts";
 import { requireHeightMap } from "/src/components/depthMap.ts";
+import { deepMerge } from "collections/mod.ts";
 
 //import { labelLanguage } from '/src/components/BlockEntry.ts'
 
@@ -19,25 +21,25 @@ import { requireHeightMap } from "/src/components/depthMap.ts";
  * @param percentage Emissive percentage
  * @returns Block light filter level (0-15)
  */
-function clampBlockLightFilter(percentage: number) {
-  /**
-   * The amount of light this block will filter out. Higher value means more light will be filtered out (0 - 15).
-   * @see https://bedrock.dev/docs/stable/Blocks
-   */
-  const BLOCK_LIGHT_FILTER_MAX = 15;
+// function clampBlockLightFilter(percentage: number) {
+//   /**
+//    * The amount of light this block will filter out. Higher value means more light will be filtered out (0 - 15).
+//    * @see https://bedrock.dev/docs/stable/Blocks
+//    */
+//   const BLOCK_LIGHT_FILTER_MAX = 15;
 
-  if (percentage > 1) {
-    percentage /= 100;
-  }
+//   if (percentage > 1) {
+//     percentage /= 100;
+//   }
 
-  return Math.max(
-    0,
-    Math.min(
-      BLOCK_LIGHT_FILTER_MAX,
-      Math.round(percentage * BLOCK_LIGHT_FILTER_MAX),
-    ),
-  );
-}
+//   return Math.max(
+//     0,
+//     Math.min(
+//       BLOCK_LIGHT_FILTER_MAX,
+//       Math.round(percentage * BLOCK_LIGHT_FILTER_MAX),
+//     ),
+//   );
+// }
 
 export default class Material {
   _label!: string;
@@ -104,7 +106,8 @@ export default class Material {
 
     if (hasNormalMap && !this._useHeightMap) {
       return {
-        normal: this._normalMap,
+        normal: `${this._normalMap}`,
+        heightmap: "",
       };
     }
 
@@ -112,12 +115,13 @@ export default class Material {
       !this._heightMap && (this._useHeightMap || !hasNormalMap)
     ) {
       // generate heightmap
-      this._heightMap = "default_heightmap";
+      this._heightMap = DEFAULT_HEIGHTMAP_NAME;
       requireHeightMap(this._heightMap, 32);
     }
 
     return {
-      heightmap: this._heightMap,
+      normal: "",
+      heightmap: `${this._heightMap}`,
     };
   }
 
@@ -129,37 +133,32 @@ export default class Material {
   }
 
   get textureSet() {
-    return {
+    return deepMerge({
       metalness_emissive_roughness: <RGB> [
         this.metalness,
         this.emissive,
         this.roughness,
       ],
-      ...this.depthMap,
-    } as const;
+    }, this.depthMap);
   }
 
   get materialInstance() {
     return {
-      ambient_occlusion:
-        (this._intensity * (this.emissive / 255)) < AO_EMISSIVE_THRESHOLD, // Allow AO if block isn't too bright
-      face_dimming: !this.emissive,
-    } as const;
+      "*": {
+        ambient_occlusion:
+          (this._intensity * (this.emissive / 255)) < AO_EMISSIVE_THRESHOLD, // Allow AO if block isn't too bright
+        face_dimming: !this.emissive,
+      },
+    };
   }
 
   get components() {
     const emissivePercentage = this.emissive / 255;
 
     return {
-      // [
-      //   sprintf(
-      //     "tag:%s:%s",
-      //     NAMESPACE,
-      //     this.label.replace(/\s+/, ""),
-      //   )
-      // ]: {},
+      "minecraft:unit_cube": Object.freeze({}),
       "minecraft:material_instances": this.materialInstance,
-      "minecraft:block_light_filter": clampBlockLightFilter(emissivePercentage),
+      //"minecraft:block_light_filter": clampBlockLightFilter(emissivePercentage),
       "minecraft:block_light_emission": emissivePercentage,
     };
   }

@@ -2,7 +2,7 @@ import type { PaletteInput, RGBA } from "/typings/types.ts";
 
 import { GIF, Image } from "imagescript/mod.ts";
 import HueBlock from "/src/components/blocks/HueBlock.ts";
-import { handlePaletteInput } from "/src/_utils.ts";
+import { fetchImage, handlePaletteInput } from "/src/_utils.ts";
 import getDefaultPalette from "/src/components/palettes/default.ts";
 
 const MAX_PALETTE_SIZE = 255 ** 3;
@@ -19,7 +19,10 @@ export default async function getPalette(
     return getDefaultPalette();
   }
 
-  const input = await handlePaletteInput(src, DEFAULT_IMAGE_URL);
+  const input = await handlePaletteInput(
+    src,
+    await fetchImage(new URL(DEFAULT_IMAGE_URL)),
+  );
   const img = input instanceof GIF ? input[0] : input; // FIXME:
 
   const colors: Array<RGBA> = [];

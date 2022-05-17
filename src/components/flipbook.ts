@@ -11,7 +11,7 @@ import type Material from "/src/components/Material.ts";
 
 import { Image } from "imagescript/mod.ts";
 import { sprintf } from "fmt/printf.ts";
-
+import { DEFAULT_PACK_SIZE } from "/typings/constants.ts";
 import BlockEntry from "/src/components/BlockEntry.ts";
 import FlipbookEntry, {
   formatFlipbookName,
@@ -61,9 +61,11 @@ function flipbookData(
 }
 
 export async function makeAtlas(blocks: BlockEntry[], size?: PackSizes) {
-  const frames: RGB[] = blocks.map((block) => <RGB> block.color.valueOf());
+  const frames: RGB[] = blocks.map((block) =>
+    <RGB> block.color.valueOf().slice(0, 2)
+  );
   const frameCount = frames.length;
-  const s = size || 16;
+  const s = size || DEFAULT_PACK_SIZE;
   const atlasOutput = new Image(s, s * frameCount);
 
   // Create atlas frames
@@ -84,12 +86,13 @@ export async function makeAtlas(blocks: BlockEntry[], size?: PackSizes) {
 export async function writeFlipbooks(
   frames: BlockEntry[],
   dependencies: {
+    namespace: string;
     blocksData: MinecraftData;
     textureData: MinecraftTerrainData;
     languages: LanguagesContainer;
   },
 ): Promise<[MinecraftData, MinecraftTerrainData, LanguagesContainer]> {
-  const { blocksData, textureData, languages } = dependencies;
+  const { blocksData, textureData, languages, namespace } = dependencies;
   const frameCount = frames.length;
   const lastBlock = frames[frameCount - 1];
 
@@ -105,7 +108,11 @@ export async function writeFlipbooks(
     JSON.stringify(
       materials.map(
         (material: Material) => {
-          const flipbookBlock = new FlipbookEntry(lastBlock.color, material);
+          const flipbookBlock = new FlipbookEntry(
+            namespace,
+            lastBlock.color,
+            material,
+          );
           blocksData[flipbookBlock.behaviorId] = flipbookBlock.blocksData;
           textureData[flipbookBlock.resourceId] = flipbookBlock.terrainData;
 

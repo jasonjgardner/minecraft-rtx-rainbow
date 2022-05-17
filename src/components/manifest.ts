@@ -1,12 +1,10 @@
 import type { ReleaseType } from "semver/mod.ts";
 import { inc } from "semver/mod.ts";
-import { join } from "path/mod.ts";
 import {
-  DIR_SRC,
-  PACK_DESCRIPTION,
-  PACK_NAME,
-  TARGET_VERSION,
-} from "/src/store/_config.ts";
+  DEFAULT_BUILD_VERSION,
+  DEFAULT_RELEASE_TYPE,
+  TARGET_VERSION as min_engine_version,
+} from "/typings/constants.ts";
 import { semverVector } from "/src/_utils.ts";
 import {
   addToBehaviorPack,
@@ -49,35 +47,33 @@ function getMetadata(
   };
 }
 
-async function getBuildVersion(
-  releaseType: ReleaseType = "major",
-  defaultVersion = "1.0.0",
-): Promise<{ RP: number[]; BP: number[]; version_history: string[] }> {
-  const { RP, BP, version_history } = JSON.parse(
-    await Deno.readTextFile(join(DIR_SRC, "versions.json")),
+function getBuildVersion(
+  currentRelease?: string,
+  releaseType?: ReleaseType,
+): { RP: number[]; BP: number[]; version_history: string[] } {
+  const version = semverVector(
+    inc(
+      currentRelease || DEFAULT_BUILD_VERSION,
+      releaseType ?? DEFAULT_RELEASE_TYPE,
+    ) ??
+      DEFAULT_BUILD_VERSION,
   );
-
-  const rpVersion = semverVector(
-    inc(RP || defaultVersion, <ReleaseType> releaseType) ?? defaultVersion,
-  );
-
-  const bpVersion = semverVector(
-    inc(BP || defaultVersion, <ReleaseType> releaseType) ?? defaultVersion,
-  );
-
   return {
-    version_history,
-    RP: rpVersion,
-    BP: bpVersion,
+    version_history: currentRelease ? [currentRelease] : [],
+    RP: version,
+    BP: version,
   };
 }
 
-export async function createManifests(
+export function createManifests(
   uuids: [string, string, string, string],
+  name: string,
+  description?: string,
   releaseType?: ReleaseType,
 ) {
-  const { RP: rpVersion, BP: bpVersion, version_history } =
-    await getBuildVersion(releaseType);
+  const { RP: rpVersion, BP: bpVersion, version_history } = getBuildVersion(
+    releaseType,
+  );
 
   const metadata = getMetadata(version_history);
 
@@ -87,15 +83,15 @@ export async function createManifests(
       {
         format_version: 2,
         header: {
-          name: PACK_NAME,
-          description: PACK_DESCRIPTION,
+          name,
+          description,
           uuid: uuids[0],
           version: rpVersion,
-          min_engine_version: TARGET_VERSION,
+          min_engine_version,
         },
         modules: [
           {
-            description: `${PACK_NAME} generated textures`,
+            description: `${name} generated textures`, // TODO: Allow better module description
             type: "resources",
             uuid: uuids[1],
             version: rpVersion,
@@ -119,15 +115,15 @@ export async function createManifests(
       {
         format_version: 2,
         header: {
-          name: `${PACK_NAME} Behavior Pack`,
-          description: `${PACK_NAME} data dependency`,
+          name: `${name} Behavior Pack`,
+          description: `${name} data dependency`,
           uuid: uuids[2],
           version: bpVersion,
-          min_engine_version: TARGET_VERSION,
+          min_engine_version,
         },
         modules: [
           {
-            description: `${PACK_NAME} generated block data`,
+            description: `${name} generated block data`,
             type: "data",
             uuid: uuids[3],
             version: bpVersion,
@@ -135,13 +131,9 @@ export async function createManifests(
         ],
         dependencies: [
           {
-            uuid: uuids[1],
+            uuid: uuids[0],
             version: rpVersion,
           },
-          // {
-          //   uuid: RP_MODULE_UUID,
-          //   version: rpVersion,
-          // },
         ],
         metadata,
       },

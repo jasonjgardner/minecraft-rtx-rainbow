@@ -1,20 +1,61 @@
+import type { PackSizes, PaletteInput } from "/typings/types.ts";
 import { join, toFileUrl } from "path/mod.ts";
+import { GIF, Image, TextLayout } from "imagescript/mod.ts";
 import { DIR_SRC } from "/src/store/_config.ts";
-import { fetchData } from "/src/_utils.ts";
+import { fetchImage, handlePaletteInput } from "/src/_utils.ts";
 import {
   addToBehaviorPack,
   addToResourcePack,
 } from "/src/components/_state.ts";
 
-type OutputSizes = 16 | 32 | 64 | 128 | 256;
+export function getDefaultIcon() {
+  return fetchImage(
+    toFileUrl(join(DIR_SRC, "assets", "img", "pack_icon.png")),
+  );
+}
 
-export default async function setup(outputSize: OutputSizes, iconSrc?: URL) {
-  const iconUrl = iconSrc ??
-    toFileUrl(join(DIR_SRC, "assets", "img", "pack_icon.png"));
+// FIXME: Host font locally
+async function fetchFont(): Promise<Uint8Array> {
+  return new Uint8Array(
+    await (await fetch(
+      "https://github.com/rsms/inter/raw/master/docs/font-files/Inter-Regular.otf",
+    )).arrayBuffer(),
+  );
+}
+
+export async function generatePackIcon(
+  namespace: string,
+  artSrc: PaletteInput,
+) {
+  const icon = <Image> await handlePaletteInput(
+    artSrc,
+    await getDefaultIcon(), // FIXME: Avoid fetching default icon when artSrc is not null
+  );
+
+  const iconHeadlineImg = Image.renderText(
+    await fetchFont(),
+    12,
+    namespace,
+    Image.rgbToColor(255, 255, 255),
+    new TextLayout({
+      maxWidth: 250,
+      maxHeight: 250,
+      horizontalAlign: "middle",
+      verticalAlign: "center",
+      wrapHardBreaks: false,
+    }),
+  );
+
+  icon.composite(iconHeadlineImg);
+
+  return icon.encode(3);
+}
+
+export default async function setup(
+  outputSize: PackSizes,
+  packIcon: Uint8Array,
+) {
   try {
-    // TODO: Generate pack icon with each build
-    const packIcon = await (await fetchData(iconUrl)).encode(3);
-
     addToResourcePack(
       "pack_icon.png",
       packIcon,
@@ -24,11 +65,11 @@ export default async function setup(outputSize: OutputSizes, iconSrc?: URL) {
       packIcon,
     );
   } catch (err) {
-    console.error('Failed adding pack icons from URL "%s"! %s', iconUrl, err);
+    console.error("Failed adding pack icons! %s", err);
   }
 
   try {
-    const normalMap = await fetchData(
+    const normalMap = await fetchImage(
       toFileUrl(
         join(
           DIR_SRC,
@@ -48,7 +89,7 @@ export default async function setup(outputSize: OutputSizes, iconSrc?: URL) {
   }
 
   try {
-    const itemTexture = await fetchData(
+    const itemTexture = await fetchImage(
       toFileUrl(join(DIR_SRC, "assets", "img", "rainbow_trail_key.png")),
     );
     addToResourcePack(

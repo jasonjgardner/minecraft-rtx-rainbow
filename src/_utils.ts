@@ -1,6 +1,15 @@
 import type { PaletteInput, RGB, RgbaObj } from "/typings/types.ts";
+import { DEFAULT_NAMESPACE } from "/typings/constants.ts";
 import { GIF, Image } from "imagescript/mod.ts";
-import { toFileUrl } from "path/mod.ts";
+import { basename, extname, toFileUrl } from "path/mod.ts";
+
+export function sanitizeNamespace(entry: FormDataEntryValue | PaletteInput) {
+  return (entry instanceof File
+    ? basename(entry.name, extname(entry.name))
+    : entry ?? DEFAULT_NAMESPACE)
+    .trim()
+    .replace(/[^A-Za-z0-9_\-]/gi, "");
+}
 export function hex2rgb(hex: string): [number, number, number] {
   const result = /^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 
@@ -43,7 +52,7 @@ export async function encodeRGBColor(layerValue: number[], size = 16) {
 }
 
 function getImageFromUrl(src: string): Promise<Image | GIF> {
-  return fetchData(
+  return fetchImage(
     (src.toLowerCase().startsWith("http://") ||
         src.toLowerCase().startsWith("https://"))
       ? new URL(src)
@@ -51,10 +60,14 @@ function getImageFromUrl(src: string): Promise<Image | GIF> {
   );
 }
 
-export function handlePaletteInput(src: PaletteInput, defaultSrc: string) {
-  return ((src && typeof src !== "string")
+export function handlePaletteInput(src: PaletteInput, defaultSrc: Image | GIF) {
+  if (!src) {
+    return defaultSrc;
+  }
+
+  return (src && typeof src !== "string")
     ? getImageFromFile(src)
-    : getImageFromUrl(src ?? defaultSrc));
+    : getImageFromUrl(src);
 }
 
 // TODO: Use Deno.open instead of FileReader?
@@ -94,7 +107,7 @@ export function channelPercentage(percentage: number) {
   return Math.ceil((Math.max(0, percentage) * 255) / 100);
 }
 
-export async function fetchData(source: URL): Promise<Image | GIF> {
+export async function fetchImage(source: URL): Promise<Image | GIF> {
   const res = await fetch(source.href);
   const data = new Uint8Array(await res.arrayBuffer());
   const isGif =

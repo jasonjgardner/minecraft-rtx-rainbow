@@ -9,19 +9,21 @@ import type {
   PackSizes,
   PaletteInput,
 } from "/typings/types.ts";
-
+import { DEFAULT_RELEASE_TYPE } from "/typings/constants.ts";
 import { sprintf } from "fmt/printf.ts";
 import { EOL } from "fs/mod.ts";
 
-import { MIP_LEVELS, NAMESPACE } from "/src/store/_config.ts";
+import { calculateMipLevels } from "/src/components/_resize.ts";
 import BlockEntry from "/src/components/BlockEntry.ts";
 import { getBlocks, HueBlock } from "/src/components/blocks/index.ts";
 import Material from "/src/components/Material.ts";
 import { getMaterials } from "/src/components/materials/index.ts";
 import createFunctions from "/src/components/mcfunctions/index.ts";
 //import { writeFlipbooks } from "/src/components/flipbook.ts";
-//import { deployToDev } from "./components/deploy.ts";
-import setup from "./components/_setup.ts";
+import setup, {
+  generatePackIcon,
+  getDefaultIcon,
+} from "./components/_setup.ts";
 import { createItems } from "/src/components/items.ts";
 import { createManifests } from "/src/components/manifest.ts";
 import printer from "/src/components/printer.ts";
@@ -35,6 +37,7 @@ import {
 
 export interface CreationParameters {
   size: PackSizes;
+  namespace: string;
   blockColors?: HueBlock[];
   materialOptions?: Material[];
   outputFunctions?: boolean;
@@ -48,18 +51,22 @@ export const languages: LanguagesContainer = {
 };
 
 // Join base textures with PBR materials
-function compileMaterials(baseTextures: HueBlock[], materials: Material[]) {
+function compileMaterials(
+  namespace: string,
+  baseTextures: HueBlock[],
+  materials: Material[],
+) {
   const res: BlockEntry[] = [];
   materials.forEach((material: Material) => {
     baseTextures.forEach((base: HueBlock) => {
-      res.push(new BlockEntry(base, material));
+      res.push(new BlockEntry(namespace, base, material));
     });
   });
 
   return res;
 }
 
-function createTextures(res: BlockEntry[]) {
+function createTextures(namespace: string, size: PackSizes, res: BlockEntry[]) {
   const textureData: MinecraftTerrainData = {};
   const blocksData: MinecraftData = {};
   const textureList: string[] = [];
@@ -77,7 +84,7 @@ function createTextures(res: BlockEntry[]) {
         sprintf(
           "tile.%s.name=%s",
           block.behaviorId,
-          block.title(<LanguageId> languageKey).replace(/[#]+/g, ""),
+          block.title(<LanguageId> languageKey),
         ),
       );
     }
@@ -109,13 +116,16 @@ function createTextures(res: BlockEntry[]) {
     "blocks.json",
     JSON.stringify({ format_version: [1, 1, 0], ...blocksData }),
   );
+
+  const mips = calculateMipLevels(size);
+
   addToResourcePack(
     "textures/terrain_texture.json",
     JSON.stringify(
       {
-        num_mip_levels: MIP_LEVELS, // TODO: Calculate mip levels based on texture size
-        padding: (2 * MIP_LEVELS),
-        resource_pack_name: NAMESPACE,
+        num_mip_levels: mips,
+        padding: Math.max(1, 2 * mips),
+        resource_pack_name: namespace,
         texture_name: "atlas.terrain",
         texture_data: textureData,
       },
@@ -147,6 +157,7 @@ export default async function createAddon(
   uuids: [string, string, string, string],
   {
     size,
+    namespace,
     blockColors,
     materialOptions,
     outputFunctions,
@@ -159,16 +170,21 @@ export default async function createAddon(
     ? materialOptions
     : getMaterials();
   const res = compileMaterials(
+    namespace,
     blockColors && blockColors.length ? blockColors : getBlocks(),
     materials,
   );
 
-  await setup(size); // TODO: Setup subpacks
-  await createManifests(uuids, releaseType ?? "prerelease");
-  createTextures(res);
+  const packIcon = pixelArtSource
+    ? await generatePackIcon(namespace, pixelArtSource)
+    : await (await getDefaultIcon()).encode(3);
+
+  await setup(size, packIcon); // TODO: Setup subpacks
+  createManifests(uuids, releaseType ?? DEFAULT_RELEASE_TYPE);
+  createTextures(namespace, size, res);
   createLanguages();
 
-  if (createItems() || pixelArtSource || outputFunctions === true) {
+  if (createItems(namespace) || pixelArtSource || outputFunctions === true) {
     createFunctions();
 
     if (pixelArtSource || outputPixelArt === true) {

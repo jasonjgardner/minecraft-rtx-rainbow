@@ -1,4 +1,3 @@
-import { NAMESPACE } from "/src/store/_config.ts";
 import {
   addToBehaviorPack,
   addToResourcePack,
@@ -8,15 +7,15 @@ import {
  * Create item data
  * @returns TRUE if function generation is required
  */
-export function createItems() {
+export function createItems(namespace: string) {
   addToResourcePack(
     "textures/item_texture.json",
     JSON.stringify(
       {
-        resource_pack_name: NAMESPACE,
+        resource_pack_name: namespace,
         texture_name: "atlas.items",
         texture_data: {
-          [`${NAMESPACE}.rainbow_trail_key`]: {
+          [`${namespace}.rainbow_trail_key`]: {
             textures: "textures/items/rainbow_trail_key",
           },
         },
@@ -30,14 +29,14 @@ export function createItems() {
         format_version: "1.16.100",
         "minecraft:item": {
           description: {
-            identifier: `${NAMESPACE}:rainbow_trail_key`,
+            identifier: `${namespace}:rainbow_trail_key`,
             category: "items",
           },
           components: {
             "tag:rainbow:trail_key": {},
             "minecraft:icon": {
               frame: 0,
-              texture: `${NAMESPACE}.rainbow_trail_key`,
+              texture: `${namespace}.rainbow_trail_key`,
             },
             "minecraft:creative_category": {
               parent: "itemGroup.name.dye",
@@ -48,11 +47,11 @@ export function createItems() {
             },
             "minecraft:allow_off_hand": false,
             "minecraft:on_use": {
-              on_use: `${NAMESPACE}:activate_trail`,
+              on_use: `${namespace}:activate_trail`,
             },
           },
           events: {
-            [`${NAMESPACE}:activate_trail`]: {
+            [`${namespace}:activate_trail`]: {
               run_command: {
                 command: ["function rainbowtrail"],
                 target: "self",
@@ -80,7 +79,7 @@ export function createItems() {
             animate: [
               {
                 rainbow_trail:
-                  `query.get_equipped_item_name('slot.weapon.mainhand') == '${NAMESPACE}:rainbow_trail_key'`,
+                  `query.get_equipped_item_name('slot.weapon.mainhand') == '${namespace}:rainbow_trail_key'`,
               },
             ],
           },
@@ -95,14 +94,14 @@ export function createItems() {
         format_version: "1.16.100",
         "minecraft:item": {
           description: {
-            identifier: `${NAMESPACE}:rainbow_trail_key`,
+            identifier: `${namespace}:rainbow_trail_key`,
             category: "items",
           },
           components: {
             "tag:rainbow:trail_key": {},
             "minecraft:icon": {
               frame: 0,
-              texture: `${NAMESPACE}.rainbow_trail_key`,
+              texture: `${namespace}.rainbow_trail_key`,
             },
             "minecraft:creative_category": {
               parent: "itemGroup.name.dye",
@@ -113,11 +112,11 @@ export function createItems() {
             },
             "minecraft:allow_off_hand": false,
             "minecraft:on_use": {
-              on_use: `${NAMESPACE}:activate_trail`,
+              on_use: `${namespace}:activate_trail`,
             },
           },
           events: {
-            [`${NAMESPACE}:activate_trail`]: {
+            [`${namespace}:activate_trail`]: {
               run_command: {
                 command: ["function rainbowtrail"],
                 target: "self",

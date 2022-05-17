@@ -1,27 +1,34 @@
+import type Material from "/src/components/Material.ts";
+import type { Alignment, Axis, RGB, RGBA } from "/typings/types.ts";
 import { Frame, GIF, Image } from "imagescript/mod.ts";
 import { basename } from "path/mod.ts";
 import { sprintf } from "fmt/printf.ts";
 import { EOL } from "fs/mod.ts";
-import BlockEntry from "./BlockEntry.ts";
-import { hex2rgb } from "/src/_utils.ts";
+import {
+  CHUNK_SIZE,
+  DEFAULT_PRINT_BLOCK,
+  DEFAULT_PRINT_CHUNKS,
+  FUNCTIONS_NAMESPACE,
+  MAX_FRAMES,
+  MAX_FUNCTION_LINES,
+  MAX_PRINT_SIZE,
+  TRANSPARENT_PRINT_BLOCK,
+  TRANSPARENT_PRINT_BLOCK_THRESHOLD,
+} from "/typings/constants.ts";
+import BlockEntry from "/src/components/BlockEntry.ts";
 import { addToBehaviorPack } from "/src/components/_state.ts";
-import type Material from "/src/components/Material.ts";
-import type { RGB } from "/typings/types.ts";
 
-const GLASS_ID = "glass";
-const MAX_FRAMES = 10;
-const MAX_PRINT_SIZE = 24 * 16;
-const FUNCTIONS_NAMESPACE = "printer";
+const axises: [Axis, Axis, Axis] = ["x", "y", "z"];
 const DIR_FUNCTIONS = `functions/${FUNCTIONS_NAMESPACE}`;
-
-export type Alignment = "e2e" | "b2b" | "even" | "odd" | "none";
-type Axis = "x" | "y" | "z";
 
 interface PrinterResult {
   label: string;
   axis: Axis;
   func: string;
 }
+
+const hasTransparency = ({ color: { rgba } }: BlockEntry) =>
+  rgba[3] < 1 && rgba[3] >= TRANSPARENT_PRINT_BLOCK_THRESHOLD;
 
 function colorDistance(color1: RGB, color2: RGB) {
   return Math.sqrt(
@@ -31,21 +38,23 @@ function colorDistance(color1: RGB, color2: RGB) {
 }
 
 export function getNearestColor(
-  color: number[],
+  color: RGB | RGBA,
   palette: BlockEntry[],
-  crystal = false,
 ): BlockEntry {
-  const rgbColor = <RGB> [color[0] || 0, color[1] || 0, color[2] || 0];
+  const rgbColor: RGB = [color[0] || 0, color[1] || 0, color[2] || 0];
   const alpha = color[3] || 0;
 
-  const materialPalette = (alpha >= 100 && !crystal)
+  const materialPalette = (alpha >= 100)
     ? palette
     : palette.filter(({ color: { rgba } }: BlockEntry) => rgba[3] < 1); // Restrict palette to blocks with transparency
 
   // https://gist.github.com/Ademking/560d541e87043bfff0eb8470d3ef4894?permalink_comment_id=3720151#gistcomment-3720151
   return materialPalette.reduce(
     (prev: [number, BlockEntry], curr: BlockEntry): [number, BlockEntry] => {
-      const distance = colorDistance(rgbColor, hex2rgb(curr.color.hex));
+      const distance = colorDistance(
+        rgbColor,
+        <RGB> curr.color.rgba.slice(0, 2),
+      );
 
       return (distance < prev[0]) ? [distance, curr] : prev;
     },
@@ -57,7 +66,7 @@ function writeFill(
   x: number,
   y: number,
   z: number,
-  fillWith = "air",
+  fillWith?: string,
   flipAxis?: Axis,
 ): string {
   const position = sprintf(
@@ -68,7 +77,9 @@ function writeFill(
       ? [x, z, y]
       : [x, y, z]),
   );
-  return `fill ${position} ${position} ${fillWith} 0 keep`;
+  return `fill ${position} ${position} ${
+    fillWith ?? TRANSPARENT_PRINT_BLOCK
+  } 0 keep`;
 }
 
 function printDecoded(
@@ -79,35 +90,30 @@ function printDecoded(
   offset: number[],
   dest: string,
 ) {
-  const axises = ["x", "y", "z"] as const;
-  const glassAvailable = palette.some(({ material }: BlockEntry) =>
-    material.label === GLASS_ID
-  );
+  const transparencyPalette = palette.filter((b) => hasTransparency(b));
 
-  let maxLines = 10000;
+  let maxLines = MAX_FUNCTION_LINES;
 
   return materials.flatMap(({ label }: Material) => {
     if (maxLines <= 0) {
       throw Error(sprintf("Function %s has exceeded max length", name));
     }
 
-    // Glass sculptures get extra attention
-    const thisIsGlass = glassAvailable && label === GLASS_ID;
-    const materialPalette = palette.filter(({ material }: BlockEntry) =>
-      label === material.label || thisIsGlass // Always include glass for semi-opaque pixels
+    const materialPalette = palette.filter((entry: BlockEntry) =>
+      label === entry.material.label || hasTransparency(entry) // Always include transparency to allow printing semi-opaque pixels
     );
 
     return axises.map((axis): PrinterResult => {
       const func: string[] = [];
 
       for (const [x, y, c] of img.iterateWithColors()) {
-        const rgba = Image.colorToRGBA(c);
-        const alpha = glassAvailable ? rgba[3] : 100;
+        const rgba = <RGBA> Image.colorToRGBA(c);
+        const alpha = transparencyPalette.length > 0 ? rgba[3] : 100;
 
-        const nearest = alpha < 50 // Minimum alpha of 50%
-          ? "air"
-          : getNearestColor(rgba, materialPalette, thisIsGlass)?.behaviorId ||
-            "stone";
+        const nearest = alpha < TRANSPARENT_PRINT_BLOCK_THRESHOLD // Minimum alpha of 50%
+          ? TRANSPARENT_PRINT_BLOCK
+          : getNearestColor(rgba, materialPalette)?.behaviorId ||
+            DEFAULT_PRINT_BLOCK;
 
         func.push(
           writeFill(
@@ -115,7 +121,7 @@ function printDecoded(
             Math.abs((y + offset[1]) - img.height), // Starts print row at top
             offset[2],
             nearest,
-            <Axis> axis,
+            axis,
           ),
         );
       }
@@ -128,8 +134,6 @@ function printDecoded(
         func.join(EOL.CRLF),
       );
 
-      console.log("Added %s to behavior pack", filePath);
-
       maxLines -= func.length;
 
       return { label, axis, func: filename };
@@ -140,7 +144,7 @@ function printDecoded(
 function getAlignment(
   align: Alignment,
   options?: { idx: number; frame: Image | Frame; coords?: number[] },
-): number[] {
+): [number, number, number] {
   const idx = options?.idx || 1;
   const [x, y, z] = options?.coords && options.coords.length >= 3
     ? options.coords
@@ -186,7 +190,10 @@ export async function pixelPrinter(
   },
 ) {
   const frames = Array.isArray(imageData) ? imageData : [imageData];
-  const size = Math.min(MAX_PRINT_SIZE, (options.chunks ?? 2) * 16);
+  const size = Math.min(
+    MAX_PRINT_SIZE,
+    (options.chunks ?? DEFAULT_PRINT_CHUNKS) * CHUNK_SIZE,
+  );
   const frameCount = Math.min(MAX_FRAMES, frames.length);
   frames.length = frameCount;
 
@@ -246,9 +253,12 @@ function createParentFunction(
         fns[key] = [];
       }
 
-      const line = `function ${FUNCTIONS_NAMESPACE}/${name}/${
-        basename(func, ".mcfunction")
-      }`;
+      const line = sprintf(
+        "function %s/%s/%s",
+        FUNCTIONS_NAMESPACE,
+        name,
+        basename(func, ".mcfunction"),
+      );
 
       fns[key].push(line);
     });

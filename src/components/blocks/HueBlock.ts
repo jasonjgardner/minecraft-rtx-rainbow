@@ -6,7 +6,7 @@ import type {
   RGBA,
   RgbaObj,
 } from "/typings/types.ts";
-import { clamp, formatAhex, formatHex } from "/src/_utils.ts";
+import { clamp, formatHex } from "/src/_utils.ts";
 
 import { labelLanguage } from "/src/components/BlockEntry.ts";
 
@@ -51,7 +51,7 @@ export default class HueBlock {
 
   get textureSet() {
     return {
-      color: formatAhex(this._color),
+      color: +this._color.alpha < 1 ? this.rgba : this.hex, // formatAhex(this._color),
     };
   }
 

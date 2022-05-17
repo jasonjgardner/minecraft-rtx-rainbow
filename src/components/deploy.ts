@@ -1,58 +1,43 @@
-import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
-import { copy } from "https://deno.land/std@0.125.0/fs/copy.ts";
-import { emptyDir } from "https://deno.land/std@0.123.0/fs/mod.ts";
-import { DIR_DIST, NAMESPACE } from "../store/_config.ts";
+import { join } from "path/mod.ts";
 
-const appData = Deno.env.get("LOCALAPPDATA") || "%LocalAppData%";
-
-const comMojang = join(
-  appData,
-  "Packages",
-  "Microsoft.MinecraftUWP_8wekyb3d8bbwe",
-  "LocalState",
-  "games",
-  "com.mojang",
-);
-
-const buildBehaviorPacks = join(DIR_DIST, `${NAMESPACE} BP`);
-const buildResourcePacks = join(DIR_DIST, `${NAMESPACE} RP`);
-
-const devBehaviorPacks = join(
-  comMojang,
-  "development_behavior_packs",
-  NAMESPACE,
-  `${NAMESPACE} BP`,
-);
-const devResourcePacks = join(
-  comMojang,
-  "development_resource_packs",
-  NAMESPACE,
-  `${NAMESPACE} RP`,
-);
-
-export async function deployToDev() {
+export function getMojangPath(preview?: boolean) {
   if (
     Deno.build.os !== "windows" || Deno.env.get("GITHUB_ACTIONS") !== undefined
   ) {
-    throw Error("Can not deploy in current environment");
+    throw Error(
+      "Can not lookup com.mojang path",
+    );
   }
-  await resetDev();
-  return await Promise.all([
-    copy(buildBehaviorPacks, devBehaviorPacks, { overwrite: true }),
-    copy(buildResourcePacks, devResourcePacks, { overwrite: true }),
-  ]);
+
+  const appData = Deno.env.get("LOCALAPPDATA") || "%LocalAppData%";
+
+  const uwpPath = preview === true
+    ? "Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe"
+    : "Microsoft.MinecraftUWP_8wekyb3d8bbwe";
+
+  return join(
+    appData,
+    "Packages",
+    uwpPath,
+    "LocalState",
+    "games",
+    "com.mojang",
+  );
 }
 
-export async function resetDev() {
-  if (
-    Deno.build.os !== "windows" || Deno.env.get("GITHUB_ACTIONS") !== undefined
-  ) {
-    throw Error("Can not reset development packs in current environment");
-  }
-  const paths = [
-    devBehaviorPacks,
-    devResourcePacks,
-  ];
-  await Promise.all(paths.map((dir) => emptyDir(dir)));
-  //await Promise.all(paths.map((dir) => ensureDir(dir)));
+export function getDevelopmentPath(
+  target: "RP" | "BP",
+  packName: string,
+  preview?: boolean,
+) {
+  return join(
+    getMojangPath(preview === true),
+    target === "RP"
+      ? "development_resource_packs"
+      : "development_behavior_packs",
+    packName,
+    `${packName} ${target}`,
+  );
 }
+
+// TODO: Unzip to development paths

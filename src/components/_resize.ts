@@ -1,5 +1,9 @@
 import type { PackSizes } from "/typings/types.ts";
-import { MAX_PACK_SIZE, MIN_PACK_SIZE } from "/typings/constants.ts";
+import {
+  DEFAULT_PACK_SIZE,
+  MAX_PACK_SIZE,
+  MIN_PACK_SIZE,
+} from "/typings/constants.ts";
 
 const PACK_SIZES: number[] = ((itr: number) => {
   const sizes: number[] = [itr];
@@ -36,4 +40,20 @@ export function getNearestPackSize(value: number): PackSizes {
   }
 
   return getNearestPackSize(value);
+}
+
+export function getFormPackSize(data: FormData): PackSizes {
+  const size = data.get("size") ?? DEFAULT_PACK_SIZE;
+
+  return !isNaN(+size)
+    ? getNearestPackSize(parseInt(`${size}`, 10))
+    : DEFAULT_PACK_SIZE;
+}
+
+export function calculateMipLevels(size: PackSizes): number {
+  if (size >= MAX_PACK_SIZE / 4) {
+    return 0;
+  }
+
+  return size < MAX_PACK_SIZE / 6 ? 2 : 1;
 }

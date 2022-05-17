@@ -20,8 +20,9 @@ export const DIR_DIST = join(DIR_ROOT, "build");
 
 export const DIR_AMULET = join(DIR_ROOT, "dist", "amulet");
 
-export const BEHAVIOR_BLOCK_FORMAT_VERSION = "1.16.100";
-
+/**
+ * @deprecated Set min_engine_version in constants.ts
+ */
 export const TARGET_VERSION = semverVector(
   Deno.env.get("TARGET_VERSION") || "1.18.3",
 );
@@ -51,31 +52,32 @@ export const BP_PACK_UUID = getUuid(false);
 export const RP_MODULE_UUID = getUuid(true, false);
 export const BP_MODULE_UUID = getUuid(false, false);
 
+/**
+ * @deprecated Use namespace from context/parameters
+ */
 export const NAMESPACE = `${getConfig("NAMESPACE", "rainbow")}`;
 
+/**
+ * @deprecated Pack name is defined by user input
+ */
 export const PACK_NAME = getConfig("PACK_NAME", "RAINBOW!!");
+
+/**
+ * @deprecated Pack description is defined by user input
+ */
 export const PACK_DESCRIPTION = getConfig(
   "PACK_DESCRIPTION",
   "RTX-enabled solid color blocks",
 );
 
+/**
+ * @deprecated Output no longer in use
+ */
 export const DIR_RP = join(DIR_DIST, `/${NAMESPACE} RP`);
+
+/**
+ * @deprecated Output no longer in use
+ */
 export const DIR_BP = join(DIR_DIST, `/${NAMESPACE} BP`);
 
 export const RELEASE_TYPE = <ReleaseType> getConfig("RELEASE_TYPE", "patch");
-
-// Magic numbers
-export const MIP_LEVELS: number = parseInt(
-  `${getConfig("MIP_LEVELS", 0) ?? 0}`,
-  10,
-);
-
-/**
- * Emissive level at which ambient occlusion is disabled on a block's face
- */
-export const AO_EMISSIVE_THRESHOLD = 50;
-
-/**
- * Default sound ID applied in blocks.json
- */
-export const DEFAULT_BLOCK_SOUND = "dirt";

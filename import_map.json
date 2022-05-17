@@ -2,6 +2,7 @@
   "imports": {
     "/": "./",
     "./": "./",
+    "@octokit/": "https://cdn.skypack.dev/@octokit/",
     "dotenv/": "https://deno.land/x/dotenv@v3.2.0/",
     "semver/": "https://deno.land/x/semver@v1.4.0/",
     "imagescript/": "https://deno.land/x/imagescript@v1.2.12/",
@@ -15,6 +16,7 @@
     "encoding/": "https://deno.land/std@0.139.0/encoding/",
     "fmt/": "https://deno.land/std@0.139.0/fmt/",
     "http/": "https://deno.land/std@0.139.0/http/",
-    "log/": "https://deno.land/std@0.125.0/log/"
+    "log/": "https://deno.land/std@0.125.0/log/",
+    "collections/": "https://deno.land/std@0.139.0/collections/"
   }
 }
