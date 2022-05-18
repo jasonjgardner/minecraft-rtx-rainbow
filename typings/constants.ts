@@ -46,4 +46,9 @@ export const TRANSPARENT_PRINT_BLOCK_THRESHOLD = 50;
 
 export const TARGET_VERSION: [number, number, number] = [1, 18, 3];
 
-export const DEFAULT_BUILD_VERSION = "0.0.0";
+export const DEFAULT_BUILD_VERSION = "1.0.0";
+
+export const PACK_ICON_SIZE = 256;
+export const PACK_ICON_FONT_SIZE = 10;
+
+export const ART_SOURCE_ID = "input";

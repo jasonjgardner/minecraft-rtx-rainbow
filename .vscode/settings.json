@@ -13,5 +13,6 @@
   "deno.suggest.completeFunctionCalls": true,
   "deno.codeLens.implementations": true,
   "deno.codeLens.references": true,
-  "deno.codeLens.referencesAllFunctions": true
+  "deno.codeLens.referencesAllFunctions": true,
+  "nuxt.isNuxtApp": false
 }

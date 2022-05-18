@@ -5,6 +5,7 @@ import { basename, dirname, extname, join, toFileUrl } from "path/mod.ts";
 import { walk } from "fs/walk.ts";
 import { Octokit } from "@octokit/core";
 import {
+  ART_SOURCE_ID,
   DEFAULT_PRINT_CHUNKS,
   MAX_PRINT_CHUNKS,
   MIN_PALETTE_LENGTH,
@@ -176,35 +177,7 @@ export function printPixelArtDirectory(
   }
 }
 
-async function printPaletteInput(
-  artSrc: PaletteInput,
-  res: BlockEntry[],
-  materials: Material[],
-) {
-  if (artSrc === null) {
-    throw Error("Invalid palette input source");
-  }
-
-  // TODO: Create default palette source. Currently using default pack icon as source
-  const paletteImageSource = await handlePaletteInput(
-    artSrc,
-    await fetchImage(
-      toFileUrl(join(DIR_SRC, "assets", "img", "pack_icon.png")),
-    ),
-  );
-
-  return pixelPrinter(
-    "Input",
-    paletteImageSource,
-    res,
-    materials,
-    {
-      alignment: "none",
-    },
-  );
-}
-
-export default function printer(
+export default async function printer(
   res: BlockEntry[],
   materials: Material[],
   artSrc?: PaletteInput,
@@ -217,7 +190,17 @@ export default function printer(
 
   if (artSrc) {
     try {
-      tasks.push(printPaletteInput(artSrc, res, materials));
+      tasks.push(pixelPrinter(
+        ART_SOURCE_ID,
+        await handlePaletteInput(
+          artSrc,
+        ),
+        res,
+        materials,
+        {
+          alignment: "none",
+        },
+      ));
     } catch (err) {
       console.log("Failed printing pixel art from input: %s", err);
     }

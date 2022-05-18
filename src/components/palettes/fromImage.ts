@@ -2,28 +2,18 @@ import type { PaletteInput, RGBA } from "/typings/types.ts";
 
 import { GIF, Image } from "imagescript/mod.ts";
 import HueBlock from "/src/components/blocks/HueBlock.ts";
-import { fetchImage, handlePaletteInput } from "/src/_utils.ts";
-import getDefaultPalette from "/src/components/palettes/default.ts";
+import { handlePaletteInput } from "/src/_utils.ts";
 
 const MAX_PALETTE_SIZE = 255 ** 3;
-const DEFAULT_IMAGE_URL = "https://placekitten.com/64/64";
 const BOUNDARY_X = 256;
 const BOUNDARY_Y = 256;
 const MIN_ALPHA = 10;
 
 export default async function getPalette(
-  src: PaletteInput,
+  src: Exclude<PaletteInput, null>,
 ): Promise<HueBlock[]> {
-  if (!src) {
-    console.log("No palette input provided. Returning default palette.");
-    return getDefaultPalette();
-  }
-
-  const input = await handlePaletteInput(
-    src,
-    await fetchImage(new URL(DEFAULT_IMAGE_URL)),
-  );
-  const img = input instanceof GIF ? input[0] : input; // FIXME:
+  const input = await handlePaletteInput(src);
+  const img = input instanceof GIF ? input[0] : input;
 
   const colors: Array<RGBA> = [];
 

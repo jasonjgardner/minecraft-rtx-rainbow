@@ -60,26 +60,10 @@ function getImageFromUrl(src: string): Promise<Image | GIF> {
   );
 }
 
-export function handlePaletteInput(src: PaletteInput, defaultSrc: Image | GIF) {
-  if (!src) {
-    return defaultSrc;
-  }
-
+export async function handlePaletteInput(src: Exclude<PaletteInput, null>) {
   return (src && typeof src !== "string")
-    ? getImageFromFile(src)
+    ? Image.decode(new Uint8Array(await src.arrayBuffer()))
     : getImageFromUrl(src);
-}
-
-// TODO: Use Deno.open instead of FileReader?
-export function getImageFromFile(src: File): Promise<Image> {
-  return new Promise((res, rej) => {
-    const reader = new FileReader();
-    reader.onload = () =>
-      reader.result
-        ? res(Image.decode(new Uint8Array(<ArrayBuffer> reader.result)))
-        : rej("Failed reading file to array buffer");
-    reader.readAsArrayBuffer(src);
-  });
 }
 
 export function semverVector(ver: string): number[] {
@@ -110,7 +94,7 @@ export function channelPercentage(percentage: number) {
 export async function fetchImage(source: URL): Promise<Image | GIF> {
   const res = await fetch(source.href);
   const data = new Uint8Array(await res.arrayBuffer());
-  const isGif =
+  const isGif = extname(source.href) === ".gif" ||
     res.headers.get("content-type")?.startsWith("image/gif") === true;
 
   return isGif ? GIF.decode(data) : Image.decode(data);

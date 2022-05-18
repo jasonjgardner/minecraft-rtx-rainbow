@@ -11,18 +11,18 @@ import {
   BEHAVIOR_BLOCK_FORMAT_VERSION,
   DEFAULT_NAMESPACE,
 } from "/typings/constants.ts";
-import titleCase from "case/titleCase.ts";
+import Hashids from "https://cdn.skypack.dev/hashids?dts";
 import { sprintf } from "fmt/printf.ts";
 import { deepMerge } from "collections/mod.ts";
 import { sanitizeNamespace } from "/src/_utils.ts";
 import HueBlock from "/src/components/blocks/HueBlock.ts";
 import Material from "/src/components/Material.ts";
 
-export const labelLanguage: LanguageId = "en_US";
+export const labelLanguage: LanguageId = "en_us";
 
 export default class BlockEntry {
   _namespace!: string;
-  _idx!: number;
+  _id!: string;
 
   _hue!: HueBlock;
 
@@ -61,11 +61,9 @@ export default class BlockEntry {
   }
 
   get id() {
-    return sprintf(
-      "%s_%s",
-      this._hue.name,
-      this._material.label,
-    ).replace(/\s+/g, "_").toLowerCase();
+    const hash = this.namespace.slice(0, 2).trim();
+    return sprintf("%s%s_%s", hash, this._material.label, this._hue.name)
+      .toLowerCase();
   }
 
   get behaviorId() {
@@ -77,18 +75,26 @@ export default class BlockEntry {
   }
 
   title(lang: LanguageId) {
-    return titleCase(sprintf(
+    return sprintf(
       "%s %s",
       this._material.title(lang),
       this._hue.title(lang),
-    ));
+    );
+  }
+
+  language(lang: LanguageId) {
+    return sprintf(
+      "tile.%s.name=%s",
+      this.behaviorId,
+      this.title(lang),
+    );
   }
 
   get name() {
     return this.title(labelLanguage);
   }
 
-  get textureSet() {
+  get textureSet(): TextureSet {
     return deepMerge(this._hue.textureSet, this._material.textureSet);
   }
 
@@ -180,6 +186,7 @@ export default class BlockEntry {
     return deepMerge({
       "*": {
         texture: this.resourceId,
+        render_method: this._hue.rgba[3] < 1 ? "blend" : "opaque",
       },
     }, this._material.materialInstance);
   }
@@ -188,6 +195,13 @@ export default class BlockEntry {
     return deepMerge(
       {
         "minecraft:material_instances": this.materialInstances,
+        "minecraft:destroy_time": 1,
+        "minecraft:explosion_resistance": 5,
+        "minecraft:friction": 0.6,
+        "minecraft:flammable": {
+          flame_odds: 0,
+          burn_odds: 0,
+        },
       },
       deepMerge(this._hue.components, this._material.components),
     );

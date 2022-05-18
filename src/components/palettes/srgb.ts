@@ -6,7 +6,7 @@ export default function generateSrgbBlocks(step: number) {
     for (let g = 0; g <= 255; g += step) {
       for (let b = 0; b <= 255; b += step) {
         blocks.push(
-          new HueBlock([r, g, b], { en_US: `R${r} G${g} B${b}` }),
+          new HueBlock([r, g, b], { en_us: `R${r} G${g} B${b}` }),
         );
       }
     }

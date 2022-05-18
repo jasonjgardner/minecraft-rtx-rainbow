@@ -28,23 +28,43 @@ function getMetadata(
     }
   }
 
-  return {
-    metadata: {
-      authors: [
-        ...new Set([
-          Deno.env.get("GITHUB_REPOSITORY_OWNER"),
-          Deno.env.get("GITHUB_ACTOR"),
-        ]),
-      ],
-      license: Deno.env.get("LICENSE"), //?? await lookupLicense()
-      url: `${Deno.env.get("GITHUB_SERVER_URL")}/${
-        Deno.env.get("GITHUB_REPOSITORY")
-      }`,
-      generated_with: {
-        ...tools,
-      },
+  const gitHubRepo = Deno.env.get("GITHUB_REPOSITORY");
+  const url = gitHubRepo
+    ? new URL(
+      `${
+        Deno.env.get("GITHUB_SERVER_URL") ?? "https://github.com"
+      }/${gitHubRepo}`,
+    )
+    : undefined;
+
+  const authors: string[] = Array.from(
+    new Set([
+      Deno.env.get("GITHUB_REPOSITORY_OWNER") ?? "",
+      Deno.env.get("GITHUB_ACTOR") ?? "",
+    ]),
+  ).filter((a?: string) => a !== undefined && a.length > 1);
+
+  const metadata: {
+    authors?: string[];
+    url?: string;
+    license: string;
+    generated_with: { [k: string]: string[] };
+  } = {
+    license: "GPL-3.0-or-later",
+    generated_with: {
+      ...tools,
     },
   };
+
+  if (authors !== undefined && authors.length > 0) {
+    metadata.authors = authors;
+  }
+
+  if (url) {
+    metadata.url = url.href;
+  }
+
+  return metadata;
 }
 
 function getBuildVersion(

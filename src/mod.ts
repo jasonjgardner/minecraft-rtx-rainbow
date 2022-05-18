@@ -12,21 +12,17 @@ import type {
 import { DEFAULT_RELEASE_TYPE } from "/typings/constants.ts";
 import { sprintf } from "fmt/printf.ts";
 import { EOL } from "fs/mod.ts";
-
+import { join } from "path/mod.ts";
 import { calculateMipLevels } from "/src/components/_resize.ts";
 import BlockEntry from "/src/components/BlockEntry.ts";
 import { getBlocks, HueBlock } from "/src/components/blocks/index.ts";
 import Material from "/src/components/Material.ts";
 import { getMaterials } from "/src/components/materials/index.ts";
 import createFunctions from "/src/components/mcfunctions/index.ts";
-//import { writeFlipbooks } from "/src/components/flipbook.ts";
-import setup, {
-  generatePackIcon,
-  getDefaultIcon,
-} from "./components/_setup.ts";
-import { createItems } from "/src/components/items.ts";
+import { generatePackIcon } from "/src/components/packIcon.ts";
 import { createManifests } from "/src/components/manifest.ts";
 import printer from "/src/components/printer.ts";
+import { DIR_SRC } from "/src/store/_config.ts";
 import {
   addToBehaviorPack,
   addToResourcePack,
@@ -47,7 +43,7 @@ export interface CreationParameters {
 }
 
 export const languages: LanguagesContainer = {
-  en_US: [],
+  en_us: [],
 };
 
 // Join base textures with PBR materials
@@ -81,11 +77,7 @@ function createTextures(namespace: string, size: PackSizes, res: BlockEntry[]) {
 
     for (const languageKey in languages) {
       languages[<LanguageId> languageKey].push(
-        sprintf(
-          "tile.%s.name=%s",
-          block.behaviorId,
-          block.title(<LanguageId> languageKey),
-        ),
+        block.language(<LanguageId> languageKey),
       );
     }
 
@@ -134,7 +126,7 @@ function createTextures(namespace: string, size: PackSizes, res: BlockEntry[]) {
   addToResourcePack(
     "textures/texture_list.json",
     JSON.stringify(
-      textureList,
+      [...new Set(textureList)],
     ),
   );
 }
@@ -160,8 +152,6 @@ export default async function createAddon(
     namespace,
     blockColors,
     materialOptions,
-    outputFunctions,
-    outputPixelArt,
     pixelArtSource,
     releaseType,
   }: CreationParameters,
@@ -175,25 +165,34 @@ export default async function createAddon(
     materials,
   );
 
-  const packIcon = pixelArtSource
-    ? await generatePackIcon(namespace, pixelArtSource)
-    : await (await getDefaultIcon()).encode(3);
+  try {
+    const packIcon = pixelArtSource
+      ? await generatePackIcon(namespace, pixelArtSource)
+      : await Deno.readFile(join(DIR_SRC, "assets", "img", "pack_icon.png"));
 
-  await setup(size, packIcon); // TODO: Setup subpacks
-  createManifests(uuids, releaseType ?? DEFAULT_RELEASE_TYPE);
+    addToResourcePack(
+      "pack_icon.png",
+      packIcon,
+    );
+    addToBehaviorPack(
+      "pack_icon.png",
+      packIcon,
+    );
+  } catch (err) {
+    console.log("Failed adding pack icons: %s", err);
+  }
+
+  // TODO: Add description input
+  createManifests(uuids, namespace, "", releaseType ?? DEFAULT_RELEASE_TYPE);
+
   createTextures(namespace, size, res);
+  createFunctions();
   createLanguages();
 
-  if (createItems(namespace) || pixelArtSource || outputFunctions === true) {
-    createFunctions();
-
-    if (pixelArtSource || outputPixelArt === true) {
-      try {
-        await printer(res, materials, pixelArtSource);
-      } catch (err) {
-        console.warn("Failed creating pixel art functions: %s", err);
-      }
-    }
+  try {
+    await printer(res, materials, pixelArtSource);
+  } catch (err) {
+    console.warn("Failed creating pixel art functions: %s", err);
   }
 
   return createArchive();

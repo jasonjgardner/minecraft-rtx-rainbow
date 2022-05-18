@@ -23,7 +23,7 @@ export type RgbaObj = {
 
 export type PackSizes = 16 | 32 | 64 | 128 | 256 | 512 | 1024;
 
-export type LanguageId = "en_US"; // TODO: Add more languages
+export type LanguageId = "en_us"; // TODO: Add more languages
 
 export type PaletteInput = File | string | null;
 

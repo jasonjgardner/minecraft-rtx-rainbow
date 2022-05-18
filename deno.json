@@ -1,6 +1,5 @@
 {
   "tasks": {
-    "build": "deno run --allow-read --allow-net --allow-env --allow-write ./src/app.ts --save",
     "serve": "deno run --allow-read --allow-net --allow-env ./src/app.ts",
     "serve:dev": "deno run --inspect --allow-read --allow-net --allow-env ./src/app.ts"
   },

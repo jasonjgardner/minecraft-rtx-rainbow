@@ -6,7 +6,7 @@ import type {
   RGBA,
   RgbaObj,
 } from "/typings/types.ts";
-import { clamp, formatHex } from "/src/_utils.ts";
+import { clamp, formatAhex, formatHex } from "/src/_utils.ts";
 
 import { labelLanguage } from "/src/components/BlockEntry.ts";
 
@@ -23,7 +23,7 @@ export default class HueBlock {
     this._name = name;
   }
 
-  title(lang: LanguageId = "en_US") {
+  title(lang: LanguageId = "en_us") {
     return this._name
       ? this._name[lang]
       : `${formatHex(this._color).replace("#", "").toUpperCase()}`;
@@ -51,7 +51,9 @@ export default class HueBlock {
 
   get textureSet() {
     return {
-      color: +this._color.alpha < 1 ? this.rgba : this.hex, // formatAhex(this._color),
+      color: +this._color.alpha < 1
+        ? formatAhex(this._color)
+        : `#ff${formatHex(this._color).slice(1)}`,
     };
   }
 

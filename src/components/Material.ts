@@ -3,6 +3,7 @@ import type {
   MinecraftData,
   MultiLingual,
   RGB,
+  TextureSet,
 } from "/typings/types.ts";
 //import { sprintf } from "fmt/printf.ts";
 
@@ -12,7 +13,6 @@ import {
   DEFAULT_HEIGHTMAP_NAME,
 } from "/typings/constants.ts";
 import { requireHeightMap } from "/src/components/depthMap.ts";
-import { deepMerge } from "collections/mod.ts";
 
 //import { labelLanguage } from '/src/components/BlockEntry.ts'
 
@@ -85,7 +85,7 @@ export default class Material {
     return this._name;
   }
 
-  title(lang: LanguageId = "en_US") {
+  title(lang: LanguageId = "en_us") {
     return this._name[lang];
   }
   get metalness() {
@@ -107,7 +107,6 @@ export default class Material {
     if (hasNormalMap && !this._useHeightMap) {
       return {
         normal: `${this._normalMap}`,
-        heightmap: "",
       };
     }
 
@@ -120,7 +119,6 @@ export default class Material {
     }
 
     return {
-      normal: "",
       heightmap: `${this._heightMap}`,
     };
   }
@@ -133,13 +131,25 @@ export default class Material {
   }
 
   get textureSet() {
-    return deepMerge({
+    const values: Omit<TextureSet, "color"> = {
       metalness_emissive_roughness: <RGB> [
         this.metalness,
         this.emissive,
         this.roughness,
       ],
-    }, this.depthMap);
+    };
+
+    const depth = this.depthMap;
+
+    if (depth.heightmap && !depth.normal) {
+      values.heightmap = depth.heightmap;
+    }
+
+    if (depth.normal && !depth.heightmap) {
+      values.normal = depth.normal;
+    }
+
+    return values;
   }
 
   get materialInstance() {
@@ -152,7 +162,7 @@ export default class Material {
     };
   }
 
-  get components() {
+  get components(): { [k: string]: string | number | Record<never, never> } {
     const emissivePercentage = this.emissive / 255;
 
     return {

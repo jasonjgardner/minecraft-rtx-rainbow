@@ -2,6 +2,7 @@ import { serve } from "http/server.ts";
 import { sanitizeNamespace } from "/src/_utils.ts";
 import { getFormPackSize } from "/src/components/_resize.ts";
 import getPalette from "/src/components/palettes/fromImage.ts";
+import getDefaultPalette from "/src/components/palettes/default.ts";
 import { DEFAULT_NAMESPACE } from "/typings/constants.ts";
 import createAddon, { languages } from "./mod.ts";
 
@@ -33,7 +34,9 @@ async function handleRequest(request: Request): Promise<Response> {
 
       const mcaddon = await createAddon(uuids, {
         size: getFormPackSize(data),
-        blockColors: await getPalette(paletteSource),
+        blockColors: await (paletteSource === null
+          ? getDefaultPalette()
+          : getPalette(paletteSource)),
         pixelArtSource: paletteSource,
         namespace: ns,
       });
