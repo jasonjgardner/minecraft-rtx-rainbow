@@ -12,6 +12,7 @@ jobs:
       id-token: write
       contents: read
     steps:
+    - uses: actions/checkout@v2
     - name: Deploy to Deno Deploy
       uses: denoland/deployctl@v1
       with:
