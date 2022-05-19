@@ -1,9 +1,9 @@
-import type Material from '/src/components/Material.ts'
-import PlasticMaterial from '/src/components/materials/PlasticMaterial.ts';
-export { PlasticMaterial }
+import type Material from "../Material.ts";
+import PlasticMaterial from "./PlasticMaterial.ts";
+export { PlasticMaterial };
 
 export function getMaterials(): Material[] {
-    return [
-        new PlasticMaterial(1)
-    ]
+  return [
+    new PlasticMaterial(1),
+  ];
 }

@@ -1,4 +1,4 @@
-import { addToBehaviorPack } from "/src/components/_state.ts";
+import { addToBehaviorPack } from "../_state.ts";
 // import fishTree from "/src/components/mcfunctions/fishTree.ts";
 // import {
 //   entityTrailFunction as entityTrail,

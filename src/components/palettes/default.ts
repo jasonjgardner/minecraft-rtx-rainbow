@@ -1,5 +1,5 @@
-import { hex2rgb } from "/src/_utils.ts";
-import HueBlock from "/src/components/blocks/HueBlock.ts";
+import { hex2rgb } from "../../_utils.ts";
+import HueBlock from "../blocks/HueBlock.ts";
 
 export default function getDefaultPalette(): HueBlock[] {
   return [

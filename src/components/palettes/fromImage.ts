@@ -1,8 +1,8 @@
 import type { PaletteInput, RGB, RGBA } from "/typings/types.ts";
 
 import { GIF, Image } from "imagescript/mod.ts";
-import HueBlock from "/src/components/blocks/HueBlock.ts";
-import { handlePaletteInput, rgbaMatch } from "/src/_utils.ts";
+import HueBlock from "../blocks/HueBlock.ts";
+import { handlePaletteInput, rgbaMatch } from "../../_utils.ts";
 
 const MAX_PALETTE_SIZE = 255 ** 3;
 const BOUNDARY_X = 256;

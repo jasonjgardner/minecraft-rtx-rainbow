@@ -1,4 +1,4 @@
-import Material from "/src/components/Material.ts";
+import Material from "../Material.ts";
 
 export default class Plastic extends Material {
   _useHeightMap = false;

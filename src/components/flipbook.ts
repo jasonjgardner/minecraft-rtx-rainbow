@@ -7,20 +7,15 @@ import type {
   PackSizes,
   RGB,
 } from "/typings/types.ts";
-import type Material from "/src/components/Material.ts";
+import type Material from "./Material.ts";
 
 import { Image } from "imagescript/mod.ts";
 import { sprintf } from "fmt/printf.ts";
 import { DEFAULT_PACK_SIZE } from "/typings/constants.ts";
-import BlockEntry from "/src/components/BlockEntry.ts";
-import FlipbookEntry, {
-  formatFlipbookName,
-} from "/src/components/FlipbookEntry.ts";
-import { getMaterials } from "/src/components/materials/index.ts";
-import {
-  addToBehaviorPack,
-  addToResourcePack,
-} from "/src/components/_state.ts";
+import BlockEntry from "./BlockEntry.ts";
+import FlipbookEntry, { formatFlipbookName } from "./FlipbookEntry.ts";
+import { getMaterials } from "./materials/index.ts";
+import { addToBehaviorPack, addToResourcePack } from "./_state.ts";
 function flipbookData(
   flipbookBlock: FlipbookEntry,
   frameCount: number,

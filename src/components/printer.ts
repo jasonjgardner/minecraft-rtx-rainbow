@@ -10,9 +10,9 @@ import {
   MAX_PRINT_CHUNKS,
   MIN_PALETTE_LENGTH,
 } from "/typings/constants.ts";
-import BlockEntry from "/src/components/BlockEntry.ts";
-import { pixelPrinter } from "/src/components/ImagePrinter.ts";
-import { fetchImage, handlePaletteInput } from "/src/_utils.ts";
+import BlockEntry from "./BlockEntry.ts";
+import { pixelPrinter } from "./ImagePrinter.ts";
+import { fetchImage, handlePaletteInput } from "../_utils.ts";
 
 async function githubAvatars(
   owner: string,

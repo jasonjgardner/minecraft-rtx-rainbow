@@ -1,9 +1,9 @@
-import HueBlock from "/src/components/blocks/HueBlock.ts";
+import HueBlock from "../blocks/HueBlock.ts";
 export { HueBlock };
 
 //import srgb from '/src/components/palettes/srgb.ts'
-import defaultPalette from '/src/components/palettes/default.ts'
+import defaultPalette from "../palettes/default.ts";
 
 export function getBlocks(): HueBlock[] {
-  return defaultPalette()
+  return defaultPalette();
 }

@@ -1,4 +1,4 @@
-import type Material from "/src/components/Material.ts";
+import type Material from "./Material.ts";
 import type { Alignment, Axis, RGB, RGBA } from "/typings/types.ts";
 import { Frame, GIF, Image } from "imagescript/mod.ts";
 import { basename } from "path/mod.ts";
@@ -15,9 +15,9 @@ import {
   TRANSPARENT_PRINT_BLOCK,
   TRANSPARENT_PRINT_BLOCK_THRESHOLD,
 } from "/typings/constants.ts";
-import BlockEntry from "/src/components/BlockEntry.ts";
-import { addToBehaviorPack } from "/src/components/_state.ts";
-import { rgbaMatch } from "/src/_utils.ts";
+import BlockEntry from "./BlockEntry.ts";
+import { addToBehaviorPack } from "./_state.ts";
+import { rgbaMatch } from "../_utils.ts";
 
 const axises: [Axis, Axis, Axis] = ["x", "y", "z"];
 const DIR_FUNCTIONS = `functions/${FUNCTIONS_NAMESPACE}`;

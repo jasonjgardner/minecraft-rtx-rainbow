@@ -6,11 +6,8 @@ import {
   DEFAULT_RELEASE_TYPE,
   TARGET_VERSION as min_engine_version,
 } from "/typings/constants.ts";
-import { semverVector } from "/src/_utils.ts";
-import {
-  addToBehaviorPack,
-  addToResourcePack,
-} from "/src/components/_state.ts";
+import { semverVector } from "../_utils.ts";
+import { addToBehaviorPack, addToResourcePack } from "./_state.ts";
 
 function getMetadata(
   buildHistory: string[],

@@ -3,20 +3,20 @@ import "dotenv/load.ts";
 import type { CreationParameters } from "/typings/types.ts";
 import { DEFAULT_RELEASE_TYPE } from "/typings/constants.ts";
 import { join } from "path/mod.ts";
-import BlockEntry from "/src/components/BlockEntry.ts";
-import { getBlocks, HueBlock } from "/src/components/blocks/index.ts";
-import Material from "/src/components/Material.ts";
-import { getMaterials } from "/src/components/materials/index.ts";
+import BlockEntry from "./components/BlockEntry.ts";
+import { getBlocks, HueBlock } from "./components/blocks/index.ts";
+import Material from "./components/Material.ts";
+import { getMaterials } from "./components/materials/index.ts";
 //import createFunctions from "/src/components/mcfunctions/index.ts";
-import { generatePackIcon } from "/src/components/packIcon.ts";
-import { createManifests } from "/src/components/manifest.ts";
-import printer from "/src/components/printer.ts";
+import { generatePackIcon } from "./components/packIcon.ts";
+import { createManifests } from "./components/manifest.ts";
+import printer from "./components/printer.ts";
 import {
   addBlock,
   addToBehaviorPack,
   addToResourcePack,
   createArchive,
-} from "/src/components/_state.ts";
+} from "./components/_state.ts";
 
 // Join base textures with PBR materials
 function compileMaterials(

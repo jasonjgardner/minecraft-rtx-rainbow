@@ -8,7 +8,7 @@ import {
 } from "/typings/constants.ts";
 import { join } from "path/mod.ts";
 import { GIF, Image, TextLayout } from "imagescript/mod.ts";
-import { handlePaletteInput } from "/src/_utils.ts";
+import { handlePaletteInput } from "../_utils.ts";
 
 async function loadFont() {
   try {

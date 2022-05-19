@@ -1,7 +1,7 @@
 import type { PackSizes } from "/typings/types.ts";
 import { Image } from "imagescript/mod.ts";
-import { channelPercentage } from "/src/_utils.ts";
-import { addToResourcePack } from "/src/components/_state.ts";
+import { channelPercentage } from "../_utils.ts";
+import { addToResourcePack } from "./_state.ts";
 
 function channelPercentageToColor(percentage: number) {
   const depth = channelPercentage(percentage);

@@ -6,9 +6,9 @@ import type {
   RGBA,
   RgbaObj,
 } from "/typings/types.ts";
-import { clamp, formatAhex, formatHex } from "/src/_utils.ts";
+import { clamp, formatAhex, formatHex } from "../../_utils.ts";
 
-import { labelLanguage } from "/src/components/BlockEntry.ts";
+import { labelLanguage } from "../BlockEntry.ts";
 
 export default class HueBlock {
   _color!: RgbaObj;

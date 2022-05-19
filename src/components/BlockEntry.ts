@@ -14,9 +14,9 @@ import {
 } from "/typings/constants.ts";
 import { sprintf } from "fmt/printf.ts";
 import { deepMerge } from "collections/mod.ts";
-import { sanitizeNamespace } from "/src/_utils.ts";
-import HueBlock from "/src/components/blocks/HueBlock.ts";
-import Material from "/src/components/Material.ts";
+import { sanitizeNamespace } from "../_utils.ts";
+import HueBlock from "./blocks/HueBlock.ts";
+import Material from "./Material.ts";
 
 export const labelLanguage: LanguageId = "en_US";
 

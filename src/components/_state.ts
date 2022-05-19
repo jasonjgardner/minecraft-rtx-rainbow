@@ -5,13 +5,13 @@ import type {
   MinecraftTerrainData,
   PackSizes,
 } from "/typings/types.ts";
-import type BlockEntry from "/src/components/BlockEntry.ts";
+import type BlockEntry from "./BlockEntry.ts";
 import { COMPRESSION_LEVEL } from "/typings/constants.ts";
 import { EOL } from "fs/mod.ts";
 import { join } from "path/mod.ts";
 import { JSZip } from "jszip/mod.ts";
 import { Image } from "imagescript/mod.ts";
-import { calculateMipLevels } from "/src/components/_resize.ts";
+import { calculateMipLevels } from "./_resize.ts";
 
 const zip = new JSZip();
 const rp = zip.folder("rp");
