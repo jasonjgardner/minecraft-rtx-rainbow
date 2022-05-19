@@ -19,3 +19,4 @@ jobs:
         project: minecraft-pixel-art
         import-map: import_map.json
         entrypoint: src/app.ts
+        root: .
