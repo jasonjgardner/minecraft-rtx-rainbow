@@ -86,4 +86,4 @@ export const LABEL_BLOCK_PROPERTY = "";
 /**
  * Imagescript PNG compression level (0-3)
  */
-export const COMPRESSION_LEVEL = 3;
+export const COMPRESSION_LEVEL = 0;

@@ -38,7 +38,7 @@ export function formatHex(color: RgbaObj) {
   return "#" + hexValue(values);
 }
 
-export async function encodeRGBColor(layerValue: number[], size = 16) {
+export function encodeRGBColor(layerValue: number[], size = 16) {
   const [r, g, b, alpha] = layerValue;
   const imgOutput = new Image(size, size);
 
@@ -48,7 +48,7 @@ export async function encodeRGBColor(layerValue: number[], size = 16) {
       : Image.rgbToColor(r, g, b),
   );
 
-  return await imgOutput.encode(0);
+  return imgOutput.encode(0);
 }
 
 function getImageFromUrl(src: string): Promise<Image | GIF> {
