@@ -18,6 +18,6 @@ jobs:
     - name: Deploy to Deno Deploy
       uses: denoland/deployctl@v1
       with:
-        project: minecraft-pixel-art
-        import-map: import_map.json
-        entrypoint: src/app.ts
+        project: "minecraft-pixel-art"
+        import-map: "./import_map.json"
+        entrypoint: "./src/app.ts"
