@@ -5,6 +5,7 @@ import { walk } from "fs/walk.ts";
 import { Octokit } from "@octokit/core";
 import {
   ART_SOURCE_ID,
+  CHUNK_SIZE,
   DEFAULT_PRINT_CHUNKS,
   MAX_PRINT_CHUNKS,
   MIN_PALETTE_LENGTH,
@@ -182,14 +183,22 @@ export default async function printer(
 
   if (artSrc) {
     try {
+      const img = await handlePaletteInput(
+        artSrc,
+      );
+
+      const chunks = Math.min(
+        MAX_PRINT_CHUNKS,
+        Math.max(1, Math.max(img.width, img.height) / CHUNK_SIZE),
+      );
+
       tasks.push(pixelPrinter(
         ART_SOURCE_ID,
-        await handlePaletteInput(
-          artSrc,
-        ),
+        img,
         res,
         {
           alignment: "none",
+          chunks,
         },
       ));
     } catch (err) {
@@ -208,13 +217,13 @@ export default async function printer(
   //   console.log("Failed printing from pixel art directory: %s", err);
   // }
 
-  if (Deno.env.get("GITHUB_REPOSITORY") !== undefined) {
-    try {
-      tasks.push(printStarGazers(res));
-    } catch (err) {
-      console.log("Failed printing stargazers: %s", err);
-    }
-  }
+  // if (Deno.env.get("GITHUB_REPOSITORY") !== undefined) {
+  //   try {
+  //     tasks.push(printStarGazers(res));
+  //   } catch (err) {
+  //     console.log("Failed printing stargazers: %s", err);
+  //   }
+  // }
 
   return Promise.allSettled(tasks);
 }

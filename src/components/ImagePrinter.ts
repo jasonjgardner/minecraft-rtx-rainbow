@@ -29,7 +29,7 @@ interface PrinterResult {
 }
 
 const hasTransparency = ({ color: { rgba } }: BlockEntry) =>
-  rgba[3] / 255 < 1 && rgba[3] / 255 >= TRANSPARENT_PRINT_BLOCK_THRESHOLD;
+  rgba[3] < 1 && rgba[3] >= TRANSPARENT_PRINT_BLOCK_THRESHOLD;
 
 function colorDistance(color1: RGB, color2: RGB) {
   return Math.sqrt(
@@ -125,7 +125,7 @@ function printDecoded(
 
         func.push(
           writeFill(
-            x + offset[0],
+            Math.abs((x + offset[0]) - img.width), // Flip artwork face
             Math.abs((y + offset[1]) - img.height), // Starts print row at top
             offset[2],
             nearest,
