@@ -62,13 +62,13 @@ async function handleRequest(request: Request): Promise<Response> {
       `<html>
       <head>
       <meta charset="UTF-8">
-      <title>OH CRAP</title>
+      <title>Convert Pixel Art to Minecraft Add-on | Error!</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
       </head>
       <body>
-        <h1>RAINBOW!!</h1>
+        <h1>Something has gone awry</h1>
         <p>${err}</p>
       </body>
     </html>`,
@@ -85,26 +85,36 @@ async function handleRequest(request: Request): Promise<Response> {
     `<html>
       <head>
       <meta charset="UTF-8">
-      <title>RAINBOW!! Pack Generator</title>
+      <title>Convert Pixel Art to Minecraft Add-on</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
       <link rel="stylesheet" href="https://newcss.net/theme/night.css">
       </head>
       <body>
-        <h1>RAINBOW!!</h1>
+      <header>
+        <h1>Minecraft Pixel Art Generator</h1>
+        <p>Convert image colors to custom blocks.</p>
+        </header>
 
-        <form method="post" action="/download" enctype="multipart/form-data">
-          <label for="paletteSource">Submit color palette source image</label>
-          <input id="paletteSource" name="paletteSource" type="file" accept="image/*">
+        <form method="post" action="/download" enctype="multipart/form-data">   
+          <fieldset>
+            <legend>Pixel Art Source</legend>
+            <label for="paletteSource">Submit image</label>
+            <input id="paletteSource" name="paletteSource" type="file" accept="image/*">
+          </fieldset>
 
-          <label for="namepsace">Pack Namespace</label>
-          <input id="namespace" name="namespace" type="text" pattern="^[a-z]+[a-z0-9]*">
-
-          <button type="submit">Upload Palette</button>
+          <fieldset>
+            <legend>Pack Details</legend>
+            <label for="namespace">Namespace</label>
+            <input id="namespace" name="namespace" type="text" pattern="^[a-z]+[a-z0-9]*" autocomplete="off">
+          </fieldset>
+          <button type="submit">Create .mcaddon</button>
         </form>
 
-        <a href="/download">Download</a>
+        <footer>
+          <p>by <a href="https://jasongardner.dev">Jason</a>
+        </footer>
       </body>
     </html>`,
     {
