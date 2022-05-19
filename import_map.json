@@ -5,7 +5,7 @@
     "@octokit/": "https://cdn.skypack.dev/@octokit/",
     "dotenv/": "https://deno.land/x/dotenv@v3.2.0/",
     "semver/": "https://deno.land/x/semver@v1.4.0/",
-    "imagescript/": "https://deno.land/x/imagescript@v1.2.12/",
+    "imagescript/": "https://deno.land/x/imagescript@v1.2.13/",
     "nbt_parser/": "https://deno.land/x/nbt_parser@v1.3.0/",
     "jszip/": "https://deno.land/x/jszip@0.11.0/",
     "canvas/": "https://deno.land/x/canvas@v1.4.1/",
