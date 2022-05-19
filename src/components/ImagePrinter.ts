@@ -17,6 +17,7 @@ import {
 } from "/typings/constants.ts";
 import BlockEntry from "/src/components/BlockEntry.ts";
 import { addToBehaviorPack } from "/src/components/_state.ts";
+import { rgbaMatch } from "/src/_utils.ts";
 
 const axises: [Axis, Axis, Axis] = ["x", "y", "z"];
 const DIR_FUNCTIONS = `functions/${FUNCTIONS_NAMESPACE}`;
@@ -28,7 +29,7 @@ interface PrinterResult {
 }
 
 const hasTransparency = ({ color: { rgba } }: BlockEntry) =>
-  rgba[3] < 1 && rgba[3] >= TRANSPARENT_PRINT_BLOCK_THRESHOLD;
+  rgba[3] / 255 < 1 && rgba[3] / 255 >= TRANSPARENT_PRINT_BLOCK_THRESHOLD;
 
 function colorDistance(color1: RGB, color2: RGB) {
   return Math.sqrt(
@@ -42,11 +43,11 @@ export function getNearestColor(
   palette: BlockEntry[],
 ): BlockEntry {
   const rgbColor: RGB = [color[0] || 0, color[1] || 0, color[2] || 0];
-  const alpha = color[3] || 0;
+  const alpha = Math.floor((color[3] || 0) / 255);
 
-  const materialPalette = (alpha >= 100)
+  const materialPalette = (alpha >= 1)
     ? palette
-    : palette.filter(({ color: { rgba } }: BlockEntry) => rgba[3] < 1); // Restrict palette to blocks with transparency
+    : palette.filter(({ color: { rgba } }: BlockEntry) => rgba[3] / 255 < 1); // Restrict palette to blocks with transparency
 
   // https://gist.github.com/Ademking/560d541e87043bfff0eb8470d3ef4894?permalink_comment_id=3720151#gistcomment-3720151
   return materialPalette.reduce(
@@ -86,13 +87,14 @@ function printDecoded(
   name: string,
   img: Image | Frame,
   palette: BlockEntry[],
-  materials: Material[],
   offset: number[],
   dest: string,
 ) {
   const transparencyPalette = palette.filter((b) => hasTransparency(b));
 
   let maxLines = MAX_FUNCTION_LINES;
+
+  const materials = palette.map(({ material }) => material);
 
   return materials.flatMap(({ label }: Material) => {
     if (maxLines <= 0) {
@@ -108,9 +110,15 @@ function printDecoded(
 
       for (const [x, y, c] of img.iterateWithColors()) {
         const rgba = <RGBA> Image.colorToRGBA(c);
-        const alpha = transparencyPalette.length > 0 ? rgba[3] : 100;
+        const alpha = transparencyPalette.length > 0 ? rgba[3] / 255 : 1;
 
-        const nearest = alpha < TRANSPARENT_PRINT_BLOCK_THRESHOLD // Minimum alpha of 50%
+        const exact = materialPalette.filter(({ color: { rgba: _rgba } }) =>
+          rgbaMatch([rgba[0], rgba[1], rgba[2], alpha], _rgba)
+        );
+
+        const nearest = exact
+          ? exact[0]?.behaviorId
+          : alpha < TRANSPARENT_PRINT_BLOCK_THRESHOLD // Minimum alpha of 50%
           ? TRANSPARENT_PRINT_BLOCK
           : getNearestColor(rgba, materialPalette)?.behaviorId ||
             DEFAULT_PRINT_BLOCK;
@@ -183,7 +191,6 @@ export async function pixelPrinter(
   name: string,
   imageData: Image | GIF,
   palette: BlockEntry[],
-  materials: Material[],
   options: {
     alignment?: Alignment;
     chunks?: number;
@@ -220,7 +227,6 @@ export async function pixelPrinter(
         fileName,
         frame,
         palette,
-        materials,
         getAlignment(alignGroup, {
           idx,
           frame,

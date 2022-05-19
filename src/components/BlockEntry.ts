@@ -11,14 +11,13 @@ import {
   BEHAVIOR_BLOCK_FORMAT_VERSION,
   DEFAULT_NAMESPACE,
 } from "/typings/constants.ts";
-import Hashids from "https://cdn.skypack.dev/hashids?dts";
 import { sprintf } from "fmt/printf.ts";
 import { deepMerge } from "collections/mod.ts";
 import { sanitizeNamespace } from "/src/_utils.ts";
 import HueBlock from "/src/components/blocks/HueBlock.ts";
 import Material from "/src/components/Material.ts";
 
-export const labelLanguage: LanguageId = "en_us";
+export const labelLanguage: LanguageId = "en_US";
 
 export default class BlockEntry {
   _namespace!: string;
@@ -106,7 +105,7 @@ export default class BlockEntry {
 
   get terrainData() {
     return {
-      textures: `textures/blocks/${this.id}`,
+      textures: `textures/blocks/${this.resourceId}`,
     };
   }
 

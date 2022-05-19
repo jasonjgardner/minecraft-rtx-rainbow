@@ -35,8 +35,8 @@ export async function generatePackIcon(
     // Desaturate and lighten text
     const textColor = Image.hslToColor(
       dominantHsla[0],
-      Math.max(0, Math.min(0.95, dominantHsla[1])),
-      Math.max(0.5, Math.min(0.99, dominantHsla[2])),
+      Math.max(0, Math.min(0.75, dominantHsla[1])),
+      Math.max(0.66, Math.min(0.99, dominantHsla[2])),
     );
 
     const iconHeadlineImg = Image.renderText(
@@ -45,14 +45,13 @@ export async function generatePackIcon(
       namespace.toUpperCase(),
       textColor,
       new TextLayout({
-        maxWidth: PACK_ICON_SIZE - PACK_ICON_FONT_SIZE,
-        maxHeight: PACK_ICON_SIZE - PACK_ICON_FONT_SIZE,
         horizontalAlign: "middle",
         verticalAlign: "center",
         wrapHardBreaks: false,
       }),
     );
-    icon.lightness(0.75); // Dim background for text legibility
+    icon.lightness(0.66); // Dim background for text legibility
+    icon.saturation(0.75);
     icon.composite(iconHeadlineImg);
   } catch (err) {
     console.log("Can not render text: %s", err);

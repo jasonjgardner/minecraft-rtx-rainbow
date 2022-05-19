@@ -1,3 +1,7 @@
+import type { ReleaseType } from "semver/mod.ts";
+import type Material from "/src/components/Material.ts";
+import type HueBlock from "/src/components/blocks/HueBlock.ts";
+
 type ChannelValue = number;
 
 type AlphaValue = number;
@@ -23,7 +27,7 @@ export type RgbaObj = {
 
 export type PackSizes = 16 | 32 | 64 | 128 | 256 | 512 | 1024;
 
-export type LanguageId = "en_us"; // TODO: Add more languages
+export type LanguageId = "en_US"; // TODO: Add more languages
 
 export type PaletteInput = File | string | null;
 
@@ -103,4 +107,16 @@ export interface IPermutation {
 export interface DepthMap {
   heightmap: boolean;
   texture: string;
+}
+
+export interface CreationParameters {
+  size: PackSizes;
+  namespace: string;
+  description?: string;
+  blockColors?: HueBlock[];
+  materialOptions?: Material[];
+  outputFunctions?: boolean;
+  outputPixelArt?: boolean;
+  pixelArtSource?: PaletteInput;
+  releaseType?: ReleaseType;
 }

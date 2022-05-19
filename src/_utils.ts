@@ -1,4 +1,4 @@
-import type { PaletteInput, RGB, RgbaObj } from "/typings/types.ts";
+import type { PaletteInput, RGB, RGBA, RgbaObj } from "/typings/types.ts";
 import { DEFAULT_NAMESPACE } from "/typings/constants.ts";
 import { GIF, Image } from "imagescript/mod.ts";
 import { basename, extname, toFileUrl } from "path/mod.ts";
@@ -98,4 +98,24 @@ export async function fetchImage(source: URL): Promise<Image | GIF> {
     res.headers.get("content-type")?.startsWith("image/gif") === true;
 
   return isGif ? GIF.decode(data) : Image.decode(data);
+}
+
+/**
+ * Compare two RGB(A) values
+ * @param colorOne First RGB(A) color value
+ * @param colorTwo Second RGB(A) color value
+ * @returns `TRUE` if colors are the same RGB(A) values
+ */
+export function rgbaMatch(
+  colorOne: RGB | RGBA | number[],
+  colorTwo: RGB | RGBA | number[],
+) {
+  const len = colorOne.length;
+  const len2 = colorTwo.length;
+
+  if (len2 !== len || len > 4 || len2 > 4) {
+    return false;
+  }
+
+  return colorOne.every((value, idx) => value === colorTwo[idx]);
 }

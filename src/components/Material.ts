@@ -5,6 +5,7 @@ import type {
   RGB,
   TextureSet,
 } from "/typings/types.ts";
+import { basename, extname } from "path/mod.ts";
 //import { sprintf } from "fmt/printf.ts";
 
 import {
@@ -12,7 +13,6 @@ import {
   DEFAULT_BLOCK_SOUND,
   DEFAULT_HEIGHTMAP_NAME,
 } from "/typings/constants.ts";
-import { requireHeightMap } from "/src/components/depthMap.ts";
 
 //import { labelLanguage } from '/src/components/BlockEntry.ts'
 
@@ -45,6 +45,9 @@ export default class Material {
   _label!: string;
   _name!: MultiLingual;
 
+  /**
+   * Path to normal map in assets directory
+   */
   _normalMap?: string;
 
   _heightMap?: string;
@@ -85,7 +88,7 @@ export default class Material {
     return this._name;
   }
 
-  title(lang: LanguageId = "en_us") {
+  title(lang: LanguageId = "en_US") {
     return this._name[lang];
   }
   get metalness() {
@@ -106,7 +109,7 @@ export default class Material {
 
     if (hasNormalMap && !this._useHeightMap) {
       return {
-        normal: `${this._normalMap}`,
+        normal: basename(`${this._normalMap}`, extname(`${this._normalMap}`)),
       };
     }
 
@@ -115,11 +118,10 @@ export default class Material {
     ) {
       // generate heightmap
       this._heightMap = DEFAULT_HEIGHTMAP_NAME;
-      requireHeightMap(this._heightMap, 32);
     }
 
     return {
-      heightmap: `${this._heightMap}`,
+      heightmap: basename(`${this._heightMap}`, extname(`${this._heightMap}`)),
     };
   }
 

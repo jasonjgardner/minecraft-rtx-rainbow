@@ -1,13 +1,13 @@
-import type { PaletteInput, RGBA } from "/typings/types.ts";
+import type { PaletteInput, RGB, RGBA } from "/typings/types.ts";
 
 import { GIF, Image } from "imagescript/mod.ts";
 import HueBlock from "/src/components/blocks/HueBlock.ts";
-import { handlePaletteInput } from "/src/_utils.ts";
+import { handlePaletteInput, rgbaMatch } from "/src/_utils.ts";
 
 const MAX_PALETTE_SIZE = 255 ** 3;
 const BOUNDARY_X = 256;
 const BOUNDARY_Y = 256;
-const MIN_ALPHA = 10;
+const MIN_ALPHA = 0.2;
 
 export default async function getPalette(
   src: Exclude<PaletteInput, null>,
@@ -15,7 +15,7 @@ export default async function getPalette(
   const input = await handlePaletteInput(src);
   const img = input instanceof GIF ? input[0] : input;
 
-  const colors: Array<RGBA> = [];
+  const colors: Array<RGBA | RGB> = [];
 
   for (const [x, y, c] of img.iterateWithColors()) {
     if (x > BOUNDARY_X || y > BOUNDARY_Y) {
@@ -23,18 +23,22 @@ export default async function getPalette(
       break;
     }
     const color = Image.colorToRGBA(c);
+    const alpha = color[3] / 255;
 
-    if (color[3] > MIN_ALPHA) {
-      colors.push(<RGBA> color);
+    if (
+      alpha > MIN_ALPHA &&
+      !colors.filter((existingColor) =>
+        rgbaMatch(existingColor, [color[0], color[1], color[2], alpha])
+      ).length
+    ) {
+      colors.push(<RGBA> [color[0], color[1], color[2], color[3] / 255]);
     }
   }
 
-  const palette = [...new Set(colors)];
-
-  if (palette.length > MAX_PALETTE_SIZE) {
-    palette.length = MAX_PALETTE_SIZE;
+  if (colors.length > MAX_PALETTE_SIZE) {
+    colors.length = MAX_PALETTE_SIZE;
     console.log("Palette size has been truncated.");
   }
 
-  return palette.map((color) => new HueBlock(color));
+  return colors.map((color) => new HueBlock(color));
 }

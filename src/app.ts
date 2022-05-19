@@ -4,7 +4,8 @@ import { getFormPackSize } from "/src/components/_resize.ts";
 import getPalette from "/src/components/palettes/fromImage.ts";
 import getDefaultPalette from "/src/components/palettes/default.ts";
 import { DEFAULT_NAMESPACE } from "/typings/constants.ts";
-import createAddon, { languages } from "./mod.ts";
+import { languages } from "/src/components/_state.ts";
+import createAddon from "./mod.ts";
 
 async function handleRequest(request: Request): Promise<Response> {
   const { pathname, searchParams } = new URL(request.url);
@@ -32,11 +33,15 @@ async function handleRequest(request: Request): Promise<Response> {
         crypto.randomUUID(),
       ];
 
+      let palette = null;
+
+      if (paletteSource) {
+        palette = await getPalette(paletteSource);
+      }
+
       const mcaddon = await createAddon(uuids, {
         size: getFormPackSize(data),
-        blockColors: await (paletteSource === null
-          ? getDefaultPalette()
-          : getPalette(paletteSource)),
+        blockColors: palette && palette.length ? palette : getDefaultPalette(),
         pixelArtSource: paletteSource,
         namespace: ns,
       });

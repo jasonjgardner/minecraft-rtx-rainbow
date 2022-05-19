@@ -5,11 +5,11 @@ export default class Plastic extends Material {
 
   _normalMap = "block_normal";
   constructor(intensity: number) {
-    super(intensity, "plastic", {
-      en_us: "Plastic",
+    super(intensity, "roughness", {
+      en_US: "Plastic",
     });
 
-    this.intensityRange = [10, 99];
+    this.intensityRange = [25, 75];
   }
 
   get emissive() {

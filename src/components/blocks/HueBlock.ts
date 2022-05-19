@@ -23,14 +23,14 @@ export default class HueBlock {
     this._name = name;
   }
 
-  title(lang: LanguageId = "en_us") {
+  title(lang: LanguageId = "en_US") {
     return this._name
       ? this._name[lang]
       : `${formatHex(this._color).replace("#", "").toUpperCase()}`;
   }
 
   get name() {
-    return this.title(labelLanguage);
+    return this.title(labelLanguage).replace(/\s+/, "_");
   }
   get value() {
     return this._color;
@@ -43,8 +43,8 @@ export default class HueBlock {
   get rgba() {
     return [
       this._color.r || 0,
-      this._color.b || 0,
       this._color.g || 0,
+      this._color.b || 0,
       this._color.alpha ?? 1,
     ];
   }
