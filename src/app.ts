@@ -1,9 +1,9 @@
 import { serve } from "http/server.ts";
+import { DEFAULT_NAMESPACE } from "/typings/constants.ts";
 import { sanitizeNamespace } from "/src/_utils.ts";
 import { getFormPackSize } from "/src/components/_resize.ts";
 import getPalette from "/src/components/palettes/fromImage.ts";
 import getDefaultPalette from "/src/components/palettes/default.ts";
-import { DEFAULT_NAMESPACE } from "/typings/constants.ts";
 import { languages } from "/src/components/_state.ts";
 import createAddon from "./mod.ts";
 

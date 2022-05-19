@@ -7,19 +7,16 @@ import BlockEntry from "/src/components/BlockEntry.ts";
 import { getBlocks, HueBlock } from "/src/components/blocks/index.ts";
 import Material from "/src/components/Material.ts";
 import { getMaterials } from "/src/components/materials/index.ts";
-import createFunctions from "/src/components/mcfunctions/index.ts";
+//import createFunctions from "/src/components/mcfunctions/index.ts";
 import { generatePackIcon } from "/src/components/packIcon.ts";
 import { createManifests } from "/src/components/manifest.ts";
 import printer from "/src/components/printer.ts";
-import { DIR_SRC } from "/src/store/_config.ts";
 import {
   addBlock,
   addToBehaviorPack,
   addToResourcePack,
   createArchive,
 } from "/src/components/_state.ts";
-//import { renderBlock } from "./components/render.ts";
-//import { permutes } from "./components/permutations.ts";
 
 // Join base textures with PBR materials
 function compileMaterials(
@@ -60,7 +57,9 @@ export default async function createAddon(
   try {
     const packIcon = pixelArtSource
       ? await generatePackIcon(namespace, pixelArtSource)
-      : await Deno.readFile(join(DIR_SRC, "assets", "img", "pack_icon.png"));
+      : await Deno.readFile(
+        join(Deno.cwd(), "src", "assets", "img", "pack_icon.png"),
+      );
 
     addToResourcePack(
       "pack_icon.png",
@@ -84,7 +83,7 @@ export default async function createAddon(
 
   await Promise.all(res.map((block: BlockEntry) => addBlock(block, size)));
 
-  createFunctions();
+  //createFunctions();
 
   try {
     await printer(res, pixelArtSource);

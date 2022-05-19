@@ -6,15 +6,12 @@ import type {
   PackSizes,
 } from "/typings/types.ts";
 import type BlockEntry from "/src/components/BlockEntry.ts";
+import { COMPRESSION_LEVEL } from "/typings/constants.ts";
 import { EOL } from "fs/mod.ts";
+import { join } from "path/mod.ts";
 import { JSZip } from "jszip/mod.ts";
-// import { Image } from 'imagescript/mod.ts'
-// import { encode } from "encoding/base64.ts";
-// import { extname } from "path/mod.ts";
 import { Image } from "imagescript/mod.ts";
 import { calculateMipLevels } from "/src/components/_resize.ts";
-import { join } from "path/mod.ts";
-import { DIR_SRC } from "/src/store/_config.ts";
 
 const zip = new JSZip();
 const rp = zip.folder("rp");
@@ -60,22 +57,25 @@ export function requireTexture(textureFileName: string, contents: Uint8Array) {
  */
 export async function requireMaterialAsset(name: string, size: PackSizes) {
   const fileName = `${name}.png`;
+  const filePath = join(
+    Deno.cwd(),
+    "src",
+    "assets",
+    "materials",
+    fileName,
+  );
+
   try {
     const asset = await Image.decode(
-      await Deno.readFile(join(
-        DIR_SRC,
-        "assets",
-        "materials",
-        fileName,
-      )),
+      await Deno.readFile(filePath),
     );
 
     // Manipulate the image here:
     asset.resize(size, size);
 
-    texturesDirectory.addFile(fileName, await asset.encode(2));
+    texturesDirectory.addFile(fileName, await asset.encode(COMPRESSION_LEVEL));
   } catch (err) {
-    console.error("Failed adding asset '%s': %s", fileName, err);
+    console.error("Failed adding asset '%s': %s", filePath, err);
   }
 }
 
@@ -184,7 +184,7 @@ export function createArchive(namespace: string, size: PackSizes) {
   // createContentsFile(rp);
 
   return zip.generateAsync({
-    mimeType: "application/zip", // TODO: Does .mcaddon have a mimetype?
+    mimeType: "application/zip",
     platform: "DOS",
     type: "blob",
     compression: "DEFLATE",

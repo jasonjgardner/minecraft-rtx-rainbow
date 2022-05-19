@@ -6,10 +6,11 @@ import type {
   MinecraftEvent,
   TextureSet,
 } from "/typings/types.ts";
-import { Label } from "/typings/enums.ts";
 import {
   BEHAVIOR_BLOCK_FORMAT_VERSION,
   DEFAULT_NAMESPACE,
+  LABEL_BLOCK_EVENT,
+  LABEL_BLOCK_PROPERTY,
 } from "/typings/constants.ts";
 import { sprintf } from "fmt/printf.ts";
 import { deepMerge } from "collections/mod.ts";
@@ -117,7 +118,7 @@ export default class BlockEntry {
     { name, events }: IPermutation,
   ): [string, MinecraftEvent] {
     return [
-      sprintf("%s:%s_%s", this.namespace, name, Label.BlockEvent),
+      sprintf("%s:%s_%s", this.namespace, name, LABEL_BLOCK_EVENT),
       events,
     ];
   }
@@ -126,7 +127,7 @@ export default class BlockEntry {
     { name, properties }: IPermutation,
   ): [string, MinecraftData] {
     return [
-      sprintf("%s:%s%s", this.namespace, name, Label.BlockProperty),
+      sprintf("%s:%s%s", this.namespace, name, LABEL_BLOCK_PROPERTY),
       properties,
     ];
   }

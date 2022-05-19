@@ -1,11 +1,25 @@
 import type { PaletteInput } from "/typings/types.ts";
+import {
+  COMPRESSION_LEVEL,
+  FONT_FILE,
+  FONT_URL,
+  PACK_ICON_FONT_SIZE,
+  PACK_ICON_SIZE,
+} from "/typings/constants.ts";
 import { join } from "path/mod.ts";
 import { GIF, Image, TextLayout } from "imagescript/mod.ts";
-import { PACK_ICON_FONT_SIZE, PACK_ICON_SIZE } from "/typings/constants.ts";
-import { DIR_SRC } from "/src/store/_config.ts";
 import { handlePaletteInput } from "/src/_utils.ts";
 
-const FONT_FILE = "Inter-Bold.ttf";
+async function loadFont() {
+  try {
+    await Deno.readFile(join(Deno.cwd(), "src", "assets", "fonts", FONT_FILE));
+  } catch (err) {
+    console.log("Failed reading local font: %s", err);
+  }
+
+  return new Uint8Array(await (await fetch(FONT_URL)).arrayBuffer());
+}
+
 export async function generatePackIcon(
   namespace: string,
   artSrc: PaletteInput,
@@ -15,7 +29,9 @@ export async function generatePackIcon(
       artSrc,
     )
     : Image.decode(
-      await Deno.readFile(join(DIR_SRC, "assets", "img", "pack_icon.png")),
+      await Deno.readFile(
+        join(Deno.cwd(), "src", "assets", "img", "pack_icon.png"),
+      ),
     ));
 
   const icon = iconSrc instanceof GIF ? iconSrc[0] : iconSrc;
@@ -35,12 +51,12 @@ export async function generatePackIcon(
     // Desaturate and lighten text
     const textColor = Image.hslToColor(
       dominantHsla[0],
-      Math.max(0, Math.min(0.75, dominantHsla[1])),
-      Math.max(0.66, Math.min(0.99, dominantHsla[2])),
+      Math.max(0, Math.min(0.66, dominantHsla[1])),
+      Math.max(0.75, Math.min(0.99, dominantHsla[2])),
     );
 
     const iconHeadlineImg = Image.renderText(
-      await Deno.readFile(join(DIR_SRC, "assets", "fonts", FONT_FILE)),
+      await loadFont(),
       PACK_ICON_FONT_SIZE,
       namespace.toUpperCase(),
       textColor,
@@ -57,5 +73,5 @@ export async function generatePackIcon(
     console.log("Can not render text: %s", err);
   }
 
-  return icon.encode(3);
+  return icon.encode(COMPRESSION_LEVEL);
 }

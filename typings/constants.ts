@@ -6,7 +6,11 @@ export const MAX_PACK_SIZE: PackSizes = 1024;
 
 export const DEFAULT_PACK_SIZE: PackSizes = MIN_PACK_SIZE;
 
-export const DEFAULT_NAMESPACE = "rainbow";
+export const DEFAULT_LICENSE = "GPL-3.0-or-later";
+
+export const DEFAULT_BUILD_VERSION = "1.0.0";
+
+export const DEFAULT_NAMESPACE = "rainbow"; // TODO: Create namespace hash function
 export const BEHAVIOR_BLOCK_FORMAT_VERSION = "1.16.100";
 
 export const DEFAULT_RELEASE_TYPE: ReleaseType = "prerelease";
@@ -23,20 +27,32 @@ export const AO_EMISSIVE_THRESHOLD = 50;
  */
 export const DEFAULT_BLOCK_SOUND = "dirt";
 
-export const GLASS_ID = "glass";
 export const MAX_FRAMES = 10;
 export const FUNCTIONS_NAMESPACE = "print";
 
 export const MIN_PALETTE_LENGTH = 2;
 
+/**
+ * Minecraft chunk size
+ */
 export const CHUNK_SIZE = 16;
+
+/**
+ * Maximum output size of fill functions
+ */
 export const MAX_PRINT_SIZE = 24 * CHUNK_SIZE;
 
 // Print 1:1 scale
 export const DEFAULT_PRINT_CHUNKS = 1;
 
+/**
+ * Maximum output size of fill functions in chunks
+ */
 export const MAX_PRINT_CHUNKS = CHUNK_SIZE;
 
+/**
+ * Maximum length of a .mcfunction file
+ */
 export const MAX_FUNCTION_LINES = 10000;
 
 export const DEFAULT_PRINT_BLOCK = "minecraft:stone";
@@ -47,9 +63,27 @@ export const TRANSPARENT_PRINT_BLOCK_THRESHOLD = 0.5;
 
 export const TARGET_VERSION: [number, number, number] = [1, 18, 3];
 
-export const DEFAULT_BUILD_VERSION = "1.0.0";
+/**
+ * Pack icon font file
+ */
+export const FONT_FILE = "Inter-Bold.ttf";
 
-export const PACK_ICON_SIZE = 256;
-export const PACK_ICON_FONT_SIZE = 12;
+export const FONT_URL =
+  "https://raw.githubusercontent.com/weiweihuanghuang/Work-Sans/blob/b35c81086186162164947bd39574683073d9b268/fonts/otf/WorkSans-Bold.otf";
+
+/**
+ * Pack icon pixel dimensions
+ */
+export const PACK_ICON_SIZE = 250;
+export const PACK_ICON_FONT_SIZE = 24;
 
 export const ART_SOURCE_ID = "input";
+
+export const LABEL_BLOCK_EVENT = "e";
+
+export const LABEL_BLOCK_PROPERTY = "";
+
+/**
+ * Imagescript PNG compression level (0-3)
+ */
+export const COMPRESSION_LEVEL = 3;

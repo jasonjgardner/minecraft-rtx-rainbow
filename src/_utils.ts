@@ -70,23 +70,6 @@ export function semverVector(ver: string): number[] {
   return ver.split(".", 3).map((v: string) => parseInt(v, 10));
 }
 
-export function getArg(
-  key: string,
-  defaultValue: string | number | boolean,
-): string {
-  const k = Deno.args.indexOf(`--${key}`);
-  return `${(k > -1 ? Deno.args[k + 1] : null) ?? defaultValue}`;
-}
-
-export function getConfig(
-  key: string,
-  defaultValue?: string | number,
-): string | number | undefined {
-  const k = Deno.args.indexOf(`--${key}`);
-  return (k > -1 ? Deno.args[k + 1] : null) ?? (Deno.env.get(key) ||
-    defaultValue);
-}
-
 export function channelPercentage(percentage: number) {
   return Math.ceil((Math.max(0, percentage) * 255) / 100);
 }
@@ -112,10 +95,6 @@ export function rgbaMatch(
 ) {
   const len = colorOne.length;
   const len2 = colorTwo.length;
-
-  if (len2 !== len || len > 4 || len2 > 4) {
-    return false;
-  }
-
-  return colorOne.every((value, idx) => value === colorTwo[idx]);
+  return len === len2 && len <= 4 &&
+    colorOne.every((value, idx) => value === colorTwo[idx]);
 }

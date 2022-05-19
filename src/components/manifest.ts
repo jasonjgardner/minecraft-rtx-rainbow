@@ -2,6 +2,7 @@ import type { ReleaseType } from "semver/mod.ts";
 import { inc } from "semver/mod.ts";
 import {
   DEFAULT_BUILD_VERSION,
+  DEFAULT_LICENSE,
   DEFAULT_RELEASE_TYPE,
   TARGET_VERSION as min_engine_version,
 } from "/typings/constants.ts";
@@ -50,7 +51,7 @@ function getMetadata(
     license: string;
     generated_with: { [k: string]: string[] };
   } = {
-    license: "GPL-3.0-or-later",
+    license: DEFAULT_LICENSE,
     generated_with: {
       ...tools,
     },

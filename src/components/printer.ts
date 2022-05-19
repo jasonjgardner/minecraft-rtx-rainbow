@@ -12,7 +12,6 @@ import {
 } from "/typings/constants.ts";
 import BlockEntry from "/src/components/BlockEntry.ts";
 import { pixelPrinter } from "/src/components/ImagePrinter.ts";
-import { DIR_SRC } from "/src/store/_config.ts";
 import { fetchImage, handlePaletteInput } from "/src/_utils.ts";
 
 async function githubAvatars(
@@ -20,7 +19,6 @@ async function githubAvatars(
   repo: string,
   palette: BlockEntry[],
 ) {
-  const sponsorChunkSize = Math.min(MAX_PRINT_CHUNKS, DEFAULT_PRINT_CHUNKS + 1);
   const octokit = new Octokit();
 
   const { status, data } = await octokit.request(
@@ -36,28 +34,24 @@ async function githubAvatars(
     throw Error("Failed fetching GitHub data");
   }
 
-  await Promise.allSettled(
+  return Promise.allSettled(
     data.map(async (
       res: {
         login: string;
         avatar_url: string;
         [key: string]: string | boolean;
       },
-    ) => {
-      try {
-        await pixelPrinter(
-          `stargazers/${res.login}`,
-          await fetchImage(new URL(res.avatar_url)),
-          palette,
-          {
-            alignment: "none",
-            chunks: sponsorChunkSize,
-          },
-        );
-      } catch (err) {
-        console.error('Failed printing name: "%s"; Reason: %s', res.login, err);
-      }
-    }),
+    ) =>
+      pixelPrinter(
+        `stargazers/${res.login}`,
+        await fetchImage(new URL(res.avatar_url)),
+        palette,
+        {
+          alignment: "none",
+          chunks: MAX_PRINT_CHUNKS,
+        },
+      )
+    ),
   );
 }
 
@@ -77,7 +71,6 @@ export async function printPatrons(
   palette: BlockEntry[],
   options: {
     repo: string;
-    chunks?: number;
   },
 ) {
   const actionRepo = options.repo.split(
@@ -112,7 +105,7 @@ export async function printPixelArt(
   const printablePalette = getPrintablePalette(palette);
 
   // Print images in pixel_art directory
-  const srcsDir = join(DIR_SRC, "assets", "pixel_art");
+  const srcsDir = join(Deno.cwd(), "src", "assets", "pixel_art");
 
   for await (const entry of walk(srcsDir)) {
     const alignment = <Alignment> basename(dirname(entry.path));
@@ -155,7 +148,6 @@ export function printStarGazers(res: BlockEntry[]) {
 
   return printPatrons(getPrintablePalette(res), {
     repo: thisRepo,
-    chunks: 3,
   });
 }
 

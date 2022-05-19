@@ -5,16 +5,12 @@ import type {
   RGB,
   TextureSet,
 } from "/typings/types.ts";
-import { basename, extname } from "path/mod.ts";
-//import { sprintf } from "fmt/printf.ts";
-
 import {
   AO_EMISSIVE_THRESHOLD,
   DEFAULT_BLOCK_SOUND,
   DEFAULT_HEIGHTMAP_NAME,
 } from "/typings/constants.ts";
-
-//import { labelLanguage } from '/src/components/BlockEntry.ts'
+import { basename, extname } from "path/mod.ts";
 
 /**
  * Convert emissive percentage value to 'minecraft:block_light_filter' value
