@@ -1,0 +1,19 @@
+name: Deno Deploy
+on:
+  push:
+    branches: [ deploy ]
+
+  workflow_dispatch:
+
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+    - name: Deploy to Deno Deploy
+      uses: denoland/deployctl@v1
+      with:
+        project: minecraft-pixel-art
+        entrypoint: src/app.ts
