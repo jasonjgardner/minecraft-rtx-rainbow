@@ -1,9 +1,10 @@
+import type { PackIDs } from "/typings/types.ts";
 import { serve } from "http/server.ts";
 import { DEFAULT_NAMESPACE } from "/typings/constants.ts";
 import { sanitizeNamespace } from "./_utils.ts";
 import { getFormPackSize } from "./components/_resize.ts";
 import getPalette from "./components/palettes/fromImage.ts";
-import getDefaultPalette from "./components/palettes/default.ts";
+import materialPalette from "./components/palettes/materialDesign.ts";
 import { languages } from "./components/_state.ts";
 import createAddon from "./mod.ts";
 
@@ -17,32 +18,32 @@ async function handleRequest(request: Request): Promise<Response> {
 
   try {
     if (data && pathname.startsWith("/download")) {
-      const paletteSource = (data && isPost) ? data.get("paletteSource") : null;
+      const pixelArtSource = data && isPost ? data.get("paletteSource") : null;
       let ns = sanitizeNamespace(
-        data.get("namespace") ?? paletteSource ?? DEFAULT_NAMESPACE,
+        data.get("namespace") ?? pixelArtSource ?? DEFAULT_NAMESPACE
       );
 
       if (ns.length < 1) {
         ns = DEFAULT_NAMESPACE;
       }
 
-      const uuids: [string, string, string, string] = [
+      const uuids: PackIDs = [
         crypto.randomUUID(),
         crypto.randomUUID(),
         crypto.randomUUID(),
         crypto.randomUUID(),
       ];
 
-      let palette = null;
+      let blockColors = materialPalette;
 
-      if (paletteSource) {
-        palette = await getPalette(paletteSource);
+      if (pixelArtSource) {
+        blockColors = await getPalette(pixelArtSource);
       }
 
       const mcaddon = await createAddon(uuids, {
         size: getFormPackSize(data),
-        blockColors: palette && palette.length ? palette : getDefaultPalette(),
-        pixelArtSource: paletteSource,
+        blockColors,
+        pixelArtSource,
         namespace: ns,
       });
       return new Response(mcaddon, {
@@ -50,9 +51,9 @@ async function handleRequest(request: Request): Promise<Response> {
         headers: {
           "content-type": "application/zip",
           "content-disposition": `attachment; filename="${ns}.mcaddon"`,
-          "content-language": Object.keys(languages).map((langId) =>
-            langId.replace("_", "-")
-          ).join(", "),
+          "content-language": Object.keys(languages)
+            .map((langId) => langId.replace("_", "-"))
+            .join(", "),
           "content-length": `${mcaddon.size}`,
         },
       });
@@ -77,7 +78,7 @@ async function handleRequest(request: Request): Promise<Response> {
         headers: {
           "content-type": "text/html; charset=utf-8",
         },
-      },
+      }
     );
   }
 
@@ -95,6 +96,7 @@ async function handleRequest(request: Request): Promise<Response> {
       <header>
         <h1>Minecraft Pixel Art Generator</h1>
         <p>Convert image colors to custom blocks.</p>
+        <a href="https://github.com/jasonjgardner/minecraft-rtx-rainbow">GitHub</a>
         </header>
 
         <form method="post" action="/download" enctype="multipart/form-data">   
@@ -107,13 +109,13 @@ async function handleRequest(request: Request): Promise<Response> {
           <fieldset>
             <legend>Pack Details</legend>
             <label for="namespace">Namespace</label>
-            <input id="namespace" name="namespace" type="text" pattern="^[a-z]+[a-z0-9]*" autocomplete="off">
+            <input id="namespace" name="namespace" type="text" pattern="^[a-z]+[a-z0-9]*">
           </fieldset>
-          <button type="submit">Create .mcaddon</button>
+          <button type="submit">Generate .mcaddon</button>
         </form>
 
         <footer>
-          <p>by <a href="https://jasongardner.dev">Jason</a>
+          <p>by <a href="https://jasongardner.dev">Jason</a></p>
         </footer>
       </body>
     </html>`,
@@ -122,7 +124,7 @@ async function handleRequest(request: Request): Promise<Response> {
       headers: {
         "content-type": "text/html; charset=utf-8",
       },
-    },
+    }
   );
 }
 

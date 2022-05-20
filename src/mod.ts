@@ -1,14 +1,13 @@
 import "dotenv/load.ts";
 
-import type { CreationParameters } from "/typings/types.ts";
-import { DEFAULT_RELEASE_TYPE } from "/typings/constants.ts";
-import { join } from "path/mod.ts";
+import type { CreationParameters, PackIDs } from "/typings/types.ts";
+import { DEFAULT_DESCRIPTION } from "/typings/constants.ts";
 import BlockEntry from "./components/BlockEntry.ts";
 import { getBlocks, HueBlock } from "./components/blocks/index.ts";
 import Material from "./components/Material.ts";
 import { getMaterials } from "./components/materials/index.ts";
 //import createFunctions from "/src/components/mcfunctions/index.ts";
-import { generatePackIcon } from "./components/packIcon.ts";
+import { generatePackIcon, getDefaultIcon } from "./components/packIcon.ts";
 import { createManifests } from "./components/manifest.ts";
 import printer from "./components/printer.ts";
 import {
@@ -22,7 +21,7 @@ import {
 function compileMaterials(
   namespace: string,
   baseTextures: HueBlock[],
-  materials: Material[],
+  materials: Material[]
 ) {
   const res: BlockEntry[] = [];
   materials.forEach((material: Material) => {
@@ -34,7 +33,7 @@ function compileMaterials(
   return res;
 }
 export default async function createAddon(
-  uuids: [string, string, string, string],
+  uuids: PackIDs,
   {
     size,
     namespace,
@@ -42,44 +41,36 @@ export default async function createAddon(
     blockColors,
     materialOptions,
     pixelArtSource,
-    releaseType,
-  }: CreationParameters,
+  }: CreationParameters
 ) {
-  const materials = materialOptions && materialOptions.length
-    ? materialOptions
-    : getMaterials();
+  if (!blockColors || !blockColors.length) {
+    console.log("Default palette will be used");
+  }
+
+  const materials =
+    materialOptions && materialOptions.length
+      ? materialOptions
+      : getMaterials();
+
   const res = compileMaterials(
     namespace,
-    blockColors && blockColors.length ? blockColors : getBlocks(),
-    materials,
+    blockColors ?? getBlocks(),
+    materials
   );
 
   try {
     const packIcon = pixelArtSource
       ? await generatePackIcon(namespace, pixelArtSource)
-      : await Deno.readFile(
-        join(Deno.cwd(), "src", "assets", "img", "pack_icon.png"),
-      );
+      : await getDefaultIcon();
 
-    addToResourcePack(
-      "pack_icon.png",
-      packIcon,
-    );
-    addToBehaviorPack(
-      "pack_icon.png",
-      packIcon,
-    );
+    addToResourcePack("pack_icon.png", packIcon);
+    addToBehaviorPack("pack_icon.png", packIcon);
   } catch (err) {
     console.log("Failed adding pack icons: %s", err);
   }
 
   // TODO: Add description input
-  createManifests(
-    uuids,
-    namespace,
-    description ?? "Generated",
-    releaseType ?? DEFAULT_RELEASE_TYPE,
-  );
+  createManifests(uuids, namespace, description ?? DEFAULT_DESCRIPTION);
 
   await Promise.all(res.map((block: BlockEntry) => addBlock(block, size)));
 

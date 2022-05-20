@@ -1,13 +1,13 @@
 import Material from "../Material.ts";
 
-export default class Plastic extends Material {
+export default class Metal extends Material {
   _useHeightMap = false;
 
-  _normalMap = "block_normal";
+  _normalMap = "metal_normal";
   constructor() {
-    super("roughness", {
-      en_US: "Plastic",
-      en_GB: "Plastic",
+    super("metal", {
+      en_US: "Metallic",
+      en_GB: "Metallic",
     });
   }
 
@@ -16,18 +16,18 @@ export default class Plastic extends Material {
   }
 
   get metalness() {
-    return 0;
+    return Math.round(255 * 0.99);
   }
 
   get roughness() {
-    return Math.floor(255 * 0.25);
+    return Math.round(255 * 0.125);
   }
 
   get components() {
     return {
       "minecraft:creative_category": {
         category: "construction",
-        group: "itemGroup.name.concrete",
+        group: "itemGroup.name.copper",
       },
       //"minecraft:unit_cube": Object.freeze({}),
       "minecraft:material_instances": this.materialInstance,

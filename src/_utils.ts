@@ -1,16 +1,35 @@
-import type { PaletteInput, RGB, RGBA, RgbaObj } from "/typings/types.ts";
+import type { PaletteInput, RGB, RGBA, ChannelValue } from "/typings/types.ts";
 import { DEFAULT_NAMESPACE } from "/typings/constants.ts";
 import { GIF, Image } from "imagescript/mod.ts";
 import { basename, extname, toFileUrl } from "path/mod.ts";
 
+/**
+ * Ensure namespace input is usable in Minecraft
+ * @param entry Form submission value
+ * @returns Sanitized namespace string
+ */
 export function sanitizeNamespace(entry: FormDataEntryValue | PaletteInput) {
-  return (entry instanceof File
-    ? basename(entry.name, extname(entry.name))
-    : entry ?? DEFAULT_NAMESPACE)
+  const namespace = (
+    entry instanceof File
+      ? basename(entry.name, extname(entry.name))
+      : entry ?? DEFAULT_NAMESPACE
+  )
     .trim()
     .replace(/[^A-Za-z0-9_\-]/gi, "");
+
+  if (namespace === "minecraft" || namespace === "minecon") {
+    throw Error(`Can not used reserved namespace "${namespace}"`);
+  }
+
+  return namespace;
 }
-export function hex2rgb(hex: string): [number, number, number] {
+
+/**
+ * Convert a hex color into an RGB number array
+ * @param hex HEX color string to parse
+ * @returns Array of equivalent RGB values [0-255]
+ */
+export function hex2rgb(hex: string): RGB {
   const result = /^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 
   if (!result) {
@@ -21,63 +40,122 @@ export function hex2rgb(hex: string): [number, number, number] {
   return [rgb[0], rgb[1], rgb[2]];
 }
 
+/**
+ * Restrict a number value to be within a certain minimum and maximum value
+ * @param value Number to restrict
+ * @param max Maximum value
+ * @param min Minimum value
+ * @returns Number within maximum and minimum values
+ */
 export function clamp(value: number, max: number, min = 0) {
   return Math.max(min, Math.min(max, value));
 }
 
-const hexValue = (values: number[] | RGB) =>
-  values.map((v: number) => v.toString(16).padStart(2, "0")).join("");
-
-export function formatAhex({ r, g, b, alpha }: RgbaObj) {
-  return "#" + hexValue([channelPercentage(alpha * 100), r, g, b]);
+/**
+ * Convert an array of RGB values [0-255] to a HEX color string
+ * @param values RGB values [0-255]
+ * @returns HEX color string
+ */
+export function hexValue(values: RGB | RGBA) {
+  return values.map((v: number) => v.toString(16).padStart(2, "0")).join("");
 }
 
-export function formatHex(color: RgbaObj) {
-  const values = Object.values(color);
-  values.length = 3; // Truncate excess
-  return "#" + hexValue(values);
+/**
+ * Convert RGBA into an ARGB hex color string
+ * @param rgba RGBA number values
+ * @returns ARGB hex string
+ */
+export function formatAhex(rgba: RGBA) {
+  const [r, g, b, a] = rgba;
+  return "#" + hexValue([a, r, g, b]);
 }
 
-export function encodeRGBColor(layerValue: number[], size = 16) {
+/**
+ * Convert a RGB(A) value into an image
+ * @param layerValue RGB(A) color value
+ * @param size Image output size
+ * @returns Solid-color RGB(A) value as an encoded image
+ */
+export function encodeRGBColor(layerValue: RGB | RGBA, size = 16) {
   const [r, g, b, alpha] = layerValue;
   const imgOutput = new Image(size, size);
 
   imgOutput.fill(
     alpha !== undefined
       ? Image.rgbaToColor(r, g, b, alpha)
-      : Image.rgbToColor(r, g, b),
+      : Image.rgbToColor(r, g, b)
   );
 
   return imgOutput.encode(0);
 }
 
+/**
+ * Convert a string into a URL and decode the remote image
+ * @uses fetchImage
+ * @param src Image file path or URL
+ * @returns Promise from fetched URL
+ */
 function getImageFromUrl(src: string): Promise<Image | GIF> {
   return fetchImage(
-    (src.toLowerCase().startsWith("http://") ||
-        src.toLowerCase().startsWith("https://"))
+    src.toLowerCase().startsWith("http://") ||
+      src.toLowerCase().startsWith("https://")
       ? new URL(src)
-      : toFileUrl(src),
+      : toFileUrl(src)
   );
 }
 
+/**
+ * Decode image or URL input
+ * @param src File or text input value
+ * @returns Decoded file or image from URL/path
+ */
 export async function handlePaletteInput(src: Exclude<PaletteInput, null>) {
-  return (src && typeof src !== "string")
-    ? Image.decode(new Uint8Array(await src.arrayBuffer()))
-    : getImageFromUrl(src);
+  if (typeof src === "string") {
+    return getImageFromUrl(src);
+  }
+
+  const data = new Uint8Array(await src.arrayBuffer());
+
+  return extname(src.name) === ".gif" ? GIF.decode(data) : Image.decode(data);
 }
 
+/**
+ * Convert a semver string into an array of numbers
+ * @param ver Semantic version number
+ * @returns Version number values as an array
+ */
 export function semverVector(ver: string): number[] {
   return ver.split(".", 3).map((v: string) => parseInt(v, 10));
 }
 
-export function channelPercentage(percentage: number) {
-  return Math.ceil((Math.max(0, percentage) * 255) / 100);
+/**
+ * Convert channel value to decimal percentage
+ * @param value Channel value [0-255]
+ * @returns Decimal value [0-1]
+ */
+export function channelToPercentage(value: number | ChannelValue): number {
+  return Math.max(0, Math.min(1, value / 255));
 }
 
+/**
+ * Calculate channel value from a decimal percentage
+ * @param percentage Decimal percentage level
+ * @returns Channel equivalent of percentage
+ */
+export function percentageToChannel(percentage: number): ChannelValue {
+  return Math.ceil((Math.max(0, Math.min(1, percentage)) * 255) / 100);
+}
+
+/**
+ * Decode an image from a URL source
+ * @param source Image URL
+ * @returns Decoded image fetched from URL
+ */
 export async function fetchImage(source: URL): Promise<Image | GIF> {
   const res = await fetch(source.href);
   const data = new Uint8Array(await res.arrayBuffer());
-  const isGif = extname(source.href) === ".gif" ||
+  const isGif =
+    extname(source.href) === ".gif" ||
     res.headers.get("content-type")?.startsWith("image/gif") === true;
 
   return isGif ? GIF.decode(data) : Image.decode(data);
@@ -91,10 +169,13 @@ export async function fetchImage(source: URL): Promise<Image | GIF> {
  */
 export function rgbaMatch(
   colorOne: RGB | RGBA | number[],
-  colorTwo: RGB | RGBA | number[],
+  colorTwo: RGB | RGBA | number[]
 ) {
   const len = colorOne.length;
   const len2 = colorTwo.length;
-  return len === len2 && len <= 4 &&
-    colorOne.every((value, idx) => value === colorTwo[idx]);
+  return (
+    len === len2 &&
+    len <= 4 &&
+    colorOne.every((value: ChannelValue, idx) => value === colorTwo[idx])
+  );
 }

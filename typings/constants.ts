@@ -9,13 +9,16 @@ export const DEFAULT_PACK_SIZE: PackSizes = MIN_PACK_SIZE;
 export const DEFAULT_LICENSE = "GPL-3.0-or-later";
 
 export const DEFAULT_BUILD_VERSION = "1.0.0";
-
-export const DEFAULT_NAMESPACE = "rainbow"; // TODO: Create namespace hash function
+export const DEFAULT_DESCRIPTION = "Block palette generated from image input";
+export const DEFAULT_NAMESPACE = "pixels"; // TODO: Create namespace hash function
 export const BEHAVIOR_BLOCK_FORMAT_VERSION = "1.16.100";
 
 export const DEFAULT_RELEASE_TYPE: ReleaseType = "prerelease";
 
 export const DEFAULT_HEIGHTMAP_NAME = "default_heightmap";
+
+export const DEFAULT_PACK_ICON_URL =
+  "https://raw.githubusercontent.com/MicrosoftDocs/minecraft-creator/20bab91daddc604f9a310d02ed1c6e9ead126f55/creator/Reference/Source/VanillaResourcePack/pack_icon.png";
 
 /**
  * Emissive level at which ambient occlusion is disabled on a block's face

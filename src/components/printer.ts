@@ -17,7 +17,7 @@ import { fetchImage, handlePaletteInput } from "../_utils.ts";
 async function githubAvatars(
   owner: string,
   repo: string,
-  palette: BlockEntry[],
+  palette: BlockEntry[]
 ) {
   const octokit = new Octokit();
 
@@ -27,7 +27,7 @@ async function githubAvatars(
       owner,
       repo,
       per_page: 50,
-    },
+    }
   );
 
   if (status !== 200) {
@@ -35,29 +35,28 @@ async function githubAvatars(
   }
 
   return Promise.allSettled(
-    data.map(async (
-      res: {
+    data.map(
+      async (res: {
         login: string;
         avatar_url: string;
         [key: string]: string | boolean;
-      },
-    ) =>
-      pixelPrinter(
-        `stargazers/${res.login}`,
-        await fetchImage(new URL(res.avatar_url)),
-        palette,
-        {
-          alignment: "none",
-          chunks: MAX_PRINT_CHUNKS,
-        },
-      )
-    ),
+      }) =>
+        pixelPrinter(
+          `stargazers/${res.login}`,
+          await fetchImage(new URL(res.avatar_url)),
+          palette,
+          {
+            alignment: "none",
+            chunks: MAX_PRINT_CHUNKS,
+          }
+        )
+    )
   );
 }
 
 export function getPrintablePalette(palette: BlockEntry[]) {
-  const filtered = palette.filter(({ printable }: BlockEntry) =>
-    printable === true
+  const filtered = palette.filter(
+    ({ printable }: BlockEntry) => printable === true
   );
 
   if (filtered.length) {
@@ -71,12 +70,9 @@ export async function printPatrons(
   palette: BlockEntry[],
   options: {
     repo: string;
-  },
+  }
 ) {
-  const actionRepo = options.repo.split(
-    "/",
-    2,
-  );
+  const actionRepo = options.repo.split("/", 2);
 
   if (actionRepo.length < 2) {
     throw TypeError('Invalid repo format. Expected "owner/repo"');
@@ -94,11 +90,11 @@ export async function printPixelArt(
   palette: BlockEntry[],
   options?: {
     chunks?: number;
-  },
+  }
 ) {
   const chunks = Math.max(
     1,
-    Math.min(MAX_PRINT_CHUNKS, options?.chunks ?? DEFAULT_PRINT_CHUNKS),
+    Math.min(MAX_PRINT_CHUNKS, options?.chunks ?? DEFAULT_PRINT_CHUNKS)
   );
 
   // Exclude unpalatable blocks
@@ -108,7 +104,7 @@ export async function printPixelArt(
   const srcsDir = join(Deno.cwd(), "src", "assets", "pixel_art");
 
   for await (const entry of walk(srcsDir)) {
-    const alignment = <Alignment> basename(dirname(entry.path));
+    const alignment = <Alignment>basename(dirname(entry.path));
 
     if (!entry.isFile) {
       continue;
@@ -127,13 +123,13 @@ export async function printPixelArt(
         structureName,
         await fetchImage(fileUrl),
         printablePalette,
-        { alignment, chunks },
+        { alignment, chunks }
       );
     } catch (err) {
       console.error(
         'Failed creating pixel art for file %s: "%s"',
         entry.name,
-        err,
+        err
       );
     }
   }
@@ -151,9 +147,7 @@ export function printStarGazers(res: BlockEntry[]) {
   });
 }
 
-export function printPixelArtDirectory(
-  res: BlockEntry[],
-) {
+export function printPixelArtDirectory(res: BlockEntry[]) {
   try {
     const printPalette = getPrintablePalette(res);
 
@@ -165,7 +159,7 @@ export function printPixelArtDirectory(
 
 export default async function printer(
   res: BlockEntry[],
-  artSrc?: PaletteInput,
+  artSrc?: PaletteInput
 ) {
   if (res.length < MIN_PALETTE_LENGTH) {
     throw Error("Can not print pixel art. Palette source is too small.");
@@ -175,24 +169,19 @@ export default async function printer(
 
   if (artSrc) {
     try {
-      const img = await handlePaletteInput(
-        artSrc,
-      );
+      const img = await handlePaletteInput(artSrc);
 
       const chunks = Math.min(
         MAX_PRINT_CHUNKS,
-        Math.max(1, Math.max(img.width, img.height) / CHUNK_SIZE),
+        Math.max(1, Math.max(img.width, img.height) / CHUNK_SIZE)
       );
 
-      tasks.push(pixelPrinter(
-        ART_SOURCE_ID,
-        img,
-        res,
-        {
-          alignment: "none",
+      tasks.push(
+        pixelPrinter(ART_SOURCE_ID, img, res, {
+          alignment: "b2b",
           chunks,
-        },
-      ));
+        })
+      );
     } catch (err) {
       console.log("Failed printing pixel art from input: %s", err);
     }

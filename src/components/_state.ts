@@ -24,6 +24,7 @@ const blocksJson: MinecraftData = {};
 const textureData: MinecraftTerrainData = {};
 export const languages: LanguagesContainer = {
   en_US: [],
+  en_GB: [],
 };
 
 function sanitizeFilename(filepath: string) {
@@ -38,16 +39,18 @@ export async function addBlock(block: BlockEntry, size: PackSizes) {
 
   // Get translation for each language
   for (const languageKey in languages) {
-    languages[<LanguageId> languageKey].push(
-      block.language(<LanguageId> languageKey),
+    languages[<LanguageId>languageKey].push(
+      block.language(<LanguageId>languageKey)
     );
   }
 }
 
 export function requireTexture(textureFileName: string, contents: Uint8Array) {
   // Include in archive
-  return texturesDirectory.file(textureFileName) ||
-    texturesDirectory.addFile(textureFileName, contents);
+  return (
+    texturesDirectory.file(textureFileName) ||
+    texturesDirectory.addFile(textureFileName, contents)
+  );
 }
 
 /**
@@ -57,18 +60,10 @@ export function requireTexture(textureFileName: string, contents: Uint8Array) {
  */
 export async function requireMaterialAsset(name: string, size: PackSizes) {
   const fileName = `${name}.png`;
-  const filePath = join(
-    Deno.cwd(),
-    "src",
-    "assets",
-    "materials",
-    fileName,
-  );
+  const filePath = join(Deno.cwd(), "src", "assets", "materials", fileName);
 
   try {
-    const asset = await Image.decode(
-      await Deno.readFile(filePath),
-    );
+    const asset = await Image.decode(await Deno.readFile(filePath));
 
     // Manipulate the image here:
     asset.resize(size, size);
@@ -80,9 +75,8 @@ export async function requireMaterialAsset(name: string, size: PackSizes) {
 }
 
 export async function addTextureSet(block: BlockEntry, size: PackSizes) {
-  const isColor =
-    ((color: string | number[]) =>
-      `${color}`[0] === "#" || Array.isArray(color));
+  const isColor = (color: string | number[]) =>
+    `${color}`[0] === "#" || Array.isArray(color);
 
   if (!isColor(block.textureSet.color)) {
     await requireMaterialAsset(`${block.textureSet.color}`, size);
@@ -91,7 +85,7 @@ export async function addTextureSet(block: BlockEntry, size: PackSizes) {
   if (!isColor(block.textureSet.metalness_emissive_roughness || "")) {
     await requireMaterialAsset(
       `${block.textureSet.metalness_emissive_roughness}`,
-      size,
+      size
     );
   }
 
@@ -103,28 +97,20 @@ export async function addTextureSet(block: BlockEntry, size: PackSizes) {
 
   return texturesDirectory.addFile(
     sanitizeFilename(`${block.resourceId}.texture_set.json`),
-    JSON.stringify(
-      {
-        format_version: "1.16.100",
-        "minecraft:texture_set": block.textureSet,
-      },
-    ),
+    JSON.stringify({
+      format_version: "1.16.100",
+      "minecraft:texture_set": block.textureSet,
+    })
   );
 }
 
-export function addToBehaviorPack(
-  key: string,
-  contents: string | Uint8Array,
-) {
+export function addToBehaviorPack(key: string, contents: string | Uint8Array) {
   return bp.addFile(sanitizeFilename(key), contents, {
     createFolders: true,
   });
 }
 
-export function addToResourcePack(
-  key: string,
-  contents: string | Uint8Array,
-) {
+export function addToResourcePack(key: string, contents: string | Uint8Array) {
   return rp.addFile(sanitizeFilename(key), contents, {
     createFolders: true,
   });
@@ -151,33 +137,28 @@ export function createArchive(namespace: string, size: PackSizes) {
   for (const languageKey in languages) {
     rp.addFile(
       `texts/${languageKey}.lang`,
-      [...new Set(languages[<LanguageId> languageKey])].join(EOL.CRLF),
+      [...new Set(languages[<LanguageId>languageKey])].join(EOL.CRLF)
     );
   }
 
-  rp.addFile(
-    "texts/languages.json",
-    JSON.stringify(Object.keys(languages)),
-  );
+  rp.addFile("texts/languages.json", JSON.stringify(Object.keys(languages)));
 
   rp.addFile(
     "blocks.json",
-    JSON.stringify({ format_version: [1, 1, 0], ...blocksJson }),
+    JSON.stringify({ format_version: [1, 1, 0], ...blocksJson })
   );
 
   const mips = calculateMipLevels(size);
 
   rp.addFile(
     "textures/terrain_texture.json",
-    JSON.stringify(
-      {
-        num_mip_levels: mips,
-        padding: Math.max(1, 2 * mips),
-        resource_pack_name: namespace,
-        texture_name: "atlas.terrain",
-        texture_data: textureData,
-      },
-    ),
+    JSON.stringify({
+      num_mip_levels: mips,
+      padding: Math.max(1, 2 * mips),
+      resource_pack_name: namespace,
+      texture_name: "atlas.terrain",
+      texture_data: textureData,
+    })
   );
 
   // createContentsFile(bp);

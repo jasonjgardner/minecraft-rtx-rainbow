@@ -28,38 +28,37 @@ interface PrinterResult {
   func: string;
 }
 
-const hasTransparency = ({ color: { rgba } }: BlockEntry) =>
-  rgba[3] < 1 && rgba[3] >= TRANSPARENT_PRINT_BLOCK_THRESHOLD;
+const hasTransparency = ({ color: { rgba } }: BlockEntry) => rgba[3] < 255;
 
 function colorDistance(color1: RGB, color2: RGB) {
   return Math.sqrt(
-    Math.pow(color1[0] - color2[0], 2) + Math.pow(color1[1] - color2[1], 2) +
-      Math.pow(color1[2] - color2[2], 2),
+    Math.pow(color1[0] - color2[0], 2) +
+      Math.pow(color1[1] - color2[1], 2) +
+      Math.pow(color1[2] - color2[2], 2)
   );
 }
 
 export function getNearestColor(
   color: RGB | RGBA,
-  palette: BlockEntry[],
+  palette: BlockEntry[]
 ): BlockEntry {
   const rgbColor: RGB = [color[0] || 0, color[1] || 0, color[2] || 0];
-  const alpha = Math.floor((color[3] || 0) / 255);
+  const alpha = color[3] ?? 255;
 
-  const materialPalette = (alpha >= 1)
-    ? palette
-    : palette.filter(({ color: { rgba } }: BlockEntry) => rgba[3] / 255 < 1); // Restrict palette to blocks with transparency
+  const materialPalette =
+    alpha >= 255 ? palette : palette.filter((b) => hasTransparency(b)); // Restrict palette to blocks with transparency
 
   // https://gist.github.com/Ademking/560d541e87043bfff0eb8470d3ef4894?permalink_comment_id=3720151#gistcomment-3720151
   return materialPalette.reduce(
     (prev: [number, BlockEntry], curr: BlockEntry): [number, BlockEntry] => {
       const distance = colorDistance(
         rgbColor,
-        <RGB> curr.color.rgba.slice(0, 2),
+        <RGB>curr.color.rgba.slice(0, 2)
       );
 
-      return (distance < prev[0]) ? [distance, curr] : prev;
+      return distance < prev[0] ? [distance, curr] : prev;
     },
-    [Number.POSITIVE_INFINITY, palette[0]],
+    [Number.POSITIVE_INFINITY, palette[0]]
   )[1];
 }
 
@@ -68,15 +67,11 @@ function writeFill(
   y: number,
   z: number,
   fillWith?: string,
-  flipAxis?: Axis,
+  flipAxis?: Axis
 ): string {
   const position = sprintf(
     "~%d ~%d ~%d",
-    ...(flipAxis === "x"
-      ? [z, y, x]
-      : flipAxis === "y"
-      ? [x, z, y]
-      : [x, y, z]),
+    ...(flipAxis === "x" ? [z, y, x] : flipAxis === "y" ? [x, z, y] : [x, y, z])
   );
   return `fill ${position} ${position} ${
     fillWith ?? TRANSPARENT_PRINT_BLOCK
@@ -88,59 +83,66 @@ function printDecoded(
   img: Image | Frame,
   palette: BlockEntry[],
   offset: number[],
-  dest: string,
+  dest: string
 ) {
   const transparencyPalette = palette.filter((b) => hasTransparency(b));
 
   let maxLines = MAX_FUNCTION_LINES;
 
-  const materials = palette.map(({ material }) => material);
+  const materials = Object.fromEntries(
+    palette.map(({ material }) => [material.label, material])
+  );
 
-  return materials.flatMap(({ label }: Material) => {
+  return Object.keys(materials).flatMap(function compileMaterialFills(label) {
     if (maxLines <= 0) {
       throw Error(sprintf("Function %s has exceeded max length", name));
     }
 
-    const materialPalette = palette.filter((entry: BlockEntry) =>
-      label === entry.material.label || hasTransparency(entry) // Always include transparency to allow printing semi-opaque pixels
-    );
+    const materialPalette = palette.filter(function getRequiredBlocks(
+      entry: BlockEntry
+    ) {
+      return (
+        label === entry.material.label ||
+        (transparencyPalette.length && hasTransparency(entry))
+      ); // Always include transparency to allow printing semi-opaque pixels
+    });
 
-    return axises.map((axis): PrinterResult => {
+    return axises.map(function compileFillOverAxis(axis): PrinterResult {
       const func: string[] = [];
 
       for (const [x, y, c] of img.iterateWithColors()) {
-        const rgba = <RGBA> Image.colorToRGBA(c);
-        const alpha = transparencyPalette.length > 0 ? rgba[3] / 255 : 1;
+        const rgba = <RGBA>Image.colorToRGBA(c);
 
-        const exact = materialPalette.filter(({ color: { rgba: _rgba } }) =>
-          rgbaMatch([rgba[0], rgba[1], rgba[2], alpha], _rgba)
+        const exact = materialPalette.find(({ color: { rgba: _rgba } }) =>
+          rgbaMatch(rgba, _rgba)
         );
 
+        // Pick the exact color if it's available
+        // Use the transparent block if it's below the alpha threshold
+        // Otherwise try to find the closest color in the palette
+        // Or resort to default block
         const nearest = exact
-          ? exact[0]?.behaviorId
-          : alpha < TRANSPARENT_PRINT_BLOCK_THRESHOLD // Minimum alpha of 50%
+          ? exact.behaviorId
+          : rgba[3] < TRANSPARENT_PRINT_BLOCK_THRESHOLD * 255
           ? TRANSPARENT_PRINT_BLOCK
           : getNearestColor(rgba, materialPalette)?.behaviorId ||
             DEFAULT_PRINT_BLOCK;
 
         func.push(
           writeFill(
-            Math.abs((x + offset[0]) - img.width), // Flip artwork face
-            Math.abs((y + offset[1]) - img.height), // Starts print row at top
+            Math.abs(x + offset[0] - img.width), // Flip artwork face
+            Math.abs(y + offset[1] - img.height), // Starts print row at top
             offset[2],
             nearest,
-            axis,
-          ),
+            axis
+          )
         );
       }
 
       const filename = sprintf("%s_%s_%s.mcfunction", name, label, axis);
       const filePath = `${dest}/${filename}`;
 
-      addToBehaviorPack(
-        filePath,
-        func.join(EOL.CRLF),
-      );
+      addToBehaviorPack(filePath, func.join(EOL.CRLF));
 
       maxLines -= func.length;
 
@@ -151,21 +153,16 @@ function printDecoded(
 
 function getAlignment(
   align: Alignment,
-  options?: { idx: number; frame: Image | Frame; coords?: number[] },
+  options?: { idx: number; frame: Image | Frame; coords?: number[] }
 ): [number, number, number] {
   const idx = options?.idx || 1;
-  const [x, y, z] = options?.coords && options.coords.length >= 3
-    ? options.coords
-    : [0, 0, 0];
+  const [x, y, z] =
+    options?.coords && options.coords.length >= 3 ? options.coords : [0, 0, 0];
 
   if (align === "e2e" && options !== undefined) {
     // End-to-end alignment
     // (Places blocks like sprite sheet row)
-    return [
-      x + (idx * options.frame.width),
-      y,
-      z,
-    ];
+    return [x + idx * options.frame.width, y, z];
   }
 
   if (align === "b2b") {
@@ -194,13 +191,19 @@ export async function pixelPrinter(
   options: {
     alignment?: Alignment;
     chunks?: number;
-  },
+  }
 ) {
-  const frames = Array.isArray(imageData) ? imageData : [imageData];
   const size = Math.min(
     MAX_PRINT_SIZE,
-    (options.chunks ?? DEFAULT_PRINT_CHUNKS) * CHUNK_SIZE,
+    (options.chunks ?? DEFAULT_PRINT_CHUNKS) * CHUNK_SIZE
   );
+
+  if (imageData.width > size) {
+    imageData.resize(size, Image.RESIZE_AUTO, Image.RESIZE_NEAREST_NEIGHBOR);
+  }
+
+  const frames = Array.isArray(imageData) ? imageData : [imageData];
+
   const frameCount = Math.min(MAX_FRAMES, frames.length);
   frames.length = frameCount;
 
@@ -210,10 +213,6 @@ export async function pixelPrinter(
   const alignGroup = options.alignment || "b2b";
 
   for await (const frame of frames) {
-    if (frame.width > size) {
-      frame.resize(size, Image.RESIZE_AUTO, Image.RESIZE_NEAREST_NEIGHBOR);
-    }
-
     let dest = DIR_FUNCTIONS;
     let fileName = name;
 
@@ -231,8 +230,8 @@ export async function pixelPrinter(
           idx,
           frame,
         }),
-        dest,
-      ),
+        dest
+      )
     );
     idx++;
   }
@@ -248,7 +247,7 @@ export async function pixelPrinter(
 function createParentFunction(
   name: string,
   groupFn: Array<PrinterResult[]>,
-  _size: number,
+  _size: number
 ) {
   const fns: { [key: string]: string[] } = {};
   groupFn.forEach((group) => {
@@ -263,7 +262,7 @@ function createParentFunction(
         "function %s/%s/%s",
         FUNCTIONS_NAMESPACE,
         name,
-        basename(func, ".mcfunction"),
+        basename(func, ".mcfunction")
       );
 
       fns[key].push(line);
@@ -276,7 +275,7 @@ function createParentFunction(
 
     addToBehaviorPack(
       `${DIR_FUNCTIONS}/${structureId}.mcfunction`,
-      fns[materialPositionKey].join(EOL.CRLF),
+      fns[materialPositionKey].join(EOL.CRLF)
     );
   }
 }

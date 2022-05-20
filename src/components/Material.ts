@@ -53,19 +53,9 @@ export default class Material {
    */
   _useHeightMap = false;
 
-  /**
-   * 1 - 100
-   */
-  _intensity = 1;
-
-  _intensityRange: [number, number] = [0, 100];
-
-  _intensityStep = 1;
-
-  constructor(intensity: number, label: string, name: MultiLingual) {
+  constructor(label: string, name: MultiLingual) {
     this._label = label;
     this._name = name;
-    this._intensity = intensity;
   }
 
   set label(value: string) {
@@ -88,20 +78,20 @@ export default class Material {
     return this._name[lang];
   }
   get metalness() {
-    return Math.ceil((Math.max(0, this._intensity) * 255) / 100);
+    return Math.round(255 * 0.5);
   }
 
   get roughness() {
-    return Math.ceil((Math.max(0, 100 - this._intensity) * 255) / 100);
+    return Math.round(255 * 0.5);
   }
 
   get emissive() {
-    return Math.floor((Math.max(0, 100 - this._intensity) * 255) / 100);
+    return 0;
   }
 
   get depthMap() {
-    const hasNormalMap = this._normalMap !== undefined &&
-      this._normalMap.length;
+    const hasNormalMap =
+      this._normalMap !== undefined && this._normalMap.length;
 
     if (hasNormalMap && !this._useHeightMap) {
       return {
@@ -109,10 +99,7 @@ export default class Material {
       };
     }
 
-    if (
-      !this._heightMap && (this._useHeightMap || !hasNormalMap)
-    ) {
-      // generate heightmap
+    if (!this._heightMap && (this._useHeightMap || !hasNormalMap)) {
       this._heightMap = DEFAULT_HEIGHTMAP_NAME;
     }
 
@@ -130,7 +117,7 @@ export default class Material {
 
   get textureSet() {
     const values: Omit<TextureSet, "color"> = {
-      metalness_emissive_roughness: <RGB> [
+      metalness_emissive_roughness: <RGB>[
         this.metalness,
         this.emissive,
         this.roughness,
@@ -153,15 +140,14 @@ export default class Material {
   get materialInstance() {
     return {
       "*": {
-        ambient_occlusion:
-          (this._intensity * (this.emissive / 255)) < AO_EMISSIVE_THRESHOLD, // Allow AO if block isn't too bright
+        ambient_occlusion: 100 * (this.emissive / 255) < AO_EMISSIVE_THRESHOLD, // Allow AO if block isn't too bright
         face_dimming: !this.emissive,
       },
     };
   }
 
   get components(): { [k: string]: string | number | Record<never, never> } {
-    const emissivePercentage = this.emissive / 255;
+    const emissivePercentage = Math.floor(this.emissive / 255);
 
     return {
       "minecraft:unit_cube": Object.freeze({}),
@@ -169,22 +155,5 @@ export default class Material {
       //"minecraft:block_light_filter": clampBlockLightFilter(emissivePercentage),
       "minecraft:block_light_emission": emissivePercentage,
     };
-  }
-
-  get intensityRange() {
-    return this._intensityRange;
-  }
-
-  set intensityRange(value: [number, number]) {
-    this._intensityRange = [Math.min(...value), Math.max(...value)];
-  }
-
-  get intensityStep() {
-    return this._intensityStep || 1;
-  }
-
-  set intensityStep(value: number) {
-    const MAX_INTENSITY = Math.min(1000, this._intensityRange[1]); // P.S. "Max Intensity" is a cool name 💪
-    this._intensityStep = Math.max(1, Math.min(MAX_INTENSITY, value));
   }
 }
