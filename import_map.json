@@ -3,7 +3,6 @@
     "/": "./",
     "./": "./",
     "@octokit/": "https://cdn.skypack.dev/@octokit/",
-    "twind/": "https://cdn.skypack.dev/twind/",
     "nano_jsx/": "https://deno.land/x/nano_jsx@v0.0.30/",
     "dotenv/": "https://deno.land/x/dotenv@v3.2.0/",
     "semver/": "https://deno.land/x/semver@v1.4.0/",

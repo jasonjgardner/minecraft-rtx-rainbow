@@ -1,12 +1,13 @@
 {
   "tasks": {
-    "serve": "deno run --allow-read --allow-net --allow-env ./src/app.ts",
-    "serve:dev": "deno run --inspect --allow-read --allow-net --allow-env ./src/app.ts"
+    "twd": "twd -w ./src/application/index.html -o ./src/assets/css/styles.css",
+    "serve": "deno run --allow-read --allow-net --allow-env --allow-write ./src/app.ts",
+    "serve:dev": "deno run --inspect --allow-read --allow-write --allow-net --allow-env ./src/app.ts"
   },
   "fmt": {
     "files": {
       "include": ["src/", "typings/"],
-      "exclude": ["build/", "dist/"]
+      "exclude": ["build/", "dist/", "src/assets/css/style.css"]
     },
     "options": {
       "indentWidth": 2,

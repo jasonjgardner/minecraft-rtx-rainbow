@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Minecraft Pixel Art to Add-on Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              minecraft: ["Mojang", "sans-serif"],
+            },
+            colors: {
+              "minecraft-slate": {
+                50: "#fcfdfd",
+                100: "#e6e7e8",
+                200: "#d0d1d4",
+                300: "#8c8d90",
+                400: "#6a6c70",
+                500: "#606265",
+                600: "#5a5b5c",
+                700: "#48494a",
+                800: "#313233",
+                900: "#1e1e1f",
+              },
+              "minecraft-blue": "#2e6be5",
+              "minecraft-green": {
+                50: "#75b75d",
+                100: "#52a535",
+                200: "#3c8527",
+                300: "#1d4d13",
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-minecraft-slate-700 text-gray-100 p-0 m-0 flex flex-col content-start min-h-screen"
+  >
+    <header
+      class="bg-minecraft-slate-200 border-b-4 border-minecraft-slate-300 text-black text-center py-2"
+    >
+      <h1 class="font-bold text-2xl uppercase mb-0 cursor-default">
+        Minecraft Pixel Art Generator
+      </h1>
+    </header>
+
+    <div class="flex flex-col md:flex-row items-stretch sm:flex-1">
+      <div
+        class="bg-minecraft-slate-900 px-4 flex flex-col justify-start align-center flex-1 sm:border-2 border-minecraft-slate-800"
+      >
+        <div
+          class="inline-block bg-minecraft-slate-900 border-2 border-minecraft-slate-900 peer empty:hidden empty:mt-0 mt-4 mx-1 shadow"
+          id="preview"
+        ></div>
+        <output
+          class="peer-empty:mt-0 peer-empty:hidden bg-minecraft-blue text-white text-sm text-center shadow-sm rounded-sm m-2 py-1 px-4 select-none self-end sm:self-center"
+          id="fileInputValue"
+        ></output>
+      </div>
+      <form
+        class="container border-t border-t-minecraft-slate-900 pt-4 flex flex-col md:flex-grow"
+        method="post"
+        action="/download"
+        enctype="multipart/form-data"
+      >
+        <div class="divide-y-2 mx-2 divide-minecraft-slate-400">
+          <fieldset
+            class="block pt-2 pb-4 pl-4 pr-2 border-t-0 border-b-2 border-b-minecraft-slate-800"
+          >
+            <legend
+              class="text-gray-300 text-base font-light uppercase cursor-default"
+            >
+              Pixel Art Source
+            </legend>
+            <label
+              class="block bg-minecraft-slate-600 border-4 border-minecraft-slate-900 cursor-pointer text-center select-none pb-1"
+              for="palette-source"
+            >
+              <span
+                class="block border-2 border-minecraft-slate-50 bg-minecraft-slate-200 text-black text-base font-semibold capitalize py-2 shadow-sm hover:bg-minecraft-slate-100"
+                >Select image</span
+              >
+              <input
+                class="hidden"
+                id="palette-source"
+                name="palette-source"
+                type="file"
+                accept="image/*"
+                aria-labelledby="palette-source-description"
+              />
+            </label>
+
+            <details
+              class="block group mt-4 open:drop-shadow-sm hover:border-minecraft-slate-900"
+            >
+              <summary class="cursor-pointer list-none text-sm leading-relaxed">
+                <span
+                  class="bg-minecraft-slate-500 group-open:bg-minecraft-slate-600 border-2 border-minecraft-slate-900 px-3 py-1 group-open:border-b-0 group-open:inline-block select-none"
+                  >File Support</span
+                >
+              </summary>
+              <div
+                class="bg-minecraft-slate-800 border-minecraft-slate-900 group-open:border-2 group-open:border-minecraft-slate-900"
+              >
+                <p
+                  class="text-gray-50 mt-2 px-3 pb-2"
+                  id="palette-source-description"
+                >
+                  Submit an image between <b>2px</b> and <b>64px</b> in length
+                  or width. PNGs, JPEGs and GIFs are the current supported file
+                  types. Alpha values and animation frames can be converted.
+                </p>
+              </div>
+            </details>
+          </fieldset>
+
+          <div class="border-t-2 border-b-2">
+            <fieldset
+              class="border-b-minecraft-slate-800 border-minecraft-slate-500 pt-2 pb-4 pl-4 mt-4"
+            >
+              <legend
+                class="text-gray-300 text-base font-light uppercase cursor-default"
+              >
+                Pack Details
+              </legend>
+              <label class="flex flex-col" for="namespace">
+                <span class="block text-minecraft-slate-200 font-semibold"
+                  >Namespace</span
+                >
+                <input
+                  class="block mt-2 caret-minecraft-green-100 bg-minecraft-slate-800 focus:ring-2 focus:ring-minecraft-slate-500 border-2 border-solid border-minecraft-slate-900 border-t-4 border-t-minecraft-slate-900 focus:border-t-minecraft-slate-900 focus:border-minecraft-slate-800"
+                  id="namespace"
+                  name="namespace"
+                  type="text"
+                  autocomplete="off"
+                  maxlength="20"
+                  pattern="^[a-z]+[a-z0-9]*"
+                  placeholder="my_pack"
+                />
+              </label>
+            </fieldset>
+          </div>
+        </div>
+        <button
+          class="bg-minecraft-green-200 outline outline-minecraft-slate-900 border-b-4 border-b-minecraft-green-300 hover:bg-minecraft-green-100 hover:shadow-sm border-t-minecraft-green-100 active:border-t-4 active:border-t-minecraft-slate-800 active:border-b-0 shadow-md mt-6 flex flex-row p-0 mx-auto mb-2 max-w-sm"
+          type="submit"
+        >
+          <span
+            class="border-2 border-minecraft-green-100 hover:border-white/25 uppercase leading-loose px-8 md:w-96 min-w-full"
+          >
+            <b class="drop-shadow">Generate</b></span
+          >
+        </button>
+      </form>
+    </div>
+
+    <footer
+      class="bg-black border-t-2 border-t-minecraft-slate-800 text-gray-500 mx-0 px-2 mt-auto mb-0 text-right p-2 flex flex-row justify-between"
+    >
+      <a
+        class="text-white"
+        href="https://github.com/jasonjgardner/minecraft-rtx-rainbow"
+        rel="noreferrer noopener"
+        title="View this project's GitHub repository"
+        >GitHub</a
+      >
+      <span class="text-sm">
+        by
+        <a
+          class="font-black uppercase"
+          href="https://jasongardner.dev"
+          title="Visit Jason Gardner's website"
+          >Jason J. Gardner</a
+        >
+      </span>
+    </footer>
+    <script type="module">
+      const imageInput = document.getElementById("palette-source");
+      imageInput.addEventListener("change", async (event) => {
+        const file = event.target.files[0];
+
+        document.getElementById("fileInputValue").innerHTML = file.name;
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          document.getElementById(
+            "preview"
+          ).innerHTML = `<img class="w-full" style="image-rendering: pixelated;" src="${reader.result}" alt="${file.name} image preview">`;
+        };
+      });
+    </script>
+  </body>
+</html>
