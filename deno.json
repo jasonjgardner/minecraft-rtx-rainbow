@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "twd": "twd -w ./src/application/index.html -o ./src/assets/css/styles.css",
+    "twd": "twd -w ./src/application/views/index.html -o ./src/assets/css/styles.css",
     "serve": "deno run --allow-read --allow-net --allow-env --allow-write ./src/app.ts",
     "serve:dev": "deno run --inspect --allow-read --allow-write --allow-net --allow-env ./src/app.ts"
   },

@@ -4,66 +4,23 @@
     <meta charset="UTF-8" />
     <title>Minecraft Pixel Art to Add-on Generator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              minecraft: ["Mojang", "sans-serif"],
-            },
-            colors: {
-              "minecraft-slate": {
-                50: "#fcfdfd",
-                100: "#e6e7e8",
-                200: "#d0d1d4",
-                300: "#8c8d90",
-                400: "#6a6c70",
-                500: "#606265",
-                600: "#5a5b5c",
-                700: "#48494a",
-                800: "#313233",
-                900: "#1e1e1f",
-              },
-              "minecraft-blue": "#2e6be5",
-              "minecraft-green": {
-                50: "#75b75d",
-                100: "#52a535",
-                200: "#3c8527",
-                300: "#1d4d13",
-              },
-            },
-          },
-        },
-      };
-    </script>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body
     class="bg-minecraft-slate-700 text-gray-100 p-0 m-0 flex flex-col content-start min-h-screen"
   >
     <header
-      class="bg-minecraft-slate-200 border-b-4 border-minecraft-slate-300 text-black text-center py-2"
+      class="bg-minecraft-slate-200 border-b-4 border-minecraft-slate-300 shadow-sm text-black text-center py-2 flex group"
     >
-      <h1 class="font-bold text-2xl uppercase mb-0 cursor-default">
-        Minecraft Pixel Art Generator
+      <h1 class="font-bold text-2xl uppercase mb-0 cursor-default px-12 mx-auto relative">
+        Minecraft <strong class="bg-clip-text font-bold text-transparent bg-black group-hover:bg-[linear-gradient(90deg,#ff2400_10%,#e81d1d_20%,#e8b71d_30%,#e3e81d_40%,#31cd4c_50%,#1ddde8_60%,#2b1de8_70%,#dd00f3_80%,#dd00f3_90%,#ff0000_100%)]">Full-Color</strong> Pixel Art Generator
       </h1>
     </header>
 
     <div class="flex flex-col md:flex-row items-stretch sm:flex-1">
-      <div
-        class="bg-minecraft-slate-900 px-4 flex flex-col justify-start align-center flex-1 sm:border-2 border-minecraft-slate-800"
-      >
-        <div
-          class="inline-block bg-minecraft-slate-900 border-2 border-minecraft-slate-900 peer empty:hidden empty:mt-0 mt-4 mx-1 shadow"
-          id="preview"
-        ></div>
-        <output
-          class="peer-empty:mt-0 peer-empty:hidden bg-minecraft-blue text-white text-sm text-center shadow-sm rounded-sm m-2 py-1 px-4 select-none self-end sm:self-center"
-          id="fileInputValue"
-        ></output>
-      </div>
+      
       <form
-        class="container border-t border-t-minecraft-slate-900 pt-4 flex flex-col md:flex-grow"
+        class="container border-t border-t-minecraft-slate-900 pt-4 flex flex-col md:flex-grow h-full items-stretch"
         method="post"
         action="/download"
         enctype="multipart/form-data"
@@ -119,7 +76,7 @@
             </details>
           </fieldset>
 
-          <div class="border-t-2 border-b-2">
+          <div class="border-b-2 border-b-minecraft-slate-800">
             <fieldset
               class="border-b-minecraft-slate-800 border-minecraft-slate-500 pt-2 pb-4 pl-4 mt-4"
             >
@@ -145,20 +102,92 @@
               </label>
             </fieldset>
           </div>
+          <div class="border-t-2 border-b-2">
+            <fieldset
+              class="border-b-minecraft-slate-800 border-minecraft-slate-500 pt-2 pb-4 pl-4 mt-4"
+            >
+              <legend
+                class="text-gray-300 text-base font-light uppercase cursor-default"
+              >RTX Materials</legend>
+
+              <div class="flex flex-row justify-start mt-6 mx-4">
+                <label class="flex flex-row flex-1 justify-items-stretch align-middle" for="rtx[plastic]">
+                  <span class="block text-minecraft-slate-200 font-semibold"
+                    >Plastic</span
+                  >
+                  <input
+                    class="ml-2"
+                    id="rtx[plastic]"
+                    name="rtx[plastic]"
+                    type="checkbox"
+                    checked
+                  />
+                </label>
+
+                <label class="flex flex-row flex-1 justify-start" for="rtx[metal]">
+                  <span class="block text-minecraft-slate-200 font-semibold"
+                    >Metal</span
+                  >
+                  <input
+                    class="ml-2"
+                    id="rtx[metal]"
+                    name="rtx[metal]"
+                    type="checkbox"
+                    checked
+                  />
+                </label>
+
+                <label class="flex flex-row flex-1 justify-start" for="rtx[glowing]">
+                  <span class="block text-minecraft-slate-200 font-semibold"
+                    >Glowing</span
+                  >
+                  <input
+                    class="ml-2"
+                    id="rtx[glowing]"
+                    name="rtx[glowing]"
+                    type="checkbox"
+                    checked
+                  />
+                </label>
+              </div>
+            </fieldset>
+          </div>
         </div>
         <button
-          class="bg-minecraft-green-200 outline outline-minecraft-slate-900 border-b-4 border-b-minecraft-green-300 hover:bg-minecraft-green-100 hover:shadow-sm border-t-minecraft-green-100 active:border-t-4 active:border-t-minecraft-slate-800 active:border-b-0 shadow-md mt-6 flex flex-row p-0 mx-auto mb-2 max-w-sm"
+          class="bg-minecraft-green-200 outline outline-minecraft-slate-900 border-b-4 border-b-minecraft-green-300 hover:bg-minecraft-green-100 hover:shadow-sm border-t-minecraft-green-100 active:border-t-4 active:border-t-minecraft-slate-800 active:border-b-0 shadow-md mt-6 flex flex-row p-0 mx-6 mb-2 text-lg"
           type="submit"
         >
           <span
-            class="border-2 border-minecraft-green-100 hover:border-white/25 uppercase leading-loose px-8 md:w-96 min-w-full"
+            class="border-2 border-minecraft-green-100 hover:border-white/25 uppercase leading-loose px-10 py-2 min-w-full"
           >
             <b class="drop-shadow">Generate</b></span
           >
         </button>
       </form>
+
+      <div
+        class="bg-minecraft-slate-900 px-4 flex flex-col justify-start align-center flex-1 sm:border-2 border-minecraft-slate-800"
+      >
+        <div
+          class="inline-block bg-minecraft-slate-900 border-2 border-minecraft-slate-900 peer empty:hidden empty:mt-0 mt-4 mx-1 shadow"
+          id="preview"
+        ></div>
+        <output
+          class="peer-empty:mt-0 peer-empty:hidden bg-minecraft-blue text-white text-sm text-center shadow-sm rounded-sm m-2 py-1 px-4 select-none self-end sm:self-center"
+          id="fileInputValue"
+        ></output>
+        <div class="mx-2 mt-auto mb-2">
+            <h3 class="font-semibold">Usage Examples</h3>
+            <div class="divide-y-2 divide-minecraft-slate-400">
+              <p class="leading-relaxed py-2 mb-1"><code>/function print/input_metal_x</code></p>
+              <p class="leading-relaxed py-2 mb-1"><code>/function print/input_glowing_y</code></p>
+              <p class="leading-relaxed py-2 mb-1"><code>/function print/input_plastic_z</code></p>
+            </div>
+        </div>
+      </div>
     </div>
 
+    
     <footer
       class="bg-black border-t-2 border-t-minecraft-slate-800 text-gray-500 mx-0 px-2 mt-auto mb-0 text-right p-2 flex flex-row justify-between"
     >
@@ -181,6 +210,8 @@
     </footer>
     <script type="module">
       const imageInput = document.getElementById("palette-source");
+      const maxImageSize = 64;
+      const previewContainer = document.getElementById("preview");
       imageInput.addEventListener("change", async (event) => {
         const file = event.target.files[0];
 
@@ -189,9 +220,19 @@
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
-          document.getElementById(
-            "preview"
-          ).innerHTML = `<img class="w-full" style="image-rendering: pixelated;" src="${reader.result}" alt="${file.name} image preview">`;
+          const img = new Image();
+          img.src = reader.result;
+          img.alt = `${file.name} image preview`;
+          img.className = 'w-full drop-shadow-md';
+          img.style.imageRendering = 'pixelated';
+          
+          previewContainer.innerHTML = ''
+
+          img.onload = () => {
+            img.width = Math.min(maxImageSize, img.naturalWidth)
+
+            previewContainer.appendChild(img)
+          }
         };
       });
     </script>

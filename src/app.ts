@@ -22,6 +22,21 @@ router
       console.log(err);
     }
   })
+  .get("/styles.css", async (context) => {
+    try {
+      const css = await Deno.readFile(
+        `${Deno.cwd()}/src/assets/css/styles.css`,
+      );
+
+      const decoder = new TextDecoder("utf-8");
+      context.response.status = 200;
+      context.response.type = "text/css";
+      context.response.body = decoder.decode(css);
+    } catch (err) {
+      context.response.status = 500;
+      console.log(err);
+    }
+  })
   .get("/download", async (context) => {
     const blob = await download();
 
@@ -40,6 +55,11 @@ router
       const blob = await download(
         data.files[0].filename,
         data.fields.namespace,
+        {
+          plastic: data.fields["rtx[plastic]"] === "on",
+          glowing: data.fields["rtx[glowing]"] === "on",
+          metal: data.fields["rtx[metal]"] === "on",
+        },
         32,
       );
 
@@ -52,7 +72,7 @@ router
       return;
     }
 
-    context.response.status = 500;
+    //context.response.status = 500;
   });
 
 const app = new Application();
@@ -61,16 +81,16 @@ app.addEventListener("listen", () => {
   console.log("Server is online, 8000 is the magic port");
 });
 
-app.use(async (ctx) => {
-  const filePath = ctx.request.url.pathname;
-  const staticMap: Record<string, string> = {
-    "script.js": `${Deno.cwd()}/src/assets/scripts/index.js`,
-  };
+// app.use(async (ctx) => {
+//   const filePath = ctx.request.url.pathname;
+//   const staticMap: Record<string, string> = {
+//     "script.js": `${Deno.cwd()}/src/assets/scripts/index.js`,
+//   };
 
-  if (filePath in staticMap) {
-    await send(ctx, staticMap[filePath]);
-  }
-});
+//   if (filePath in staticMap) {
+//     await send(ctx, staticMap[filePath]);
+//   }
+// });
 
 app.use(router.routes());
 app.use(router.allowedMethods());
