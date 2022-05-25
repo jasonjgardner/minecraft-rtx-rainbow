@@ -12,7 +12,6 @@ import {
   DEFAULT_PRINT_CHUNKS,
   FUNCTIONS_NAMESPACE,
   MAX_FRAMES,
-  MAX_FUNCTION_LINES,
   MAX_PRINT_SIZE,
   TRANSPARENT_PRINT_BLOCK,
   TRANSPARENT_PRINT_BLOCK_THRESHOLD,
@@ -180,19 +179,23 @@ function printDecoded(
   dest: string,
   frameCount = 1,
 ) {
-  let maxLines = MAX_FUNCTION_LINES;
+  const materials: string[] = [];
 
-  return palette.flatMap(
-    function compileMaterialFills({ material: { label } }: BlockEntry) {
-      if (maxLines <= 0) {
-        throw Error(sprintf("Function %s has exceeded max length", name));
-      }
+  palette.forEach(({ material: { label } }) => {
+    if (!materials.includes(label)) {
+      materials.push(label);
+    }
+  });
 
+  const fns: Array<PrinterResult[]> = [];
+
+  try {
+    fns.push(materials.flatMap((label) => {
       const materialPalette = palette.filter((
         { translucent, material: { label: entryLabel } }: BlockEntry,
       ) => translucent || label === entryLabel);
 
-      return axises.map(function compileFillOverAxis(axis): PrinterResult {
+      return axises.map((axis): PrinterResult => {
         const func: string[] = [];
 
         for (const [x, y, c] of img.iterateWithColors()) {
@@ -217,12 +220,14 @@ function printDecoded(
 
         addToBehaviorPack(filePath, func.join(EOL.CRLF));
 
-        maxLines -= func.length;
-
         return { label, axis, func: filename };
       });
-    },
-  );
+    }));
+  } catch (err) {
+    console.log("Failed compiling print function: %s", err);
+  }
+
+  return fns.flat();
 }
 
 function getBlockIdByColor(color: RGBA, palette: BlockEntry[]) {
@@ -281,7 +286,7 @@ function getAlignment(
   return [x, y, z];
 }
 
-export async function pixelPrinter(
+export function pixelPrinter(
   name: string,
   imageData: Image | GIF,
   palette: BlockEntry[],
@@ -309,7 +314,8 @@ export async function pixelPrinter(
   const groupFn: Array<PrinterResult[]> = [];
   const alignGroup = options.alignment || "b2b";
 
-  for await (const frame of frames) {
+  for (let itr = 0; itr < frameCount; itr++) {
+    const frame = frames[itr];
     let dest = DIR_FUNCTIONS;
     let fileName = name;
 
@@ -317,9 +323,8 @@ export async function pixelPrinter(
       fileName = sprintf("%s_%02s", name, `${idx}`);
       dest += `/${name}`;
     }
-
-    groupFn.push(
-      printDecoded(
+    try {
+      const res = printDecoded(
         fileName,
         frame,
         palette,
@@ -329,8 +334,12 @@ export async function pixelPrinter(
         }),
         dest,
         frameCount,
-      ),
-    );
+      );
+
+      groupFn.push(res);
+    } catch (err) {
+      console.log("Failed printing frames: %s", err);
+    }
     idx++;
   }
 

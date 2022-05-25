@@ -112,17 +112,21 @@ function getImageFromUrl(src: string): Promise<Image | GIF> {
  */
 export async function handlePaletteInput(src: Exclude<PaletteInput, null>) {
   let data;
-  let ext = ".png";
+  //let ext = ".png";
 
   if (typeof src === "string") {
     data = decode(src);
     //return getImageFromUrl(src);
   } else {
     data = new Uint8Array(await src.arrayBuffer());
-    ext = extname(src.name);
+    //ext = extname(src.name);
   }
 
-  return ext === ".gif" ? GIF.decode(data) : Image.decode(data);
+  try {
+    return GIF.decode(data);
+  } catch {
+    return Image.decode(data);
+  }
 }
 
 /**

@@ -119,7 +119,7 @@ export async function printPixelArt(
     // }
 
     try {
-      await pixelPrinter(
+      pixelPrinter(
         structureName,
         await fetchImage(fileUrl),
         printablePalette,
@@ -177,12 +177,10 @@ export default async function printer(
         Math.max(1, Math.max(img.width, img.height) / CHUNK_SIZE),
       );
 
-      tasks.push(
-        pixelPrinter(ART_SOURCE_ID, img, res, {
-          alignment: alignment ?? "b2b",
-          chunks,
-        }),
-      );
+      pixelPrinter(ART_SOURCE_ID, img, res, {
+        alignment: alignment ?? "b2b",
+        chunks,
+      });
     } catch (err) {
       console.log("Failed printing pixel art from input: %s", err);
     }
