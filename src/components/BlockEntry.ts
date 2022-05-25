@@ -186,7 +186,7 @@ export default class BlockEntry {
     return deepMerge({
       "*": {
         texture: this.resourceId,
-        render_method: this._hue.rgba[3] < 1 ? "blend" : "opaque",
+        render_method: this._hue.rgba[3] < 255 ? "blend" : "opaque",
       },
     }, this._material.materialInstance);
   }
@@ -205,5 +205,9 @@ export default class BlockEntry {
       },
       deepMerge(this._hue.components, this._material.components),
     );
+  }
+
+  get translucent() {
+    return this._hue.rgba[3] < 255 && this._material.translucent !== false;
   }
 }

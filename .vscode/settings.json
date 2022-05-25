@@ -14,5 +14,15 @@
   "deno.codeLens.implementations": true,
   "deno.codeLens.references": true,
   "deno.codeLens.referencesAllFunctions": true,
+  "tailwindCSS.experimental.configFile": "./tailwind.config.js",
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[tailwindcss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "nuxt.isNuxtApp": false
 }

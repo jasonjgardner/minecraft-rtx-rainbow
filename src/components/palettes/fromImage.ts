@@ -29,7 +29,7 @@ const BOUNDARY_Y = 256;
 const MAX_FRAME_DEPTH = 10;
 
 export default async function getPalette(
-  src: Exclude<PaletteInput, null>
+  src: Extract<string, PaletteInput>,
 ): Promise<HueBlock[]> {
   const colors: RGBA[] = [];
   const input = await handlePaletteInput(src);
@@ -46,6 +46,7 @@ export default async function getPalette(
 
   const frames = input instanceof GIF ? input : [input];
   const frameCount = frames.length;
+  const fuzzRange = [255 / 15, 255 / 15, 255 / 15, 255 / 50];
 
   let itr = Math.min(frameCount, MAX_FRAME_DEPTH);
 
@@ -54,13 +55,15 @@ export default async function getPalette(
     const img = frames[itr];
 
     for (const [_x, _y, c] of img.iterateWithColors()) {
-      const color = <RGBA>Image.colorToRGBA(c);
+      const color = <RGBA> Image.colorToRGBA(c);
       // Add to palette if the color is above the minimum alpha level
       // and if its RGBA values do not exactly match any existing colors
       if (
         color[3] > MIN_ALPHA &&
         (!colors.length ||
-          !colors.some((existingColor) => rgbaMatch(existingColor, color))) // TODO: Filter out very close colors here
+          !colors.some((existingColor) =>
+            rgbaMatch(existingColor, color, fuzzRange)
+          ))
       ) {
         colors.push(color);
       }

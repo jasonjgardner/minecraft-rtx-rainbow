@@ -1,10 +1,12 @@
-import type Material from "./Material.ts";
+//import type Material from "./Material.ts";
 import type { Alignment, Axis, RGB, RGBA } from "/typings/types.ts";
+//import { stringify } from "https://esm.sh/nbt-ts";
 import { Frame, GIF, Image } from "imagescript/mod.ts";
 import { basename } from "path/mod.ts";
 import { sprintf } from "fmt/printf.ts";
 import { EOL } from "fs/mod.ts";
 import {
+  //BLOCK_ENGINE_VERSION,
   CHUNK_SIZE,
   DEFAULT_PRINT_BLOCK,
   DEFAULT_PRINT_CHUNKS,
@@ -28,37 +30,36 @@ interface PrinterResult {
   func: string;
 }
 
-const hasTransparency = ({ color: { rgba } }: BlockEntry) => rgba[3] < 255;
-
 function colorDistance(color1: RGB, color2: RGB) {
   return Math.sqrt(
     Math.pow(color1[0] - color2[0], 2) +
       Math.pow(color1[1] - color2[1], 2) +
-      Math.pow(color1[2] - color2[2], 2)
+      Math.pow(color1[2] - color2[2], 2),
   );
 }
 
 export function getNearestColor(
   color: RGB | RGBA,
-  palette: BlockEntry[]
+  palette: BlockEntry[],
 ): BlockEntry {
   const rgbColor: RGB = [color[0] || 0, color[1] || 0, color[2] || 0];
   const alpha = color[3] ?? 255;
 
-  const materialPalette =
-    alpha >= 255 ? palette : palette.filter((b) => hasTransparency(b)); // Restrict palette to blocks with transparency
+  const materialPalette = alpha >= 255
+    ? palette
+    : palette.filter(({ color: { rgba } }) => rgba[3] < 255); // Restrict palette to blocks with transparency
 
   // https://gist.github.com/Ademking/560d541e87043bfff0eb8470d3ef4894?permalink_comment_id=3720151#gistcomment-3720151
   return materialPalette.reduce(
     (prev: [number, BlockEntry], curr: BlockEntry): [number, BlockEntry] => {
       const distance = colorDistance(
         rgbColor,
-        <RGB>curr.color.rgba.slice(0, 2)
+        <RGB> curr.color.rgba.slice(0, 2),
       );
 
       return distance < prev[0] ? [distance, curr] : prev;
     },
-    [Number.POSITIVE_INFINITY, palette[0]]
+    [Number.POSITIVE_INFINITY, palette[0]],
   )[1];
 }
 
@@ -67,97 +68,193 @@ function writeFill(
   y: number,
   z: number,
   fillWith?: string,
-  flipAxis?: Axis
+  flipAxis?: Axis,
 ): string {
   const position = sprintf(
     "~%d ~%d ~%d",
-    ...(flipAxis === "x" ? [z, y, x] : flipAxis === "y" ? [x, z, y] : [x, y, z])
+    ...(flipAxis === "x"
+      ? [z, y, x]
+      : flipAxis === "y"
+      ? [x, z, y]
+      : [x, y, z]),
   );
   return `fill ${position} ${position} ${
     fillWith ?? TRANSPARENT_PRINT_BLOCK
   } 0 keep`;
 }
 
+type NbtData = { [key: string]: number | boolean | string };
+
+type Coordinates = [number, number, number];
+
+interface BlockPaletteData {
+  version: number;
+  name: string;
+  states: NbtData;
+}
+
+interface IMinecraftStructure {
+  format_version: 1;
+  size: Coordinates;
+  structure_world_origin: Coordinates;
+
+  structure: {
+    block_indices: Array<Coordinates>;
+    entities?: Array<{ [k: string]: string | number }>;
+    palette: {
+      [k: string]: {
+        block_palette?: [BlockPaletteData[], NbtData[] | undefined];
+        block_position_data: {
+          [idx: number]: {
+            block_entity_data: NbtData;
+          };
+        };
+      };
+    };
+  };
+}
+
+// export function constructDecoded(
+//   frames: GIF | Array<Image | Frame>,
+//   palette: BlockEntry[],
+// ) {
+//   const structureTag: IMinecraftStructure = {
+//     format_version: 1,
+//     size: [1, 1, 1],
+//     structure_world_origin: [0, 0, 0],
+//     structure: {
+//       block_indices: [[0, 0, 0]],
+//       entities: [],
+//       palette: {
+//         default: {
+//           block_position_data: {},
+//         },
+//       },
+//     },
+//   };
+
+//   const frameCount = frames.length;
+//   const structureBlockPalette: BlockPaletteData[] = [];
+//   const positionData = [];
+//   const layer = [];
+//   let idx = 0;
+
+//   for (let z = 0; z < frameCount; z++) {
+//     const img = frames[z];
+
+//     for (const [x, y, c] of img.iterateWithColors()) {
+//       layer.push([z, y, x]);
+
+//       structureBlockPalette.push({
+//         version: BLOCK_ENGINE_VERSION,
+//         name: getBlockIdByColor(
+//           <RGBA> Image.colorToRGBA(c),
+//           palette,
+//         ),
+//         states: {},
+//       });
+
+//       positionData.push([idx, { block_entity_data: {} }]);
+
+//       idx++;
+//     }
+//   }
+
+//   structureTag.structure.palette.default.block_palette = [
+//     structureBlockPalette,
+//     [],
+//   ];
+//   structureTag.structure.palette.default.block_position_data = Object
+//     .fromEntries(
+//       positionData,
+//     );
+
+//   return stringify(structureTag);
+// }
+
 function printDecoded(
   name: string,
   img: Image | Frame,
   palette: BlockEntry[],
   offset: number[],
-  dest: string
+  dest: string,
+  frameCount = 1,
 ) {
-  const transparencyPalette = palette.filter((b) => hasTransparency(b));
-
   let maxLines = MAX_FUNCTION_LINES;
 
-  const materials = Object.fromEntries(
-    palette.map(({ material }) => [material.label, material])
-  );
-
-  return Object.keys(materials).flatMap(function compileMaterialFills(label) {
-    if (maxLines <= 0) {
-      throw Error(sprintf("Function %s has exceeded max length", name));
-    }
-
-    const materialPalette = palette.filter(function getRequiredBlocks(
-      entry: BlockEntry
-    ) {
-      return (
-        label === entry.material.label ||
-        (transparencyPalette.length && hasTransparency(entry))
-      ); // Always include transparency to allow printing semi-opaque pixels
-    });
-
-    return axises.map(function compileFillOverAxis(axis): PrinterResult {
-      const func: string[] = [];
-
-      for (const [x, y, c] of img.iterateWithColors()) {
-        const rgba = <RGBA>Image.colorToRGBA(c);
-
-        const exact = materialPalette.find(({ color: { rgba: _rgba } }) =>
-          rgbaMatch(rgba, _rgba)
-        );
-
-        // Pick the exact color if it's available
-        // Use the transparent block if it's below the alpha threshold
-        // Otherwise try to find the closest color in the palette
-        // Or resort to default block
-        const nearest = exact
-          ? exact.behaviorId
-          : rgba[3] < TRANSPARENT_PRINT_BLOCK_THRESHOLD * 255
-          ? TRANSPARENT_PRINT_BLOCK
-          : getNearestColor(rgba, materialPalette)?.behaviorId ||
-            DEFAULT_PRINT_BLOCK;
-
-        func.push(
-          writeFill(
-            Math.abs(x + offset[0] - img.width), // Flip artwork face
-            Math.abs(y + offset[1] - img.height), // Starts print row at top
-            offset[2],
-            nearest,
-            axis
-          )
-        );
+  return palette.flatMap(
+    function compileMaterialFills({ material: { label } }: BlockEntry) {
+      if (maxLines <= 0) {
+        throw Error(sprintf("Function %s has exceeded max length", name));
       }
 
-      const filename = sprintf("%s_%s_%s.mcfunction", name, label, axis);
-      const filePath = `${dest}/${filename}`;
+      const materialPalette = palette.filter((
+        { translucent, material: { label: entryLabel } }: BlockEntry,
+      ) => translucent || label === entryLabel);
 
-      addToBehaviorPack(filePath, func.join(EOL.CRLF));
+      return axises.map(function compileFillOverAxis(axis): PrinterResult {
+        const func: string[] = [];
 
-      maxLines -= func.length;
+        for (const [x, y, c] of img.iterateWithColors()) {
+          const blockId = getBlockIdByColor(
+            <RGBA> Image.colorToRGBA(c),
+            materialPalette,
+          );
 
-      return { label, axis, func: filename };
-    });
-  });
+          func.push(
+            writeFill(
+              Math.abs(x + offset[0] - img.width), // Flip artwork face
+              Math.abs(y + offset[1] - img.height), // Starts print row at top
+              Math.abs(frameCount - offset[2]), // Push by offset on Z from bottom up to avoid upside prints
+              blockId,
+              axis,
+            ),
+          );
+        }
+
+        const filename = sprintf("%s_%s_%s.mcfunction", name, label, axis);
+        const filePath = `${dest}/${filename}`;
+
+        addToBehaviorPack(filePath, func.join(EOL.CRLF));
+
+        maxLines -= func.length;
+
+        return { label, axis, func: filename };
+      });
+    },
+  );
+}
+
+function getBlockIdByColor(color: RGBA, palette: BlockEntry[]) {
+  const fuzzRange = [255 / 10, 255 / 10, 255 / 10, 255 / 50];
+  const exact = palette.find(({ color: { rgba } }) =>
+    rgbaMatch(color, rgba, fuzzRange)
+  );
+
+  // Pick the exact color if it's available
+  // Use the transparent block if it's below the alpha threshold
+  // Otherwise try to find the closest color in the palette
+  // Or resort to default block
+  if (exact) {
+    return exact.behaviorId;
+  }
+
+  if (color[3] < TRANSPARENT_PRINT_BLOCK_THRESHOLD * 255) {
+    return TRANSPARENT_PRINT_BLOCK;
+  }
+
+  return getNearestColor(color, palette)?.behaviorId ||
+    DEFAULT_PRINT_BLOCK;
 }
 
 function getAlignment(
   align: Alignment,
-  options?: { idx: number; frame: Image | Frame; coords?: number[] }
+  options?: { idx: number; frame: Image | Frame; coords?: number[] },
 ): [number, number, number] {
   const idx = options?.idx || 1;
-  const [x, y, z] =
-    options?.coords && options.coords.length >= 3 ? options.coords : [0, 0, 0];
+  const [x, y, z] = options?.coords && options.coords.length >= 3
+    ? options.coords
+    : [0, 0, 0];
 
   if (align === "e2e" && options !== undefined) {
     // End-to-end alignment
@@ -191,11 +288,11 @@ export async function pixelPrinter(
   options: {
     alignment?: Alignment;
     chunks?: number;
-  }
+  },
 ) {
   const size = Math.min(
     MAX_PRINT_SIZE,
-    (options.chunks ?? DEFAULT_PRINT_CHUNKS) * CHUNK_SIZE
+    (options.chunks ?? DEFAULT_PRINT_CHUNKS) * CHUNK_SIZE,
   );
 
   if (imageData.width > size) {
@@ -230,8 +327,9 @@ export async function pixelPrinter(
           idx,
           frame,
         }),
-        dest
-      )
+        dest,
+        frameCount,
+      ),
     );
     idx++;
   }
@@ -247,7 +345,7 @@ export async function pixelPrinter(
 function createParentFunction(
   name: string,
   groupFn: Array<PrinterResult[]>,
-  _size: number
+  _size: number,
 ) {
   const fns: { [key: string]: string[] } = {};
   groupFn.forEach((group) => {
@@ -262,7 +360,7 @@ function createParentFunction(
         "function %s/%s/%s",
         FUNCTIONS_NAMESPACE,
         name,
-        basename(func, ".mcfunction")
+        basename(func, ".mcfunction"),
       );
 
       fns[key].push(line);
@@ -275,7 +373,7 @@ function createParentFunction(
 
     addToBehaviorPack(
       `${DIR_FUNCTIONS}/${structureId}.mcfunction`,
-      fns[materialPositionKey].join(EOL.CRLF)
+      fns[materialPositionKey].join(EOL.CRLF),
     );
   }
 }

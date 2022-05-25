@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .input-well {
+    @apply border-2 border-t-4 border-solid border-minecraft-slate-900 border-t-minecraft-slate-900 bg-minecraft-slate-800 caret-minecraft-green-100 focus:border-minecraft-slate-800 focus:border-t-minecraft-slate-900 focus:ring-2 focus:ring-minecraft-slate-500;
+  }
+
+  .image-preview {
+    @apply w-full flex-1 cursor-default shadow drop-shadow-md rendering-pixelated;
+  }
+
+  .color-swatch {
+    @apply overflow-hidden text-clip rounded-sm border-2 border-solid border-minecraft-slate-50 shadow-sm;
+  }
+}

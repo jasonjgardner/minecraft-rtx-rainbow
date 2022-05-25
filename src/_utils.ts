@@ -1,5 +1,6 @@
-import type { PaletteInput, RGB, RGBA, ChannelValue } from "/typings/types.ts";
+import type { ChannelValue, PaletteInput, RGB, RGBA } from "/typings/types.ts";
 import { DEFAULT_NAMESPACE } from "/typings/constants.ts";
+import { decode } from "https://deno.land/std@0.140.0/encoding/base64.ts";
 import { GIF, Image } from "imagescript/mod.ts";
 import { basename, extname, toFileUrl } from "path/mod.ts";
 
@@ -83,7 +84,7 @@ export function encodeRGBColor(layerValue: RGB | RGBA, size = 16) {
   imgOutput.fill(
     alpha !== undefined
       ? Image.rgbaToColor(r, g, b, alpha)
-      : Image.rgbToColor(r, g, b)
+      : Image.rgbToColor(r, g, b),
   );
 
   return imgOutput.encode(0);
@@ -100,7 +101,7 @@ function getImageFromUrl(src: string): Promise<Image | GIF> {
     src.toLowerCase().startsWith("http://") ||
       src.toLowerCase().startsWith("https://")
       ? new URL(src)
-      : toFileUrl(src)
+      : toFileUrl(src),
   );
 }
 
@@ -110,13 +111,18 @@ function getImageFromUrl(src: string): Promise<Image | GIF> {
  * @returns Decoded file or image from URL/path
  */
 export async function handlePaletteInput(src: Exclude<PaletteInput, null>) {
+  let data;
+  let ext = ".png";
+
   if (typeof src === "string") {
-    return getImageFromUrl(src);
+    data = decode(src);
+    //return getImageFromUrl(src);
+  } else {
+    data = new Uint8Array(await src.arrayBuffer());
+    ext = extname(src.name);
   }
 
-  const data = new Uint8Array(await src.arrayBuffer());
-
-  return extname(src.name) === ".gif" ? GIF.decode(data) : Image.decode(data);
+  return ext === ".gif" ? GIF.decode(data) : Image.decode(data);
 }
 
 /**
@@ -154,8 +160,7 @@ export function percentageToChannel(percentage: number): ChannelValue {
 export async function fetchImage(source: URL): Promise<Image | GIF> {
   const res = await fetch(source.href);
   const data = new Uint8Array(await res.arrayBuffer());
-  const isGif =
-    extname(source.href) === ".gif" ||
+  const isGif = extname(source.href) === ".gif" ||
     res.headers.get("content-type")?.startsWith("image/gif") === true;
 
   return isGif ? GIF.decode(data) : Image.decode(data);
@@ -165,17 +170,23 @@ export async function fetchImage(source: URL): Promise<Image | GIF> {
  * Compare two RGB(A) values
  * @param colorOne First RGB(A) color value
  * @param colorTwo Second RGB(A) color value
+ * @param fuzziness The color range difference allowed per channel (0 = exact match)
  * @returns `TRUE` if colors are the same RGB(A) values
  */
 export function rgbaMatch(
   colorOne: RGB | RGBA | number[],
-  colorTwo: RGB | RGBA | number[]
+  colorTwo: RGB | RGBA | number[],
+  fuzziness: RGB | RGBA | number[],
 ) {
   const len = colorOne.length;
   const len2 = colorTwo.length;
+
   return (
     len === len2 &&
     len <= 4 &&
-    colorOne.every((value: ChannelValue, idx) => value === colorTwo[idx])
+    colorOne.every((value: ChannelValue, idx) =>
+      Math.abs(value - colorTwo[idx]) <=
+        Math.min(255, Math.max(0, fuzziness[idx]))
+    )
   );
 }

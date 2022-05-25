@@ -5,7 +5,7 @@ import type {
   RGB,
   RGBA,
 } from "/typings/types.ts";
-import { hexValue, formatAhex } from "../../_utils.ts";
+import { formatAhex, hexValue } from "../../_utils.ts";
 
 import { labelLanguage } from "../BlockEntry.ts";
 
@@ -17,7 +17,7 @@ export default class HueBlock {
       color[3] = 255;
     }
 
-    this._color = <RGBA>color;
+    this._color = <RGBA> color;
     this._name = name;
   }
 
@@ -28,7 +28,7 @@ export default class HueBlock {
   }
 
   get name() {
-    return this.title(labelLanguage).replace(/\s+/, "_");
+    return this.title(labelLanguage).replaceAll(/\s+/g, "_");
   }
 
   get hex() {

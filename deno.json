@@ -1,13 +1,24 @@
 {
   "tasks": {
-    "twd": "twd -w ./src/application/views/index.html -o ./src/assets/css/styles.css",
+    "packup": "packup serve index.html --static-dir ./static",
+    "packup:prod": "packup build index.html --dist-dir ./dist --static-dir ./static",
     "serve": "deno run --allow-read --allow-net --allow-env --allow-write ./src/app.ts",
-    "serve:dev": "deno run --inspect --allow-read --allow-write --allow-net --allow-env ./src/app.ts"
+    "serve:dev": "deno run --inspect --allow-read --allow-write --allow-net --allow-env ./src/app.ts",
+    "serve:frontend": "npm run tailwind:watch && deno task packup",
+    "start": "npm run tailwind && deno task packup:prod && deno task serve",
+    "deploy": "npm run tailwind:prod && deno task packup:prod && deno task serve"
   },
   "fmt": {
     "files": {
-      "include": ["src/", "typings/"],
-      "exclude": ["build/", "dist/", "src/assets/css/style.css"]
+      "include": [
+        "src/",
+        "typings/"
+      ],
+      "exclude": [
+        "build/",
+        "dist/",
+        "src/assets/css/style.css"
+      ]
     },
     "options": {
       "indentWidth": 2,
@@ -18,11 +29,18 @@
   },
   "lint": {
     "files": {
-      "include": ["src/"],
-      "exclude": ["build/", "dist/"]
+      "include": [
+        "src/"
+      ],
+      "exclude": [
+        "build/",
+        "dist/"
+      ]
     },
     "rules": {
-      "tags": ["recommended"]
+      "tags": [
+        "recommended"
+      ]
     }
   },
   "importMap": "./import_map.json"

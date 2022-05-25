@@ -21,7 +21,7 @@ import {
 function compileMaterials(
   namespace: string,
   baseTextures: HueBlock[],
-  materials: Material[]
+  materials: Material[],
 ) {
   const res: BlockEntry[] = [];
   materials.forEach((material: Material) => {
@@ -41,21 +41,21 @@ export default async function createAddon(
     blockColors,
     materialOptions,
     pixelArtSource,
-  }: CreationParameters
+    animationAlignment,
+  }: CreationParameters,
 ) {
   if (!blockColors || !blockColors.length) {
     console.log("Default palette will be used");
   }
 
-  const materials =
-    materialOptions && materialOptions.length
-      ? materialOptions
-      : getMaterials();
+  const materials = materialOptions && materialOptions.length
+    ? materialOptions
+    : getMaterials();
 
   const res = compileMaterials(
     namespace,
     blockColors ?? getBlocks(),
-    materials
+    materials,
   );
 
   try {
@@ -77,7 +77,7 @@ export default async function createAddon(
   //createFunctions();
 
   try {
-    await printer(res, pixelArtSource);
+    await printer(res, pixelArtSource, animationAlignment);
   } catch (err) {
     console.warn("Failed creating pixel art functions: %s", err);
   }

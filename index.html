@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Minecraft Pixel Art to Add-on Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/styles.css" />
+  </head>
+
+  <body
+    class="m-0 flex min-h-screen flex-col content-start bg-minecraft-slate-700 p-0 text-gray-100"
+  >
+    <header
+      class="group flex border-b-4 border-minecraft-slate-300 bg-minecraft-slate-200 py-2 text-center text-black shadow-sm"
+    >
+      <h1
+        class="relative mx-auto mb-0 cursor-default px-12 text-2xl font-bold uppercase"
+      >
+        Minecraft
+        <strong
+          class="bg-black bg-clip-text font-bold text-transparent group-hover:bg-[linear-gradient(90deg,#ff2400_10%,#e81d1d_20%,#e8b71d_30%,#e3e81d_40%,#31cd4c_50%,#1ddde8_60%,#2b1de8_70%,#dd00f3_80%,#dd00f3_90%,#ff0000_100%)]"
+          >Full-Color</strong
+        >
+        Pixel Art Generator
+      </h1>
+    </header>
+
+    <main class="flex grow flex-col items-stretch md:flex-row">
+      <form
+        name="config"
+        class="mb-0 mt-0 flex h-full max-w-5xl grow flex-col items-stretch border-t border-t-minecraft-slate-900"
+        action="/download"
+        method="post"
+      >
+        <div class="mt-4 divide-y-2 divide-minecraft-slate-400">
+          <fieldset
+            class="block border-t-0 border-b-2 border-b-minecraft-slate-500 pt-2 pb-4 pl-4 pr-2"
+          >
+            <legend
+              class="cursor-default text-base font-light uppercase text-gray-300"
+            >
+              Pixel Art Source
+            </legend>
+            <label
+              class="block cursor-pointer select-none border-2 border-minecraft-slate-900 bg-minecraft-slate-600 pb-1 text-center active:mt-1 active:pb-0"
+              for="palette-source"
+            >
+              <span
+                id="palette-source-label"
+                class="block border-2 border-minecraft-slate-50 bg-minecraft-slate-200 py-2 text-base font-semibold capitalize text-black shadow-sm hover:bg-minecraft-slate-100"
+                >Select image</span
+              >
+              <input
+                class="hidden"
+                id="palette-source"
+                name="palette-source"
+                type="file"
+                accept="image/*"
+                aria-labelledby="palette-source-label"
+                aria-describedby="palette-source-description"
+                multiple
+                max="5"
+              />
+            </label>
+
+            <details
+              class="group mt-4 block open:drop-shadow-sm hover:border-minecraft-slate-900"
+            >
+              <summary class="cursor-pointer list-none text-sm leading-relaxed">
+                <span
+                  class="select-none border-2 border-minecraft-slate-900 bg-minecraft-slate-500 px-3 py-1 group-open:inline-block group-open:border-b-0 group-open:bg-minecraft-slate-600"
+                  >File Support</span
+                >
+              </summary>
+              <div
+                class="border-minecraft-slate-900 bg-minecraft-slate-800 group-open:border-2 group-open:border-minecraft-slate-900"
+              >
+                <p
+                  class="mt-2 px-3 pb-2 text-gray-50"
+                  id="palette-source-description"
+                >
+                  Submit an image between <b>2px</b> and <b>64px</b> in length
+                  or width. PNGs, JPEGs and GIFs are the current supported file
+                  types. Alpha values and animation frames can be converted.
+                </p>
+              </div>
+            </details>
+
+            <div class="flex flex-col">
+              <label class="mt-4 mb-2 block font-semibold" for="aligment"
+                >Align Animation Frames</label
+              >
+              <select
+                class="input-well block"
+                id="alignment"
+                name="alignment"
+                title="Alignment options"
+              >
+                <option selected value="b2b">Back-to-back</option>
+                <optgroup label="End-to-end">
+                  <option value="e2e">No offset</option>
+                  <option value="even">Alternate even frames</option>
+                  <option value="odd">Alternate odd frames</option>
+                </optgroup>
+              </select>
+            </div>
+          </fieldset>
+        </div>
+        <div
+          class="border-t-2 border-b-2 border-t-minecraft-slate-800 border-b-minecraft-slate-500"
+        >
+          <fieldset class="mt-4 pt-2 pb-4 pl-4">
+            <legend
+              class="cursor-default text-base font-light uppercase text-gray-300"
+            >
+              Pack Details
+            </legend>
+            <label class="flex flex-col" for="namespace">
+              <span class="block font-semibold text-minecraft-slate-200"
+                >Namespace</span
+              >
+              <input
+                class="input-well mt-2 mr-4 block"
+                id="namespace"
+                name="namespace"
+                type="text"
+                autocomplete="off"
+                maxlength="20"
+                pattern="^[a-z]+[a-z0-9]*"
+                placeholder="my_pack"
+              />
+            </label>
+          </fieldset>
+        </div>
+        <div
+          class="border-t-2 border-b-2 border-t-minecraft-slate-800 border-b-minecraft-slate-800"
+        >
+          <fieldset
+            class="mt-4 border-b-2 border-b-minecraft-slate-500 px-4 pt-2 pb-4"
+          >
+            <legend
+              class="cursor-default text-base font-light uppercase text-gray-300"
+            >
+              RTX Materials
+            </legend>
+
+            <label class="mt-4 mb-2 block font-semibold" for="materials"
+              >Select Materials</label
+            >
+            <select
+              class="input-well block w-full"
+              id="materials"
+              name="materials"
+              title="RTX material options"
+              multiple
+            >
+              <option selected value="plastic">Plastic</option>
+              <option value="glowing">Glowing</option>
+              <option value="metal">Metal</option>
+            </select>
+          </fieldset>
+        </div>
+
+        <div
+          class="mt-auto mb-4 flex flex-row items-stretch justify-items-stretch bg-minecraft-slate-700 align-middle"
+        >
+          <button
+            class="xs:active:mt-1 mx-auto mt-6 flex max-w-md grow flex-row border-b-4 border-b-minecraft-green-300 border-t-minecraft-green-100 bg-minecraft-green-200 p-0 text-lg shadow-md outline-minecraft-slate-900 hover:bg-minecraft-green-100 hover:shadow-sm focus:outline active:mt-10 active:border-t-0 active:border-b-0"
+            type="submit"
+            id="generate"
+          >
+            <span
+              class="min-w-full border-2 border-minecraft-green-100 px-10 py-2 uppercase leading-loose hover:border-white/25"
+            >
+              <b class="drop-shadow">Generate</b></span
+            >
+          </button>
+          <a id="downloadLink" href="#" hidden>Download</a>
+        </div>
+      </form>
+
+      <div
+        class="align-center flex w-full flex-1 shrink flex-col justify-start border-minecraft-slate-800 bg-minecraft-slate-900 px-4 sm:border-2"
+      >
+        <div
+          class="peer mx-1 mt-4 inline-block max-h-96 border-2 border-minecraft-slate-900 bg-minecraft-slate-900 empty:mt-0 empty:hidden"
+          id="preview"
+        ></div>
+        <output
+          class="m-2 select-none self-end rounded-sm bg-minecraft-blue py-1 px-4 text-center text-sm text-white shadow-sm peer-empty:mt-0 peer-empty:hidden sm:self-center"
+          id="fileInputValue"
+        ></output>
+
+        <div class="grid grid-cols-4 gap-4" id="color-palette"></div>
+
+        <div class="mx-2 mb-2 mt-auto">
+          <h3 class="font-semibold">Usage Examples</h3>
+          <div class="divide-y-2 divide-minecraft-slate-400">
+            <p class="mb-1 py-2 leading-relaxed">
+              <code class="text-blue-300"
+                ><span class="text-pink-500">/function</span>
+                print/input_metal_x</code
+              >
+            </p>
+            <p class="mb-1 py-2 leading-relaxed">
+              <code class="text-blue-300"
+                ><span class="text-pink-500">/function</span>
+                print/input_glowing_y</code
+              >
+            </p>
+            <p class="mb-1 py-2 leading-relaxed">
+              <code class="text-blue-300"
+                ><span class="text-pink-500">/function</span>
+                print/input_plastic_z</code
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer
+      class="mx-0 mt-auto mb-0 flex flex-row justify-between border-t-2 border-t-minecraft-slate-800 bg-black p-2 px-2 text-right text-gray-500"
+    >
+      <a
+        class="text-white"
+        href="https://github.com/jasonjgardner/minecraft-rtx-rainbow"
+        rel="noreferrer noopener"
+        title="View this project's GitHub repository"
+        >GitHub</a
+      >
+      <span class="text-sm">
+        by
+        <a
+          class="font-black uppercase"
+          href="https://jasongardner.dev"
+          title="Visit Jason Gardner's website"
+          >Jason J. Gardner</a
+        >
+      </span>
+    </footer>
+    <script src="src/index.ts"></script>
+  </body>
+</html>

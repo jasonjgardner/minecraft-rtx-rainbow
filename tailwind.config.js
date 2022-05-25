@@ -1,10 +1,11 @@
 module.exports = {
-  content: ["./src/application/views/index.html"],
+  content: ["src/assets/css/input.css", "index.html"],
   plugins: [
     require("@tailwindcss/typography"),
     require("@tailwindcss/forms"),
     require("@tailwindcss/line-clamp"),
     require("@tailwindcss/aspect-ratio"),
+    require("tailwindcss-image-rendering")(),
   ],
   theme: {
     extend: {

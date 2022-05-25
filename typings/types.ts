@@ -75,17 +75,17 @@ export type MinecraftData = {
 export type MinecraftEvent = {
   [key: string]:
     | {
-        [key: string]:
+      [key: string]:
+        | MinecraftRecordTypes
+        | MinecraftEvent
+        | Array<
           | MinecraftRecordTypes
           | MinecraftEvent
-          | Array<
-              | MinecraftRecordTypes
-              | MinecraftEvent
-              | {
-                  [key: string]: MinecraftRecordTypes | MinecraftEvent;
-                }
-            >;
-      }
+          | {
+            [key: string]: MinecraftRecordTypes | MinecraftEvent;
+          }
+        >;
+    }
     | MinecraftRecordTypes
     | MinecraftEvent[];
 };
@@ -113,5 +113,6 @@ export interface CreationParameters {
   materialOptions?: Material[];
   outputFunctions?: boolean;
   outputPixelArt?: boolean;
-  pixelArtSource?: PaletteInput;
+  pixelArtSource?: string;
+  animationAlignment?: Alignment;
 }

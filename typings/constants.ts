@@ -13,6 +13,8 @@ export const DEFAULT_DESCRIPTION = "Block palette generated from image input";
 export const DEFAULT_NAMESPACE = "pixels"; // TODO: Create namespace hash function
 export const BEHAVIOR_BLOCK_FORMAT_VERSION = "1.16.100";
 
+export const BLOCK_ENGINE_VERSION = 17825806;
+
 export const DEFAULT_RELEASE_TYPE: ReleaseType = "prerelease";
 
 export const DEFAULT_HEIGHTMAP_NAME = "default_heightmap";
@@ -90,3 +92,7 @@ export const LABEL_BLOCK_PROPERTY = "";
  * Imagescript PNG compression level (0-3)
  */
 export const COMPRESSION_LEVEL = 0;
+
+export const SUPPORTED_EXTENSIONS = ["jpg", "jpeg", "gif", "png"];
+
+export const DEFAULT_MATERIAL_ID = "plastic";

@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "target": "esnext",
+        "lib": [
+            "esnext",
+            "dom",
+            "dom.iterable",
+            "esnext.asynciterable"
+        ]
+    },
+    "exclude": ["node_modules"]
+}

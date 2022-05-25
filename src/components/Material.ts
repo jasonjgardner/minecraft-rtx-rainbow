@@ -53,6 +53,8 @@ export default class Material {
    */
   _useHeightMap = false;
 
+  _translucent = false;
+
   constructor(label: string, name: MultiLingual) {
     this._label = label;
     this._name = name;
@@ -62,7 +64,7 @@ export default class Material {
     this._label = value.trim().toLowerCase();
   }
 
-  get label() {
+  get label(): string {
     return this._label;
   }
 
@@ -90,8 +92,8 @@ export default class Material {
   }
 
   get depthMap() {
-    const hasNormalMap =
-      this._normalMap !== undefined && this._normalMap.length;
+    const hasNormalMap = this._normalMap !== undefined &&
+      this._normalMap.length;
 
     if (hasNormalMap && !this._useHeightMap) {
       return {
@@ -117,7 +119,7 @@ export default class Material {
 
   get textureSet() {
     const values: Omit<TextureSet, "color"> = {
-      metalness_emissive_roughness: <RGB>[
+      metalness_emissive_roughness: <RGB> [
         this.metalness,
         this.emissive,
         this.roughness,
@@ -155,5 +157,12 @@ export default class Material {
       //"minecraft:block_light_filter": clampBlockLightFilter(emissivePercentage),
       "minecraft:block_light_emission": emissivePercentage,
     };
+  }
+
+  /**
+   * Controls combining materials and HueBlocks with alpha transparency
+   */
+  get translucent() {
+    return this._translucent === true;
   }
 }
