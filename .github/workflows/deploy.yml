@@ -48,7 +48,7 @@ jobs:
         cp ./import_map.json ./deploy/import_map.json
         cp ./src/mod.ts ./deploy/src/mod.ts
         cp ./src/app.ts ./deploy/src/app.ts
-        cp -R ./typings ./deploy/typings
+        cp -R ./typings/* ./deploy/typings
         cp -R ./src/controllers/* ./deploy/src/controllers
         cp -R ./src/components/ ./deploy/src/components
         cp -R ./src/components/* ./deploy/src/components
