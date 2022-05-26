@@ -2,7 +2,7 @@
   "tasks": {
     "packup": "packup serve index.html --static-dir ./static",
     "packup:prod": "packup build index.html --dist-dir ./dist --static-dir ./static",
-    "serve": "deno run --allow-read --allow-net --allow-env --allow-write ./src/app.ts",
+    "serve": "deno run --allow-read --allow-net --allow-env ./src/app.ts",
     "serve:dev": "deno run --inspect --allow-read --allow-write --allow-net --allow-env ./src/app.ts",
     "serve:frontend": "npm run tailwind:watch && deno task packup",
     "start": "npm run tailwind && deno task packup:prod && deno task serve",

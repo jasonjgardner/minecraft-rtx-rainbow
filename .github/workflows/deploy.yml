@@ -44,7 +44,7 @@ jobs:
         mkdir ./deploy/src/assets
         mkdir ./deploy/src/assets/img
         mkdir ./deploy/src/assets/materials
-        cp ./import_map.json ./deploy/import_map.json
+        cp ./import_map.deploy.json ./deploy/import_map.json
         cp ./src/mod.ts ./deploy/src/mod.ts
         cp ./src/app.ts ./deploy/src/app.ts
         cp -R ./typings ./deploy/typings
@@ -55,6 +55,6 @@ jobs:
       uses: denoland/deployctl@v1
       with:
         project: "minecraft-pixel-art"
-        import-map: "import_map.json"
-        entrypoint: "src/app.ts"
+        import-map: "./import_map.json"
+        entrypoint: "./src/app.ts"
         root: ./deploy
