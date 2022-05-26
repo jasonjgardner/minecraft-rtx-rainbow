@@ -44,7 +44,7 @@ jobs:
         mkdir ./deploy/src/assets
         mkdir ./deploy/src/assets/img
         mkdir ./deploy/src/assets/materials
-        cp ./src/import_map.json ./deploy/import_map.json
+        cp ./import_map.json ./deploy/import_map.json
         cp ./src/mod.ts ./deploy/src/mod.ts
         cp ./src/app.ts ./deploy/src/app.ts
         cp -R ./typings ./deploy/typings
