@@ -57,3 +57,4 @@ jobs:
         project: "minecraft-pixel-art"
         import-map: "./deploy/import_map.json"
         entrypoint: "./deploy/src/app.ts"
+        root: "./deploy"
