@@ -12,9 +12,29 @@ jobs:
       id-token: write
       contents: read
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout deploy branch
+      uses: actions/checkout@v2
       with:
         ref: deploy
+    - name: Setup Deno
+      uses: denolib/setup-deno@v2
+      with:
+          deno-version: 1.22.0
+    - name: Install Deno build dependencies
+      run: |
+        deno run -A https://deno.land/x/packup@v0.1.12/install.ts
+        packup -v
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        cache: 'npm'
+    - name: Install NPM build dependencies
+      run: npm ci
+    - name: Compile Tailwind
+      run: npm run tailwind:prod
+    - name: Compile frontend
+      run: packup build index.html --dist-dir ./dist --static-dir ./static
     - name: Deploy to Deno Deploy
       uses: denoland/deployctl@v1
       with:
