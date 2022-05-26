@@ -38,6 +38,13 @@ jobs:
       run: packup build index.html --dist-dir ./deploy/dist --static-dir ./static
     - name: Copy backend
       run: |
+        mkdir ./deploy
+        mkdir ./deploy/typings
+        mkdir ./deploy/src
+        mkdir ./deploy/src/components
+        mkdir ./deploy/src/assets
+        mkdir ./deploy/src/assets/img
+        mkdir ./deploy/src/assets/materials
         cp ./import_map.json ./deploy/import_map.json
         cp ./src/mod.ts ./deploy/src/mod.ts
         cp ./src/app.ts ./deploy/src/app.ts
