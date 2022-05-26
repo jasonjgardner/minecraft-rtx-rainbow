@@ -34,10 +34,20 @@ jobs:
     - name: Compile Tailwind
       run: npm run tailwind:prod
     - name: Compile frontend
-      run: packup build index.html --dist-dir ./dist --static-dir ./static
+      run: packup build index.html --dist-dir ./deploy/dist --static-dir ./static
+    - name: Copy backend
+      run: |
+        cp ./import_map.json ./deploy/import_map.json
+        cp ./typings ./deploy/typings
+        cp ./src/mod.ts ./deploy/src/mod.ts
+        cp ./src/app.ts ./deploy/src/app.ts
+        cp -R ./src/components ./deploy/src/components
+        cp ./src/assets/img ./deploy/src/assets/img
+        cp ./src/assets/materials ./deploy/src/assets/materials
     - name: Deploy to Deno Deploy
       uses: denoland/deployctl@v1
       with:
         project: "minecraft-pixel-art"
-        import-map: "./import_map.json"
-        entrypoint: "./src/app.ts"
+        import-map: "import_map.json"
+        entrypoint: "src/app.ts"
+        root: ./deploy
