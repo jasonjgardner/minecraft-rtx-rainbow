@@ -704,14 +704,14 @@ select {
   margin-right: auto;
 }
 
-.mx-1 {
-  margin-left: 0.25rem;
-  margin-right: 0.25rem;
-}
-
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+}
+
+.mx-1 {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
 }
 
 .mx-0 {
@@ -753,6 +753,10 @@ select {
 
 .mt-6 {
   margin-top: 1.5rem;
+}
+
+.mr-2 {
+  margin-right: 0.5rem;
 }
 
 .mb-1 {
@@ -813,6 +817,10 @@ select {
 
 .shrink {
   flex-shrink: 1;
+}
+
+.flex-grow {
+  flex-grow: 1;
 }
 
 .grow {
@@ -953,6 +961,16 @@ select {
   border-color: rgb(82 165 53 / var(--tw-border-opacity));
 }
 
+.border-minecraft-blue-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(150 199 250 / var(--tw-border-opacity));
+}
+
+.border-minecraft-blue-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(193 220 252 / var(--tw-border-opacity));
+}
+
 .border-minecraft-slate-800 {
   --tw-border-opacity: 1;
   border-color: rgb(49 50 51 / var(--tw-border-opacity));
@@ -986,6 +1004,11 @@ select {
 .border-t-minecraft-green-100 {
   --tw-border-opacity: 1;
   border-top-color: rgb(82 165 53 / var(--tw-border-opacity));
+}
+
+.border-b-minecraft-blue-600 {
+  --tw-border-opacity: 1;
+  border-bottom-color: rgb(46 107 229 / var(--tw-border-opacity));
 }
 
 .bg-minecraft-slate-800 {
@@ -1023,14 +1046,14 @@ select {
   background-color: rgb(60 133 39 / var(--tw-bg-opacity));
 }
 
+.bg-minecraft-blue-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(101 169 245 / var(--tw-bg-opacity));
+}
+
 .bg-minecraft-slate-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(30 30 31 / var(--tw-bg-opacity));
-}
-
-.bg-minecraft-blue {
-  --tw-bg-opacity: 1;
-  background-color: rgb(46 107 229 / var(--tw-bg-opacity));
 }
 
 .bg-clip-text {
@@ -1284,6 +1307,11 @@ select {
 .hover\:bg-minecraft-green-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(82 165 53 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-minecraft-blue-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(35 85 210 / var(--tw-bg-opacity));
 }
 
 .hover\:shadow-sm:hover {

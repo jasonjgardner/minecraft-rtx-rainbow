@@ -165,7 +165,7 @@
           class="mt-auto mb-4 flex flex-row items-stretch justify-items-stretch bg-minecraft-slate-700 align-middle"
         >
           <button
-            class="xs:active:mt-1 mx-auto mt-6 flex max-w-md grow flex-row border-b-4 border-b-minecraft-green-300 border-t-minecraft-green-100 bg-minecraft-green-200 p-0 text-lg shadow-md outline-minecraft-slate-900 hover:bg-minecraft-green-100 hover:shadow-sm focus:outline active:mt-10 active:border-t-0 active:border-b-0"
+            class="xs:active:mt-1 mx-2 mt-6 flex max-w-md grow flex-row border-b-4 border-b-minecraft-green-300 border-t-minecraft-green-100 bg-minecraft-green-200 p-0 text-lg shadow-md outline-minecraft-slate-900 hover:bg-minecraft-green-100 hover:shadow-sm focus:outline active:mt-10 active:border-t-0 active:border-b-0"
             type="submit"
             id="generate"
           >
@@ -175,7 +175,16 @@
               <b class="drop-shadow">Generate</b></span
             >
           </button>
-          <a id="downloadLink" href="#" hidden>Download</a>
+
+          <a
+            class="mr-2 mt-6 hidden flex-grow flex-row border-b-4 border-minecraft-blue-300 border-b-minecraft-blue-600 p-0 text-center text-lg shadow-md outline-minecraft-slate-900 hover:bg-minecraft-blue-700 focus:outline active:border-t-0 active:border-b-0 active:border-t-0 active:border-b-0"
+            id="downloadLink"
+            href="#"
+            ><span
+              class="min-w-full border-2 border-minecraft-blue-200 bg-minecraft-blue-400 px-10 py-2 uppercase leading-loose hover:border-white/25"
+              ><b class="drop-shadow">Download</b></span
+            ></a
+          >
         </div>
       </form>
 
@@ -187,7 +196,7 @@
           id="preview"
         ></div>
         <output
-          class="m-2 select-none self-end rounded-sm bg-minecraft-blue py-1 px-4 text-center text-sm text-white shadow-sm peer-empty:mt-0 peer-empty:hidden sm:self-center"
+          class="bg-minecraft-blue m-2 select-none self-end rounded-sm py-1 px-4 text-center text-sm text-white shadow-sm peer-empty:mt-0 peer-empty:hidden sm:self-center"
           id="fileInputValue"
         ></output>
 

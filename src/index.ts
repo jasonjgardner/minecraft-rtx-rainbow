@@ -90,7 +90,11 @@ globalThis.addEventListener("DOMContentLoaded", () => {
           downloadLink.href = URL.createObjectURL(
             blob,
           );
-          downloadLink.hidden = false;
+          downloadLink.classList.add("flex");
+          downloadLink.classList.remove("hidden");
+          downloadLink.download = `${
+            data.get("namespace") ?? "generated"
+          }.mcaddon`;
         } catch (err) {
           console.error(err);
         }

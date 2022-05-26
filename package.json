@@ -13,7 +13,7 @@
   "scripts": {
     "esbuild:dev": "esbuild src/app.ts --bundle --outfile=static/bundle.js",
     "esbuild:prod": "esbuild src/app.ts --bundle --minify --sourcemap --target=chrome58,firefox57,safari11,edge16 --outfile=static/bundle.min.js",
-    "tailwind": "tailwindcss -i ./src/assets/css/input.css -o ./src/assets/css/styles.css",
+    "tailwind": "tailwindcss -i ./src/assets/css/input.css -o ./static/styles.css",
     "tailwind:watch": "tailwindcss -i ./src/assets/css/input.css -o ./static/styles.css --watch",
     "tailwind:prod": "tailwindcss -i ./src/assets/css/input.css -o ./static/styles.css --minify"
   }

@@ -112,6 +112,7 @@ function getImageFromUrl(src: string): Promise<Image | GIF> {
  */
 export async function handlePaletteInput(src: Exclude<PaletteInput, null>) {
   let data;
+  let decoded;
   //let ext = ".png";
 
   if (typeof src === "string") {
@@ -123,10 +124,12 @@ export async function handlePaletteInput(src: Exclude<PaletteInput, null>) {
   }
 
   try {
-    return GIF.decode(data);
+    decoded = await GIF.decode(data);
   } catch {
-    return Image.decode(data);
+    console.log("Can not decode as GIF");
   }
+
+  return decoded ?? Image.decode(data);
 }
 
 /**
