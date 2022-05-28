@@ -36,6 +36,7 @@ globalThis.addEventListener("DOMContentLoaded", () => {
   const downloadLink = document.getElementById(
     "downloadLink",
   ) as HTMLAnchorElement;
+  const generateBtn = document.getElementById('generate') as HTMLButtonElement;
 
   downloadLink.hidden = true;
 
@@ -44,6 +45,10 @@ globalThis.addEventListener("DOMContentLoaded", () => {
       "submit",
       async function onSubmit(event: SubmitEvent) {
         event.preventDefault();
+
+        generateBtn.disabled = true;
+        
+
         const data = new FormData(form);
         const paletteFile = imageInput.files?.length
           ? imageInput.files[0]
@@ -56,7 +61,7 @@ globalThis.addEventListener("DOMContentLoaded", () => {
             reader.onload = () => {
               if (reader.result && typeof reader.result === "string") {
                 // @ts-ignore result will be base64 string
-                return res(reader.result.toString().split(",").pop());
+                return res(reader.result.toString());
               }
               rej("Invalid file contents");
             };
@@ -80,6 +85,12 @@ globalThis.addEventListener("DOMContentLoaded", () => {
           ) => value).join(","),
         );
 
+        data.set('size', form.pack_size.value || 16);
+        data.delete('pack_size');
+        data.set('img_name', form.img_name.value || 'input');
+
+        const ns = data.get("namespace") ?? "generated";
+
         try {
           const res = await fetch(form.action, {
             method: "post",
@@ -91,13 +102,16 @@ globalThis.addEventListener("DOMContentLoaded", () => {
             blob,
           );
           downloadLink.classList.add("flex");
+          downloadLink.hidden = false;
           downloadLink.classList.remove("hidden");
           downloadLink.download = `${
-            data.get("namespace") ?? "generated"
+           ns ? ns : "generated"
           }.mcaddon`;
         } catch (err) {
           console.error(err);
         }
+
+        generateBtn.disabled = false;
       },
     );
   }
@@ -106,6 +120,10 @@ globalThis.addEventListener("DOMContentLoaded", () => {
     if (!imageInput || !imageInput.files?.length) {
       throw Error("Failed retrieving image preview");
     }
+
+    downloadLink.href = '#';
+    downloadLink.classList.remove('flex');
+    downloadLink.classList.add('hidden');
 
     let itr = Math.min(10, imageInput.files.length);
     const previews: Promise<HTMLImageElement>[] = [];
@@ -121,6 +139,7 @@ globalThis.addEventListener("DOMContentLoaded", () => {
     }
 
     if (previewContainer) {
+      previewContainer.innerHTML = '';
       (await Promise.all(previews)).forEach((imgElement) => {
         previewContainer.appendChild(imgElement);
       });

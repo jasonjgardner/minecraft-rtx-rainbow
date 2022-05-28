@@ -161,6 +161,7 @@ export default async function printer(
   res: BlockEntry[],
   artSrc?: PaletteInput,
   alignment?: Alignment,
+  artSrcId?: string,
 ) {
   if (res.length < MIN_PALETTE_LENGTH) {
     throw Error("Can not print pixel art. Palette source is too small.");
@@ -177,7 +178,7 @@ export default async function printer(
         Math.max(1, Math.max(img.width, img.height) / CHUNK_SIZE),
       );
 
-      pixelPrinter(ART_SOURCE_ID, img, res, {
+      pixelPrinter((artSrcId ?? ART_SOURCE_ID).replace(/\s+/g, "_"), img, res, {
         alignment: alignment ?? "b2b",
         chunks,
       });

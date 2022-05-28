@@ -1,11 +1,12 @@
-import { Alignment } from "/typings/types.ts";
+import { Alignment, PackSizes } from "/typings/types.ts";
 import {
+  ART_SOURCE_ID,
   DEFAULT_MATERIAL_ID,
   DEFAULT_NAMESPACE,
   DEFAULT_PACK_SIZE,
 } from "/typings/constants.ts";
 import { Application, Router } from "https://deno.land/x/oak@v10.4.0/mod.ts";
-import { getNearestPackSize } from "./components/_resize.ts";
+//import { getNearestPackSize } from "./components/_resize.ts";
 import download from "./controllers/download.ts";
 
 const router = new Router();
@@ -42,11 +43,14 @@ router
       if (data.fields) {
         const namespace = data.fields.namespace ?? DEFAULT_NAMESPACE;
         const blob = await download({
-          size: getNearestPackSize(
-            parseInt(data.fields.size ?? `${DEFAULT_PACK_SIZE}`, 10) ||
-              DEFAULT_PACK_SIZE,
-          ),
+          size:
+            <PackSizes> parseInt(
+              data.fields.size ?? `${DEFAULT_PACK_SIZE}`,
+              10,
+            ) || DEFAULT_PACK_SIZE,
+
           pixelArtSource: data.fields.img,
+          pixelArtSourceName: data.fields.img_name ?? ART_SOURCE_ID,
           namespace,
           description: data.fields.description ?? "Generated pixel art palette",
           animationAlignment: <Alignment> data.fields.alignment ?? "e2e",

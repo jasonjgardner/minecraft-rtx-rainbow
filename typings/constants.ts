@@ -35,7 +35,7 @@ export const DEFAULT_BLOCK_SOUND = "dirt";
 export const MAX_FRAMES = 10;
 export const FUNCTIONS_NAMESPACE = "print";
 
-export const MIN_PALETTE_LENGTH = 2;
+export const MIN_PALETTE_LENGTH = 1;
 
 /**
  * Minecraft chunk size

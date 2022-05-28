@@ -90,46 +90,55 @@ export function encodeRGBColor(layerValue: RGB | RGBA, size = 16) {
   return imgOutput.encode(0);
 }
 
-/**
- * Convert a string into a URL and decode the remote image
- * @uses fetchImage
- * @param src Image file path or URL
- * @returns Promise from fetched URL
- */
-function getImageFromUrl(src: string): Promise<Image | GIF> {
-  return fetchImage(
-    src.toLowerCase().startsWith("http://") ||
-      src.toLowerCase().startsWith("https://")
-      ? new URL(src)
-      : toFileUrl(src),
-  );
+async function fetchImageData(src: string) {
+  const res = await fetch(src, {
+    method: "GET",
+    headers: new Headers({
+      accept: "image/*",
+    }),
+  });
+
+  return res.arrayBuffer();
 }
 
 /**
  * Decode image or URL input
  * @param src File or text input value
  * @returns Decoded file or image from URL/path
+ * @throws Error is thrown if image can not be decoded
  */
 export async function handlePaletteInput(src: Exclude<PaletteInput, null>) {
   let data;
-  let decoded;
-  //let ext = ".png";
+  let ext = ".png";
 
-  if (typeof src === "string") {
-    data = decode(src);
-    //return getImageFromUrl(src);
-  } else {
+  if (typeof src !== "string") {
     data = new Uint8Array(await src.arrayBuffer());
-    //ext = extname(src.name);
+    ext = extname(src.name);
+  } else if (src.toString().startsWith("http")) {
+    data = new Uint8Array(await fetchImageData(`${src}`));
+  } else {
+    if (src.startsWith("data:image/gif;base64,")) {
+      ext = ".gif";
+    }
+
+    const encoded = `${src}`.split(",").pop();
+
+    if (!encoded) {
+      throw Error("Invalid data URI");
+    }
+
+    try {
+      data = decode(encoded);
+    } catch (err) {
+      throw Error(`Could not decode data URI: ${err}`);
+    }
   }
 
   try {
-    decoded = await GIF.decode(data);
-  } catch {
-    console.log("Can not decode as GIF");
+    return ext === ".gif" ? await GIF.decode(data) : await Image.decode(data);
+  } catch (err) {
+    throw Error(`Can not decode as image! ${err}`);
   }
-
-  return decoded ?? Image.decode(data);
 }
 
 /**

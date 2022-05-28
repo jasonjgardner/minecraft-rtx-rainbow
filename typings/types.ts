@@ -108,6 +108,7 @@ export interface IPermutation {
 export interface CreationParameters {
   size: PackSizes;
   namespace: string;
+  pixelArtSourceName?: string;
   description?: string;
   blockColors?: HueBlock[];
   materialOptions?: Material[];

@@ -5,3 +5,5 @@ dist/
 !.env.example
 *.log
 dist/
+deploy/
+input/

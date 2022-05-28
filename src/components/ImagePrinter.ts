@@ -6,7 +6,7 @@ import { basename } from "path/mod.ts";
 import { sprintf } from "fmt/printf.ts";
 import { EOL } from "fs/mod.ts";
 import {
-  //BLOCK_ENGINE_VERSION,
+  BLOCK_ENGINE_VERSION,
   CHUNK_SIZE,
   DEFAULT_PRINT_BLOCK,
   DEFAULT_PRINT_CHUNKS,
@@ -113,63 +113,63 @@ interface IMinecraftStructure {
   };
 }
 
-// export function constructDecoded(
-//   frames: GIF | Array<Image | Frame>,
-//   palette: BlockEntry[],
-// ) {
-//   const structureTag: IMinecraftStructure = {
-//     format_version: 1,
-//     size: [1, 1, 1],
-//     structure_world_origin: [0, 0, 0],
-//     structure: {
-//       block_indices: [[0, 0, 0]],
-//       entities: [],
-//       palette: {
-//         default: {
-//           block_position_data: {},
-//         },
-//       },
-//     },
-//   };
+export function constructDecoded(
+  frames: GIF | Array<Image | Frame>,
+  palette: BlockEntry[],
+) {
+  const structureTag: IMinecraftStructure = {
+    format_version: 1,
+    size: [1, 1, 1],
+    structure_world_origin: [0, 0, 0],
+    structure: {
+      block_indices: [[0, 0, 0]],
+      entities: [],
+      palette: {
+        default: {
+          block_position_data: {},
+        },
+      },
+    },
+  };
 
-//   const frameCount = frames.length;
-//   const structureBlockPalette: BlockPaletteData[] = [];
-//   const positionData = [];
-//   const layer = [];
-//   let idx = 0;
+  const frameCount = frames.length;
+  const structureBlockPalette: BlockPaletteData[] = [];
+  const positionData = [];
+  const layer = [];
+  let idx = 0;
 
-//   for (let z = 0; z < frameCount; z++) {
-//     const img = frames[z];
+  for (let z = 0; z < frameCount; z++) {
+    const img = frames[z];
 
-//     for (const [x, y, c] of img.iterateWithColors()) {
-//       layer.push([z, y, x]);
+    for (const [x, y, c] of img.iterateWithColors()) {
+      layer.push([z, y, x]);
 
-//       structureBlockPalette.push({
-//         version: BLOCK_ENGINE_VERSION,
-//         name: getBlockIdByColor(
-//           <RGBA> Image.colorToRGBA(c),
-//           palette,
-//         ),
-//         states: {},
-//       });
+      structureBlockPalette.push({
+        version: BLOCK_ENGINE_VERSION,
+        name: getBlockIdByColor(
+          <RGBA> Image.colorToRGBA(c),
+          palette,
+        ),
+        states: {},
+      });
 
-//       positionData.push([idx, { block_entity_data: {} }]);
+      positionData.push([idx, { block_entity_data: {} }]);
 
-//       idx++;
-//     }
-//   }
+      idx++;
+    }
+  }
 
-//   structureTag.structure.palette.default.block_palette = [
-//     structureBlockPalette,
-//     [],
-//   ];
-//   structureTag.structure.palette.default.block_position_data = Object
-//     .fromEntries(
-//       positionData,
-//     );
+  structureTag.structure.palette.default.block_palette = [
+    structureBlockPalette,
+    [],
+  ];
+  structureTag.structure.palette.default.block_position_data = Object
+    .fromEntries(
+      positionData,
+    );
 
-//   return stringify(structureTag);
-// }
+  return structureTag;
+}
 
 function printDecoded(
   name: string,
@@ -177,7 +177,7 @@ function printDecoded(
   palette: BlockEntry[],
   offset: number[],
   dest: string,
-  frameCount = 1,
+  _frameCount = 1,
 ) {
   const materials: string[] = [];
 
@@ -208,7 +208,7 @@ function printDecoded(
             writeFill(
               Math.abs(x + offset[0] - img.width), // Flip artwork face
               Math.abs(y + offset[1] - img.height), // Starts print row at top
-              Math.abs(frameCount - offset[2]), // Push by offset on Z from bottom up to avoid upside prints
+              offset[2],
               blockId,
               axis,
             ),
@@ -264,13 +264,13 @@ function getAlignment(
   if (align === "e2e" && options !== undefined) {
     // End-to-end alignment
     // (Places blocks like sprite sheet row)
-    return [x + idx * options.frame.width, y, z];
+    return [(x + idx) * options.frame.width, y, z];
   }
 
   if (align === "b2b") {
     // Back-to-back alignment
     // (Places block in a stack. Offsets by index.)
-    return [0, 0, idx];
+    return [0, 0, z + idx];
   }
 
   // Back-to-back alternating options

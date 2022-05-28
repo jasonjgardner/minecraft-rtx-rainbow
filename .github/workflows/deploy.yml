@@ -51,11 +51,8 @@ jobs:
         cp ./src/_utils.ts ./deploy/src/_utils.ts
         cp -R ./typings/* ./deploy/typings
         cp -R ./src/controllers/* ./deploy/src/controllers
-        cp -R ./src/components/ ./deploy/src/components
         cp -R ./src/components/* ./deploy/src/components
-        cp -R ./src/assets/img ./deploy/src/assets/img
         cp -R ./src/assets/img/* ./deploy/src/assets/img
-        cp -R ./src/assets/materials ./deploy/src/assets/materials
         cp -R ./src/assets/materials/* ./deploy/src/assets/materials
     - name: Deploy to Deno Deploy
       uses: denoland/deployctl@v1

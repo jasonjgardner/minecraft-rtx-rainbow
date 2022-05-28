@@ -29,6 +29,7 @@ function materialFactory(materialIds: string[]): Material[] {
 
 export default async function download({
   pixelArtSource,
+  pixelArtSourceName,
   namespace,
   size,
   animationAlignment,
@@ -65,6 +66,7 @@ export default async function download({
     namespace: ns.length > 1 ? ns : DEFAULT_NAMESPACE,
     size: size || DEFAULT_PACK_SIZE,
     pixelArtSource,
+    pixelArtSourceName,
     blockColors,
     materialOptions,
     animationAlignment,

@@ -41,6 +41,7 @@ export default async function createAddon(
     blockColors,
     materialOptions,
     pixelArtSource,
+    pixelArtSourceName,
     animationAlignment,
   }: CreationParameters,
 ) {
@@ -77,7 +78,12 @@ export default async function createAddon(
   //createFunctions();
 
   try {
-    await printer(res, pixelArtSource, animationAlignment);
+    await printer(
+      res,
+      pixelArtSource,
+      animationAlignment,
+      pixelArtSourceName ?? namespace,
+    );
   } catch (err) {
     console.warn("Failed creating pixel art functions: %s", err);
   }
