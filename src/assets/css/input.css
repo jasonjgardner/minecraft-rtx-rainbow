@@ -8,7 +8,7 @@
   }
 
   .image-preview {
-    @apply m-auto h-full w-auto cursor-default object-contain drop-shadow-md rendering-pixelated;
+    @apply m-auto h-full max-h-screen w-auto max-w-full cursor-default object-contain drop-shadow-md rendering-pixelated;
   }
 
   .color-swatch {

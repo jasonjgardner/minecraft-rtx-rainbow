@@ -1,8 +1,13 @@
 /// <reference lib="dom" />
 /// <reference lib="esnext" />
 const ALLOWED_TYPES = ["image/jpeg", "image/gif", "image/png"];
-function processImageInput(file: File): Promise<HTMLImageElement> {
+const MAX_SIZE = 64;
+function processImageInput(file: File, canvas: HTMLCanvasElement): Promise<string> {
   const fileName = file.name.substring(0, file.name.indexOf(".")).trim();
+
+  const ctx = canvas.getContext('2d', {
+    alpha: true
+  });
 
   return new Promise((res, rej) => {
     const reader = new FileReader();
@@ -16,9 +21,20 @@ function processImageInput(file: File): Promise<HTMLImageElement> {
       img.className = "image-preview";
 
       img.onload = () => {
-        img.width = Math.min(64, img.naturalWidth);
+        const originalWidth = img.naturalWidth;
+        const originalHeight = img.naturalHeight;
+ 
+        const aspectRatio = originalWidth / originalHeight;
+ 
+        let newWidth = Math.min(MAX_SIZE, originalWidth);
+        let newHeight = newWidth / aspectRatio;
+ 
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        
+        ctx?.drawImage(img, 0, 0, newWidth, newHeight)
 
-        res(img);
+        res(canvas.toDataURL());
       };
     };
 
@@ -31,7 +47,7 @@ globalThis.addEventListener("DOMContentLoaded", () => {
     "palette-source",
   ) as HTMLInputElement;
 
-  const previewContainer = document.getElementById("preview");
+  const previewContainer = document.getElementById("preview") as HTMLCanvasElement;
   const form = document.forms.namedItem("config");
   const downloadLink = document.getElementById(
     "downloadLink",
@@ -47,36 +63,13 @@ globalThis.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
 
         generateBtn.disabled = true;
-        
 
         const data = new FormData(form);
-        const paletteFile = imageInput.files?.length
-          ? imageInput.files[0]
-          : null;
 
-        if (paletteFile !== null) {
-          const b64: string = await (new Promise((res, rej) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(paletteFile);
-            reader.onload = () => {
-              if (reader.result && typeof reader.result === "string") {
-                // @ts-ignore result will be base64 string
-                return res(reader.result.toString());
-              }
-              rej("Invalid file contents");
-            };
 
-            reader.onerror = () =>
-              rej(new Error("Failed loading palette image as data URL"));
-          }));
+        data.set("img", previewContainer.toDataURL());
 
-          data.set(
-            "img",
-            b64,
-          );
-
-          data.delete(imageInput.name);
-        }
+        data.delete(imageInput.name);
 
         data.set(
           "materials",
@@ -125,25 +118,7 @@ globalThis.addEventListener("DOMContentLoaded", () => {
     downloadLink.classList.remove('flex');
     downloadLink.classList.add('hidden');
 
-    let itr = Math.min(10, imageInput.files.length);
-    const previews: Promise<HTMLImageElement>[] = [];
-
-    while (itr--) {
-      const file = imageInput.files[itr];
-
-      if (!ALLOWED_TYPES.includes(file.type)) {
-        throw Error("Unsupported file type");
-      }
-
-      previews.push(processImageInput(file));
-    }
-
-    if (previewContainer) {
-      previewContainer.innerHTML = '';
-      (await Promise.all(previews)).forEach((imgElement) => {
-        previewContainer.appendChild(imgElement);
-      });
-    }
+    processImageInput(imageInput.files[0], previewContainer);
   }
 
   if (imageInput && previewContainer) {
