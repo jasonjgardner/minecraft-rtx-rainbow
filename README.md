@@ -1,41 +1,38 @@
-# 🌈 RAINBOW!
-**VERSION 2**
+# Minecraft Full-Color Pixel Art Generator
+### Convert an image into an add-on containing custom blocks and mosaic functions
 
-[![Magic Workflow](https://github.com/jasonjgardner/minecraft-rtx-rainbow/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/jasonjgardner/minecraft-rtx-rainbow/actions/workflows/build.yml)
+![Full-color Minecraft pixel art generator](https://user-images.githubusercontent.com/1903667/170851289-6afae198-c816-44f6-8e3d-d36bba10d391.png)
 
-- Adds over **2500** uniform-color blocks to _Bedrock Minecraft_.
-- Each color comes in glowing, glass, metallic and plastic varieties.
-- Intended to be played with __RTX ON__, but still functions without raytracing effects.
-- Works with RTX packs _up to_ 256px resolution.
-- Adds uniform-color blocks to the __Concretes__ creative category.
-- Color palette based on [2014 Material Design colors](https://material.io/design/color/the-color-system.html).
-- Players leave a trail of glowing blocks in their wake.
-- Entities, mobs, and projectiles leave trails as well.
-- Walk over blocks to cycle through block colors.
-- Includes nifty `/function` commands.
+> ![Full-color Deno pixel art in Minecraft](https://user-images.githubusercontent.com/1903667/170851531-2e6f8302-2037-4737-882b-10a8368a023d.png)
+> [**Deno Deploy**](https://minecraft-pixel-art.deno.dev/)
 
-## 🪄 Made with Magic
-_RAINBOW!_ v2 is compiled through [one amazing build script](/src/mod.ts).
+## Requirements:
+- Bedrock Minecraft
+- Holiday Creator Features enabled
+- Ability to run functions or use command blocks
 
-- Generates `.texture_set.json` files from colors data source
-- Compiles texture sets into a resource pack
-- Simutaneously compiles custom block behaviors
-- Creates flipbook textures from color palettes
-- Converts pixel art into a `.mcfunction` file full of `/fill` commands
-  - **_Bonus:_** Converts [this repository's Stargazers' avatars](https://github.com/jasonjgardner/minecraft-rtx-rainbow/stargazers) into fill commands. Enter `/function printer/stargazers/` for auto-complete options in command.
-- Automatically copies build to `development_resource_packs` when running locally
-- Creates distributable [.mcaddon through GitHub Actions](https://github.com/jasonjgardner/minecraft-rtx-rainbow/actions/workflows/build.yml)
 
-## 🦕 Run with [Deno](https://deno.land/)
-You _can_ clone the repository to control its output. You do not need to build from source to use the add-on. A .mcaddon file is available if you do not wish to customize the pack.
+## Examples
 
-### Customization
+#### Source Images
+![Art source](https://user-images.githubusercontent.com/1903667/170851706-58b953d4-b0d4-485d-9219-c8f897027ecd.png)
+![Art source](https://user-images.githubusercontent.com/1903667/170851725-54bf5252-5ed7-4df2-87aa-46ad4a49688f.png)
 
-- Place your own pixel art into the [`src/assets/pixel_art`](/src/assets/pixel_art) directory.
-- Modify [`src/store/_blocks.ts`](/src/store/_blocks.ts) to enable/disable or add color options.
-- Modify [`src/store/_materials.ts`](/src/store/_materials.ts) to adjust block parameters:
-  - Block behavior components can be changed
-  - Material options can be increased/reduced
-  
-## License
-CC-BY-NC-SA
+#### .mcaddon
+![Minecraft Screenshot example](https://user-images.githubusercontent.com/1903667/170851651-44160561-b046-45b7-b5d5-b645041c89cc.png)
+![Minecraft Screenshot example](https://user-images.githubusercontent.com/1903667/170851656-1fd061a1-dfe6-4b3c-9cdf-0a5a5a646e0f.png)
+
+# Raytracing-enabled
+
+## Examples
+
+![Example source GIF](https://user-images.githubusercontent.com/1903667/170851426-2d67ca95-c4d9-4a5d-84c0-8675b80ea190.gif)
+
+![Minecraft Screenshot](https://user-images.githubusercontent.com/1903667/170851454-6e00be30-6a75-4379-b20c-7b94d323d9b5.png)
+![Minecraft Screenshot](https://user-images.githubusercontent.com/1903667/170851455-8931032e-cb49-4a1b-985b-da75081e7762.png)
+![Minecraft Screenshot](https://user-images.githubusercontent.com/1903667/170851456-8c1e5db9-c07e-47c7-b619-df2deda88577.png)
+![Minecraft Screenshot](https://user-images.githubusercontent.com/1903667/170851458-aa2ea953-07d1-48f2-ab46-857d19cf0774.png)
+![Minecraft Screenshot](https://user-images.githubusercontent.com/1903667/170851459-129510cf-699b-4f25-aa8b-ff10e90414b1.png)
+
+#### RTX Requirements
+- [RTX effects require a compatible PC and GPU](https://help.minecraft.net/hc/en-us/articles/4408865164173-Minecraft-with-Ray-Tracing-and-Advanced-Graphics-FAQ)
