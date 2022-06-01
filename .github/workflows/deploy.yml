@@ -2,6 +2,8 @@ name: Deno Deploy
 on:
   push:
     branches: [ deploy ]
+    paths-ignore:
+      - 'README.md'
 
   workflow_dispatch:
 
