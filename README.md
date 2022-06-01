@@ -3,51 +3,65 @@ __Convert an image into an add-on containing custom blocks and mosaic functions_
 
 ![Full-color Minecraft pixel art generator](https://user-images.githubusercontent.com/1903667/170851289-6afae198-c816-44f6-8e3d-d36bba10d391.png)
 
+### Similar Tools
+- [Minecraft Mural Generator](https://bimbimma.com/minecraftmurals/)
+- [Minecraft Artifier](https://github.com/Explodey54/minecraft-artifier-js)
+
+---
+
+[![Deno Deploy](https://github.com/jasonjgardner/minecraft-rtx-rainbow/actions/workflows/deploy.yml/badge.svg?branch=deploy&event=deployment)](https://github.com/jasonjgardner/minecraft-rtx-rainbow/actions/workflows/deploy.yml)
+
 > ![Full-color Deno pixel art in Minecraft](https://user-images.githubusercontent.com/1903667/170851531-2e6f8302-2037-4737-882b-10a8368a023d.png)
 > Try it on [**Deno Deploy**](https://minecraft-pixel-art.deno.dev/)
+
+---
 
 ## Minimal Requirements:
 - __Bedrock Minecraft__ v1.16.2 or later
 - Holiday Creator Features enabled
 - Ability to run functions or use command blocks
 
+# GIF Support
+Convert frames from a GIF into a "layers" of a build. Each frame is offset over the axis named in the function. This PB&J build demonstrates its _GIF_ support. 😉
 
+__Source Image__
 
-# Make Builds from GIFs
-Convert each frame of a GIF into a "layer" of a build. Each frame is offset over the axis named in the function. This PB&J build demonstrates its GIF support. 😉
-
-#### Source Image
 ![Input GIF example of Peanut Butter and Jelly sandwich](https://user-images.githubusercontent.com/1903667/171332773-0e0986f1-4892-4bd3-8215-9f4745420d83.gif)
 
-#### .mcaddon
+__Result__
+
 ![Minecraft Screenshot](https://user-images.githubusercontent.com/1903667/171332574-c0070f0f-3339-4bc6-bbf8-5075338e16a5.png)
 
 ## Alignment Options
 
 ### End-to-end Alignment
-Generates a fill command which places GIF frames side-by-side over the same axis.
+Generates a `/fill` command which places GIF frames side-by-side over the same axis.
 
-#### Source Image
+__Source Image__
+
 ![KCMO skyline build GIF source](https://user-images.githubusercontent.com/1903667/171439534-231ee05e-31a6-4aef-8d97-224d93f11587.gif)
 
-#### .mcaddon
+__Result__
+
 ![KCMO skyline silhouette in Minecraft](https://user-images.githubusercontent.com/1903667/171439069-ed73398b-a3a8-4bac-b795-9c832f7d7ed7.png)
 
 ### Back-to-back Alignment
-Generates a fill command which places GIF frames in a stack over a perpendicular axis. ([See the PB&J sandwich above for an example.](#source-image))
+Generates a `/fill` command which places GIF frames in a stack over a perpendicular axis. ([See the PB&J sandwich above for an example.](#source-image))
 
 ### Back-to-back Alignment Offsets
 - __No offset__ will place frames directly next to each other in the stack.
 - __Alternate even/odd frames__ will place frames with a space between them. The space is placed every even or odd step over the perpendicular axis.
 
+# Alpha Transparency Support
+Semi-opaque pixels [above a certain opacity level](https://github.com/jasonjgardner/minecraft-rtx-rainbow/blob/7afbf9568ee7a0ec4789e2d16eb237008f2ec88e/typings/constants.ts#L67) (50%) will be given an alpha channel value.
 
-# Supports Alpha Transparency
+__Source Images__
 
-#### Source Images
 ![Art source](https://user-images.githubusercontent.com/1903667/170851706-58b953d4-b0d4-485d-9219-c8f897027ecd.png)
 ![Art source](https://user-images.githubusercontent.com/1903667/170851725-54bf5252-5ed7-4df2-87aa-46ad4a49688f.png)
 
-#### .mcaddon
+__Results__
+
 ![Minecraft Screenshot example](https://user-images.githubusercontent.com/1903667/170851651-44160561-b046-45b7-b5d5-b645041c89cc.png)
 ![Minecraft Screenshot example](https://user-images.githubusercontent.com/1903667/170851656-1fd061a1-dfe6-4b3c-9cdf-0a5a5a646e0f.png)
 
