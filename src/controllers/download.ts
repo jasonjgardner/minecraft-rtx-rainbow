@@ -7,12 +7,16 @@ import materialPalette from "../components/palettes/materialDesign.ts";
 import PlasticMaterial from "../components/materials/PlasticMaterial.ts";
 import GlowingMaterial from "../components/materials/GlowingMaterial.ts";
 import MetalMaterial from "../components/materials/MetalMaterial.ts";
+import MattePlasticMaterial from "../components/materials/MattePlasticMaterial.ts";
+import RoughMetalMaterial from "../components/materials/RoughMetalMaterial.ts";
 import createAddon from "../mod.ts";
 
 const materialLibrary: { [k: string]: () => Material } = {
   plastic: () => new PlasticMaterial(),
   glowing: () => new GlowingMaterial(),
   metal: () => new MetalMaterial(),
+  matte_plastic: () => new MattePlasticMaterial(),
+  rough_metal: () => new RoughMetalMaterial(),
 } as const;
 
 function materialFactory(materialIds: string[]): Material[] {
