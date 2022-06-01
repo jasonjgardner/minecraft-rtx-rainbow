@@ -1,15 +1,17 @@
 # Minecraft Full-Color Pixel Art Generator
-### Convert an image into an add-on containing custom blocks and mosaic functions
+__Convert an image into an add-on containing custom blocks and mosaic functions__
 
 ![Full-color Minecraft pixel art generator](https://user-images.githubusercontent.com/1903667/170851289-6afae198-c816-44f6-8e3d-d36bba10d391.png)
 
 > ![Full-color Deno pixel art in Minecraft](https://user-images.githubusercontent.com/1903667/170851531-2e6f8302-2037-4737-882b-10a8368a023d.png)
 > Try it on [**Deno Deploy**](https://minecraft-pixel-art.deno.dev/)
 
-## Requirements:
-- Bedrock Minecraft
+## Minimal Requirements:
+- __Bedrock Minecraft__ v1.16.2 or later
 - Holiday Creator Features enabled
 - Ability to run functions or use command blocks
+
+
 
 # Make Builds from GIFs
 Convert each frame of a GIF into a "layer" of a build. Each frame is offset over the axis named in the function. This PB&J build demonstrates its GIF support. 😉
@@ -19,6 +21,25 @@ Convert each frame of a GIF into a "layer" of a build. Each frame is offset over
 
 #### .mcaddon
 ![Minecraft Screenshot](https://user-images.githubusercontent.com/1903667/171332574-c0070f0f-3339-4bc6-bbf8-5075338e16a5.png)
+
+## Alignment Options
+
+### End-to-end Alignment
+Generates a fill command which places GIF frames side-by-side over the same axis.
+
+#### Source Image
+![KCMO skyline build GIF source](https://user-images.githubusercontent.com/1903667/171439534-231ee05e-31a6-4aef-8d97-224d93f11587.gif)
+
+#### .mcaddon
+![KCMO skyline silhouette in Minecraft](https://user-images.githubusercontent.com/1903667/171439069-ed73398b-a3a8-4bac-b795-9c832f7d7ed7.png)
+
+### Back-to-back Alignment
+Generates a fill command which places GIF frames in a stack over a perpendicular axis. ([See the PB&J sandwich above for an example.](#source-image))
+
+### Back-to-back Alignment Offsets
+- __No offset__ will place frames directly next to each other in the stack.
+- __Alternate even/odd frames__ will place frames with a space between them. The space is placed every even or odd step over the perpendicular axis.
+
 
 # Supports Alpha Transparency
 
