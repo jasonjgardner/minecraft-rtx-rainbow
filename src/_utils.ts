@@ -2,7 +2,7 @@ import type { ChannelValue, PaletteInput, RGB, RGBA } from "/typings/types.ts";
 import { DEFAULT_NAMESPACE } from "/typings/constants.ts";
 import { decode } from "https://deno.land/std@0.140.0/encoding/base64.ts";
 import { GIF, Image } from "imagescript/mod.ts";
-import { basename, extname, toFileUrl } from "path/mod.ts";
+import { basename, extname } from "path/mod.ts";
 
 /**
  * Ensure namespace input is usable in Minecraft

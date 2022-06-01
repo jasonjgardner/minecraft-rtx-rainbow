@@ -5,9 +5,9 @@ export default class Plastic extends Material {
 
   _normalMap = "block_normal";
   constructor() {
-    super("roughness", {
-      en_US: "Plastic",
-      en_GB: "Plastic",
+    super("glossy", {
+      en_US: "Glossy Plastic",
+      en_GB: "Glossy Plastic",
     });
   }
 

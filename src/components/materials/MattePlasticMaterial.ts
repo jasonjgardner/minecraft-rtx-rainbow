@@ -1,21 +1,18 @@
 import Material from "../Material.ts";
 
-export default class Glowing extends Material {
+export default class MattePlastic extends Material {
   _useHeightMap = false;
 
   _normalMap = "block_normal";
-
-  _mer = "glow_block_e";
-
   constructor() {
-    super("emissive", {
-      en_US: "Glowing",
-      en_GB: "Glowing",
+    super("rough", {
+      en_US: "Matte Plastic",
+      en_GB: "Matte Plastic",
     });
   }
 
   get emissive() {
-    return Math.floor(255 * 0.33);
+    return 0;
   }
 
   get metalness() {
@@ -23,19 +20,19 @@ export default class Glowing extends Material {
   }
 
   get roughness() {
-    return Math.floor(255 * 0.5125);
+    return Math.floor(255 * 0.75);
   }
 
   get components() {
     return {
       "minecraft:creative_category": {
         category: "construction",
-        group: "itemGroup.name.stainedClay",
+        group: "itemGroup.name.concrete",
       },
       //"minecraft:unit_cube": Object.freeze({}),
       "minecraft:material_instances": this.materialInstance,
       //"minecraft:block_light_filter":
-      "minecraft:block_light_emission": 1,
+      "minecraft:block_light_emission": 0,
     };
   }
 }

@@ -5,9 +5,9 @@ export default class Metal extends Material {
 
   _normalMap = "metal_normal";
   constructor() {
-    super("metal", {
-      en_US: "Metallic",
-      en_GB: "Metallic",
+    super("shiny_metal", {
+      en_US: "Shiny Metallic",
+      en_GB: "Shiny Metallic",
     });
   }
 

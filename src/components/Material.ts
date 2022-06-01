@@ -49,6 +49,16 @@ export default class Material {
   _heightMap?: string;
 
   /**
+   * MER image asset name
+   */
+  _mer?: string;
+
+  /**
+   * Base layer color or texture
+   */
+  _color?: string;
+
+  /**
    * Set to TRUE to prefer height map over normal maps
    */
   _useHeightMap = false;
@@ -91,6 +101,10 @@ export default class Material {
     return 0;
   }
 
+  get color() {
+    return this._color;
+  }
+
   get depthMap() {
     const hasNormalMap = this._normalMap !== undefined &&
       this._normalMap.length;
@@ -119,7 +133,7 @@ export default class Material {
 
   get textureSet() {
     const values: Omit<TextureSet, "color"> = {
-      metalness_emissive_roughness: <RGB> [
+      metalness_emissive_roughness: this._mer ?? <RGB> [
         this.metalness,
         this.emissive,
         this.roughness,
