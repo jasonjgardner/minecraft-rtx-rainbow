@@ -1,25 +1,23 @@
-# Minecraft Full-Color Pixel Art Generator
+# [Minecraft Full-Color Pixel Art Generator](https://minecraft-pixel-art.deno.dev/)
 __Convert an image into an add-on containing custom blocks and mosaic functions__
 
+[![Deno Deploy](https://github.com/jasonjgardner/minecraft-rtx-rainbow/actions/workflows/deploy.yml/badge.svg?branch=deploy&event=deployment)](https://github.com/jasonjgardner/minecraft-rtx-rainbow/actions/workflows/deploy.yml)
+
 ![Full-color Minecraft pixel art generator](https://user-images.githubusercontent.com/1903667/170851289-6afae198-c816-44f6-8e3d-d36bba10d391.png)
+
+## Behold the Power of TEXTURE SETS
+[Texture sets](https://bedrock.dev/docs/stable/Texture%20Sets) were introduced in Bedrock Minecraft v1.16.200 alongside its RTX features. The `color` layer in a texture set can render any RGBA value. When your artwork is submitted, the Pixel Art Generator will create a `.mcaddon` containing every color in the image as a custom block and `fill` functions to reproduce the art in Minecraft. This ability sets it aside from its predecessors, which had to clamp pixel artwork colors to the Vanilla block palette (for better or worse).
 
 ### Similar Tools
 - [Minecraft Mural Generator](https://bimbimma.com/minecraftmurals/)
 - [Minecraft Artifier](https://github.com/Explodey54/minecraft-artifier-js)
 
----
-
-[![Deno Deploy](https://github.com/jasonjgardner/minecraft-rtx-rainbow/actions/workflows/deploy.yml/badge.svg?branch=deploy&event=deployment)](https://github.com/jasonjgardner/minecraft-rtx-rainbow/actions/workflows/deploy.yml)
-
-> ![Full-color Deno pixel art in Minecraft](https://user-images.githubusercontent.com/1903667/170851531-2e6f8302-2037-4737-882b-10a8368a023d.png)
-> Try it on [**Deno Deploy**](https://minecraft-pixel-art.deno.dev/)
-
----
-
 ## Minimal Requirements:
 - __Bedrock Minecraft__ v1.16.2 or later
 - Holiday Creator Features enabled
 - Ability to run functions or use command blocks
+
+---
 
 # GIF Support
 Convert frames from a GIF into a "layers" of a build. Each frame is offset over the axis named in the function. This PB&J build demonstrates its _GIF_ support. 😉
