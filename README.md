@@ -5,12 +5,12 @@ __Convert an image into an add-on containing custom blocks and mosaic functions_
 
 ![Full-color Minecraft pixel art generator](https://user-images.githubusercontent.com/1903667/170851289-6afae198-c816-44f6-8e3d-d36bba10d391.png)
 
-## Behold the Power of TEXTURE SETS
-[Texture sets](https://bedrock.dev/docs/stable/Texture%20Sets) were introduced in Bedrock Minecraft v1.16.200 alongside its RTX features. The `color` layer in a texture set can render any RGBA value. When your artwork is submitted, the Pixel Art Generator will create a `.mcaddon` containing every color in the image as a custom block and `fill` functions to reproduce the art in Minecraft. This ability sets it aside from its predecessors, which had to clamp pixel artwork colors to the Vanilla block palette (for better or worse).
+## Behold the Power of _TEXTURE SETS_
+[Texture sets](https://bedrock.dev/docs/stable/Texture%20Sets) were introduced in Bedrock Minecraft v1.16.200. The `color` layer in a texture set can render any RGBA value. When your artwork is submitted, the Pixel Art Generator will create a `.mcaddon` containing every color in the image as a custom block and `fill` functions to reproduce the art in Minecraft. This ability sets it aside from its predecessors, which had to clamp pixel artwork colors to the Vanilla block palette (for better or worse).
 
-### Similar Tools
-- [Minecraft Mural Generator](https://bimbimma.com/minecraftmurals/)
-- [Minecraft Artifier](https://github.com/Explodey54/minecraft-artifier-js)
+> ### Similar Tools
+> - [Minecraft Mural Generator](https://bimbimma.com/minecraftmurals/)
+> - [Minecraft Artifier](https://github.com/Explodey54/minecraft-artifier-js)
 
 ## Minimal Requirements:
 - __Bedrock Minecraft__ v1.16.2 or later
@@ -32,6 +32,13 @@ __Result__
 
 ## Alignment Options
 
+### Back-to-back Alignment
+Generates a `/fill` command which places GIF frames in a stack over a perpendicular axis. ([See the PB&J sandwich above for an example.](#gif-support))
+
+### Back-to-back Alignment Offsets
+- __No offset__ will place frames directly next to each other in the stack.
+- __Alternate even/odd frames__ will place frames with a space between them. The space is placed every even or odd step over the perpendicular axis.
+
 ### End-to-end Alignment
 Generates a `/fill` command which places GIF frames side-by-side over the same axis.
 
@@ -43,27 +50,23 @@ __Result__
 
 ![KCMO skyline silhouette in Minecraft](https://user-images.githubusercontent.com/1903667/171439069-ed73398b-a3a8-4bac-b795-9c832f7d7ed7.png)
 
-### Back-to-back Alignment
-Generates a `/fill` command which places GIF frames in a stack over a perpendicular axis. ([See the PB&J sandwich above for an example.](#source-image))
-
-### Back-to-back Alignment Offsets
-- __No offset__ will place frames directly next to each other in the stack.
-- __Alternate even/odd frames__ will place frames with a space between them. The space is placed every even or odd step over the perpendicular axis.
-
 # Alpha Transparency Support
 Semi-opaque pixels [above a certain opacity level](https://github.com/jasonjgardner/minecraft-rtx-rainbow/blob/7afbf9568ee7a0ec4789e2d16eb237008f2ec88e/typings/constants.ts#L67) (50%) will be given an alpha channel value.
 
-__Source Images__
+![Minecraft screenshot of potion bottle with alpha transparency](https://user-images.githubusercontent.com/1903667/171661945-daa3c8b4-84b6-4121-8a2e-f972ddea5ce5.png)
 
-![Art source](https://user-images.githubusercontent.com/1903667/170851706-58b953d4-b0d4-485d-9219-c8f897027ecd.png)
-![Art source](https://user-images.githubusercontent.com/1903667/170851725-54bf5252-5ed7-4df2-87aa-46ad4a49688f.png)
+# Ray Tracing Support
 
-__Results__
+The generated `.texture_set.json` files combine the colors found in the image with additional PBR pipeline settings. For example, your resource pack could contain each color in a reflective, glowing or matte material.
 
-![Minecraft Screenshot example](https://user-images.githubusercontent.com/1903667/170851651-44160561-b046-45b7-b5d5-b645041c89cc.png)
-![Minecraft Screenshot example](https://user-images.githubusercontent.com/1903667/170851656-1fd061a1-dfe6-4b3c-9cdf-0a5a5a646e0f.png)
+## ⚠️ HEADS UP
+**Materials are only visible with RTX ON**. Select only one material option if you do not intend to play with ray tracing enabled.
 
-# Raytracing-enabled
+> ![Minecraft screenshot of PB&J RTX build](https://user-images.githubusercontent.com/1903667/171697834-f438e9ea-a1cf-4623-b5c4-5be9a503e618.png)
+> PBR PB&J
+
+> ![Minecraft screenshot of PB&J build without RTX](https://user-images.githubusercontent.com/1903667/171698049-55778801-8f43-48aa-afc5-adb5e93af53d.png)
+> There is no apparent difference between block materials without ray tracing enabled. (Except for the "Glowing" block material, which will emit a light level and will not dim its block faces.)
 
 ## Material Options
 ![Pixel art generator screenshot](https://user-images.githubusercontent.com/1903667/171331434-164a49f7-ea4a-4869-b2c0-a2b017768a86.jpeg)
