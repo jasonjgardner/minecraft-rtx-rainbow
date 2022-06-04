@@ -68,20 +68,35 @@ The generated `.texture_set.json` files combine the colors found in the image wi
 > ![Minecraft screenshot of PB&J build without RTX](https://user-images.githubusercontent.com/1903667/171698049-55778801-8f43-48aa-afc5-adb5e93af53d.png)
 > There is no apparent difference between block materials without ray tracing enabled. (Except for the "Glowing" block material, which will emit a light level and will not dim its block faces.)
 
+#### RTX Requirements
+- [RTX effects require a compatible PC and GPU](https://help.minecraft.net/hc/en-us/articles/4408865164173-Minecraft-with-Ray-Tracing-and-Advanced-Graphics-FAQ)
+
 ## Material Options
 ![Pixel art generator screenshot](https://user-images.githubusercontent.com/1903667/171331434-164a49f7-ea4a-4869-b2c0-a2b017768a86.jpeg)
 ![Minecraft functions screenshot](https://user-images.githubusercontent.com/1903667/171331729-d174d369-72c1-4ab3-9bff-a19975f35dc2.png)
 ![Minecraft RTX screenshot](https://user-images.githubusercontent.com/1903667/171331082-3d5faf63-2d1b-41d9-8e02-7607dbe39bf0.png)
 
-## Examples
+# Usage Examples
+
+## How to Output in Minecraft
+
+- Enable the behavior and resource packs in the generated `.mcaddon` file.
+- Enable Holiday Creator Features and commands in a world.
+- Use the namespaced functions in the behavior pack. Type the command `/function print/...` for output and placement options.
+
+> **TIP**: Use command blocks and structure blocks for precise arrangement.
+
+## Custom Block Color Palette
+Submit your color palette as an image to generate an add-on with custom block colors.
+
+![Screenshot of Pixel Art Generator UI with color palette input](https://user-images.githubusercontent.com/1903667/172024839-5f2454d2-00a9-429a-8342-d0049fad2bcf.jpeg)
+![Screenshot of custom color blocks in Minecraft](https://user-images.githubusercontent.com/1903667/172024848-22800611-6029-49e9-b176-0187712928e3.jpg)
+
+## Abstract RTX Build
 
 ![Example source GIF](https://user-images.githubusercontent.com/1903667/170851426-2d67ca95-c4d9-4a5d-84c0-8675b80ea190.gif)
-
 ![Minecraft Screenshot](https://user-images.githubusercontent.com/1903667/170851454-6e00be30-6a75-4379-b20c-7b94d323d9b5.png)
 ![Minecraft Screenshot](https://user-images.githubusercontent.com/1903667/170851455-8931032e-cb49-4a1b-985b-da75081e7762.png)
 ![Minecraft Screenshot](https://user-images.githubusercontent.com/1903667/170851456-8c1e5db9-c07e-47c7-b619-df2deda88577.png)
 ![Minecraft Screenshot](https://user-images.githubusercontent.com/1903667/170851458-aa2ea953-07d1-48f2-ab46-857d19cf0774.png)
 ![Minecraft Screenshot](https://user-images.githubusercontent.com/1903667/170851459-129510cf-699b-4f25-aa8b-ff10e90414b1.png)
-
-#### RTX Requirements
-- [RTX effects require a compatible PC and GPU](https://help.minecraft.net/hc/en-us/articles/4408865164173-Minecraft-with-Ray-Tracing-and-Advanced-Graphics-FAQ)
