@@ -1,3 +1,8 @@
+> #### (Monorepo maintenance)
+> Check out the [**deploy** branch](https://github.com/jasonjgardner/minecraft-rtx-rainbow/tree/deploy) for the pixel art generator source and README file.
+
+---
+
 # 🌈 RAINBOW!
 **VERSION 2**
 
