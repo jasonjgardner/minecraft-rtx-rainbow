@@ -1,5 +1,5 @@
-import type { ReleaseType } from "https://deno.land/x/semver/mod.ts";
-import { inc } from "https://deno.land/x/semver/mod.ts";
+import type { ReleaseType } from "https://deno.land/std/semver/mod.ts";
+import { inc } from "https://deno.land/std/semver/mod.ts";
 import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
 import {
   BP_MODULE_UUID,
