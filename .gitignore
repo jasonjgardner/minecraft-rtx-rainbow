@@ -3,3 +3,5 @@ dist/
 .env
 !.env.example
 *.log
+node_modules/
+cache/
