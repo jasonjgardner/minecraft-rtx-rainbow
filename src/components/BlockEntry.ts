@@ -179,16 +179,16 @@ export default class BlockEntry {
           ambient_occlusion: this._material.label === "emissive",
         },
       },
-      "minecraft:flammable": this._material.flammable,
-      "minecraft:friction": this._material.friction,
-      "minecraft:explosion_resistance": this._material.explosionResistance || 0,
+      //"minecraft:flammable": this._material.flammable,
+      // "minecraft:friction": this._material.friction,
+      // "minecraft:explosion_resistance": this._material.explosionResistance || 0,
       "minecraft:map_color": this.hexColor(),
-      "minecraft:block_light_absorption": this._material.lightAbsorption(
-        this.level,
-      ),
-      "minecraft:block_light_emission": this._material.lightEmission(
-        this.level,
-      )
+      // "minecraft:block_light_filter": this._material.lightAbsorption(
+      //   this.level,
+      // ),
+      // "minecraft:block_light_emission": this._material.lightEmission(
+      //   this.level,
+      // ),
     } as const;
   }
 
