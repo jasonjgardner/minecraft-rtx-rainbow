@@ -28,7 +28,7 @@ import {
 import { writeFlipbooks } from "./components/flipbook.ts";
 import { deployToDev } from "./components/deploy.ts";
 import setup from "./components/_setup.ts";
-import { createItems } from "./components/items.ts";
+//import { createItems } from "./components/items.ts";
 import { createManifests } from "./components/manifest.ts";
 import print from "./components/printer.ts";
 
@@ -60,7 +60,7 @@ materials.forEach((material: IMaterial) => {
 
 await setup();
 await createManifests(RELEASE_TYPE);
-await createItems();
+//await createItems();
 
 const mcfunctions: Record<string, string[]> = {
   rainbowstack: [],
