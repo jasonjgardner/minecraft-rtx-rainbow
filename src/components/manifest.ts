@@ -91,10 +91,10 @@ export async function createManifests(releaseType?: ReleaseType) {
           },
         ],
         dependencies: [
-          {
-            uuid: RP_PACK_UUID,
-            version: rpVersion,
-          },
+          // {
+          //   uuid: RP_PACK_UUID,
+          //   version: rpVersion,
+          // },
         ],
       },
       null,
