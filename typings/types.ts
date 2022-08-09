@@ -25,10 +25,14 @@ export type MaterialMultiplier = (idx: number) => number;
 export type MinecraftTerrainData = {
   [key: string]: {
     textures: string | string[];
-  }
+  };
 };
 
-export type MinecraftRecordTypes = boolean | string | number;
+export type MinecraftRecordTypes =
+  | boolean
+  | string
+  | number
+  | MinecraftRecordTypes[];
 
 export type MinecraftData = {
   [key: string]: MinecraftData | MinecraftRecordTypes;
@@ -54,7 +58,7 @@ export type MultiLingual = {
   [key in LanguageId]: string;
 };
 
-export type LanguagesContainer = Record<LanguageId, string[]> 
+export type LanguagesContainer = Record<LanguageId, string[]>;
 
 export interface IMaterial {
   name: MultiLingual;

@@ -63,16 +63,20 @@ await createManifests(RELEASE_TYPE);
 //await createItems();
 
 const mcfunctions: Record<string, string[]> = {
-  rainbowstack: [],
+  //rainbowstack: [],
 };
 
 let lastColor: string | undefined;
 let atlasGroup: BlockEntry[] = [];
 
+const blockLibrary: Record<string, BlockEntry> = {};
+
 const len = res.length;
 
 for (let itr = 0; itr < len; itr++) {
   const block = res[itr];
+
+  blockLibrary[block.behaviorId] = block;
 
   blocksData[block.behaviorId] = block.blocksData;
 
@@ -111,9 +115,9 @@ for (let itr = 0; itr < len; itr++) {
   );
 
   /// Add to functions
-  mcfunctions.rainbowstack.push(
-    `setblock ${block.setPosition(itr)} ${block.behaviorId}`,
-  );
+  // mcfunctions.rainbowstack.push(
+  //   `setblock ${block.setPosition(itr)} ${block.behaviorId}`,
+  // );
 
   if (
     atlasGroup.length > 1 &&
@@ -159,7 +163,7 @@ await Deno.writeTextFile(
 );
 await Deno.writeTextFile(
   `${DIR_BP}/functions/entitytrail.mcfunction`,
-  entityTrailFunction(),
+  await entityTrailFunction(blockLibrary),
 );
 
 await Deno.writeTextFile(
@@ -193,7 +197,11 @@ await Deno.writeTextFile(
   JSON.stringify(Object.keys(languages)),
 );
 
-await print(res);
+try {
+  await print(res);
+} catch (e) {
+  console.error(e);
+}
 
 if (getConfig("DEPLOY", "false") !== "false") {
   await deployToDev();

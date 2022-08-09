@@ -4,13 +4,15 @@ import { DIR_BP, DIR_RP, DIR_SRC } from "../store/_config.ts";
 
 export default async function setup() {
   await emptyDir(DIR_BP);
-  await emptyDir(DIR_RP)
+  await emptyDir(DIR_RP);
 
   await Promise.all(
     [
       `${DIR_BP}/blocks`,
       `${DIR_BP}/items`,
       `${DIR_BP}/functions`,
+      `${DIR_BP}/functions/tags`,
+      `${DIR_BP}/functions/trails`,
       `${DIR_BP}/functions/printer`,
       `${DIR_BP}/functions/printer/stargazers`,
       `${DIR_BP}/entities`,
