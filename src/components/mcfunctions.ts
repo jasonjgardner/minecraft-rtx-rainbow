@@ -1,5 +1,6 @@
 import type BlockEntry from "./BlockEntry.ts";
-import { EOL } from "https://deno.land/std@0.125.0/fs/mod.ts";
+import { join } from "https://deno.land/std@0.125.0/path/mod.ts";
+import { ensureDir, EOL } from "https://deno.land/std@0.125.0/fs/mod.ts";
 import { DIR_BP, NAMESPACE } from "../store/_config.ts";
 
 interface IFormatTrail {
@@ -12,7 +13,7 @@ interface IFormatTrail {
 interface SelectorParameters {
   [k: string]: boolean | number | string | undefined;
   c?: number;
-  type: string;
+  type?: string;
 
   m?: string;
   family?: string;
@@ -52,6 +53,8 @@ class EntityTrail {
   _replaceWhat: string | undefined;
 
   _where: Array<string | number> | undefined;
+
+  _filename: string | undefined;
   constructor(selector: SelectorParameters, replaceWith: string | BlockEntry) {
     this._replaceWith = typeof replaceWith === "string"
       ? replaceWith
@@ -92,15 +95,71 @@ class EntityTrail {
     });
   }
 
-  async save() {
+  set filename(filename: string) {
+    this._filename = filename.trim().toLowerCase().replace(/\s+/g, "_");
+  }
+
+  async save(): Promise<string> {
+    const filename = this._filename ?? this._selector.name ??
+      this._selector.type;
+
+    if (typeof filename !== "string") {
+      throw new Error(
+        "Can not save function. No output filename could be determined.",
+      );
+    }
+
+    const filenameParts = filename.split("/");
+    const functionFilename = filenameParts.pop();
+    const functionDir = join(DIR_BP, "functions", ...filenameParts);
+    await ensureDir(functionDir);
+
+    const fnFile = join(functionDir, `${functionFilename}.mcfunction`);
+
     await Deno.writeTextFile(
-      `${DIR_BP}/functions/trails/${this.type}.mcfunction`,
-      this.format + "\n",
+      fnFile,
+      this.format + EOL.CRLF,
       { append: true },
     );
 
-    return `trails/${this.type}`;
+    return filename;
   }
+}
+
+function getRainbowBlocks(
+  shade: number,
+  level: number,
+  material: string,
+): string[] {
+  const colors = [
+    "red",
+    "deep_orange",
+    "orange",
+    "amber",
+    "yellow",
+    "lime",
+    "light_green",
+    "green",
+    "teal",
+    "cyan",
+    "light_blue",
+    "blue",
+    "indigo",
+    "purple",
+    "deep_purple",
+  ];
+
+  return colors.map((color) =>
+    `${NAMESPACE}:${color}_${shade}_${material}_${level}`
+  );
+}
+
+function getShadeBlocks(color: string, level: number, material: string) {
+  const blocks = [];
+  for (let itr = 100; itr < 900; itr += 100) {
+    blocks.push(`${NAMESPACE}:${color}_${itr}_${material}_${level}`);
+  }
+  return blocks;
 }
 
 export async function entityTrailFunction(
@@ -121,9 +180,10 @@ export async function entityTrailFunction(
   FireworksTrail.where = ["~-1", "~", "~", "~-1", "~", "~"];
   BottomFireworksTrail.where = ["~-1", "~-1", "~", "~-1", "~-1", "~"];
 
-  const entities: EntityTrail[] = [
-    FireworksTrail,
-    BottomFireworksTrail,
+  FireworksTrail.filename = "trails/fireworks";
+  BottomFireworksTrail.filename = "trails/fireworks";
+
+  const critters = [
     new EntityTrail(
       { type: "pig", r: 400, c: 64 },
       blockLibrary[`${NAMESPACE}:pink_600_metallic_75`],
@@ -190,6 +250,17 @@ export async function entityTrailFunction(
     ),
   ];
 
+  // Lazy filename patch
+  critters.forEach((critter) => {
+    critter.filename = `trails/entities/${critter._selector.type}`;
+  });
+
+  const entities: EntityTrail[] = [
+    FireworksTrail,
+    BottomFireworksTrail,
+    ...critters,
+  ];
+
   const fishies: { [k: string]: string[] } = {
     "salmon": [
       `${NAMESPACE}:deep_orange_500_glowing_25`,
@@ -223,6 +294,9 @@ export async function entityTrailFunction(
     ],
   };
 
+  /**
+   * Fish trails replace different blocks depending on the surface
+   */
   for (const [fish, color] of Object.entries(fishies)) {
     const FishRiverTrail = new EntityTrail(
       { type: fish, r: 400, c: 64 },
@@ -244,65 +318,49 @@ export async function entityTrailFunction(
     );
 
     FishAirTrail.replaceWhat = "minecraft:air";
+
+    FishRiverTrail.filename = `trails/entities/${fish}`;
+    FishBeachedTrail.filename = `trails/entities/${fish}`;
+    FishAirTrail.filename = `trails/entities/${fish}`;
+
     entities.push(FishRiverTrail, FishBeachedTrail, FishAirTrail);
   }
-
-  const rainbowBlocks = [
-    `${NAMESPACE}:pink_400_glowing_25`,
-    `${NAMESPACE}:red_400_glowing_25`,
-    `${NAMESPACE}:deep_orange_400_glowing_25`,
-    `${NAMESPACE}:orange_400_glowing_25`,
-    `${NAMESPACE}:amber_400_glowing_25`,
-    `${NAMESPACE}:yellow_400_glowing_25`,
-    `${NAMESPACE}:lime_400_glowing_25`,
-    `${NAMESPACE}:light_green_400_glowing_25`,
-    `${NAMESPACE}:green_400_glowing_25`,
-    `${NAMESPACE}:teal_400_glowing_25`,
-    `${NAMESPACE}:cyan_400_glowing_25`,
-    `${NAMESPACE}:light_blue_400_glowing_25`,
-    `${NAMESPACE}:blue_400_glowing_25`,
-    `${NAMESPACE}:purple_400_glowing_25`,
-    `${NAMESPACE}:deep_purple_400_glowing_25`,
-    `${NAMESPACE}:indigo_400_glowing_25`,
-  ];
 
   const projectiles: {
     [k: string]: {
       colors: Array<string>;
       offset: number;
-      radius: [number, number];
       step: number;
+      minRange: number;
+      maxRange: number;
+      goesDown: boolean;
     };
   } = {
-    // Goes forward
+    // Changes hue based on projectile's distance from the command block or player
     "arrow": {
-      colors: rainbowBlocks,
-      offset: 2,
-      radius: [5, 150],
-      step: 5,
+      colors: getRainbowBlocks(500, 25, "glowing"),
+      offset: 1,
+      step: 9,
+      minRange: 4,
+      maxRange: 300,
+      goesDown: false,
     },
     "snowball": {
-      colors: [
-        `${NAMESPACE}:deep_orange_100_glowing_25`,
-        `${NAMESPACE}:deep_orange_200_glowing_25`,
-        `${NAMESPACE}:deep_orange_300_glowing_25`,
-        `${NAMESPACE}:deep_orange_400_glowing_25`,
-        `${NAMESPACE}:deep_orange_500_glowing_25`,
-        `${NAMESPACE}:deep_orange_600_glowing_25`,
-        `${NAMESPACE}:deep_orange_700_glowing_25`,
-        `${NAMESPACE}:deep_orange_800_glowing_25`,
-        `${NAMESPACE}:deep_orange_900_glowing_25`,
-      ],
-      offset: 0,
-      radius: [5, 50],
-      step: 5,
-    },
-    // Drops down
-    "thrown_trident": {
-      colors: rainbowBlocks,
+      colors: getShadeBlocks("light_blue", 25, "glowing"),
       offset: 1,
-      radius: [5, 120],
       step: 5,
+      minRange: 4,
+      maxRange: 300,
+      goesDown: false,
+    },
+    // Creates a stack of rainbow blocks in its trail
+    "thrown_trident": {
+      colors: getRainbowBlocks(400, 25, "glowing"),
+      offset: 1,
+      step: 5,
+      minRange: 5,
+      maxRange: 300,
+      goesDown: true,
     },
   };
 
@@ -323,13 +381,33 @@ export async function entityTrailFunction(
      * Create a trail for each color in the array.
      */
     for (let i = 0; i < maxLength; i++) {
+      const radiuses = details.goesDown
+        ? {
+          rm: details.minRange,
+          r: details.maxRange,
+        }
+        : {
+          rm: details.minRange + (details.step * i),
+          r: i + 1 < maxLength
+            ? Math.min(
+              details.minRange + (details.step * i) + details.step,
+              details.maxRange,
+            )
+            : details.maxRange,
+        };
+
+      const replaceWith = blockLibrary[details.colors[i]];
+
+      if (!replaceWith) {
+        throw Error(`No block found for ${details.colors[i]}`);
+      }
+
       const ProjectileAirTrail = new EntityTrail(
         {
-          rm: details.step * (i + 1),
-          r: (details.step * (i + 1)) + details.step,
+          ...radiuses,
           ...params,
         },
-        blockLibrary[details.colors[i]],
+        replaceWith,
       );
       ProjectileAirTrail.replaceWhat = "minecraft:air";
       ProjectileAirTrail.where = [
@@ -340,6 +418,9 @@ export async function entityTrailFunction(
         `~-${i + details.offset}`,
         "~",
       ];
+
+      ProjectileAirTrail.filename = `trails/projectiles/${projectile}`;
+
       entities.push(ProjectileAirTrail);
     }
   }
@@ -347,7 +428,54 @@ export async function entityTrailFunction(
   const functions: string[] = [];
 
   for (const entity of entities) {
-    functions.push(await entity.save());
+    const fn = await entity.save();
+
+    if (fn) {
+      functions.push(fn);
+    }
+  }
+
+  return [...new Set(functions)].map((f) => `function ${f}`).join(EOL.CRLF);
+}
+
+export async function colorTrails(blockLibrary: Record<string, BlockEntry>) {
+  const REPLACE_ALL = "*";
+  const replacements = ["minecraft:air", "minecraft:water", REPLACE_ALL];
+  const entities: EntityTrail[] = [];
+
+  const selectors = ["name", "tag"];
+
+  // create entity trails for all colors, using name selector parameter
+
+  for (const [key, value] of Object.entries(blockLibrary)) {
+    selectors.forEach((selector) => {
+      replacements.forEach((replaceWhat) => {
+        const name = key.split(":")[1];
+        const entityTrail = new EntityTrail({
+          [`${selector}`]: name,
+          c: 64,
+        }, value);
+
+        if (replaceWhat !== REPLACE_ALL) {
+          entityTrail.replaceWhat = replaceWhat;
+          entityTrail.filename = `trails/colors/keep/${name}`;
+        } else {
+          entityTrail.filename = `trails/colors/replace/${name}`;
+        }
+
+        entities.push(entityTrail);
+      });
+    });
+  }
+
+  const functions: string[] = [];
+
+  for (const entity of entities) {
+    const fn = await entity.save();
+
+    if (fn) {
+      functions.push(fn);
+    }
   }
 
   return [...new Set(functions)].map((f) => `function ${f}`).join(EOL.CRLF);
