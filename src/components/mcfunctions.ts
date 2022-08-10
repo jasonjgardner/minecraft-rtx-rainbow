@@ -327,45 +327,201 @@ export async function entityTrailFunction(
   }
 
   const projectiles: {
-    [k: string]: {
-      colors: Array<string>;
-      offset: number;
-      step: number;
-      minRange: number;
-      maxRange: number;
-      goesDown: boolean;
-    };
-  } = {
-    // Changes hue based on projectile's distance from the command block or player
-    "arrow": {
+    filename?: string;
+    projectile: string;
+    colors: Array<string>;
+    offset: number;
+    step: number;
+    minRange: number;
+    maxRange: number;
+    goesDown: boolean;
+  }[] = [
+    {
+      projectile: "arrow",
+      filename: "trails/projectiles/arrow_green_glowing_25",
+      colors: getShadeBlocks("green", 25, "glowing"),
+      offset: 1,
+      step: 5,
+      minRange: 4,
+      maxRange: 600,
+      goesDown: false,
+    },
+    {
+      projectile: "arrow",
+      filename: "trails/projectiles/arrow_yellow_glowing_25",
+      colors: getShadeBlocks("yellow", 25, "glowing"),
+      offset: 1,
+      step: 5,
+      minRange: 4,
+      maxRange: 600,
+      goesDown: false,
+    },
+    {
+      projectile: "arrow",
+      filename: "trails/projectiles/arrow_red_glowing_25",
+      colors: getShadeBlocks("red", 25, "glowing"),
+      offset: 1,
+      step: 5,
+      minRange: 4,
+      maxRange: 600,
+      goesDown: false,
+    },
+    {
+      projectile: "arrow",
+      filename: "trails/projectiles/arrow_blue_glowing_25",
+      colors: getShadeBlocks("blue", 25, "glowing"),
+      offset: 1,
+      step: 5,
+      minRange: 4,
+      maxRange: 600,
+      goesDown: false,
+    },
+    {
+      projectile: "arrow",
+      filename: "trails/projectiles/arrow_deep_purple_glowing_25",
+      colors: getShadeBlocks("deep_purple", 25, "glowing"),
+      offset: 1,
+      step: 5,
+      minRange: 4,
+      maxRange: 600,
+      goesDown: false,
+    },
+    {
+      projectile: "arrow",
+      filename: "trails/projectiles/arrow_deep_orange_glowing_25",
+      colors: getShadeBlocks("deep_orange", 25, "glowing"),
+      offset: 1,
+      step: 5,
+      minRange: 4,
+      maxRange: 600,
+      goesDown: false,
+    },
+    {
+      projectile: "arrow",
+      filename: "trails/projectiles/arrow_rainbow",
       colors: getRainbowBlocks(500, 25, "glowing"),
       offset: 1,
       step: 9,
       minRange: 4,
-      maxRange: 300,
+      maxRange: 700,
       goesDown: false,
     },
-    "snowball": {
+    {
+      projectile: "arrow",
+      filename: "trails/projectiles/arrow_rainbow_stack",
+      colors: getRainbowBlocks(500, 25, "glowing"),
+      offset: 1,
+      step: 10,
+      minRange: 4,
+      maxRange: 700,
+      goesDown: true,
+    },
+    {
+      projectile: "snowball",
+      filename: "trails/projectiles/snowball_rainbow",
+      colors: getRainbowBlocks(600, 25, "glowing"),
+      offset: 1,
+      step: 5,
+      minRange: 4,
+      maxRange: 600,
+      goesDown: false,
+    },
+    {
+      projectile: "snowball",
+      filename: "trails/projectiles/snowball_deep_orange_glowing_25",
+      colors: getShadeBlocks("deep_orange", 25, "glowing"),
+      offset: 1,
+      step: 5,
+      minRange: 4,
+      maxRange: 600,
+      goesDown: false,
+    },
+    {
+      projectile: "snowball",
+      filename: "trails/projectiles/snowball_pink_glowing_25",
+      colors: getShadeBlocks("pink", 25, "glowing"),
+      offset: 1,
+      step: 5,
+      minRange: 4,
+      maxRange: 600,
+      goesDown: false,
+    },
+    {
+      projectile: "snowball",
+      filename: "trails/projectiles/snowball_blue_glowing_25",
+      colors: getShadeBlocks("blue", 25, "glowing"),
+      offset: 1,
+      step: 5,
+      minRange: 4,
+      maxRange: 600,
+      goesDown: false,
+    },
+    {
+      projectile: "snowball",
+      filename: "trails/projectiles/snowball_green_glowing_25",
+      colors: getShadeBlocks("green", 25, "glowing"),
+      offset: 1,
+      step: 5,
+      minRange: 4,
+      maxRange: 600,
+      goesDown: false,
+    },
+    {
+      projectile: "snowball",
+      filename: "trails/projectiles/snowball_red_glowing_25",
+      colors: getShadeBlocks("red", 25, "glowing"),
+      offset: 1,
+      step: 5,
+      minRange: 4,
+      maxRange: 600,
+      goesDown: false,
+    },
+    {
+      projectile: "snowball",
+      filename: "trails/projectiles/snowball_light_blue_glowing_25",
       colors: getShadeBlocks("light_blue", 25, "glowing"),
       offset: 1,
       step: 5,
       minRange: 4,
-      maxRange: 300,
+      maxRange: 600,
       goesDown: false,
     },
     // Creates a stack of rainbow blocks in its trail
-    "thrown_trident": {
-      colors: getRainbowBlocks(400, 25, "glowing"),
+    {
+      projectile: "thrown_trident",
+      filename: "trails/projectiles/trident_rainbow_stack",
+      colors: getRainbowBlocks(500, 25, "glowing"),
       offset: 1,
       step: 5,
       minRange: 5,
-      maxRange: 300,
+      maxRange: 600,
       goesDown: true,
     },
-  };
+    {
+      projectile: "thrown_trident",
+      filename: "trails/projectiles/trident_rainbow",
+      colors: getRainbowBlocks(500, 25, "glowing"),
+      offset: 1,
+      step: 5,
+      minRange: 5,
+      maxRange: 600,
+      goesDown: false,
+    },
+  ];
 
-  for (const [projectile, details] of Object.entries(projectiles)) {
-    const maxLength = details.colors.length;
+  for (
+    const {
+      filename,
+      projectile,
+      colors,
+      offset,
+      step,
+      minRange,
+      maxRange,
+      goesDown,
+    } of projectiles
+  ) {
+    const maxLength = colors.length;
 
     if (!maxLength) {
       throw Error("Projectile has no colors");
@@ -381,25 +537,25 @@ export async function entityTrailFunction(
      * Create a trail for each color in the array.
      */
     for (let i = 0; i < maxLength; i++) {
-      const radiuses = details.goesDown
+      const radiuses = goesDown
         ? {
-          rm: details.minRange,
-          r: details.maxRange,
+          rm: minRange,
+          r: maxRange,
         }
         : {
-          rm: details.minRange + (details.step * i),
+          rm: minRange + (step * i),
           r: i + 1 < maxLength
             ? Math.min(
-              details.minRange + (details.step * i) + details.step,
-              details.maxRange,
+              minRange + (step * i) + step,
+              maxRange,
             )
-            : details.maxRange,
+            : maxRange,
         };
 
-      const replaceWith = blockLibrary[details.colors[i]];
+      const replaceWith = blockLibrary[colors[i]];
 
       if (!replaceWith) {
-        throw Error(`No block found for ${details.colors[i]}`);
+        throw Error(`No block found for ${colors[i]}`);
       }
 
       const ProjectileAirTrail = new EntityTrail(
@@ -412,14 +568,15 @@ export async function entityTrailFunction(
       ProjectileAirTrail.replaceWhat = "minecraft:air";
       ProjectileAirTrail.where = [
         "~",
-        `~-${i + details.offset}`,
+        `~-${i + offset}`,
         "~",
         "~",
-        `~-${i + details.offset}`,
+        `~-${i + offset}`,
         "~",
       ];
 
-      ProjectileAirTrail.filename = `trails/projectiles/${projectile}`;
+      ProjectileAirTrail.filename = filename ??
+        `trails/projectiles/${projectile}`;
 
       entities.push(ProjectileAirTrail);
     }
