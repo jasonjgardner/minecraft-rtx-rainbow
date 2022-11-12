@@ -21,16 +21,17 @@ import { getConfig } from "/src/_utils.ts";
 import { filteredBlocks } from "./store/_blocks.ts";
 import BlockEntry from "./components/BlockEntry.ts";
 import { materials } from "./store/_materials.ts";
-import {
-  entityTrailFunction,
-  rainbowTrailFunction,
-} from "./components/mcfunctions.ts";
+// import {
+//   entityTrailFunction,
+//   rainbowTrailFunction,
+// } from "./components/mcfunctions.ts";
 import { writeFlipbooks } from "./components/flipbook.ts";
 import { deployToDev } from "./components/deploy.ts";
 import setup from "./components/_setup.ts";
 //import { createItems } from "./components/items.ts";
 import { createManifests } from "./components/manifest.ts";
 import print from "./components/printer.ts";
+import render from "./components/_render.ts";
 
 const res: BlockEntry[] = [];
 
@@ -62,12 +63,13 @@ await setup();
 await createManifests(RELEASE_TYPE);
 //await createItems();
 
-const mcfunctions: Record<string, string[]> = {
-  //rainbowstack: [],
-};
+// const mcfunctions: Record<string, string[]> = {
+//   //rainbowstack: [],
+// };
 
 let lastColor: string | undefined;
 let atlasGroup: BlockEntry[] = [];
+const flipbooks = [];
 
 const blockLibrary: Record<string, BlockEntry> = {};
 
@@ -101,6 +103,8 @@ for (let itr = 0; itr < len; itr++) {
     ),
   );
 
+  await render(block, 16);
+
   /// Write texture
   await Deno.writeTextFile(
     `${DIR_RP}/textures/blocks/${block.id}.texture_set.json`,
@@ -124,47 +128,55 @@ for (let itr = 0; itr < len; itr++) {
     lastColor !== undefined &&
     lastColor !== block.color
   ) {
+    let flipbooksJson;
     // FIXME: Dumbass dependencies injection
-    [blocksData, textureData, languages] = await writeFlipbooks(atlasGroup, {
-      blocksData,
-      textureData,
-      languages,
-    });
+    [blocksData, textureData, languages, flipbooksJson] = await writeFlipbooks(
+      atlasGroup,
+      {
+        blocksData,
+        textureData,
+        languages,
+      },
+    );
 
     atlasGroup = [];
+
+    if (flipbooksJson) {
+      flipbooks.push(flipbooksJson);
+    }
   }
 
   lastColor = block.color;
   atlasGroup.push(block);
 }
 
-const tickers: string[] = [
-  //  "rainbowtrail",
-  //  "entitytrail",
-];
+//const tickers: string[] = [
+//  "rainbowtrail",
+//  "entitytrail",
+//];
 
-for (const func in mcfunctions) {
-  await Deno.writeTextFile(
-    `${DIR_BP}/functions/${func}.mcfunction`,
-    mcfunctions[func].join(EOL.CRLF),
-  );
-}
+// for (const func in mcfunctions) {
+//   await Deno.writeTextFile(
+//     `${DIR_BP}/functions/${func}.mcfunction`,
+//     mcfunctions[func].join(EOL.CRLF),
+//   );
+// }
 
-await Deno.writeTextFile(
-  `${DIR_BP}/functions/tick.json`,
-  JSON.stringify({
-    "values": tickers,
-  }),
-);
+// await Deno.writeTextFile(
+//   `${DIR_BP}/functions/tick.json`,
+//   JSON.stringify({
+//     "values": tickers,
+//   }),
+// );
 
-await Deno.writeTextFile(
-  `${DIR_BP}/functions/rainbowtrail.mcfunction`,
-  rainbowTrailFunction(),
-);
-await Deno.writeTextFile(
-  `${DIR_BP}/functions/entitytrail.mcfunction`,
-  await entityTrailFunction(blockLibrary),
-);
+// await Deno.writeTextFile(
+//   `${DIR_BP}/functions/rainbowtrail.mcfunction`,
+//   rainbowTrailFunction(),
+// );
+// await Deno.writeTextFile(
+//   `${DIR_BP}/functions/entitytrail.mcfunction`,
+//   await entityTrailFunction(blockLibrary),
+// );
 
 await Deno.writeTextFile(
   join(DIR_RP, "blocks.json"),
@@ -185,6 +197,11 @@ await Deno.writeTextFile(
   ),
 );
 
+await Deno.writeTextFile(
+  join(DIR_RP, "/textures/flipbook_textures.json"),
+  JSON.stringify(flipbooks.flat(), null, 2),
+);
+
 for (const languageKey in languages) {
   await Deno.writeTextFile(
     `${DIR_RP}/texts/${languageKey}.lang`,
@@ -203,6 +220,6 @@ try {
   console.error(e);
 }
 
-if (getConfig("DEPLOY", "false") !== "false") {
+if (getConfig("DEPLOY", "true") !== "false") {
   await deployToDev();
 }

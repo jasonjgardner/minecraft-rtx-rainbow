@@ -79,7 +79,7 @@ export default class BlockEntry {
 
   get textureSet() {
     return {
-      color: this.aHexColor,
+      color: this.id, // this.aHexColor,
       metalness_emissive_roughness: <RGB> [
         this._material.metalness(this._level),
         this._material.emissive(this._level),
@@ -125,17 +125,8 @@ export default class BlockEntry {
     );
   }
 
-  get aHexColor() {
-    const opacityLevel = this._material.opacity(this._level);
-
-    if (opacityLevel >= 1) {
-      return `#ff${this._color.substring(1)}`;
-    }
-
-    const alpha = 100 - channelPercentage(opacityLevel);
-
-    return "#" + (alpha < 7 ? "0" : "") + alpha.toString(16) +
-      this._color.substring(1);
+  get alpha() {
+    return this._material.opacity(this._level);
   }
 
   hexColor() {
