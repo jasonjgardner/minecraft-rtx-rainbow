@@ -20,7 +20,8 @@ export default async function render(block: BlockEntry, size: number) {
     };"/>
 </svg>`;
 
-  const img = Image.renderSVG(svg, Math.max(16, Math.min(256, size)));
+  const img = Image.renderSVG(svg, size);
+  img.resize(size, size);
 
   img.opacity(block.alpha);
 

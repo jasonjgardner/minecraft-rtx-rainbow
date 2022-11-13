@@ -1,6 +1,7 @@
 import { emptyDir, ensureDir } from "https://deno.land/std@0.123.0/fs/mod.ts";
 import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
 import { DIR_BP, DIR_RP, DIR_SRC } from "../store/_config.ts";
+import { decode } from "imagescript/mod.ts";
 
 export default async function setup() {
   await emptyDir(DIR_BP);
@@ -25,9 +26,15 @@ export default async function setup() {
     ),
   );
 
-  await Deno.copyFile(
-    join(DIR_SRC, "assets", "materials", "block_normal.png"),
-    join(DIR_RP, "/textures/blocks/block_normal.png"),
+  const normalMap = await decode(
+    await Deno.readFile(
+      join(DIR_SRC, "assets", "materials", "block_normal.png"),
+    ),
+  );
+  normalMap.resize(32, 32);
+  await Deno.writeFile(
+    join(DIR_RP, "textures", "blocks", "block_normal.png"),
+    await normalMap.encode(),
   );
 
   await Deno.copyFile(
