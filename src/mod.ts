@@ -220,6 +220,6 @@ try {
   console.error(e);
 }
 
-if (getConfig("DEPLOY", "true") !== "false") {
+if (getConfig("DEPLOY", "false") !== "false") {
   await deployToDev();
 }
