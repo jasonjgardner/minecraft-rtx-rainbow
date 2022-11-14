@@ -31,7 +31,7 @@ export default async function setup() {
       join(DIR_SRC, "assets", "materials", "block_normal.png"),
     ),
   );
-  normalMap.resize(32, 32);
+  normalMap.resize(16, 16);
   await Deno.writeFile(
     join(DIR_RP, "textures", "blocks", "block_normal.png"),
     await normalMap.encode(),
