@@ -44,7 +44,7 @@ export const RP_MODULE_UUID = getUuid(true, false);
 export const BP_MODULE_UUID = getUuid(false, false);
 
 export const NAMESPACE = `${getConfig("NAMESPACE", "rainbow")}`;
-export const BEHAVIOR_BLOCK_FORMAT_VERSION = "1.16.100";
+export const BEHAVIOR_BLOCK_FORMAT_VERSION = "1.19.40";
 
 export const MIP_LEVELS = 0;
 
@@ -58,7 +58,7 @@ export const DIR_RP = join(DIR_DIST, `/${NAMESPACE} RP`);
 export const DIR_BP = join(DIR_DIST, `/${NAMESPACE} BP`);
 
 export const TARGET_VERSION = semverVector(
-  Deno.env.get("TARGET_VERSION") || "1.19.10",
+  Deno.env.get("TARGET_VERSION") || "1.19.40",
 );
 
 const ART_DIR = getConfig("ART_DIR");

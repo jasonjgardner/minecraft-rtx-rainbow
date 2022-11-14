@@ -19,7 +19,7 @@ export default async function setup() {
       `${DIR_BP}/entities`,
       `${DIR_BP}/animations`,
       `${DIR_RP}/textures/blocks`,
-      `${DIR_RP}/textures/items`,
+      `${DIR_RP}/models/blocks`,
       `${DIR_RP}/texts`,
     ].map(
       (dir) => ensureDir(dir),
@@ -38,8 +38,8 @@ export default async function setup() {
   );
 
   await Deno.copyFile(
-    join(DIR_SRC, "assets", "img", "rainbow_trail_key.png"),
-    join(DIR_RP, "/textures/items/rainbow_trail_key.png"),
+    join(DIR_SRC, "assets", "models", "pane.geo.json"),
+    join(DIR_RP, "/models/blocks/pane.geo.json"),
   );
 
   // TODO: Generate pack icon with each build

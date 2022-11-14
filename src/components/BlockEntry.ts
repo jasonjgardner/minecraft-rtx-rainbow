@@ -20,6 +20,7 @@ export default class BlockEntry {
   _level: number;
   _value!: string;
   _color!: string;
+  _geometry?: string;
   constructor({ name, color }: IBlock, material: IMaterial, level: number) {
     if (typeof name !== "string") {
       name = name.en_US;
@@ -30,8 +31,9 @@ export default class BlockEntry {
     this._hue = name.substring(0, lastDash);
     this._level = Math.abs(level);
     this._material = material;
-    this._id = name;
+    this._id = name.replace(/\s+/g, "_").toLowerCase();
     this._color = color;
+    this._geometry = material.geometry;
   }
 
   getTitle(lang: LanguageId) {
@@ -59,7 +61,10 @@ export default class BlockEntry {
   }
 
   get id() {
-    return `${this._id}_${this._material.name.en_US}_${this._level}`
+    return `${this._id}_${this._material.name.en_US}_${this._level}`.replace(
+      /\s+/g,
+      "_",
+    )
       .toLowerCase();
   }
 
@@ -154,33 +159,45 @@ export default class BlockEntry {
   }
 
   behaviors() {
-    return {
-      "minecraft:creative_category": {
-        category: "construction",
-        group: this._material.label === "glass"
-          ? "itemGroup.name.glass"
-          : "itemGroup.name.concrete",
-      },
-      "minecraft:unit_cube": {},
+    const components: {
+      [k: string]:
+        | string
+        | number
+        | boolean
+        | { [k: string]: string | number }
+        | Record<never, never>;
+    } = {
       "minecraft:material_instances": {
         "*": {
           texture: this.resourceId,
-          render_method: this._material.label === "glass" ? "blend" : "opaque",
+          render_method: (this._material.label === "glass" ||
+              this._material.label === "glass_pane")
+            ? "blend"
+            : "opaque",
           face_dimming: this._material.label !== "emissive",
           ambient_occlusion: this._material.label === "emissive",
         },
       },
-      //"minecraft:flammable": this._material.flammable,
-      // "minecraft:friction": this._material.friction,
-      // "minecraft:explosion_resistance": this._material.explosionResistance || 0,
-      "minecraft:map_color": this.hexColor(),
-      // "minecraft:block_light_filter": this._material.lightAbsorption(
+      //"minecraft:flammable": this._material.flammable ?? false,
+      //"minecraft:friction": this._material.friction,
+      // "minecraft:explosion_resistance": this._material.explosionResistance ??
+      //   true,
+      // "minecraft:map_color": this.hexColor(),
+      // "minecraft:light_dampening": this._material.lightAbsorption(
       //   this.level,
       // ),
-      // "minecraft:block_light_emission": this._material.lightEmission(
+      // "minecraft:light_emission": this._material.lightEmission(
       //   this.level,
       // ),
-    } as const;
+    };
+
+    if (this._geometry) {
+      components["minecraft:geometry"] = `geometry.${this._geometry}`;
+    } else {
+      components["minecraft:unit_cube"] = {};
+    }
+
+    return components;
   }
 
   events(prevBlock: BlockEntry, nextBlock: BlockEntry) {

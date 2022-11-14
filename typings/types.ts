@@ -1,3 +1,4 @@
+import type Permutation from "../src/components/Permutation.ts";
 export type RGB = [number, number, number];
 
 export type PackSizes = 16 | 32 | 64 | 128 | 256;
@@ -54,6 +55,10 @@ export type MinecraftEvent = {
     | MinecraftEvent[];
 };
 
+export type MinecraftPermute = {
+  [key: string]: MinecraftRecordTypes | MinecraftPermute;
+};
+
 export type MultiLingual = {
   [key in LanguageId]: string;
 };
@@ -87,6 +92,9 @@ export interface IMaterial {
   endStep: number;
 
   step: number;
+
+  permutation?: Permutation;
+  geometry?: string;
 }
 
 export interface IBlock {

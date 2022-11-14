@@ -1,13 +1,23 @@
-import type { IBlock, IMaterial, LanguageId, RGB } from "../../typings/types.ts";
+import type {
+  IBlock,
+  IMaterial,
+  LanguageId,
+  RGB,
+} from "../../typings/types.ts";
+
 import BlockEntry from "./BlockEntry.ts";
 
-export function formatFlipbookName(color: string, material?: string): string {
-  return `${color}_${material ? `${material}_` : ""}_flipbook`.toLowerCase()
+export function formatFlipbookName(
+  color: string,
+  material?: IMaterial,
+): string {
+  return `${color}_${material ? `${material.name.en_US}_` : ""}_flipbook`
+    .toLowerCase()
     .replace(/[_ ]+/g, "_");
 }
 
 export default class FlipbookEntry extends BlockEntry implements IBlock {
-    _base!: string;
+  _base!: string;
   constructor(block: BlockEntry, material: IMaterial) {
     super(
       {
@@ -15,18 +25,19 @@ export default class FlipbookEntry extends BlockEntry implements IBlock {
         color: block.hexColor(),
       },
       material,
-      75,
+      50,
     );
 
     this._base = formatFlipbookName(block.color);
   }
 
   get id() {
-    return formatFlipbookName(this._id, this._material.name.en_US);
+    return `${this._base}_${this._material.name["en_US"]}`.replace(/\s+/g, "_")
+      .toLowerCase();
   }
 
   getTitle(lang: LanguageId) {
-    return `${this._material.name[lang]} ${this.color} ${this.tint} Flipbook`;
+    return `${this._material.name[lang]} ${this.tint} Flipbook`;
   }
 
   get textureSet() {

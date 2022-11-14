@@ -50,32 +50,40 @@ async function githubAvatars(
 }
 
 export default async function print(palette: BlockEntry[], chunks = 6) {
-  // Exclude super-bright blocks from palette
+  /**
+   * Block palette containing filtered materials. Excludes very bright blocks and lower levels.
+   */
   const printablePalette = palette.filter(({ level, material }: BlockEntry) =>
     material.label !== "emissive" || level <= 60
   );
 
   const printChunks = Math.max(1, Math.min(16, chunks));
 
-  // Print images in pixel_art directory
-  // TODO: Ensure pixel art directory exists
-  for await (const entry of walk(DIR_PIXEL_ART)) {
-    if (entry.isFile) {
-      await pixelPrinter(
-        basename(entry.name, extname(entry.name)),
-        toFileUrl(entry.path),
-        printablePalette,
-        printChunks,
-      );
+  try {
+    // Print images in pixel_art directory
+    for await (const entry of walk(DIR_PIXEL_ART)) {
+      if (entry.isFile) {
+        await pixelPrinter(
+          basename(entry.name, extname(entry.name)),
+          toFileUrl(entry.path),
+          printablePalette,
+          printChunks,
+        );
+      }
     }
+  } catch (err) {
+    if (err.kind === Deno.errors.NotFound) {
+      throw Error("Pixel art directory not found");
+    }
+
+    console.error(err);
   }
 
-  const actionRepo =
-    ((Deno.env.get("GITHUB_REPOSITORY") ??
-      Deno.env.get("GITHUB_ACTION_REPOSITORY")) || "").split(
-        "/",
-        2,
-      );
+  const actionRepo = ((Deno.env.get("GITHUB_REPOSITORY") ??
+    Deno.env.get("GITHUB_ACTION_REPOSITORY")) || "").split(
+      "/",
+      2,
+    );
 
   if (actionRepo.length > 1) {
     try {
