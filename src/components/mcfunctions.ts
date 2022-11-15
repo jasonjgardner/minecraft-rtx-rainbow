@@ -32,7 +32,7 @@ interface SelectorParameters {
 }
 
 function formatTrail(params: IFormatTrail) {
-  return `execute ${params.who || "@p"} ~ ~ ~ fill ${
+  return `execute as ${params.who || "@p"} positioned as @s run fill ${
     params.where === undefined ? "~ ~-1 ~ ~ ~-1 ~" : params.where.join(" ")
   } ${params.replaceWith} 0 replace ${params.replaceWhat ?? ""}`.trimEnd();
 }
@@ -83,7 +83,7 @@ class EntityTrail {
   }
 
   set replaceWhat(replaceWhat: string) {
-    this._replaceWhat = replaceWhat;
+    this._replaceWhat = replaceWhat.replace(/^/g, "");
   }
 
   get format() {
@@ -174,7 +174,7 @@ export async function entityTrailFunction(
     type: "fireworks_rocket",
     r: 400,
     c: 64,
-  }, "minecraft:air");
+  }, "air");
 
   BottomFireworksTrail.replaceWhat = fireworksBlock;
   FireworksTrail.where = ["~-1", "~", "~", "~-1", "~", "~"];
@@ -183,82 +183,9 @@ export async function entityTrailFunction(
   FireworksTrail.filename = "trails/fireworks";
   BottomFireworksTrail.filename = "trails/fireworks";
 
-  const critters = [
-    new EntityTrail(
-      { type: "pig", r: 400, c: 64 },
-      blockLibrary[`${NAMESPACE}:pink_600_metallic_75`],
-    ),
-    new EntityTrail(
-      { type: "cow", r: 400, c: 64 },
-      blockLibrary[`${NAMESPACE}:brown_700_metallic_75`],
-    ),
-    new EntityTrail(
-      { type: "donkey", r: 400, c: 64 },
-      blockLibrary[`${NAMESPACE}:grey_400_metallic_50`],
-    ),
-    new EntityTrail(
-      { type: "horse", r: 400, c: 64 },
-      blockLibrary[`${NAMESPACE}:brown_400_glowing_25`],
-    ),
-    new EntityTrail(
-      { type: "sheep", r: 400, c: 64 },
-      blockLibrary[`${NAMESPACE}:grey_200_plastic_75`],
-    ),
-    new EntityTrail(
-      { type: "wolf", r: 400, c: 64 },
-      blockLibrary[`${NAMESPACE}:grey_900_metallic_50`],
-    ),
-    new EntityTrail(
-      { type: "fox", r: 400, c: 64 },
-      blockLibrary[`${NAMESPACE}:deep_orange_900_metallic_50`],
-    ),
-    new EntityTrail(
-      { type: "chicken", r: 400, c: 64 },
-      blockLibrary[`${NAMESPACE}:amber_300_plastic_50`],
-    ),
-    new EntityTrail(
-      { type: "polar_bear", r: 400, c: 64 },
-      blockLibrary[`${NAMESPACE}:light_blue_200_metallic_75`],
-    ),
-    new EntityTrail(
-      { type: "rabbit", r: 400, c: 64 },
-      blockLibrary[`${NAMESPACE}:pink_200_plastic_50`],
-    ),
-    new EntityTrail(
-      { type: "llama", r: 400, c: 64 },
-      blockLibrary[`${NAMESPACE}:amber_100_plastic_50`],
-    ),
-    new EntityTrail(
-      { type: "panda", r: 400, c: 64 },
-      blockLibrary[`${NAMESPACE}:grey_200_metallic_50`],
-    ),
-    new EntityTrail(
-      { type: "cat", r: 400, c: 64 },
-      blockLibrary[`${NAMESPACE}:pink_400_metallic_50`],
-    ),
-    new EntityTrail(
-      { type: "cave_spider", r: 400, c: 64 },
-      blockLibrary[`${NAMESPACE}:red_900_glowing_25`],
-    ),
-    new EntityTrail(
-      { type: "bat", r: 400, c: 64 },
-      blockLibrary[`${NAMESPACE}:deep_purple_900_glowing_25`],
-    ),
-    new EntityTrail(
-      { type: "bee", r: 400, c: 64 },
-      blockLibrary[`${NAMESPACE}:amber_100_glowing_25`],
-    ),
-  ];
-
-  // Lazy filename patch
-  critters.forEach((critter) => {
-    critter.filename = `trails/entities/${critter._selector.type}`;
-  });
-
   const entities: EntityTrail[] = [
     FireworksTrail,
     BottomFireworksTrail,
-    ...critters,
   ];
 
   const fishies: { [k: string]: string[] } = {
@@ -302,7 +229,7 @@ export async function entityTrailFunction(
       { type: fish, r: 400, c: 64 },
       blockLibrary[color[0]],
     );
-    FishRiverTrail.replaceWhat = "minecraft:water";
+    FishRiverTrail.replaceWhat = "water";
     FishRiverTrail.where = ["~", "~-2", "~", "~", "~-2", "~"];
 
     const FishBeachedTrail = new EntityTrail(
@@ -310,14 +237,14 @@ export async function entityTrailFunction(
       blockLibrary[color[1] ?? color[0]],
     );
 
-    FishBeachedTrail.replaceWhat = "minecraft:dirt";
+    FishBeachedTrail.replaceWhat = "dirt";
 
     const FishAirTrail = new EntityTrail(
       { type: fish, r: 400, c: 64 },
       blockLibrary[color[2] ?? color[0]],
     );
 
-    FishAirTrail.replaceWhat = "minecraft:air";
+    FishAirTrail.replaceWhat = "air";
 
     FishRiverTrail.filename = `trails/entities/${fish}`;
     FishBeachedTrail.filename = `trails/entities/${fish}`;
@@ -565,7 +492,7 @@ export async function entityTrailFunction(
         },
         replaceWith,
       );
-      ProjectileAirTrail.replaceWhat = "minecraft:air";
+      ProjectileAirTrail.replaceWhat = "air";
       ProjectileAirTrail.where = [
         "~",
         `~-${i + offset}`,
@@ -597,7 +524,7 @@ export async function entityTrailFunction(
 
 export async function colorTrails(blockLibrary: Record<string, BlockEntry>) {
   const REPLACE_ALL = "*";
-  const replacements = ["minecraft:air", "minecraft:water", REPLACE_ALL];
+  const replacements = ["air", "water", REPLACE_ALL];
   const entities: EntityTrail[] = [];
 
   const selectors = ["name", "tag"];
@@ -617,7 +544,7 @@ export async function colorTrails(blockLibrary: Record<string, BlockEntry>) {
           entityTrail.replaceWhat = replaceWhat;
           entityTrail.filename = `trails/colors/keep/${name}`;
         } else {
-          entityTrail.filename = `trails/colors/replace/${name}`;
+          entityTrail.filename = `trails/colors/replace/${name}`; // FIXME: Return in separate function
         }
 
         entities.push(entityTrail);
@@ -638,71 +565,80 @@ export async function colorTrails(blockLibrary: Record<string, BlockEntry>) {
   return [...new Set(functions)].map((f) => `function ${f}`).join(EOL.CRLF);
 }
 
+// export function testForRedstone() {
+//   let fn = '';
+
+//   for (let i = 1; i < 16; i++) {
+//     fn += `testforblock ~ ~1 ~ redstone_dust ${i}` + EOL.CRLF;
+//   }
+
+//   return fn;
+// }
+
 export function rainbowTrailFunction() {
   return [
     {
-      replaceWhat: "minecraft:grass",
+      replaceWhat: "grass",
       replaceWith: "rainbow:green_500_glowing_75",
     },
     {
-      replaceWhat: "minecraft:water",
+      replaceWhat: "water",
       replaceWith: "rainbow:blue_200_glowing_50",
     },
     {
-      replaceWhat: "minecraft:sand",
+      replaceWhat: "sand",
       replaceWith: "rainbow:amber_500_glowing_75",
     },
     {
-      replaceWhat: "minecraft:sandstone",
+      replaceWhat: "sandstone",
       replaceWith: "rainbow:amber_600_glowing_50",
     },
     {
-      replaceWhat: "minecraft:red_sandstone",
+      replaceWhat: "red_sandstone",
       replaceWith: "rainbow:red_700_glowing_50",
     },
     {
-      replaceWhat: "minecraft:dirt",
+      replaceWhat: "dirt",
       replaceWith: "rainbow:brown_700_glowing_50",
     },
     {
-      replaceWhat: "minecraft:snow",
+      replaceWhat: "snow",
       replaceWith: "rainbow:grey_200_glowing_75",
     },
     {
-      replaceWhat: "minecraft:stone",
+      replaceWhat: "stone",
       replaceWith: "rainbow:grey_400_glowing_50",
     },
     {
-      replaceWhat: "minecraft:gravel",
+      replaceWhat: "gravel",
       replaceWith: "rainbow:grey_500_glowing_50",
     },
     {
-      replaceWhat: "minecraft:snow",
+      replaceWhat: "snow",
       replaceWith: "rainbow:grey_100_glowing_25",
     },
     {
-      replaceWhat: "minecraft:warped_nylium",
+      replaceWhat: "warped_nylium",
       replaceWith: "rainbow:teal_600_glowing_50",
     },
     {
-      replaceWhat: "minecraft:leaves",
+      replaceWhat: "leaves",
       replaceWith: "rainbow:green_600_glowing_50",
       where: "~-4 ~-4 ~-4 ~4 ~-1 ~4".split(" "),
     },
     {
-      replaceWhat: "minecraft:leaves2",
-      replaceWith: "rainbow:green_600_glowing_50",
-      where: "~-4 ~-4 ~-4 ~4 ~-1 ~4".split(" "),
-    },
-    {
-      replaceWhat: "minecraft:log",
+      replaceWhat: "log",
       replaceWith: "rainbow:brown_400_metallic_50",
       where: "~-2 ~-2 ~-2 ~2 ~-1 ~2".split(" "),
     },
-    {
-      replaceWhat: "minecraft:log2",
-      replaceWith: "rainbow:brown_400_metallic_50",
-      where: "~-2 ~-2 ~-2 ~2 ~-1 ~2".split(" "),
-    },
-  ].map((fmt: IFormatTrail) => formatTrail(fmt)).join(EOL.CRLF);
+  ].map((fmt: IFormatTrail) =>
+    formatTrail({
+      ...{
+        who: formatSelector("e", {
+          tag: "rainbow_trail",
+        }),
+      },
+      ...fmt,
+    })
+  ).join(EOL.CRLF);
 }
