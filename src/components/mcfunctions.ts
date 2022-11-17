@@ -95,6 +95,11 @@ class EntityTrail {
     });
   }
 
+  get filename() {
+    return this._filename ?? this._selector.name ?? this._selector.type ??
+      "entity_trail";
+  }
+
   set filename(filename: string) {
     this._filename = filename.trim().toLowerCase().replace(/\s+/g, "_");
   }
@@ -130,8 +135,9 @@ function getRainbowBlocks(
   shade: number,
   level: number,
   material: string,
+  colorPalette?: string[],
 ): string[] {
-  const colors = [
+  const colors = colorPalette ?? [
     "red",
     "deep_orange",
     "orange",
@@ -209,6 +215,11 @@ export async function entityTrailFunction(
       `${NAMESPACE}:blue_gray_600_glowing_25`,
       `${NAMESPACE}:blue_gray_700_glowing_25`,
     ],
+    "glow_squid": [
+      `${NAMESPACE}:cyan_500_glowing_25`,
+      `${NAMESPACE}:cyan_600_glowing_25`,
+      `${NAMESPACE}:cyan_700_glowing_25`,
+    ],
     "cod": [
       `${NAMESPACE}:brown_500_glowing_25`,
       `${NAMESPACE}:brown_600_glowing_25`,
@@ -218,6 +229,21 @@ export async function entityTrailFunction(
       `${NAMESPACE}:light_green_500_glowing_25`,
       `${NAMESPACE}:light_green_600_metallic_75`,
       `${NAMESPACE}:light_green_700_glowing_25`,
+    ],
+    "axolotl": [
+      `${NAMESPACE}:pink_500_glowing_25`,
+      `${NAMESPACE}:pink_600_glowing_25`,
+      `${NAMESPACE}:pink_700_glowing_25`,
+    ],
+    "frog": [
+      `${NAMESPACE}:green_700_glowing_25`,
+      `${NAMESPACE}:brown_700_glowing_25`,
+      `${NAMESPACE}:amber_700_glowing_25`,
+    ],
+    "tadpole": [
+      `${NAMESPACE}:green_500_glowing_25`,
+      `${NAMESPACE}:brown_500_glowing_25`,
+      `${NAMESPACE}:amber_500_glowing_25`,
     ],
   };
 
@@ -434,6 +460,46 @@ export async function entityTrailFunction(
       maxRange: 600,
       goesDown: false,
     },
+    {
+      projectile: "egg",
+      filename: "trails/projectiles/egg_rainbow",
+      colors: getRainbowBlocks(500, 25, "glowing"),
+      offset: 1,
+      step: 3,
+      minRange: 4,
+      maxRange: 600,
+      goesDown: false,
+    },
+    {
+      projectile: "ender_pearl",
+      filename: "trails/projectiles/ender_rainbow",
+      colors: getRainbowBlocks(500, 25, "glowing", [
+        "lime",
+        "green",
+        "purple",
+        "deep_purple",
+      ]),
+      offset: 2,
+      step: 8,
+      minRange: 5,
+      maxRange: 600,
+      goesDown: false,
+    },
+    {
+      projectile: "fishing_hook",
+      filename: "trails/projectiles/hook_rainbow",
+      colors: getRainbowBlocks(800, 25, "glowing", [
+        "deep_orange",
+        "red",
+        "purple",
+        "deep_purple",
+      ]),
+      offset: 2,
+      step: 2,
+      minRange: 3,
+      maxRange: 600,
+      goesDown: false,
+    },
   ];
 
   for (
@@ -540,29 +606,48 @@ export async function colorTrails(blockLibrary: Record<string, BlockEntry>) {
           c: 64,
         }, value);
 
+        entityTrail.filename = `trails/colors/replace/${name}`;
+
         if (replaceWhat !== REPLACE_ALL) {
           entityTrail.replaceWhat = replaceWhat;
           entityTrail.filename = `trails/colors/keep/${name}`;
-        } else {
-          entityTrail.filename = `trails/colors/replace/${name}`; // FIXME: Return in separate function
         }
-
         entities.push(entityTrail);
       });
     });
   }
 
   const functions: string[] = [];
+  const replacementFunctions: string[] = [];
 
   for (const entity of entities) {
     const fn = await entity.save();
 
-    if (fn) {
+    if (!fn) {
+      continue;
+    }
+
+    if (
+      entity.filename.startsWith("trails/colors/keep/")
+    ) {
       functions.push(fn);
+    } else if (
+      entity.filename.startsWith("trails/colors/replace/")
+    ) {
+      replacementFunctions.push(fn);
     }
   }
 
-  return [...new Set(functions)].map((f) => `function ${f}`).join(EOL.CRLF);
+  await Deno.writeTextFile(
+    `${DIR_BP}/functions/trails/colors/replace.mcfunction`,
+    [...new Set(replacementFunctions)].map((f) => `function ${f}`).join(
+      EOL.CRLF,
+    ),
+  );
+  await Deno.writeTextFile(
+    `${DIR_BP}/functions/trails/colors/keep.mcfunction`,
+    [...new Set(functions)].map((f) => `function ${f}`).join(EOL.CRLF),
+  );
 }
 
 // export function testForRedstone() {

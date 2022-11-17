@@ -1,4 +1,4 @@
-import { Frame, GIF, Image } from "https://deno.land/x/imagescript/mod.ts";
+import { decode as decodeImage, Frame, GIF, Image } from "imagescript/mod.ts";
 import { extname, join } from "https://deno.land/std@0.123.0/path/mod.ts";
 import { sprintf } from "https://deno.land/std@0.125.0/fmt/printf.ts";
 import { EOL } from "https://deno.land/std@0.125.0/fs/mod.ts";
@@ -59,6 +59,40 @@ function writeFill(
   return `fill ${position} ${position} ${fillWith} 0 keep`;
 }
 
+export async function decode(
+  src: URL,
+  palette: BlockEntry[],
+  offset: number[],
+  axis: Axis = "z",
+): Promise<string[]> {
+  // TODO: Add 10000 line limit
+  const imgSrc = await decodeImage(
+    await (await fetch(src)).arrayBuffer(),
+    true,
+  );
+  const img = imgSrc instanceof GIF ? imgSrc[0] : imgSrc;
+
+  const func: string[] = [];
+
+  for (const [x, y, c] of img.iterateWithColors()) {
+    const nearest =
+      getNearestColor(<RGB> Image.colorToRGB(c), palette)?.behaviorId ??
+        "cobblestone";
+
+    func.push(
+      writeFill(
+        x + offset[0],
+        Math.abs((y + offset[1]) - img.height), // Starts print row at top
+        offset[2],
+        nearest,
+        <Axis> axis,
+      ),
+    );
+  }
+
+  return func;
+}
+
 async function printDecoded(
   name: string,
   idx: number,
@@ -66,7 +100,7 @@ async function printDecoded(
   palette: BlockEntry[],
   offset: number[],
 ) {
-  const axises = ["x", "y", "z"] as const;
+  const axes = ["x", "y", "z"] as const;
 
   // TODO: Add 10000 line limit
 
@@ -76,7 +110,7 @@ async function printDecoded(
         label === material.label
       );
 
-      return await Promise.all(axises.map(async (axis) => {
+      return await Promise.all(axes.map(async (axis) => {
         const func: string[] = [];
 
         for (const [x, y, c] of img.iterateWithColors()) {

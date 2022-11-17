@@ -33,8 +33,7 @@ import setup from "./components/_setup.ts";
 import { createManifests } from "./components/manifest.ts";
 import print from "./components/printer.ts";
 import render from "./components/_render.ts";
-
-const res: BlockEntry[] = [];
+import assemble from "./components/_assemble.ts";
 
 let textureData: MinecraftTerrainData = {};
 
@@ -43,20 +42,8 @@ let blocksData: MinecraftData = {};
 let languages: LanguagesContainer = {
   en_US: [],
 };
-materials.forEach((material: IMaterial) => {
-  filteredBlocks.forEach((block: IBlock) => {
-    let itr = material.endStep;
-    while (itr >= 0) {
-      if (
-        itr >= material.minimumLevel && itr <= material.maximumLevel
-      ) {
-        res.push(new BlockEntry(block, material, itr));
-      }
 
-      itr -= material.step;
-    }
-  });
-});
+const res = assemble();
 
 ////////
 
@@ -178,10 +165,8 @@ await Deno.writeTextFile(
   `${DIR_BP}/functions/entitytrail.mcfunction`,
   await entityTrailFunction(blockLibrary),
 );
-await Deno.writeTextFile(
-  `${DIR_BP}/functions/colortrail.mcfunction`,
-  await colorTrails(blockLibrary),
-);
+
+await colorTrails(blockLibrary);
 
 await Deno.writeTextFile(
   join(DIR_RP, "blocks.json"),

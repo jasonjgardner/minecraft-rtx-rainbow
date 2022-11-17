@@ -5,4 +5,11 @@
     "deno.lint": true,
     "deno.unstable": true,
     "editor.defaultFormatter": "denoland.vscode-deno"
+    "nuxt.isNuxtApp": false,
+    "[javascript]": {
+        "editor.defaultFormatter": "denoland.vscode-deno"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "denoland.vscode-deno"
+    }
 }

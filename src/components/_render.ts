@@ -23,7 +23,7 @@ export default async function render(block: BlockEntry, size: number) {
   const img = Image.renderSVG(svg, size);
   img.resize(size, size);
 
-  img.opacity(block.alpha);
+  img.opacity(block.alpha, true);
 
   await Deno.writeFile(
     `${DIR_RP}/textures/blocks/${block.id}.png`,
