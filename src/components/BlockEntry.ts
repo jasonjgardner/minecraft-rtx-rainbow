@@ -6,7 +6,7 @@ import type {
   MinecraftEvent,
   RGB,
 } from "../../typings/types.ts";
-import { channelPercentage, hex2rgb } from "../_utils.ts";
+import { hex2rgb } from "https://crux.land/3RdawE";
 import { BEHAVIOR_BLOCK_FORMAT_VERSION, NAMESPACE } from "../store/_config.ts";
 
 export default class BlockEntry {

@@ -1,3 +1,4 @@
+import type { Axis } from "../../typings/types.ts";
 import { decode as decodeImage, Frame, GIF, Image } from "imagescript/mod.ts";
 import { extname, join } from "https://deno.land/std@0.123.0/path/mod.ts";
 import { sprintf } from "https://deno.land/std@0.125.0/fmt/printf.ts";
@@ -5,7 +6,7 @@ import { EOL } from "https://deno.land/std@0.125.0/fs/mod.ts";
 import { materials } from "../store/_materials.ts";
 import BlockEntry from "./BlockEntry.ts";
 import { DIR_BP } from "../store/_config.ts";
-import { hex2rgb } from "../_utils.ts";
+import { hex2rgb } from "https://crux.land/3RdawE";
 
 import type { IMaterial, RGB } from "../../typings/types.ts";
 
@@ -16,8 +17,6 @@ const MASK_COLOR = [
 ]; // Image.rgbToColor(...hex2rgb("#ff00ff"));
 const FUNCTIONS_NAMESPACE = "printer";
 const DIR_FUNCTIONS = join(DIR_BP, "functions", FUNCTIONS_NAMESPACE);
-
-type Axis = "x" | "y" | "z";
 
 function colorDistance(color1: RGB, color2: RGB) {
   return Math.sqrt(
@@ -64,6 +63,7 @@ export async function decode(
   palette: BlockEntry[],
   offset: number[],
   axis: Axis = "z",
+  absolutePosition = false,
 ): Promise<string[]> {
   // TODO: Add 10000 line limit
   const imgSrc = await decodeImage(
@@ -78,6 +78,15 @@ export async function decode(
     const nearest =
       getNearestColor(<RGB> Image.colorToRGB(c), palette)?.behaviorId ??
         "cobblestone";
+
+    if (absolutePosition) {
+      func.push(
+        `fill ${x + offset[0]} ${(img.height - y) + offset[1]})} ${offset[2]} ${
+          x + offset[0]
+        } ${y + offset[1]} ${offset[2]} ${nearest} 0 keep`,
+      );
+      continue;
+    }
 
     func.push(
       writeFill(

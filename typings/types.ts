@@ -102,3 +102,5 @@ export interface IBlock {
   enabled?: boolean;
   color: string;
 }
+
+export type Axis = "x" | "y" | "z";

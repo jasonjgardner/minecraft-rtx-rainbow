@@ -1,15 +1,4 @@
-import { Image } from "https://deno.land/x/imagescript/mod.ts";
-
-export function hex2rgb(hex: string): [number, number, number] {
-  const result = /^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-
-  if (!result) {
-    throw Error("Invalid HEX string input");
-  }
-
-  const rgb = result.slice(1, 4).map((hexCode) => parseInt(hexCode, 16));
-  return [rgb[0], rgb[1], rgb[2]];
-}
+import { Image } from "imagescript/mod.ts";
 
 export async function encodeRGBColor(layerValue: number[], size = 16) {
   const [r, g, b, alpha] = layerValue;
