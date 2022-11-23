@@ -81,7 +81,7 @@ export async function decode(
 
     if (absolutePosition) {
       func.push(
-        `fill ${x + offset[0]} ${(img.height - y) + offset[1]})} ${offset[2]} ${
+        `fill ${x + offset[0]} ${(img.height - y) + offset[1]} ${offset[2]} ${
           x + offset[0]
         } ${y + offset[1]} ${offset[2]} ${nearest} 0 keep`,
       );
@@ -126,7 +126,7 @@ async function printDecoded(
           const nearest = MASK_COLOR.includes(c)
             ? "air"
             : getNearestColor(<RGB> Image.colorToRGB(c), materialPalette)
-              .behaviorId;
+              ?.behaviorId ?? "cobblestone";
 
           func.push(
             writeFill(

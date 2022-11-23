@@ -182,13 +182,13 @@ export default class BlockEntry {
       //"minecraft:friction": this._material.friction,
       // "minecraft:explosion_resistance": this._material.explosionResistance ??
       //   true,
-      // "minecraft:map_color": this.hexColor(),
-      // "minecraft:light_dampening": this._material.lightAbsorption(
-      //   this.level,
-      // ),
-      // "minecraft:light_emission": this._material.lightEmission(
-      //   this.level,
-      // ),
+      "minecraft:map_color": this.hexColor(),
+      "minecraft:light_dampening": this._material.lightAbsorption(
+        this.level,
+      ),
+      "minecraft:light_emission": this._material.lightEmission(
+        this.level,
+      ),
     };
 
     if (this._geometry) {

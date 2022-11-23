@@ -95,6 +95,32 @@ export interface IMaterial {
 
   permutation?: Permutation;
   geometry?: string;
+  shading?: {
+    texture: string;
+    blend:
+      | "source-over"
+      | "source-in"
+      | "source-atop"
+      | "destination-over"
+      | "lighter"
+      | "copy"
+      | "xor"
+      | "multiply"
+      | "screen"
+      | "overlay"
+      | "darken"
+      | "lighten"
+      | "color-dodge"
+      | "color-burn"
+      | "hard-light"
+      | "soft-light"
+      | "difference"
+      | "exclusion"
+      | "hue"
+      | "saturation"
+      | "color"
+      | "luminosity";
+  }[];
 }
 
 export interface IBlock {

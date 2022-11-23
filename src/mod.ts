@@ -91,7 +91,14 @@ for (let itr = 0; itr < len; itr++) {
     ),
   );
 
-  await render(block, 16);
+  const rendered = await render(block, 16);
+
+  if (rendered) {
+    await Deno.writeFile(
+      `${DIR_RP}/textures/blocks/${block.id}.png`,
+      rendered,
+    );
+  }
 
   /// Write texture
   await Deno.writeTextFile(

@@ -28,16 +28,15 @@ export default class FlipbookEntry extends BlockEntry implements IBlock {
       50,
     );
 
-    this._base = formatFlipbookName(block.color);
+    this._base = formatFlipbookName(block.color, material);
   }
 
   get id() {
-    return `${this._base}_${this._material.name["en_US"]}`.replace(/\s+/g, "_")
-      .toLowerCase();
+    return this._base;
   }
 
   getTitle(lang: LanguageId) {
-    return `${this._material.name[lang]} ${this.tint} Flipbook`;
+    return `${super.getTitle(lang)} Flipbook`;
   }
 
   get textureSet() {
