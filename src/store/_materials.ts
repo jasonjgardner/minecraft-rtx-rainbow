@@ -32,24 +32,31 @@ export const materials: IMaterial[] = [
   {
     name: { en_US: "Metallic" },
     label: "metal",
-    normal: "block_normal",
+    normal: "brick_normal",
     sound: "note.iron_xylophone",
-    friction: (idx: number) => Math.min(0.5, Math.max(0.001, idx * 0.01)),
+    friction: (idx: number) => Math.min(0.5, Math.max(0.001, idx * 0.1)),
     minimumLevel: 50,
     maximumLevel: 100,
     endStep: 100,
     step: 25,
     explosionResistance: (idx: number) => Math.min(1, Math.max(0, idx * 0.01)),
-    lightAbsorption: (_itr: number) => 15,
+    lightAbsorption: (itr: number) =>
+      Math.min(15, Math.max(0, 15 * (itr / 100))),
     lightEmission: () => 0,
     metalness: (idx: number) => channelPercentage(idx),
     emissive: () => 0,
     roughness: () => 0,
     opacity: () => 1,
-    shading: [{
-      blend: "lighten",
-      texture: "metallic",
-    }],
+    shading: [
+      {
+        blend: "overlay",
+        texture: "metal_dodge",
+      },
+      {
+        blend: "hard-light",
+        texture: "metal_burn",
+      },
+    ],
   },
   {
     name: { en_US: "Glowing" },
@@ -61,7 +68,7 @@ export const materials: IMaterial[] = [
     maximumLevel: 100,
     endStep: 100,
     step: 25,
-    explosionResistance: (idx: number) => Math.min(1, Math.max(0, idx * 0.01)),
+    explosionResistance: (idx: number) => Math.min(1, Math.max(0, idx * 0.1)),
     lightAbsorption: (_itr: number) => 10,
     lightEmission: (itr: number) =>
       Math.max(0, Math.min(15, Math.round(itr * 0.9))),
@@ -137,6 +144,5 @@ export const materials: IMaterial[] = [
   //   emissive: () => 0,
   //   roughness: () => 0,
   //   opacity: () => 1,
-
   // }
 ];

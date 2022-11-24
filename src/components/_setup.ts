@@ -38,6 +38,11 @@ export default async function setup() {
   );
 
   await Deno.copyFile(
+    join(DIR_SRC, "assets", "materials", "brick_normal.png"),
+    join(DIR_RP, "/textures/blocks/brick_normal.png"),
+  );
+
+  await Deno.copyFile(
     join(DIR_SRC, "assets", "models", "pane.geo.json"),
     join(DIR_RP, "/models/blocks/pane.geo.json"),
   );

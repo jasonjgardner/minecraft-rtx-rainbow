@@ -52,16 +52,29 @@ async function flipbookData(
     flipbookBlock.toString(prevBlock, nextBlock),
   );
 
-  const flipbookFrames: number[] = [];
-  const startIdx = Math.round(frameCount * 0.5);
+  const flipbookFrames: number[] = [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+  ];
+  // const startIdx = Math.round(frameCount * 0.5);
 
-  for (let itr = startIdx; itr < frameCount; itr++) {
-    flipbookFrames.push(itr);
-  }
+  // for (let itr = startIdx; itr < frameCount; itr++) {
+  //   flipbookFrames.push(itr);
+  // }
 
-  for (let itr = 1; itr < startIdx; itr++) {
-    flipbookFrames.push(itr);
-  }
+  // for (let itr = 1; itr < startIdx; itr++) {
+  //   flipbookFrames.push(itr);
+  // }
 
   return {
     flipbook_texture: `textures/blocks/${flipbookBlock.id}`,
