@@ -50,11 +50,11 @@ export const materials: IMaterial[] = [
     shading: [
       {
         blend: "overlay",
-        texture: "metal_dodge",
+        texture: "metal_overlay",
       },
       {
-        blend: "hard-light",
-        texture: "metal_burn",
+        blend: "overlay",
+        texture: "metal_reflectivity",
       },
     ],
   },
