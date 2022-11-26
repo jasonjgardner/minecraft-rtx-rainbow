@@ -2,7 +2,8 @@
   "tasks": {
     "test": "deno run --allow-read --allow-net --allow-env --allow-write ./src/mod.ts --DEPLOY true",
     "build": "deno run --allow-read --allow-net --allow-env --allow-write ./src/mod.ts",
-    "art": "deno run --allow-read --allow-net --allow-env --allow-write ./src/mod.ts --ART_DIR ./px"
+    "art": "deno run --allow-read --allow-net --allow-env --allow-write ./src/mod.ts --ART_DIR ./px",
+    "serve": "deno run --allow-read --allow-net --allow-env --allow-write ./serve.ts"
   },
   "fmt": {
     "files": {

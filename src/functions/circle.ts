@@ -1,7 +1,3 @@
-function positionAbsolute(p: number) {
-  return;
-}
-
 export default function circle({ parameters, queueCommandRequest, state }: {
   parameters: URLSearchParams;
   queueCommandRequest: (commandLine: string) => void;
