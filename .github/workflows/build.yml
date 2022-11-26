@@ -19,11 +19,6 @@ jobs:
         uses: denoland/setup-deno@004814556e37c54a2f6e31384c9e18e983317366
         with:
           deno-version: v1.x
-          
-      - name: Setup zip
-        run: |
-          sudo apt-get update
-          sudo apt-get -y install zip
 
       - name: Run build script
         run: deno run -A --unstable --allow-env src/mod.ts
@@ -39,10 +34,16 @@ jobs:
           mkdir dist
           cd build
           zip -r -0 ../dist/RAINBOW.mcaddon ./rainbow\ *
-          
+          zip -r -0 ../dist/docs.zip ./docs
       - name: Upload output
         uses: actions/upload-artifact@v2
         with:
           name: RAINBOW.mcaddon
           path: |
             dist/*.mcaddon
+      - name: Upload docs
+        uses: actions/upload-artifact@v2
+        with:
+            name: 🌈.zip
+            path: |
+              dist/docs.zip
