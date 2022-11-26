@@ -32,7 +32,7 @@ export const materials: IMaterial[] = [
   {
     name: { en_US: "Metallic" },
     label: "metal",
-    normal: "brick_normal",
+    normal: "metal_normal",
     sound: "note.iron_xylophone",
     friction: (idx: number) => Math.min(0.5, Math.max(0.001, idx * 0.1)),
     minimumLevel: 50,
