@@ -7,7 +7,8 @@
     "editor.defaultFormatter": "denoland.vscode-deno",
     "nuxt.isNuxtApp": false,
     "cSpell.words": [
-        "flipbook"
+        "flipbook",
+        "flipbooks"
     ],
     "[javascript]": {
         "editor.defaultFormatter": "denoland.vscode-deno"

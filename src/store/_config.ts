@@ -18,6 +18,8 @@ export const DIR_SRC = join(DIR_ROOT, "/src");
  */
 export const DIR_DIST = join(DIR_ROOT, "/build");
 
+export const DIR_DOCS = join(DIR_DIST, "/docs");
+
 function getUuid(rp = true, pack = true): string {
   const key = `${rp ? "RP" : "BP"}_${pack ? "PACK" : "MODULE"}_UUID`;
   const envVar = Deno.env.get(key);
