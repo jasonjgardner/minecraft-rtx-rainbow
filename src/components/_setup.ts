@@ -25,6 +25,8 @@ export default async function setup() {
       DIR_DOCS,
       `${DIR_DOCS}/assets`,
       `${DIR_DOCS}/assets/blocks`,
+      `${DIR_DOCS}/materials`,
+      `${DIR_DOCS}/functions`,
     ].map(
       (dir) => ensureDir(dir),
     ),
