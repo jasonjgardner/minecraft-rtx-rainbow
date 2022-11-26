@@ -101,4 +101,6 @@ export async function createManifests(releaseType?: ReleaseType) {
       2,
     ),
   );
+
+  return { RP: rpVersion.join("."), BP: bpVersion.join(".") };
 }
