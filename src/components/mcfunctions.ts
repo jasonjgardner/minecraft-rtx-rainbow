@@ -588,7 +588,9 @@ export async function entityTrailFunction(
   return [...new Set(functions)].map((f) => `function ${f}`).join(EOL.CRLF);
 }
 
-export async function colorTrails(blockLibrary: Record<string, BlockEntry>) {
+export async function colorTrails(
+  blockLibrary: Record<string, BlockEntry>,
+): Promise<string[]> {
   const REPLACE_ALL = "*";
   const replacements = ["air", "water", REPLACE_ALL];
   const entities: EntityTrail[] = [];
@@ -612,6 +614,7 @@ export async function colorTrails(blockLibrary: Record<string, BlockEntry>) {
           entityTrail.replaceWhat = replaceWhat;
           entityTrail.filename = `trails/colors/keep/${name}`;
         }
+
         entities.push(entityTrail);
       });
     });
@@ -648,6 +651,8 @@ export async function colorTrails(blockLibrary: Record<string, BlockEntry>) {
     `${DIR_BP}/functions/trails/colors/keep.mcfunction`,
     [...new Set(functions)].map((f) => `function ${f}`).join(EOL.CRLF),
   );
+
+  return [...functions, ...replacementFunctions];
 }
 
 // export function testForRedstone() {

@@ -5,12 +5,13 @@ import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
 import BlockEntry from "./BlockEntry.ts";
 import { pixelPrinter } from "./ImagePrinter.ts";
 import { DIR_PIXEL_ART } from "/src/store/_config.ts";
+import { image as markdownImage, Markdown } from "deno_markdown/mod.ts";
 
 async function githubAvatars(
   owner: string,
   repo: string,
   palette: BlockEntry[],
-) {
+): Promise<string> {
   const sponsorChunkSize = 4;
   const octokit = new Octokit();
 
@@ -27,6 +28,10 @@ async function githubAvatars(
     throw Error("Failed fetching GitHub data");
   }
 
+  const markdown = new Markdown();
+
+  markdown.header("GitHub Stargazers", 3);
+
   await Promise.allSettled(
     data.map(async (
       res: {
@@ -36,20 +41,34 @@ async function githubAvatars(
       },
     ) => {
       try {
-        await pixelPrinter(
+        const fns = await pixelPrinter(
           `stargazers/${res.login}`,
           new URL(res.avatar_url),
           palette,
           sponsorChunkSize,
+        );
+
+        markdown.header(res.login, 5).paragraph(
+          markdownImage(res.login, res.avatar_url),
+        );
+        fns.forEach((fn) =>
+          markdown.codeBlock(`/function printer/${fn}`, "mcfunction")
         );
       } catch (err) {
         console.error('Failed printing name: "%s"; Reason: %s', err);
       }
     }),
   );
+
+  return markdown.content;
 }
 
-export default async function print(palette: BlockEntry[], chunks = 6) {
+export default async function print(
+  palette: BlockEntry[],
+  chunks = 6,
+): Promise<string> {
+  const markdown = new Markdown();
+
   /**
    * Block palette containing filtered materials. Excludes very bright blocks and lower levels.
    */
@@ -60,14 +79,28 @@ export default async function print(palette: BlockEntry[], chunks = 6) {
   const printChunks = Math.max(1, Math.min(16, chunks));
 
   try {
+    markdown.header("Pixel Art", 3);
+
     // Print images in pixel_art directory
     for await (const entry of walk(DIR_PIXEL_ART)) {
       if (entry.isFile) {
-        await pixelPrinter(
-          basename(entry.name, extname(entry.name)),
+        const name = basename(entry.path, extname(entry.path));
+
+        const remoteUrl = new URL(
+          `https://raw.githubusercontent.com/jasonjgardner/minecraft-rtx-rainbow/main/src/assets/pixel_art/${entry.path}`,
+        );
+
+        markdown.header(name, 5).paragraph(markdownImage(name, remoteUrl.href));
+
+        const fns = await pixelPrinter(
+          name,
           toFileUrl(entry.path),
           printablePalette,
           printChunks,
+        );
+
+        fns.forEach((fn) =>
+          markdown.codeBlock(`/function printer/pixel_art/${fn}`, "mcfunction")
         );
       }
     }
@@ -79,8 +112,8 @@ export default async function print(palette: BlockEntry[], chunks = 6) {
     console.error(err);
   }
 
-  const actionRepo = ((Deno.env.get("GITHUB_REPOSITORY") ??
-    Deno.env.get("GITHUB_ACTION_REPOSITORY")) || "").split(
+  const actionRepo = (Deno.env.get("GITHUB_REPOSITORY") ??
+    Deno.env.get("GITHUB_ACTION_REPOSITORY") ?? "").split(
       "/",
       2,
     );
@@ -88,9 +121,15 @@ export default async function print(palette: BlockEntry[], chunks = 6) {
   if (actionRepo.length > 1) {
     try {
       // Print images from GitHub API
-      await githubAvatars(actionRepo[0], actionRepo[1], printablePalette);
+      markdown.content += await githubAvatars(
+        actionRepo[0],
+        actionRepo[1],
+        printablePalette,
+      );
     } catch (err) {
       console.error("Failed adding Stargazers: %s", err);
     }
   }
+
+  return markdown.content;
 }

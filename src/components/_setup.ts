@@ -1,11 +1,12 @@
-import { emptyDir, ensureDir } from "https://deno.land/std@0.123.0/fs/mod.ts";
-import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
-import { DIR_BP, DIR_RP, DIR_SRC } from "../store/_config.ts";
+import { emptyDir, ensureDir } from "fs/mod.ts";
+import { join } from "path/mod.ts";
+import { DIR_BP, DIR_DOCS, DIR_RP, DIR_SRC } from "../store/_config.ts";
 import { decode } from "imagescript/mod.ts";
 
 export default async function setup() {
   await emptyDir(DIR_BP);
   await emptyDir(DIR_RP);
+  await emptyDir(DIR_DOCS);
 
   await Promise.all(
     [
@@ -21,6 +22,9 @@ export default async function setup() {
       `${DIR_RP}/textures/blocks`,
       `${DIR_RP}/models/blocks`,
       `${DIR_RP}/texts`,
+      DIR_DOCS,
+      `${DIR_DOCS}/assets`,
+      `${DIR_DOCS}/assets/blocks`,
     ].map(
       (dir) => ensureDir(dir),
     ),
@@ -40,6 +44,11 @@ export default async function setup() {
   await Deno.copyFile(
     join(DIR_SRC, "assets", "materials", "brick_normal.png"),
     join(DIR_RP, "/textures/blocks/brick_normal.png"),
+  );
+
+  await Deno.copyFile(
+    join(DIR_SRC, "assets", "materials", "metal_normal.png"),
+    join(DIR_RP, "/textures/blocks/metal_normal.png"),
   );
 
   await Deno.copyFile(

@@ -175,6 +175,7 @@ export async function pixelPrinter(
 
   let fnNames: Array<string | undefined> = [];
   let idx = 0;
+  const results = [];
 
   for await (const frame of frames) {
     if (frame.width > size) {
@@ -187,13 +188,19 @@ export async function pixelPrinter(
     // Align frames as stack
     const offsets = [0, 0, idx];
 
-    await printDecoded(
-      name,
-      idx,
-      frame,
-      palette,
-      offsets,
+    results.push(
+      await printDecoded(
+        name,
+        idx,
+        frame,
+        palette,
+        offsets,
+      ),
     );
     idx++;
   }
+
+  fnNames = results.flat(2);
+
+  return fnNames;
 }

@@ -2,6 +2,8 @@ import "dotenv/load.ts";
 import { join } from "path/mod.ts";
 import { sprintf } from "fmt/printf.ts";
 import { EOL } from "fs/mod.ts";
+import { toBase64 } from "https://deno.land/x/fast_base64@v0.1.7/mod.ts";
+import { ListTypes, Markdown } from "deno_markdown/mod.ts";
 import type {
   IBlock,
   IMaterial,
@@ -12,13 +14,15 @@ import type {
 } from "/typings/types.ts";
 import {
   DIR_BP,
+  DIR_DIST,
+  DIR_DOCS,
   DIR_RP,
   MIP_LEVELS,
   NAMESPACE,
   RELEASE_TYPE,
 } from "./store/_config.ts";
 import { getConfig } from "/src/_utils.ts";
-import { filteredBlocks } from "./store/_blocks.ts";
+import blocks, { filteredBlocks } from "./store/_blocks.ts";
 import BlockEntry from "./components/BlockEntry.ts";
 import { materials } from "./store/_materials.ts";
 import {
@@ -42,13 +46,16 @@ let blocksData: MinecraftData = {};
 let languages: LanguagesContainer = {
   en_US: [],
 };
-
+const markdown = new Markdown();
 const res = assemble();
 
 ////////
 
 await setup();
-await createManifests(RELEASE_TYPE);
+const { RP: rpVersion } = await createManifests(RELEASE_TYPE);
+
+markdown.header("RAINBOW!!", 1).paragraph(`v${rpVersion}`);
+
 //await createItems();
 
 const mcfunctions: Record<string, string[]> = {
@@ -63,8 +70,18 @@ const blockLibrary: Record<string, BlockEntry> = {};
 
 const len = res.length;
 
+const blocksTableData: Array<string[]> = [[
+  "Block",
+  "ID",
+  "Material",
+  "Color",
+  "Tint",
+  "Level",
+  "Preview",
+]];
+
 for (let itr = 0; itr < len; itr++) {
-  const block = res[itr];
+  const block: BlockEntry = res[itr];
 
   blockLibrary[block.behaviorId] = block;
 
@@ -93,12 +110,29 @@ for (let itr = 0; itr < len; itr++) {
 
   const rendered = await render(block, 16);
 
-  if (rendered) {
-    await Deno.writeFile(
-      `${DIR_RP}/textures/blocks/${block.id}.png`,
-      rendered,
-    );
+  if (!rendered) {
+    throw new Error(`Failed to render block: ${block.id}`);
   }
+
+  await Deno.writeFile(
+    `${DIR_RP}/textures/blocks/${block.id}.png`,
+    rendered,
+  );
+
+  await Deno.writeFile(
+    `${DIR_DOCS}/assets/blocks/${block.resourceId}.png`,
+    rendered,
+  );
+
+  blocksTableData.push([
+    block.name[<LanguageId> "en_US"],
+    block.behaviorId,
+    block.material?.name[<LanguageId> "en_US"] ?? "",
+    block.color,
+    `${block.tint}`,
+    `${block.level}`,
+    `![${block.resourceId}](assets/blocks/${block.resourceId}.png)`,
+  ]);
 
   /// Write texture
   await Deno.writeTextFile(
@@ -125,6 +159,7 @@ for (let itr = 0; itr < len; itr++) {
   ) {
     let flipbooksJson;
     // FIXME: Dumbass dependencies injection
+    // TODO: Create GIF preview for docs
     [blocksData, textureData, languages, flipbooksJson] = await writeFlipbooks(
       atlasGroup,
       {
@@ -145,10 +180,10 @@ for (let itr = 0; itr < len; itr++) {
   atlasGroup.push(block);
 }
 
-const tickers: string[] = [
-  //  "rainbowtrail",
-  //  "entitytrail",
-];
+markdown.table(blocksTableData);
+
+const functionsList = Object.keys(mcfunctions);
+const tickers: string[] = [];
 
 for (const func in mcfunctions) {
   await Deno.writeTextFile(
@@ -165,15 +200,26 @@ await Deno.writeTextFile(
 );
 
 await Deno.writeTextFile(
-  `${DIR_BP}/functions/rainbowtrail.mcfunction`,
+  `${DIR_BP}/functions/rainbow_trail.mcfunction`,
   rainbowTrailFunction(),
 );
+
+markdown.header("Rainbow Trail", 4).paragraph(
+  "TODO: Document trail replacements",
+).codeBlock("/function rainbow_trail");
+
 await Deno.writeTextFile(
-  `${DIR_BP}/functions/entitytrail.mcfunction`,
+  `${DIR_BP}/functions/entity_trail.mcfunction`,
   await entityTrailFunction(blockLibrary),
 );
 
-await colorTrails(blockLibrary);
+markdown.header("Entity Trails", 4).paragraph(
+  "TODO: Document trail replacements",
+);
+
+const colorFunctions = await colorTrails(blockLibrary);
+markdown.header("Color Trails", 4);
+colorFunctions.forEach((fn) => markdown.codeBlock(fn, "mcfunction"));
 
 await Deno.writeTextFile(
   join(DIR_RP, "blocks.json"),
@@ -211,11 +257,19 @@ await Deno.writeTextFile(
   JSON.stringify(Object.keys(languages)),
 );
 
+markdown.header("Functions", 2);
+
+for (const func of functionsList) {
+  markdown.codeBlock(`/function ${func}`, "mcfunction");
+}
+
 try {
-  await print(res);
+  markdown.content += await print(res);
 } catch (e) {
   console.error(e);
 }
+
+await Deno.writeTextFile(`${DIR_DOCS}/README.md`, markdown.content);
 
 if (getConfig("DEPLOY", "false") !== "false") {
   await deployToDev();
