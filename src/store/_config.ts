@@ -60,7 +60,7 @@ export const DIR_RP = join(DIR_DIST, `/${NAMESPACE} RP`);
 export const DIR_BP = join(DIR_DIST, `/${NAMESPACE} BP`);
 
 export const TARGET_VERSION = semverVector(
-  Deno.env.get("TARGET_VERSION") || "1.19.40",
+  Deno.env.get("TARGET_VERSION") || "1.19.50",
 );
 
 const ART_DIR = getConfig("ART_DIR");

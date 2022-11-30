@@ -130,3 +130,37 @@ export interface IBlock {
 }
 
 export type Axis = "x" | "y" | "z";
+
+export type PackModule = {
+  uuid?: string;
+  module_name?: string;
+  description?: string;
+  version: number[] | string;
+  language?: "javascript" | "json";
+  type?: "script" | "data" | "resource";
+  entry?: string;
+};
+
+export type WssState = {
+  currentRequestIdx: number;
+  updatePending?: boolean;
+  sendRate?: number;
+  offset?: [number, number, number];
+  useAbsolutePosition?: boolean;
+  axis?: Axis;
+  material?: string;
+};
+
+export interface WssParams {
+  parameters: URLSearchParams;
+  queueCommandRequest: (commandLine: string) => void;
+  formatPosition: (
+    x: number,
+    y: number,
+    z: number,
+    offsetX?: number,
+    offsetY?: number,
+    offsetZ?: number,
+  ) => string;
+  state?: WssState;
+}
