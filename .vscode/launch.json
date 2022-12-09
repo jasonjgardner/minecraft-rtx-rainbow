@@ -9,6 +9,7 @@
       "name": "Build",
       "type": "pwa-node",
       "program": "${workspaceFolder}/src/mod.ts",
+      "args": ["--DEPLOY true"],
       "cwd": "${workspaceFolder}",
       "runtimeExecutable": "C:\\Users\\jason\\.deno\\bin\\deno.EXE",
       "runtimeArgs": [
