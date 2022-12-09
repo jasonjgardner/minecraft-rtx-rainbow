@@ -1,9 +1,6 @@
+import type { WssParams } from "../../typings/types.ts";
 export default function checkerboard(
-  { parameters, queueCommandRequest, state }: {
-    parameters: URLSearchParams;
-    queueCommandRequest: (commandLine: string) => void;
-    state: Record<string, any>;
-  },
+  { parameters, queueCommandRequest, formatPosition }: WssParams,
 ) {
   const axis = parameters.get("axis") ?? "y";
   const [evenBlock, oddBlock] = (parameters.get("block") ?? "stone,cobblestone")
@@ -18,10 +15,6 @@ export default function checkerboard(
     parseInt(v, 10)
   );
 
-  const formatPosition = state.useAbsolutePosition
-    ? (pos: number) => pos
-    : (pos: number) => `~${pos}`;
-
   const positions: number[][] = [];
   for (let x = xStart; x <= xEnd; x++) {
     for (let z = zStart; z <= zEnd; z++) {
@@ -33,26 +26,18 @@ export default function checkerboard(
     const block = itr % 2 === 0 ? evenBlock : oddBlock;
     let [x, y, z] = position;
 
-    if (state.useAbsolutePosition) {
-      x += xOffset ?? state.offset[0];
-      y += state.offset[1];
-      z += zOffset ?? state.offset[2];
-    }
-
     if (axis === "x") {
       [x, y, z] = [y, z, x];
     } else if (axis === "z") {
       [x, y, z] = [z, x, y];
     }
 
-    const alignedPosition = [x, y, z].map((p) => formatPosition(p)).join(" ");
-
     // Reposition over axis
 
     console.log("Plotting %s at %o", block, position);
 
     queueCommandRequest(
-      `setblock ${alignedPosition} ${block}`,
+      `setblock ${formatPosition(x, y, z, xOffset, 0, zOffset)} ${block}`,
     );
 
     itr++;

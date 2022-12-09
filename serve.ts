@@ -1,7 +1,9 @@
-import type { Axis } from "./typings/types.ts";
+import type { Axis, WssParams, WssState } from "./typings/types.ts";
 import { decode } from "./src/components/ImagePrinter.ts";
 import assemble from "./src/components/_assemble.ts";
 import { serve } from "https://deno.land/std@0.164.0/http/server.ts";
+import { join } from "https://deno.land/std@0.164.0/path/win32.ts";
+import { ensureDir } from "https://deno.land/std@0.164.0/fs/mod.ts";
 
 type SubscribeEvents =
   | "AdditionalContentLoaded"
@@ -95,19 +97,42 @@ type SubscribeEvents =
 const requests: Array<
   { uuid: string; content: string; timestamp: number; result?: boolean }
 > = [];
-const state = {
-  idx: 0,
+const state: WssState = {
+  currentRequestIdx: 0,
   updatePending: false,
   material: "plastic_50",
   sendRate: 10,
   offset: [8, 0, -16],
   useAbsolutePosition: false,
   axis: "x" as Axis,
-  hasFocus: true,
+  blockHistory: [],
+  blockHistoryMaxLength: 500,
+  functionLog: join(Deno.cwd(), 'build', 'wss', 'functions')
 };
 
-function getBlockLibrary(material: string) {
-  return assemble().filter((b) => b.behaviorId.includes(material));
+const formatPosition = (x: number, y: number, z: number, offsetX?: number, offsetY?: number, offsetZ?: number) => {
+  const { offset, useAbsolutePosition } = state;
+  let [ox, oy, oz] = offset || [0, 0, 0];
+
+  if (offsetX) {
+    ox += offsetX;
+  }
+
+  if (offsetY) {
+    oy += offsetY;
+  }
+
+  if (offsetZ) {
+    oz += offsetZ;
+  }
+
+  const [nx, ny, nz] = [x - ox, y - oy, z - oz];
+
+  return useAbsolutePosition ? `${nx} ${ny} ${nz}` : `~${nx} ~${ny} ~${nz}`;
+};
+
+function getBlockLibrary(material: string, exclude?: string[]) {
+  return assemble(exclude).filter((b) => b.behaviorId.includes(material));
 }
 
 let connectionUpdateInterval: number | undefined;
@@ -134,6 +159,24 @@ async function watch(fnNameInput: string) {
     await queueFunctionFile(fnNameInput);
   }
 }
+
+/**
+ * Generate function on-the-fly from a string of commands, and queue it for execution
+ */
+function logFunction(fnName: string, content: string) {
+  if (!state.functionLog) {
+    return;
+  }
+
+  const logPath = join(state.functionLog, `${fnName}.mcfunction`);
+
+  Deno.writeTextFileSync(logPath, content, { append: true });
+
+  queueCommandRequest(content)
+  
+}
+
+
 
 async function processMessage(
   { message, sender }: { message: string; sender: string },
@@ -170,12 +213,12 @@ async function processMessage(
 
   if (contents.startsWith("axis/")) {
     state.axis = contents.replace("axis/", "").trim() as Axis;
-    console.log("Axis set to %s", state.axis);
+    console.info("Axis set to %s", state.axis);
     return;
   }
 
   if (contents.startsWith("https://") || contents.startsWith("http://")) {
-    console.log("Image URL updated to", contents);
+    console.info("Image URL updated to", contents);
     updateContent(contents);
     return;
   }
@@ -183,17 +226,29 @@ async function processMessage(
   if (contents.startsWith("material/")) {
     const material = contents.replace("material/", "").replace(/\s+/g, "_");
     state.material = material;
-    console.log("Material updated to", material);
+    console.info("Material updated to", material);
     return;
   }
 
   if (contents.startsWith("position/")) {
     const position = contents.replace("position/", "").split(/[\s,]+/g, 3).map(
       (v) => parseInt(v, 10),
-    );
+    ).slice(0, 3) as [number, number, number];
+
     state.offset = position;
     state.useAbsolutePosition = true;
-    console.log("Position updated to %o", position);
+    console.info("Position updated to %o", position);
+    return;
+  }
+
+  if (contents.startsWith("log/") && state.functionLog) {
+    const fn = contents.replace("log/", "").trim();
+
+    await ensureDir(state.functionLog);
+
+    const [fnName, fnContent] = fn.split("?", 2);
+    logFunction(fnName, fnContent);
+    console.info('Logged function "%s" to %s', fnName, state.functionLog);
     return;
   }
 
@@ -204,12 +259,14 @@ async function loadFunctionScript(fnNameInput: string) {
   try {
     // TODO: Add cache busting to import statement
     const { default: mod } = await import(`./src/functions/${scriptFile}.ts`);
-
-    mod({
+    const wssParams: WssParams = {
       queueCommandRequest,
       parameters: new URLSearchParams(params),
       state,
-    });
+      formatPosition
+    }
+
+    await mod(wssParams);
   } catch (err) {
     console.error("Failed loading/executing function script: %s", err);
   }
@@ -250,8 +307,8 @@ async function updateContent(imgUrl: string) {
   state.updatePending = true;
   const commands = await decode(
     new URL(imgUrl),
-    getBlockLibrary(state.material),
-    state.offset,
+    getBlockLibrary(state.material ?? "plastic_50"),
+    state.offset ?? [0, 0, 0],
     state.axis,
     state.useAbsolutePosition === true,
   );
@@ -302,50 +359,95 @@ function queueCommandRequest(commandLine: string) {
     result: false,
   });
 
+  // sessionStorage.setItem(`request[${uuid}]`, content);
+
   // Speed up rend rate based on number of requests
-  state.sendRate = requests.length > 100 ? 10 : 2;
+  state.sendRate = requests.length > 100 ? 3 : 1;
 }
 
 async function onOpenHandler(socket: WebSocket) {
   console.log("ws:open");
 
-  subscribe(socket, ["PlayerMessage", "AppResumed", "AppPaused"]);
+  subscribe(socket, ["PlayerMessage", "commandResponse"]);
 
   // Send whatever is in queue every #ms
   connectionUpdateInterval = setInterval(() => {
     const requestsCount = requests.length;
 
-    if (!state.hasFocus) {
-      console.info("Skipping update, no focus");
-      return;
-    }
-
     if (
       (requestsCount === 0 && !state.updatePending) ||
-      requests[state.idx].result
+      requests[state.currentRequestIdx].result
     ) {
       return;
     }
 
-    socket.send(requests[state.idx]?.content ?? "");
-    state.idx++;
+    socket.send(requests[state.currentRequestIdx]?.content ?? "");
+    state.currentRequestIdx++;
 
-    if (state.idx >= requestsCount) {
-      state.idx = 0;
+    if (state.currentRequestIdx >= requestsCount) {
+      state.currentRequestIdx = 0;
       requests.length = 0;
-      console.log("Queue cleared");
+      console.info("Queue cleared");
     }
   }, state.sendRate);
 }
 
-function processCommandResponse({ body }: { body: any }) {
-  if (body.blockName) {
-    const pendingRequest = requests.find((r) => r.uuid === body.requestId);
+function resetBlocks() {
+  // queue command to clear a block from state.blockHistory every 10 seconds
 
-    if (pendingRequest) {
-      pendingRequest.result = true;
+  const q = (sec: number) => {
+    const pos = state.blockHistory.shift();
+    if (pos) {
+      queueCommandRequest(`setblock ${pos.join(" ")} air`);
+      setTimeout(q, sec * 1000, sec);
+      return;
+    }
+    state.blockHistory.length = 0;
+  }
+
+  q(10);
+}
+
+function processCommandResponse(msg: { body: any, header: any }) {
+  if (!requests) {
+    return;
+  }
+
+  if (msg.body.statusMessage === "Block placed" && msg.body.position) {
+    const pos = Object.values(msg.body.position).map((v) => parseInt(`${v}`, 10)).slice(0, 3) as [number, number, number];
+    sessionStorage.setItem("lastBlock", JSON.stringify(pos));
+
+    state.blockHistory.push(pos);
+
+    if (state.blockHistory.length > state.blockHistoryMaxLength ?? 1000) {
+      resetBlocks();
     }
   }
+  
+  const { requestId } = msg.header;
+
+  const idx = requests.findIndex((req) => req && req.uuid === requestId);
+
+  if (idx === -1) {
+    //console.warn("Unknown request id: %s", requestId);
+    return;
+  }
+
+  delete requests[idx];
+
+  //const pendingRequest = requests.find((r) => r.uuid === msg.header.requestId);
+
+  //const sessionData = sessionStorage.getItem(`request[${msg.body.requestId}]`);
+
+  // if (pendingRequest) {
+  //   pendingRequest.result = true;
+  // } else if (!sessionData) {
+  //   console.warn("Unknown response!\nHeader: %o\nBody: %o", msg.header, msg.body);
+  //   return;
+  // }
+
+  // sessionStorage.removeItem(`request[${msg.body.requestId}]`);
+  // sessionStorage.setItem(`result[${msg.body.requestId}]`, JSON.stringify(msg.body));
 }
 
 export function requestHandler(req: Request) {
@@ -357,26 +459,16 @@ export function requestHandler(req: Request) {
   socket.onmessage = async (e) => {
     const msg = JSON.parse(e.data);
 
-    if (msg?.header?.eventName === "AppResumed") {
-      state.hasFocus = true;
-      return;
-    }
-
-    if (msg?.header?.eventName === "AppPaused") {
-      state.hasFocus = false;
-      return;
-    }
-
     if (msg?.header?.eventName === "PlayerMessage") {
       await processMessage(msg.body);
       return;
     }
 
     if (msg?.header?.messagePurpose === "commandResponse") {
-      requests[msg.header.requestId] = msg.body.blockName;
+      processCommandResponse(msg);
       return;
     }
-    console.log("On message %o", msg);
+    console.warn("Unknown message received: %o", msg);
   };
 
   socket.onopen = async () => {
@@ -387,8 +479,7 @@ export function requestHandler(req: Request) {
   socket.onclose = () => {
     clearInterval(connectionUpdateInterval);
     connectionUpdateInterval = undefined;
-    console.log("ws:close");
-    console.log("%o", requests);
+    console.info("ws:close");
   };
 
   return response;
