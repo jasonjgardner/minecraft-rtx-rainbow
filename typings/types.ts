@@ -1,4 +1,3 @@
-import type Permutation from "../src/components/Permutation.ts";
 export type RGB = [number, number, number];
 
 export type PackSizes = 16 | 32 | 64 | 128 | 256;
@@ -65,6 +64,30 @@ export type MultiLingual = {
 
 export type LanguagesContainer = Record<LanguageId, string[]>;
 
+export type BlendModes =
+  | "source-over"
+  | "source-in"
+  | "source-atop"
+  | "destination-over"
+  | "lighter"
+  | "copy"
+  | "xor"
+  | "multiply"
+  | "screen"
+  | "overlay"
+  | "darken"
+  | "lighten"
+  | "color-dodge"
+  | "color-burn"
+  | "hard-light"
+  | "soft-light"
+  | "difference"
+  | "exclusion"
+  | "hue"
+  | "saturation"
+  | "color"
+  | "luminosity";
+
 export interface IMaterial {
   name: MultiLingual;
   label?: string;
@@ -93,34 +116,14 @@ export interface IMaterial {
 
   step: number;
 
-  permutation?: Permutation;
+  steps: number[];
+
   geometry?: string;
   shading?: {
     texture: string;
-    blend:
-      | "source-over"
-      | "source-in"
-      | "source-atop"
-      | "destination-over"
-      | "lighter"
-      | "copy"
-      | "xor"
-      | "multiply"
-      | "screen"
-      | "overlay"
-      | "darken"
-      | "lighten"
-      | "color-dodge"
-      | "color-burn"
-      | "hard-light"
-      | "soft-light"
-      | "difference"
-      | "exclusion"
-      | "hue"
-      | "saturation"
-      | "color"
-      | "luminosity";
+    blend: BlendModes | [BlendModes, BlendModes];
   }[];
+  render?: (block: IBlock, size: number) => Promise<Uint8Array>;
 }
 
 export interface IBlock {
@@ -149,6 +152,9 @@ export type WssState = {
   useAbsolutePosition?: boolean;
   axis?: Axis;
   material?: string;
+  blockHistory: Array<[number, number, number]>;
+  blockHistoryMaxLength: number;
+  functionLog?: string;
 };
 
 export interface WssParams {

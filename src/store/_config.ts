@@ -70,3 +70,5 @@ export const DIR_PIXEL_ART = typeof ART_DIR === "string"
   : join(DIR_SRC, "assets", "pixel_art");
 
 export const RELEASE_TYPE = <ReleaseType> getConfig("RELEASE_TYPE", "patch");
+
+export const BLOCK_VERSION = 17959425;

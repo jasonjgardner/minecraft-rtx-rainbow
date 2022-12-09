@@ -110,6 +110,16 @@ export default class BlockEntry {
   }
 
   toString(prevBlock: BlockEntry, nextBlock: BlockEntry) {
+    // let group = "itemGroup.name.concrete";
+
+    // if (this._material.label?.startsWith("glass") === true) {
+    //   group = "itemGroup.name.glass";
+    // } else if (this._material.label?.startsWith("metal") === true) {
+    //   group = "itemGroup.name.copper";
+    // } else if (this._material.label === "emissive") {
+    //   group = "itemGroup.name.stainedClay";
+    // }
+
     return JSON.stringify(
       {
         format_version: BEHAVIOR_BLOCK_FORMAT_VERSION,
@@ -119,6 +129,7 @@ export default class BlockEntry {
             is_experimental: false,
             register_to_creative_menu: true,
             properties: this.properties(),
+            category: "construction",
           },
           components: this.behaviors(),
           events: this.events(prevBlock, nextBlock),
@@ -159,6 +170,8 @@ export default class BlockEntry {
   }
 
   behaviors() {
+    const isGlass = this._material.label?.startsWith("glass") === true;
+
     const components: {
       [k: string]:
         | string
@@ -170,10 +183,7 @@ export default class BlockEntry {
       "minecraft:material_instances": {
         "*": {
           texture: this.resourceId,
-          render_method: (this._material.label === "glass" ||
-              this._material.label === "glass_pane")
-            ? "blend"
-            : "opaque",
+          render_method: (isGlass) ? "blend" : "opaque",
           face_dimming: this._material.label !== "emissive",
           ambient_occlusion: this._material.label === "emissive",
         },
@@ -183,12 +193,12 @@ export default class BlockEntry {
       // "minecraft:explosion_resistance": this._material.explosionResistance ??
       //   true,
       "minecraft:map_color": this.hexColor(),
-      "minecraft:light_dampening": this._material.lightAbsorption(
+      "minecraft:light_dampening": Math.round(this._material.lightAbsorption(
         this.level,
-      ),
-      "minecraft:light_emission": this._material.lightEmission(
+      )),
+      "minecraft:light_emission": Math.round(this._material.lightEmission(
         this.level,
-      ),
+      )),
     };
 
     if (this._geometry) {

@@ -8,6 +8,7 @@ import type {
   LanguagesContainer,
   MinecraftData,
   MinecraftTerrainData,
+  PackModule,
 } from "/typings/types.ts";
 import {
   DIR_BP,
@@ -32,21 +33,22 @@ import { createManifests } from "./components/manifest.ts";
 import print from "./components/printer.ts";
 import render from "./components/_render.ts";
 import assemble from "./components/_assemble.ts";
+import compile from "./components/compile.ts";
 
 let textureData: MinecraftTerrainData = {};
-
+const itemTextureData: MinecraftTerrainData = {};
 let blocksData: MinecraftData = {};
 
 let languages: LanguagesContainer = {
   en_US: [],
 };
 
-const res = assemble();
+const excludeMaterials = (getConfig("excludeMaterials", "glass_pane") ?? "")
+  .toString().split(",");
 
-////////
+const res = assemble(excludeMaterials);
 
 await setup();
-const { RP: rpVersion } = await createManifests(RELEASE_TYPE);
 
 //await createItems();
 
@@ -178,7 +180,7 @@ for (let itr = 0; itr < len; itr++) {
 
 for (const key in blocksTableData) {
   (new Markdown().header(key, 1).table([
-    ...blocksTableHeader,
+    blocksTableHeader,
     ...blocksTableData[key],
   ])).write(
     `${DIR_DOCS}/materials/`,
@@ -205,9 +207,13 @@ await Deno.writeTextFile(
   await entityTrailFunction(blockLibrary),
 );
 
-const colorFunctions = await colorTrails(blockLibrary);
+const colorFunctions = [...new Set(await colorTrails(blockLibrary))];
 const colorTrailsDoc = new Markdown().header("Color Trails", 1);
-colorFunctions.forEach((fn) => colorTrailsDoc.codeBlock(fn, "mcfunction"));
+colorTrailsDoc.codeBlock(
+  colorFunctions.map((fn) => `/function ${fn}`).join(EOL.CRLF),
+  "mcfunction",
+);
+colorTrailsDoc.write(`${DIR_DOCS}/functions/`, "color_trails");
 
 await Deno.writeTextFile(
   join(DIR_RP, "blocks.json"),
@@ -233,6 +239,19 @@ await Deno.writeTextFile(
   JSON.stringify(flipbooks.flat(), null, 2),
 );
 
+await Deno.writeTextFile(
+  `${DIR_RP}/textures/item_texture.json`,
+  JSON.stringify(
+    {
+      resource_pack_name: NAMESPACE,
+      texture_name: "atlas.items",
+      texture_data: itemTextureData,
+    },
+    null,
+    2,
+  ),
+);
+
 for (const languageKey in languages) {
   await Deno.writeTextFile(
     `${DIR_RP}/texts/${languageKey}.lang`,
@@ -250,6 +269,19 @@ try {
 } catch (e) {
   console.error(e);
 }
+
+const scripts: Array<PackModule> = [];
+
+// try {
+//   scripts.push({
+//     entry: await compile("hello.ts"),
+//     version: [1, 0, 0],
+//   });
+// } catch (err) {
+//   console.error("Failed compiling script: %s", err);
+// }
+
+await createManifests(scripts, RELEASE_TYPE);
 
 if (getConfig("DEPLOY", "false") !== "false") {
   await deployToDev();

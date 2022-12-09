@@ -10,8 +10,14 @@ export default async function setup() {
 
   await Promise.all(
     [
+      `${DIR_BP}/biomes`,
       `${DIR_BP}/blocks`,
       `${DIR_BP}/items`,
+      `${DIR_BP}/scripts`,
+      `${DIR_BP}/scripts/client`,
+      `${DIR_BP}/scripts/gametests`,
+      `${DIR_BP}/scripts/server`,
+      `${DIR_BP}/structures`,
       `${DIR_BP}/functions`,
       `${DIR_BP}/functions/tags`,
       `${DIR_BP}/functions/trails`,
