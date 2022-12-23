@@ -85,7 +85,7 @@ export default class BlockEntry {
   get textureSet() {
     return {
       color: this.id, // this.aHexColor,
-      metalness_emissive_roughness: <RGB> [
+      metalness_emissive_roughness: this._material.mer ?? <RGB> [
         this._material.metalness(this._level),
         this._material.emissive(this._level),
         this._material.roughness(this._level),

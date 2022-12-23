@@ -1,9 +1,7 @@
 import type { Axis, WssParams, WssState } from "./typings/types.ts";
-import { decode } from "./src/components/ImagePrinter.ts";
-import assemble from "./src/components/_assemble.ts";
-import { serve } from "https://deno.land/std@0.164.0/http/server.ts";
-import { join } from "https://deno.land/std@0.164.0/path/win32.ts";
-import { ensureDir } from "https://deno.land/std@0.164.0/fs/mod.ts";
+import { serve } from "http/server.ts";
+import { join } from "path/win32.ts";
+import { ensureDir } from "fs/mod.ts";
 
 type SubscribeEvents =
   | "AdditionalContentLoaded"
@@ -105,6 +103,7 @@ const state: WssState = {
   offset: [8, 0, -16],
   useAbsolutePosition: false,
   axis: "x" as Axis,
+  enableBlockHistory: false,
   blockHistory: [],
   blockHistoryMaxLength: 500,
   functionLog: join(Deno.cwd(), 'build', 'wss', 'functions')
@@ -131,9 +130,7 @@ const formatPosition = (x: number, y: number, z: number, offsetX?: number, offse
   return useAbsolutePosition ? `${nx} ${ny} ${nz}` : `~${nx} ~${ny} ~${nz}`;
 };
 
-function getBlockLibrary(material: string, exclude?: string[]) {
-  return assemble(exclude).filter((b) => b.behaviorId.includes(material));
-}
+
 
 let connectionUpdateInterval: number | undefined;
 
@@ -185,6 +182,15 @@ async function processMessage(
 
   // TODO: Add index help function
 
+  if (contents.startsWith("history/")) {
+    const steps = parseInt(contents.replace("history/", ""), 10);
+
+    state.blockHistory = [];
+    state.enableBlockHistory = steps > 0;
+    state.blockHistoryMaxLength = steps;
+    return;
+  }
+
   // Live reload
   if (contents.startsWith("lr/")) {
     await watch(contents.replace("lr/", "").trim());
@@ -208,36 +214,6 @@ async function processMessage(
     } catch (err) {
       console.error(err);
     }
-    return;
-  }
-
-  if (contents.startsWith("axis/")) {
-    state.axis = contents.replace("axis/", "").trim() as Axis;
-    console.info("Axis set to %s", state.axis);
-    return;
-  }
-
-  if (contents.startsWith("https://") || contents.startsWith("http://")) {
-    console.info("Image URL updated to", contents);
-    updateContent(contents);
-    return;
-  }
-
-  if (contents.startsWith("material/")) {
-    const material = contents.replace("material/", "").replace(/\s+/g, "_");
-    state.material = material;
-    console.info("Material updated to", material);
-    return;
-  }
-
-  if (contents.startsWith("position/")) {
-    const position = contents.replace("position/", "").split(/[\s,]+/g, 3).map(
-      (v) => parseInt(v, 10),
-    ).slice(0, 3) as [number, number, number];
-
-    state.offset = position;
-    state.useAbsolutePosition = true;
-    console.info("Position updated to %o", position);
     return;
   }
 
@@ -305,15 +281,7 @@ async function updateContent(imgUrl: string) {
   }
 
   state.updatePending = true;
-  const commands = await decode(
-    new URL(imgUrl),
-    getBlockLibrary(state.material ?? "plastic_50"),
-    state.offset ?? [0, 0, 0],
-    state.axis,
-    state.useAbsolutePosition === true,
-  );
-  requests.length = 0;
-  commands.map((c) => queueCommandRequest(c));
+  
   console.info("Queued %d commands", commands.length);
   state.updatePending = false;
 }
@@ -359,7 +327,7 @@ function queueCommandRequest(commandLine: string) {
     result: false,
   });
 
-  // sessionStorage.setItem(`request[${uuid}]`, content);
+  //sessionStorage.setItem(`request[${uuid}]`, content);
 
   // Speed up rend rate based on number of requests
   state.sendRate = requests.length > 100 ? 3 : 1;
@@ -376,7 +344,7 @@ async function onOpenHandler(socket: WebSocket) {
 
     if (
       (requestsCount === 0 && !state.updatePending) ||
-      requests[state.currentRequestIdx].result
+      requests[state.currentRequestIdx]?.result
     ) {
       return;
     }
@@ -413,7 +381,7 @@ function processCommandResponse(msg: { body: any, header: any }) {
     return;
   }
 
-  if (msg.body.statusMessage === "Block placed" && msg.body.position) {
+  if (state.enableBlockHistory === true && msg.body.statusMessage === "Block placed" && msg.body.position) {
     const pos = Object.values(msg.body.position).map((v) => parseInt(`${v}`, 10)).slice(0, 3) as [number, number, number];
     sessionStorage.setItem("lastBlock", JSON.stringify(pos));
 
@@ -435,9 +403,9 @@ function processCommandResponse(msg: { body: any, header: any }) {
 
   delete requests[idx];
 
-  //const pendingRequest = requests.find((r) => r.uuid === msg.header.requestId);
+  // const pendingRequest = requests.find((r) => r.uuid === msg.header.requestId);
 
-  //const sessionData = sessionStorage.getItem(`request[${msg.body.requestId}]`);
+  // const sessionData = sessionStorage.getItem(`request[${msg.body.requestId}]`);
 
   // if (pendingRequest) {
   //   pendingRequest.result = true;

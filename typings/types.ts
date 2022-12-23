@@ -92,6 +92,7 @@ export interface IMaterial {
   name: MultiLingual;
   label?: string;
   normal?: string;
+  mer?: string | RGB;
   sound?: string;
   friction: MaterialMultiplier;
   flammable?: {
@@ -152,6 +153,7 @@ export type WssState = {
   useAbsolutePosition?: boolean;
   axis?: Axis;
   material?: string;
+  enableBlockHistory?: boolean;
   blockHistory: Array<[number, number, number]>;
   blockHistoryMaxLength: number;
   functionLog?: string;

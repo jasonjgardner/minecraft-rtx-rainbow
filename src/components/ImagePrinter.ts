@@ -1,13 +1,15 @@
 import type { Axis } from "../../typings/types.ts";
-import { decode as decodeImage, Frame, GIF, Image } from "imagescript/mod.ts";
-import { extname, join } from "https://deno.land/std@0.123.0/path/mod.ts";
-import { sprintf } from "https://deno.land/std@0.125.0/fmt/printf.ts";
-import { EOL } from "https://deno.land/std@0.125.0/fs/mod.ts";
+import { type Frame, GIF, Image } from "imagescript/mod.ts";
+import { extname, join } from "path/mod.ts";
+import { sprintf } from "fmt/printf.ts";
+import { EOL } from "fs/mod.ts";
 import { materials } from "../store/_materials.ts";
 import BlockEntry from "./BlockEntry.ts";
-import { DIR_BP } from "../store/_config.ts";
+import { BLOCK_VERSION, DIR_BP } from "../store/_config.ts";
 import { hex2rgb } from "https://crux.land/3RdawE";
-
+//import { encode, Int } from "https://deno.land/x/nbtrex@1.3.0/mod.ts";
+//import { encode, Int, stringify } from "npm:nbt-ts@1.3.5";
+// import * as nbt from "npm:prismarine-nbt@2.2.1";
 import type { IMaterial, RGB } from "../../typings/types.ts";
 
 const MAX_PRINT_SIZE = 3 * 16;
@@ -17,11 +19,118 @@ const MASK_COLOR = [
 ]; // Image.rgbToColor(...hex2rgb("#ff00ff"));
 const FUNCTIONS_NAMESPACE = "printer";
 const DIR_FUNCTIONS = join(DIR_BP, "functions", FUNCTIONS_NAMESPACE);
+const DIR_STRUCTURES = join(DIR_BP, "structures");
 
 function colorDistance(color1: RGB, color2: RGB) {
   return Math.sqrt(
     Math.pow(color1[0] - color2[0], 2) + Math.pow(color1[1] - color2[1], 2) +
       Math.pow(color1[2] - color2[2], 2),
+  );
+}
+
+// export function createStructureTag() {
+//   const block_palette: Array<CompoundTag> = [];
+//   return {
+//     format_version: new Int(1),
+//     size: [1, 1, 1] as ListTag<IntTag>,
+//     structure_world_origin: [0, 0, 0] as ListTag<IntTag>,
+//     structure: {
+//       block_indices: [[0, 0, 0], [
+//         -1,
+//         -1,
+//         -1,
+//       ]] as ListTag<ListTag<IntTag>>,
+//       entities: [] as ListTag<CompoundTag>,
+//       palette: {
+//         default: {
+//           block_palette,
+//           block_position_data: {},
+//         },
+//       },
+//     },
+//   };
+// }
+
+// function placeBlock(name: string, version = 17825806) {
+//   return
+// }
+
+export async function constructDecoded(
+  name: string,
+  frames: GIF | Array<Image | Frame>,
+  palette: BlockEntry[],
+) {
+  const frameCount = frames.length;
+  const positionData = [];
+  const layer = [];
+  const waterLayer = [];
+  let idx = 0;
+
+  let xDim = 0;
+  let yDim = 0;
+
+  const blockPalette = [];
+
+  for (let z = 0; z < frameCount; z++) {
+    const img = frames[z];
+
+    for (const [x, y, c] of img.iterateWithColors()) {
+      const nearest =
+        getNearestColor(<RGB> Image.colorToRGB(c), palette)?.behaviorId ??
+          "minecraft:cobblestone";
+      layer.push(z, Math.abs(y - img.height), x);
+      waterLayer.push(-1, -1, -1);
+
+      blockPalette.push(
+        {
+          version: BLOCK_VERSION,
+          name: nearest,
+          //states: nbt.comp({}),
+        },
+      );
+
+      positionData.push([idx, {
+        block_entity_data: {},
+      }]);
+
+      xDim = Math.max(xDim, x);
+      yDim = Math.max(yDim, y);
+      idx++;
+    }
+  }
+
+  const tag = {
+    format_version: 1,
+    size: [
+      xDim,
+      yDim,
+      frameCount,
+    ],
+    structure_world_origin: [0, 0, 0],
+    structure: {
+      block_indices: [layer, waterLayer],
+      //entities: nbt.list([]),
+      palette: {
+        default: {
+          block_palette: blockPalette,
+          block_position_data: Object
+            .fromEntries(
+              positionData,
+            ),
+        },
+      },
+    },
+  };
+
+  const encoder = new TextEncoder();
+  const enc = encoder.encode(JSON.stringify(tag));
+
+  await Deno.writeFile(
+    join(
+      DIR_STRUCTURES,
+      `${name}.mcstructure`,
+    ),
+    new Uint8Array(new Uint16Array(enc).buffer),
   );
 }
 
@@ -58,20 +167,34 @@ function writeFill(
   return `fill ${position} ${position} ${fillWith} 0 keep`;
 }
 
+/**
+ * @deprecated
+ */
 export async function decode(
   src: URL,
   palette: BlockEntry[],
   offset: number[],
   axis: Axis = "z",
   absolutePosition = false,
+  resize?: number,
 ): Promise<string[]> {
   // TODO: Add 10000 line limit
-  const imgSrc = await decodeImage(
-    await (await fetch(src)).arrayBuffer(),
-    true,
-  );
-  const img = imgSrc instanceof GIF ? imgSrc[0] : imgSrc;
+  const img = (await decodeUrl(src))[0];
 
+  if (resize) {
+    img.resize(resize, resize);
+  }
+
+  return convertImage(img, palette, offset, axis, absolutePosition);
+}
+
+export function convertImage(
+  img: Image | Frame,
+  palette: BlockEntry[],
+  offset: number[],
+  axis: Axis = "z",
+  absolutePosition = false,
+): string[] {
   const func: string[] = [];
 
   for (const [x, y, c] of img.iterateWithColors()) {
@@ -158,18 +281,25 @@ async function printDecoded(
   );
 }
 
+export async function decodeUrl({ href }: URL): Promise<GIF | Image[]> {
+  const res = await fetch(href);
+  const data = new Uint8Array(await res.arrayBuffer());
+
+  return (extname(href) !== ".gif")
+    ? [await Image.decode(data)]
+    : (await GIF.decode(data, false));
+}
+
+/**
+ * @deprecated
+ */
 export async function pixelPrinter(
   name: string,
   imageUrl: URL,
   palette: BlockEntry[],
   chunks = 2,
 ) {
-  const res = await fetch(imageUrl.href);
-  const data = new Uint8Array(await res.arrayBuffer());
-
-  const frames = (extname(imageUrl.href) !== ".gif")
-    ? [await Image.decode(data)]
-    : (await GIF.decode(data, false));
+  const frames = await decodeUrl(imageUrl);
 
   const size = Math.min(MAX_PRINT_SIZE, chunks * 16);
 

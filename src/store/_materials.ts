@@ -51,7 +51,7 @@ export const materials: IMaterial[] = [
     opacity: () => 1,
     shading: [
       {
-        blend: ["exclusion", "overlay"],
+        blend: ["color-dodge", "overlay"],
         texture: "metal_overlay",
       },
       {
@@ -150,4 +150,56 @@ export const materials: IMaterial[] = [
   //   roughness: () => 0,
   //   opacity: () => 1,
   // }
+  {
+    name: { en_US: "Dot" },
+    label: "dot",
+    normal: "dot_normal",
+    mer: "dot_mer",
+    sound: "pop",
+    friction: (_idx: number) => 0.5,
+    minimumLevel: 50,
+    maximumLevel: 100,
+    endStep: 100,
+    step: 25,
+    steps: [50],
+    explosionResistance: (_idx: number) => 1,
+    lightAbsorption: (_itr: number) => 15,
+    lightEmission: () => 0,
+    metalness: () => 0,
+    emissive: () => 0,
+    roughness: (_idx: number) => 55,
+    opacity: () => 1,
+    shading: [
+      {
+        texture: "dot_multiply",
+        blend: "multiply",
+      },
+    ],
+  },
+  {
+    name: { en_US: "Lit Dot" },
+    label: "lit_dot",
+    normal: "dot_normal",
+    mer: "dot_glowing_mer",
+    sound: "pop",
+    friction: (_idx: number) => 0.5,
+    minimumLevel: 50,
+    maximumLevel: 100,
+    endStep: 100,
+    step: 25,
+    steps: [50],
+    explosionResistance: (_idx: number) => 1,
+    lightAbsorption: (_itr: number) => 0,
+    lightEmission: () => 0.5,
+    metalness: () => 0,
+    emissive: () => 0,
+    roughness: (_idx: number) => 55,
+    opacity: () => 1,
+    shading: [
+      {
+        texture: "dot_multiply",
+        blend: "multiply",
+      },
+    ],
+  },
 ];

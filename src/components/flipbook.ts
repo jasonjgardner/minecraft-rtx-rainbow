@@ -67,6 +67,14 @@ async function flipbookData(
     10,
     11,
     12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
   ];
   // const startIdx = Math.round(frameCount * 0.5);
 
@@ -82,8 +90,8 @@ async function flipbookData(
     flipbook_texture: `textures/blocks/${flipbookBlock.id}`,
     frames: flipbookFrames,
     atlas_tile: flipbookBlock.id,
-    ticks_per_frame: 2, //Math.min(10, Math.floor(frameCount * 1.666)),
-    blend_frames: true,
+    ticks_per_frame: 1, //Math.min(10, Math.floor(frameCount * 1.666)),
+    blend_frames: false,
   };
 }
 
