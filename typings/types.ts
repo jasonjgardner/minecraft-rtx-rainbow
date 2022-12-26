@@ -1,4 +1,3 @@
-import type Permutation from "../src/components/Permutation.ts";
 export type RGB = [number, number, number];
 
 export type PackSizes = 16 | 32 | 64 | 128 | 256;
@@ -65,10 +64,35 @@ export type MultiLingual = {
 
 export type LanguagesContainer = Record<LanguageId, string[]>;
 
+export type BlendModes =
+  | "source-over"
+  | "source-in"
+  | "source-atop"
+  | "destination-over"
+  | "lighter"
+  | "copy"
+  | "xor"
+  | "multiply"
+  | "screen"
+  | "overlay"
+  | "darken"
+  | "lighten"
+  | "color-dodge"
+  | "color-burn"
+  | "hard-light"
+  | "soft-light"
+  | "difference"
+  | "exclusion"
+  | "hue"
+  | "saturation"
+  | "color"
+  | "luminosity";
+
 export interface IMaterial {
   name: MultiLingual;
   label?: string;
   normal?: string;
+  mer?: string | RGB;
   sound?: string;
   friction: MaterialMultiplier;
   flammable?: {
@@ -93,34 +117,14 @@ export interface IMaterial {
 
   step: number;
 
-  permutation?: Permutation;
+  steps: number[];
+
   geometry?: string;
   shading?: {
     texture: string;
-    blend:
-      | "source-over"
-      | "source-in"
-      | "source-atop"
-      | "destination-over"
-      | "lighter"
-      | "copy"
-      | "xor"
-      | "multiply"
-      | "screen"
-      | "overlay"
-      | "darken"
-      | "lighten"
-      | "color-dodge"
-      | "color-burn"
-      | "hard-light"
-      | "soft-light"
-      | "difference"
-      | "exclusion"
-      | "hue"
-      | "saturation"
-      | "color"
-      | "luminosity";
+    blend: BlendModes | [BlendModes, BlendModes];
   }[];
+  render?: (block: IBlock, size: number) => Promise<Uint8Array>;
 }
 
 export interface IBlock {
@@ -130,3 +134,41 @@ export interface IBlock {
 }
 
 export type Axis = "x" | "y" | "z";
+
+export type PackModule = {
+  uuid?: string;
+  module_name?: string;
+  description?: string;
+  version: number[] | string;
+  language?: "javascript" | "json";
+  type?: "script" | "data" | "resource";
+  entry?: string;
+};
+
+export type WssState = {
+  currentRequestIdx: number;
+  updatePending?: boolean;
+  sendRate?: number;
+  offset?: [number, number, number];
+  useAbsolutePosition?: boolean;
+  axis?: Axis;
+  material?: string;
+  enableBlockHistory?: boolean;
+  blockHistory: Array<[number, number, number]>;
+  blockHistoryMaxLength: number;
+  functionLog?: string;
+};
+
+export interface WssParams {
+  parameters: URLSearchParams;
+  queueCommandRequest: (commandLine: string) => void;
+  formatPosition: (
+    x: number,
+    y: number,
+    z: number,
+    offsetX?: number,
+    offsetY?: number,
+    offsetZ?: number,
+  ) => string;
+  state?: WssState;
+}

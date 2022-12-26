@@ -1,6 +1,7 @@
 import type BlockEntry from "./BlockEntry.ts";
-import { join } from "https://deno.land/std@0.125.0/path/mod.ts";
-import { ensureDir, EOL } from "https://deno.land/std@0.125.0/fs/mod.ts";
+import { join } from "path/mod.ts";
+import { ensureDir, EOL } from "fs/mod.ts";
+import { Markdown } from "deno_markdown/mod.ts";
 import { DIR_BP, NAMESPACE } from "../store/_config.ts";
 
 interface IFormatTrail {
@@ -666,30 +667,30 @@ export async function colorTrails(
 // }
 
 export function rainbowTrailFunction() {
-  return [
+  const replacements = [
     {
       replaceWhat: "grass",
-      replaceWith: "rainbow:green_500_glowing_75",
+      replaceWith: "rainbow:green_500_glowing_25",
     },
     {
       replaceWhat: "water",
-      replaceWith: "rainbow:blue_200_glowing_50",
+      replaceWith: "rainbow:blue_200_glowing_25",
     },
     {
       replaceWhat: "sand",
-      replaceWith: "rainbow:amber_500_glowing_75",
+      replaceWith: "rainbow:amber_500_glowing_25",
     },
     {
       replaceWhat: "sandstone",
-      replaceWith: "rainbow:amber_600_glowing_50",
+      replaceWith: "rainbow:amber_600_glowing_25",
     },
     {
       replaceWhat: "red_sandstone",
-      replaceWith: "rainbow:red_700_glowing_50",
+      replaceWith: "rainbow:red_700_glowing_25",
     },
     {
       replaceWhat: "dirt",
-      replaceWith: "rainbow:brown_700_glowing_50",
+      replaceWith: "rainbow:brown_700_glowing_25",
     },
     {
       replaceWhat: "snow",
@@ -697,11 +698,11 @@ export function rainbowTrailFunction() {
     },
     {
       replaceWhat: "stone",
-      replaceWith: "rainbow:grey_400_glowing_50",
+      replaceWith: "rainbow:grey_400_glowing_25",
     },
     {
       replaceWhat: "gravel",
-      replaceWith: "rainbow:grey_500_glowing_50",
+      replaceWith: "rainbow:grey_500_glowing_25",
     },
     {
       replaceWhat: "snow",
@@ -709,11 +710,11 @@ export function rainbowTrailFunction() {
     },
     {
       replaceWhat: "warped_nylium",
-      replaceWith: "rainbow:teal_600_glowing_50",
+      replaceWith: "rainbow:teal_600_glowing_25",
     },
     {
       replaceWhat: "leaves",
-      replaceWith: "rainbow:green_600_glowing_50",
+      replaceWith: "rainbow:green_600_glowing_25",
       where: "~-4 ~-4 ~-4 ~4 ~-1 ~4".split(" "),
     },
     {
@@ -721,14 +722,16 @@ export function rainbowTrailFunction() {
       replaceWith: "rainbow:brown_400_metallic_50",
       where: "~-2 ~-2 ~-2 ~2 ~-1 ~2".split(" "),
     },
-  ].map((fmt: IFormatTrail) =>
-    formatTrail({
+  ];
+
+  return replacements.map((fmt: IFormatTrail) => {
+    return formatTrail({
       ...{
         who: formatSelector("e", {
           tag: "rainbow_trail",
         }),
       },
       ...fmt,
-    })
-  ).join(EOL.CRLF);
+    });
+  }).join(EOL.CRLF);
 }

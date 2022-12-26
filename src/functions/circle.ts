@@ -1,12 +1,7 @@
-function positionAbsolute(p: number) {
-  return;
-}
-
-export default function circle({ parameters, queueCommandRequest, state }: {
-  parameters: URLSearchParams;
-  queueCommandRequest: (commandLine: string) => void;
-  state: Record<string, any>;
-}) {
+import type { WssParams } from "../../typings/types.ts";
+export default function circle(
+  { parameters, queueCommandRequest, formatPosition }: WssParams,
+) {
   const radius = Math.max(
     1,
     Math.min(99, parseInt(parameters.get("r") ?? "0", 10)),
@@ -30,18 +25,11 @@ export default function circle({ parameters, queueCommandRequest, state }: {
     }
   }
   for (const position of positions) {
-    if (state.useAbsolutePosition) {
-      position[0] += state.offset[0];
-      position[1] += state.offset[1];
-      position[2] += state.offset[2];
-    }
-
     console.log("Plotting %s at %o", blockName, position);
 
     queueCommandRequest(
       `setblock ${
-        position.map((p) => state.useAbsolutePosition ? p : `~${p}`)
-          .join(" ")
+        formatPosition(position[0], position[1], position[2])
       } ${blockName}`,
     );
   }

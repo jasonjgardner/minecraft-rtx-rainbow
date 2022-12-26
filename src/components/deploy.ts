@@ -1,6 +1,5 @@
 import { join } from "path/mod.ts";
-import { copy } from "https://deno.land/std@0.138.0/fs/copy.ts";
-import { emptyDir } from "fs/mod.ts";
+import { copy, emptyDir } from "fs/mod.ts";
 import { DIR_DIST, NAMESPACE } from "/src/store/_config.ts";
 
 const appData = Deno.env.get("LOCALAPPDATA") || "%LocalAppData%";
@@ -20,13 +19,11 @@ const buildResourcePacks = join(DIR_DIST, `${NAMESPACE} RP`);
 const devBehaviorPacks = join(
   comMojang,
   "development_behavior_packs",
-  NAMESPACE,
   `${NAMESPACE} BP`,
 );
 const devResourcePacks = join(
   comMojang,
   "development_resource_packs",
-  NAMESPACE,
   `${NAMESPACE} RP`,
 );
 

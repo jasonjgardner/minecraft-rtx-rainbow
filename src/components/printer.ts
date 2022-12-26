@@ -1,9 +1,10 @@
 import "dotenv/load.ts";
-import { basename, extname, join, toFileUrl } from "path/mod.ts";
+import { decode, type GIF, type Image } from "imagescript/mod.ts";
+import { basename, extname, toFileUrl } from "path/mod.ts";
 import { walk } from "fs/walk.ts";
 import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
 import BlockEntry from "./BlockEntry.ts";
-import { pixelPrinter } from "./ImagePrinter.ts";
+import { constructDecoded, pixelPrinter } from "./ImagePrinter.ts";
 import { DIR_PIXEL_ART } from "/src/store/_config.ts";
 import { image as markdownImage, Markdown } from "deno_markdown/mod.ts";
 
@@ -57,6 +58,21 @@ async function githubAvatars(
       } catch (err) {
         console.error('Failed printing name: "%s"; Reason: %s', err);
       }
+
+      try {
+        const data = new Uint8Array(
+          await (await fetch(res.avatar_url)).arrayBuffer(),
+        );
+        const avatar = (await decode(data, true)) as Image;
+
+        constructDecoded(
+          `stargazers/${res.login}`,
+          [avatar.resize(64, 64)],
+          palette,
+        );
+      } catch (err) {
+        console.error('Failed constructing name: "%s"; Reason: %s', err);
+      }
     }),
   );
 
@@ -76,7 +92,7 @@ export default async function print(
     material.label !== "emissive" || level <= 60
   );
 
-  const printChunks = Math.max(1, Math.min(16, chunks));
+  //const printChunks = Math.max(1, Math.min(16, chunks));
 
   try {
     markdown.header("Pixel Art", 3);
@@ -92,11 +108,29 @@ export default async function print(
 
         markdown.header(name, 5).paragraph(markdownImage(name, remoteUrl.href));
 
+        try {
+          const data = new Uint8Array(
+            await (await fetch(remoteUrl)).arrayBuffer(),
+          );
+          const decoded = await decode(data);
+          const img = extname(entry.path) === ".gif"
+            ? (<GIF> decoded)
+            : [<Image> decoded];
+
+          constructDecoded(
+            `art_${basename(entry.path, extname(entry.path))}`,
+            img,
+            palette,
+          );
+        } catch (err) {
+          console.error(`Failed constructing ${name}: "%s"`, err);
+        }
+
         const fns = await pixelPrinter(
           name,
           toFileUrl(entry.path),
           printablePalette,
-          printChunks,
+          chunks,
         );
 
         fns.forEach((fn) =>
