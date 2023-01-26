@@ -81,7 +81,7 @@ export const materials: IMaterial[] = [
     roughness: () => channelPercentage(30),
     opacity: () => 1,
     shading: [{
-      blend: ["soft-light", "lighter"],
+      blend: "overlay",
       texture: "glowing",
     }],
   },
