@@ -1,6 +1,6 @@
-import { decode, Image } from "https://deno.land/x/imagescript@1.2.9/mod.ts";
-import { join } from "https://deno.land/std@0.123.0/path/mod.ts";
-import { sprintf } from "https://deno.land/std@0.125.0/fmt/printf.ts";
+import { decode, Image } from "imagescript/mod.ts";
+import { join } from "path/mod.ts";
+import { sprintf } from "fmt/printf.ts";
 import type {
   FlipbookComponent,
   IMaterial,
@@ -24,7 +24,7 @@ import render from "./_render.ts";
 
 async function flipbookData(
   blocks: [FlipbookEntry, BlockEntry, BlockEntry],
-  frameCount: number,
+  _frameCount: number,
 ): Promise<FlipbookComponent> {
   const [flipbookBlock, prevBlock, nextBlock] = blocks;
 
