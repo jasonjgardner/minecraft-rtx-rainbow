@@ -12,7 +12,7 @@ export default async function print(
   { parameters, queueCommandRequest }: WssParams,
 ) {
   const axis = parameters.get("axis") ?? "y";
-  const material = parameters.get("material") ?? "stone";
+  const material = parameters.get("material") ?? "plastic";
   const exclude = (parameters.get("exclude") ?? "").split(",");
   const position = parameters.get("position") ?? "0 0 0";
   const maxSize = parameters.get("size") ?? "128";

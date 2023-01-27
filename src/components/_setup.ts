@@ -51,6 +51,21 @@ export default async function setup() {
   );
 
   await Deno.copyFile(
+    join(DIR_SRC, "assets", "materials", "big_brick_normal.png"),
+    join(DIR_RP, "/textures/blocks/big_brick_normal.png"),
+  );
+
+  await Deno.copyFile(
+    join(DIR_SRC, "assets", "materials", "big_brick_mer.png"),
+    join(DIR_RP, "/textures/blocks/big_brick_mer.png"),
+  );
+
+  await Deno.copyFile(
+    join(DIR_SRC, "assets", "materials", "big_brick_lit_mer.png"),
+    join(DIR_RP, "/textures/blocks/big_brick_lit_mer.png"),
+  );
+
+  await Deno.copyFile(
     join(DIR_SRC, "assets", "materials", "brick_normal.png"),
     join(DIR_RP, "/textures/blocks/brick_normal.png"),
   );
@@ -63,6 +78,16 @@ export default async function setup() {
   await Deno.copyFile(
     join(DIR_SRC, "assets", "materials", "dot_normal.png"),
     join(DIR_RP, "/textures/blocks/dot_normal.png"),
+  );
+
+  await Deno.copyFile(
+    join(DIR_SRC, "assets", "materials", "pyramid_normal.png"),
+    join(DIR_RP, "/textures/blocks/pyramid_normal.png"),
+  );
+
+  await Deno.copyFile(
+    join(DIR_SRC, "assets", "materials", "planks_normal.png"),
+    join(DIR_RP, "/textures/blocks/planks_normal.png"),
   );
 
   const dotMer = await decode(
