@@ -110,15 +110,15 @@ export default class BlockEntry {
   }
 
   toString(prevBlock: BlockEntry, nextBlock: BlockEntry) {
-    // let group = "itemGroup.name.concrete";
+    let group = "itemGroup.name.concrete";
 
-    // if (this._material.label?.startsWith("glass") === true) {
-    //   group = "itemGroup.name.glass";
-    // } else if (this._material.label?.startsWith("metal") === true) {
-    //   group = "itemGroup.name.copper";
-    // } else if (this._material.label === "emissive") {
-    //   group = "itemGroup.name.stainedClay";
-    // }
+    if (this._material.label?.startsWith("glass") === true) {
+      group = "itemGroup.name.glass";
+    } else if (this._material.label?.startsWith("metal") === true) {
+      group = "itemGroup.name.copper";
+    } else if (this._material.label === "emissive") {
+      group = "itemGroup.name.stainedClay";
+    }
 
     return JSON.stringify(
       {
@@ -126,10 +126,11 @@ export default class BlockEntry {
         "minecraft:block": {
           description: {
             identifier: this.behaviorId,
-            is_experimental: false,
-            register_to_creative_menu: true,
             properties: this.properties(),
-            category: "construction",
+            menu_category: {
+              category: "construction",
+              group,
+            },
           },
           components: this.behaviors(),
           events: this.events(prevBlock, nextBlock),

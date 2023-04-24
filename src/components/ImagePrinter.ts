@@ -213,7 +213,7 @@ export function convertImage(
 
     func.push(
       writeFill(
-        x + offset[0],
+        Math.abs((x + offset[0]) - img.width), // Starts print column at left
         Math.abs((y + offset[1]) - img.height), // Starts print row at top
         offset[2],
         nearest,
@@ -253,7 +253,7 @@ async function printDecoded(
 
           func.push(
             writeFill(
-              x + offset[0],
+              Math.abs((x + offset[0]) - img.width), // Starts print column at left
               Math.abs((y + offset[1]) - img.height), // Starts print row at top
               offset[2],
               nearest,

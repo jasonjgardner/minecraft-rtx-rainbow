@@ -109,6 +109,16 @@ const state: WssState = {
   functionLog: join(Deno.cwd(), 'build', 'wss', 'functions')
 };
 
+/**
+ * Format the position for the command
+ * @param x - X coordinate
+ * @param y - Y coordinate
+ * @param z - Z coordinate
+ * @param offsetX - Offset X coordinate
+ * @param offsetY - Offset Y coordinate
+ * @param offsetZ - Offset Z coordinate
+ * @returns Absolute or relative position
+ */
 const formatPosition = (x: number, y: number, z: number, offsetX?: number, offsetY?: number, offsetZ?: number) => {
   const { offset, useAbsolutePosition } = state;
   let [ox, oy, oz] = offset || [0, 0, 0];
@@ -130,9 +140,8 @@ const formatPosition = (x: number, y: number, z: number, offsetX?: number, offse
   return useAbsolutePosition ? `${nx} ${ny} ${nz}` : `~${nx} ~${ny} ~${nz}`;
 };
 
-
-
 let connectionUpdateInterval: number | undefined;
+let keepAliveInterval: number | undefined;
 
 async function watch(fnNameInput: string) {
   const [fnName, _params] = fnNameInput.split("?", 2);
@@ -172,8 +181,6 @@ function logFunction(fnName: string, content: string) {
   queueCommandRequest(content)
   
 }
-
-
 
 async function processMessage(
   { message, sender }: { message: string; sender: string },
@@ -228,8 +235,28 @@ async function processMessage(
     return;
   }
 
+  if (contents.startsWith("help/")) {
+    queueCommandRequest(`tell ${sender} §c[§fWSS§c] §7Available commands:"`);
+    queueCommandRequest(`tell ${sender} §c[§fWSS§c] §7- §fhelp§7: Show this message"`);
+    queueCommandRequest(`tell ${sender} §c[§fWSS§c] §7- §fread§7: Read a function file"`);
+    queueCommandRequest(`tell ${sender} §c[§fWSS§c] §7- §flr§7: Live reload a function file"`);
+    queueCommandRequest(`tell ${sender} §c[§fWSS§c] §7- §fscript§7: Run a script"`);
+    queueCommandRequest(`tell ${sender} §c[§fWSS§c] §7- §flog§7: Log a function to a file"`);
+    queueCommandRequest(`tell ${sender} §c[§fWSS§c] §7- §fhistory§7: Enable/disable block history"`);
+    return;
+  }
+
+  // Check if command is a queued message sent from the server. Do nothing if it's detected in the queue.
+  if (requests.find((r) => r && r.content === contents)) {
+    return;
+  }
+
   console.warn("Unknown: %s", contents);
 }
+/**
+ * Load special functions found in `./src/functions/`
+ * @param fnNameInput Script source
+ */
 async function loadFunctionScript(fnNameInput: string) {
   const [scriptFile, params] = fnNameInput.split("?", 2);
   try {
@@ -248,6 +275,10 @@ async function loadFunctionScript(fnNameInput: string) {
   }
 }
 
+/**
+ * Parse a .mcfunction file and queue it for execution
+ * @param fnNameInput .mcfunction file name
+ */
 async function queueFunctionFile(fnNameInput: string) {
   const [fnName, fnParams] = fnNameInput.split("?", 2);
 
@@ -275,17 +306,11 @@ async function queueFunctionFile(fnNameInput: string) {
   lines.map((c) => c && queueCommandRequest(c));
 }
 
-async function updateContent(imgUrl: string) {
-  if (imgUrl.length < 4) {
-    return;
-  }
-
-  state.updatePending = true;
-  
-  console.info("Queued %d commands", commands.length);
-  state.updatePending = false;
-}
-
+/**
+ * Subscribe to events from the server
+ * @param socket WebSocket connection to the server
+ * @param events List of events to subscribe to
+ */
 function subscribe(socket: WebSocket, events: Array<string | SubscribeEvents>) {
   events.forEach((event) => {
     socket.send(JSON.stringify({
@@ -302,7 +327,12 @@ function subscribe(socket: WebSocket, events: Array<string | SubscribeEvents>) {
   });
 }
 
-function queueCommandRequest(commandLine: string) {
+/**
+ * Queue a command to be sent to the server
+ * @param commandLine - Minecraft command to execute
+ * @param sendRate - How many commands to send per ms
+ */
+function queueCommandRequest(commandLine: string, sendRate = 1) {
   const uuid = crypto.randomUUID();
   const content = JSON.stringify({
     header: {
@@ -330,11 +360,15 @@ function queueCommandRequest(commandLine: string) {
   //sessionStorage.setItem(`request[${uuid}]`, content);
 
   // Speed up rend rate based on number of requests
-  state.sendRate = requests.length > 100 ? 3 : 1;
+  state.sendRate = requests.length > 500 ? Math.max(3, sendRate) : Math.max(1, sendRate);
 }
 
+/**
+ * Function called upon WebSocket connection open
+ * @param socket WebSocket connection
+ */
 async function onOpenHandler(socket: WebSocket) {
-  console.log("ws:open");
+  console.info("ws:open");
 
   subscribe(socket, ["PlayerMessage", "commandResponse"]);
 
@@ -358,8 +392,34 @@ async function onOpenHandler(socket: WebSocket) {
       console.info("Queue cleared");
     }
   }, state.sendRate);
+
+  // Send a keep alive every 10 seconds
+  keepAliveInterval = setInterval(() => {
+    if (requests.length > 0) {
+      return;
+    }
+
+    socket.send(JSON.stringify({
+      header: {
+        version: 1,
+        requestId: crypto.randomUUID(),
+        messageType: "commandRequest",
+        messagePurpose: "keepAlive",
+      },
+      body: {},
+    }));
+  }, 10000);
+
+  // Send a greeting on connect
+  setTimeout(() => {
+    console.log('%cR%cA%cI%cN%cB%cO%cW server started!', 'color:red;', 'color:orange;', 'color:yellow;', 'color:green;', 'color:blue;', 'color:indigo;', 'color:violet;');
+    queueCommandRequest('tellraw @a {"rawtext":[{"text":"§c§o§lR"},{"text":"§6§o§lA"},{"text":"§e§o§lI"},{"text":"§a§o§lN"},{"text":"§b§o§lB"},{"text":"§9§o§lO"},{"text":"§1§o§lW"},{"text":"§r sever connected!"}]}');
+  }, 1000);
 }
 
+/**
+ * Reset blocks in block history
+ */
 function resetBlocks() {
   // queue command to clear a block from state.blockHistory every 10 seconds
 
@@ -376,6 +436,11 @@ function resetBlocks() {
   q(10);
 }
 
+/**
+ * Remove request from queue. If block history is enabled, add block to history
+ * @param msg - Message from server
+ * @returns void
+ */
 function processCommandResponse(msg: { body: any, header: any }) {
   if (!requests) {
     return;
@@ -446,6 +511,7 @@ export function requestHandler(req: Request) {
 
   socket.onclose = () => {
     clearInterval(connectionUpdateInterval);
+    clearInterval(keepAliveInterval);
     connectionUpdateInterval = undefined;
     console.info("ws:close");
   };

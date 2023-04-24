@@ -33,7 +33,7 @@ function getBlockLibrary(material: string, exclude?: string[]) {
 }
 
 export default async function dalle(
-  { parameters, queueCommandRequest, formatPosition }: WssParams,
+  { parameters, queueCommandRequest }: WssParams,
 ) {
   const axis = parameters.get("axis") ?? "y";
   const material = parameters.get("material") ?? "plastic";
@@ -42,6 +42,10 @@ export default async function dalle(
   const useAbsolutePosition = parameters.get("absolute") === "true";
   const [x, y, z] = position.split(" ").map((v) => parseInt(v, 10));
   const prompt = parameters.get("prompt") ?? getRandomPrompt();
+
+  console.group("DALL-E request");
+  console.log("Prompt:", prompt);
+
   const response = await client.createImage({
     prompt,
     n: 1,
@@ -55,7 +59,10 @@ export default async function dalle(
 
   try {
     await Deno.writeFile(
-      join(outputDir, prompt.trim().replace(/[\s:\/\\#\$\?]+/gi, "-") + ".png"),
+      join(
+        outputDir,
+        prompt.trim().replace(/[\s\:\/\\#\$\?]+/gi, "-") + ".png",
+      ),
       new Uint8Array(imageData),
     );
   } catch (err) {
@@ -77,4 +84,6 @@ export default async function dalle(
   );
 
   commands.map((c) => queueCommandRequest(c));
+
+  console.groupEnd();
 }

@@ -1,0 +1,6 @@
+{"prompt": "Make it daytime", "completion": "/time set day"}
+{"prompt": "It's bedtime", "completion": "/time set midnight"}
+{"prompt": "Empty my inventory", "completion": "/clear"}
+{"prompt": "Bring an umbrella", "completion": "/weather rain"}
+{"prompt": "Put me in the sky", "completion": "/tp @s ~ 200 ~"}
+{"prompt": "Wake the dead", "completion": "/summon zombie ~ ~ ~"}
