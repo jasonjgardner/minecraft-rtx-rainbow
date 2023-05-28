@@ -56,10 +56,12 @@ class EntityTrail {
   _where: Array<string | number> | undefined;
 
   _filename: string | undefined;
-  constructor(selector: SelectorParameters, replaceWith: string | BlockEntry) {
-    this._replaceWith = typeof replaceWith === "string"
+  constructor(selector: SelectorParameters, replaceWith?: string | BlockEntry) {
+    this._replaceWith = replaceWith === undefined
+      ? "minecraft:air"
+      : typeof replaceWith === "string"
       ? replaceWith
-      : `${NAMESPACE}:${replaceWith.id}`;
+      : `${NAMESPACE}:${replaceWith?.id}`;
     this._selector = selector;
   }
 

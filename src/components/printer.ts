@@ -109,9 +109,7 @@ export default async function print(
         markdown.header(name, 5).paragraph(markdownImage(name, remoteUrl.href));
 
         try {
-          const data = new Uint8Array(
-            await (await fetch(remoteUrl)).arrayBuffer(),
-          );
+          const data = await Deno.readFile(entry.path);
           const decoded = await decode(data);
           const img = extname(entry.path) === ".gif"
             ? (<GIF> decoded)

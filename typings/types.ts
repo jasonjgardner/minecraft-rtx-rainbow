@@ -172,3 +172,13 @@ export interface WssParams {
   ) => string;
   state?: WssState;
 }
+
+export interface Color {
+  id: string;
+  colorName: string;
+  hexCode: string;
+}
+
+export interface ColorList {
+  colors: Color[];
+}

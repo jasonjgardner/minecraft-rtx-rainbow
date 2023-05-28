@@ -4,6 +4,8 @@ import { sprintf } from "fmt/printf.ts";
 import { EOL } from "fs/mod.ts";
 import { Markdown } from "deno_markdown/mod.ts";
 import type {
+  Color,
+  FlipbookComponent,
   LanguageId,
   LanguagesContainer,
   MinecraftData,
@@ -54,7 +56,12 @@ await setup();
 
 let lastColor: string | undefined;
 let atlasGroup: BlockEntry[] = [];
-const flipbooks = [];
+const flipbooks: Array<
+  | MinecraftData
+  | MinecraftTerrainData
+  | LanguagesContainer
+  | Array<FlipbookComponent>
+> = [];
 
 const blockLibrary: Record<string, BlockEntry> = {};
 

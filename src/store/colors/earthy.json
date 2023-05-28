@@ -1,0 +1,154 @@
+{
+  "colors": [
+    {
+      "id": "umber",
+      "colorName": "Umber",
+      "hexCode": "#635147"
+    },
+    {
+      "id": "sienna",
+      "colorName": "Sienna",
+      "hexCode": "#882d17"
+    },
+    {
+      "id": "raw_sienna",
+      "colorName": "Raw Sienna",
+      "hexCode": "#d68a59"
+    },
+    {
+      "id": "burnt_sienna",
+      "colorName": "Burnt Sienna",
+      "hexCode": "#e97451"
+    },
+    {
+      "id": "raw_umber",
+      "colorName": "Raw Umber",
+      "hexCode": "#826644"
+    },
+    {
+      "id": "burnt_umber",
+      "colorName": "Burnt Umber",
+      "hexCode": "#8a3324"
+    },
+    {
+      "id": "charcoal",
+      "colorName": "Charcoal",
+      "hexCode": "#36454f"
+    },
+    {
+      "id": "taupe",
+      "colorName": "Taupe",
+      "hexCode": "#483c32"
+    },
+    {
+      "id": "tan",
+      "colorName": "Tan",
+      "hexCode": "#d2b48c"
+    },
+    {
+      "id": "coffee",
+      "colorName": "Coffee",
+      "hexCode": "#6f4e37"
+    },
+    {
+      "id": "beige",
+      "colorName": "Beige",
+      "hexCode": "#f5f5dc"
+    },
+    {
+      "id": "olive",
+      "colorName": "Olive",
+      "hexCode": "#808000"
+    },
+    {
+      "id": "khaki",
+      "colorName": "Khaki",
+      "hexCode": "#c3b091"
+    },
+    {
+      "id": "bronze",
+      "colorName": "Bronze",
+      "hexCode": "#cd7f32"
+    },
+    {
+      "id": "gold",
+      "colorName": "Gold",
+      "hexCode": "#ffd700"
+    },
+    {
+      "id": "forest_green",
+      "colorName": "Forest Green",
+      "hexCode": "#228b22"
+    },
+    {
+      "id": "sage",
+      "colorName": "Sage",
+      "hexCode": "#77815c"
+    },
+    {
+      "id": "lime_green",
+      "colorName": "Lime Green",
+      "hexCode": "#32cd32"
+    },
+    {
+      "id": "teal",
+      "colorName": "Teal",
+      "hexCode": "#008080"
+    },
+    {
+      "id": "cyan",
+      "colorName": "Cyan",
+      "hexCode": "#00ffff"
+    },
+    {
+      "id": "azure",
+      "colorName": "Azure",
+      "hexCode": "#007fff"
+    },
+    {
+      "id": "navy",
+      "colorName": "Navy",
+      "hexCode": "#000080"
+    },
+    {
+      "id": "cobalt",
+      "colorName": "Cobalt",
+      "hexCode": "#0047ab"
+    },
+    {
+      "id": "royal_blue",
+      "colorName": "Royal Blue",
+      "hexCode": "#4169e1"
+    },
+    {
+      "id": "indigo",
+      "colorName": "Indigo",
+      "hexCode": "#4b0082"
+    },
+    {
+      "id": "midnight_blue",
+      "colorName": "Midnight Blue",
+      "hexCode": "#191970"
+    },
+    {
+      "id": "sapphire",
+      "colorName": "Sapphire",
+      "hexCode": "#0f52ba"
+    },
+    {
+      "id": "slate_gray",
+      "colorName": "Slate Gray",
+      "hexCode": "#708090"
+    },
+    {
+      "id": "gunmetal",
+      "colorName": "Gunmetal",
+      "hexCode": "#2a3439"
+    },
+    {
+      "id": "charcoal_gray",
+      "colorName": "Charcoal Gray",
+      "hexCode": "#3e4149"
+    }
+  ]
+}

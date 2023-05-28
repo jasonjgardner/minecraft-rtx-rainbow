@@ -11,6 +11,7 @@ import { hex2rgb } from "https://crux.land/3RdawE";
 //import { encode, Int, stringify } from "npm:nbt-ts@1.3.5";
 // import * as nbt from "npm:prismarine-nbt@2.2.1";
 import type { IMaterial, RGB } from "../../typings/types.ts";
+import * as NBT from "https://cdn.jsdelivr.net/npm/nbtify/dist/index.min.js";
 
 const MAX_PRINT_SIZE = 3 * 16;
 const MASK_COLOR = [
@@ -122,15 +123,19 @@ export async function constructDecoded(
     },
   };
 
-  const encoder = new TextEncoder();
-  const enc = encoder.encode(JSON.stringify(tag));
+  const nbtBuffer = await NBT.write(tag, {
+    name,
+    endian: "little",
+    compression: null,
+    bedrockLevel: null,
+  });
 
   await Deno.writeFile(
     join(
       DIR_STRUCTURES,
       `${name}.mcstructure`,
     ),
-    new Uint8Array(new Uint16Array(enc).buffer),
+    nbtBuffer,
   );
 }
 
@@ -164,7 +169,7 @@ function writeFill(
       ? [x, z, y]
       : [x, y, z]),
   );
-  return `fill ${position} ${position} ${fillWith} 0 keep`;
+  return `fill ${position} ${position} ${fillWith}`;
 }
 
 /**
@@ -188,16 +193,27 @@ export async function decode(
   return convertImage(img, palette, offset, axis, absolutePosition);
 }
 
+const isLightPixel = (c: RGB) => c[0] > 0.5 && c[1] > 0.5 && c[2] > 0.5;
+
 export function convertImage(
   img: Image | Frame,
   palette: BlockEntry[],
   offset: number[],
   axis: Axis = "z",
   absolutePosition = false,
+  mask?: Image,
 ): string[] {
   const func: string[] = [];
 
   for (const [x, y, c] of img.iterateWithColors()) {
+    const rgba = Image.colorToRGBA(c);
+    const maskPixel = rgba[3] < 0.5 ||
+      (mask && isLightPixel(<RGB> Image.colorToRGB(mask.getPixelAt(x, y))));
+
+    if (maskPixel) {
+      continue;
+    }
+
     const nearest =
       getNearestColor(<RGB> Image.colorToRGB(c), palette)?.behaviorId ??
         "cobblestone";

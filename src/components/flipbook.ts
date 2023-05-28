@@ -1,4 +1,4 @@
-import { decode, Image } from "imagescript/mod.ts";
+import { decode, Frame, GIF, Image } from "imagescript/mod.ts";
 import { join } from "path/mod.ts";
 import { sprintf } from "fmt/printf.ts";
 import type {
@@ -12,7 +12,7 @@ import type {
   RGB,
 } from "../../typings/types.ts";
 
-import { DIR_BP, DIR_RP } from "../store/_config.ts";
+import { DIR_BP, DIR_DOCS, DIR_RP } from "../store/_config.ts";
 import { materials } from "../store/_materials.ts";
 
 import BlockEntry from "../components/BlockEntry.ts";
@@ -24,7 +24,7 @@ import render from "./_render.ts";
 
 async function flipbookData(
   blocks: [FlipbookEntry, BlockEntry, BlockEntry],
-  _frameCount: number,
+  frameCount: number,
 ): Promise<FlipbookComponent> {
   const [flipbookBlock, prevBlock, nextBlock] = blocks;
 
@@ -54,37 +54,9 @@ async function flipbookData(
     flipbookBlock.toString(prevBlock, nextBlock),
   );
 
-  const flipbookFrames: number[] = [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-  ];
-  // const startIdx = Math.round(frameCount * 0.5);
-
-  // for (let itr = startIdx; itr < frameCount; itr++) {
-  //   flipbookFrames.push(itr);
-  // }
-
-  // for (let itr = 1; itr < startIdx; itr++) {
-  //   flipbookFrames.push(itr);
-  // }
+  const flipbookFrames: number[] = new Array(frameCount).fill(0).map((_, itr) =>
+    itr
+  );
 
   return {
     flipbook_texture: `textures/blocks/${flipbookBlock.id}`,
@@ -95,7 +67,10 @@ async function flipbookData(
   };
 }
 
-export async function makeAtlas(blocks: BlockEntry[], size?: PackSizes) {
+export async function makeAtlas(
+  blocks: BlockEntry[],
+  size?: PackSizes,
+): Promise<Uint8Array> {
   const frames: RGB[] = blocks.map((block) => block.valueOf());
   const frameCount = frames.length;
   const s = size || 16;
@@ -112,6 +87,31 @@ export async function makeAtlas(blocks: BlockEntry[], size?: PackSizes) {
   }
 
   return await atlasOutput.encode(0);
+}
+
+async function makeGif(
+  blocks: BlockEntry[],
+  size?: PackSizes,
+): Promise<Uint8Array> {
+  const frames: RGB[] = blocks.map((block) => block.valueOf());
+  const frameCount = frames.length;
+  const s = Math.max(16, size || 16);
+  const frameImages: Frame[] = [];
+
+  // Create frames
+  for (let itr = 0; itr < frameCount; itr++) {
+    const frameOutput = new Frame(s, s, 300);
+    const imgOutput = await decode(await render(blocks[itr], s), true);
+
+    if (imgOutput) {
+      frameOutput.composite(<Image> imgOutput, 0, 0);
+      frameImages.push(frameOutput);
+    }
+  }
+
+  const gif = new GIF(frameImages);
+
+  return await gif.encode(0);
 }
 
 export async function writeFlipbooks(
@@ -142,6 +142,7 @@ export async function writeFlipbooks(
   const flipMaterials = materials.filter(({ label }: IMaterial) =>
     !label?.startsWith("glass")
   );
+
   const flips = flipMaterials.map(
     async (material: IMaterial) => {
       const flipbookBlock = new FlipbookEntry(lastBlock, material);
@@ -173,14 +174,14 @@ export async function writeFlipbooks(
 
   const flipData = await Promise.all(flips);
 
-  // await Deno.writeTextFile(
-  //   join(DIR_RP, "/textures/flipbook_textures.json"),
-  //   JSON.stringify(
-  //     flipData,
-  //     null,
-  //     2,
-  //   ),
-  // );
+  await Deno.writeTextFile(
+    join(DIR_RP, "/textures/flipbook_textures.json"),
+    JSON.stringify(
+      flipData,
+      null,
+      2,
+    ),
+  );
 
   return [blocksData, textureData, languages, flipData];
 }

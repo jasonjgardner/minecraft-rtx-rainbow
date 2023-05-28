@@ -1,5 +1,5 @@
-import { emptyDir, ensureDir } from "fs/mod.ts";
-import { join } from "path/mod.ts";
+import { emptyDir, ensureDir, expandGlob } from "fs/mod.ts";
+import { basename, join } from "path/mod.ts";
 import { DIR_BP, DIR_DOCS, DIR_RP, DIR_SRC } from "../store/_config.ts";
 import { decode, type Image } from "imagescript/mod.ts";
 
@@ -34,6 +34,7 @@ export default async function setup() {
       `${DIR_DOCS}/assets/blocks`,
       `${DIR_DOCS}/materials`,
       `${DIR_DOCS}/functions`,
+      `${DIR_DOCS}/flipbooks`,
     ].map(
       (dir) => ensureDir(dir),
     ),
@@ -110,6 +111,60 @@ export default async function setup() {
     join(DIR_SRC, "assets", "models", "pane.geo.json"),
     join(DIR_RP, "/models/blocks/pane.geo.json"),
   );
+
+  // Copy all textures in the assets/blocks directory
+  for await (
+    const file of expandGlob(
+      join(DIR_SRC, "assets", "blocks", "*.png"),
+    )
+  ) {
+    await Deno.copyFile(
+      file.path,
+      join(DIR_RP, "/textures/blocks", file.name),
+    );
+
+    // If this file has a _mer and _normal counterpart, then create a .texture_set.json file
+    const merFile = join(
+      DIR_SRC,
+      "assets",
+      "blocks",
+      file.name.replace(".png", "_mer.png"),
+    );
+
+    const normalFile = join(
+      DIR_SRC,
+      "assets",
+      "blocks",
+      file.name.replace(".png", "_normal.png"),
+    );
+
+    if (
+      await Deno.stat(merFile).catch(() => null) &&
+      await Deno.stat(normalFile).catch(() => null)
+    ) {
+      const color = basename(file.name, ".png");
+
+      await Deno.writeTextFile(
+        join(
+          DIR_RP,
+          "/textures/blocks",
+          file.name.replace(".png", ".texture_set.json"),
+        ),
+        JSON.stringify(
+          {
+            format_version: "1.16.100",
+            "minecraft:texture_set": {
+              color,
+              metalness_emissive_roughness: `${color}_mer`,
+              normal: `${color}_normal`,
+            },
+          },
+          null,
+          2,
+        ),
+      );
+    }
+  }
 
   // TODO: Generate pack icon with each build
   await Deno.copyFile(

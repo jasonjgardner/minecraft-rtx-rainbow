@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "test": "deno run --allow-read --allow-net --allow-env --allow-write ./src/mod.ts --DEPLOY true",
+    "test": "deno run --allow-read --allow-net --allow-env --allow-write --inspect ./src/mod.ts --DEPLOY true",
     "build": "deno run --allow-read --allow-net --allow-env --allow-write ./src/mod.ts",
     "art": "deno run --allow-read --allow-net --allow-env --allow-write ./src/mod.ts --ART_DIR ./px",
     "serve": "deno run --allow-read --allow-net --allow-env --allow-write --unstable --allow-ffi ./serve.ts"
