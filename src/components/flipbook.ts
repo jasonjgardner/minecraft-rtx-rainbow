@@ -10,7 +10,7 @@ import type {
   MinecraftTerrainData,
   PackSizes,
   RGB,
-} from "../../typings/types.ts";
+} from "../../types/index.ts";
 
 import { DIR_BP, DIR_DOCS, DIR_RP } from "../store/_config.ts";
 import { materials } from "../store/_materials.ts";
@@ -137,6 +137,16 @@ export async function writeFlipbooks(
         .trim().replace(/[_ ]+/g, "_") + ".png",
     ),
     await makeAtlas(frames),
+  );
+
+  await Deno.writeFile(
+    join(
+      DIR_DOCS,
+      "flipbooks",
+      formatFlipbookName(lastBlock.color, lastBlock.material)
+        .trim().replace(/[_ ]+/g, "_") + ".gif",
+    ),
+    await makeGif(frames),
   );
 
   const flipMaterials = materials.filter(({ label }: IMaterial) =>

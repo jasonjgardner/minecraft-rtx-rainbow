@@ -60,8 +60,14 @@ export const DIR_RP = join(DIR_DIST, `/${NAMESPACE} RP`);
 export const DIR_BP = join(DIR_DIST, `/${NAMESPACE} BP`);
 
 export const TARGET_VERSION = semverVector(
-  Deno.env.get("TARGET_VERSION") || "1.19.50",
+  Deno.env.get("TARGET_VERSION") || "1.20.10",
 );
+
+export const MODULE_SERVER_VERSION = "1.2.0";
+
+export const MODULE_SERVER_GAMETEST_VERSION = "1.0.0";
+
+export const MODULE_SERVER_UI_VERSION = "1.1.0";
 
 const ART_DIR = getConfig("ART_DIR");
 
@@ -71,4 +77,4 @@ export const DIR_PIXEL_ART = typeof ART_DIR === "string"
 
 export const RELEASE_TYPE = <ReleaseType> getConfig("RELEASE_TYPE", "patch");
 
-export const BLOCK_VERSION = 17959425;
+export const BLOCK_VERSION = 18090528;

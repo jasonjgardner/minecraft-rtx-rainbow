@@ -1,9 +1,4 @@
-import type {
-  IBlock,
-  IMaterial,
-  LanguageId,
-  RGB,
-} from "../../typings/types.ts";
+import type { IBlock, IMaterial, LanguageId, RGB } from "../../types/index.ts";
 
 import BlockEntry from "./BlockEntry.ts";
 

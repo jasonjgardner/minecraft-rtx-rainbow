@@ -1,4 +1,4 @@
-import type { Axis } from "../../typings/types.ts";
+import type { Axis } from "../../types/index.ts";
 import { type Frame, GIF, Image } from "imagescript/mod.ts";
 import { extname, join } from "path/mod.ts";
 import { sprintf } from "fmt/printf.ts";
@@ -6,12 +6,10 @@ import { EOL } from "fs/mod.ts";
 import { materials } from "../store/_materials.ts";
 import BlockEntry from "./BlockEntry.ts";
 import { BLOCK_VERSION, DIR_BP } from "../store/_config.ts";
-import { hex2rgb } from "https://crux.land/3RdawE";
-//import { encode, Int } from "https://deno.land/x/nbtrex@1.3.0/mod.ts";
-//import { encode, Int, stringify } from "npm:nbt-ts@1.3.5";
-// import * as nbt from "npm:prismarine-nbt@2.2.1";
-import type { IMaterial, RGB } from "../../typings/types.ts";
-import * as NBT from "https://cdn.jsdelivr.net/npm/nbtify/dist/index.min.js";
+import { hex2rgb } from "https://crux.land/api/get/3RdawE.ts";
+import * as NBT from "nbtify";
+import type { RGB } from "../../types/index.ts";
+import { image } from "deno_markdown/mod.ts";
 
 const MAX_PRINT_SIZE = 3 * 16;
 const MASK_COLOR = [
@@ -19,7 +17,7 @@ const MASK_COLOR = [
   Image.rgbaToColor(0, 0, 0, 0),
 ]; // Image.rgbToColor(...hex2rgb("#ff00ff"));
 const FUNCTIONS_NAMESPACE = "printer";
-const DIR_FUNCTIONS = join(DIR_BP, "functions", FUNCTIONS_NAMESPACE);
+
 const DIR_STRUCTURES = join(DIR_BP, "structures");
 
 function colorDistance(color1: RGB, color2: RGB) {
@@ -29,48 +27,50 @@ function colorDistance(color1: RGB, color2: RGB) {
   );
 }
 
-// export function createStructureTag() {
-//   const block_palette: Array<CompoundTag> = [];
-//   return {
-//     format_version: new Int(1),
-//     size: [1, 1, 1] as ListTag<IntTag>,
-//     structure_world_origin: [0, 0, 0] as ListTag<IntTag>,
-//     structure: {
-//       block_indices: [[0, 0, 0], [
-//         -1,
-//         -1,
-//         -1,
-//       ]] as ListTag<ListTag<IntTag>>,
-//       entities: [] as ListTag<CompoundTag>,
-//       palette: {
-//         default: {
-//           block_palette,
-//           block_position_data: {},
-//         },
-//       },
-//     },
-//   };
-// }
-
-// function placeBlock(name: string, version = 17825806) {
-//   return
-// }
-
+/**
+ * Convert GIF / Image to .mcstructure file
+ * @param name - Name of .mcstructure file and structure itself
+ * @param frames - The GIF or image source as an array
+ * @param palette - The list of blocks permitted to be used in the structure
+ */
 export async function constructDecoded(
   name: string,
   frames: GIF | Array<Image | Frame>,
   palette: BlockEntry[],
 ) {
   const frameCount = frames.length;
-  const positionData = [];
-  const layer = [];
-  const waterLayer = [];
+
+  /**
+   * Block indices primary layer
+   */
+  const layer: number[] = [];
+
+  /**
+   * Block palette
+   */
+  const blockPalette: Array<{
+    version: number;
+    name: string;
+    states: Record<string, unknown>;
+  }> = [];
+
+  /**
+   * Block position data. First element is the position index. Second element is the block entity data.
+   */
+  const positionData: Array<
+    [number, Record<string, Record<string, number | string>>]
+  > = [];
+
+  /**
+   * Structure size (X, Y, Z)
+   */
+  const size: [number, number, number] = [
+    frames[0].width,
+    frames[0].height,
+    frameCount,
+  ];
+
   let idx = 0;
-
-  let xDim = 0;
-  let yDim = 0;
-
-  const blockPalette = [];
 
   for (let z = 0; z < frameCount; z++) {
     const img = frames[z];
@@ -79,52 +79,50 @@ export async function constructDecoded(
       const nearest =
         getNearestColor(<RGB> Image.colorToRGB(c), palette)?.behaviorId ??
           "minecraft:cobblestone";
-      layer.push(z, Math.abs(y - img.height), x);
-      waterLayer.push(-1, -1, -1);
 
-      blockPalette.push(
-        {
-          version: BLOCK_VERSION,
-          name: nearest,
-          //states: nbt.comp({}),
-        },
-      );
+      let blockIdx = blockPalette.findIndex(({ name }) => name === nearest);
 
-      positionData.push([idx, {
+      if (blockIdx === -1) {
+        blockIdx = blockPalette.push(
+          {
+            version: BLOCK_VERSION,
+            name: nearest,
+            states: {},
+          },
+        ) - 1;
+      }
+
+      layer.push(blockIdx);
+
+      positionData.push([idx++, {
         block_entity_data: {},
       }]);
-
-      xDim = Math.max(xDim, x);
-      yDim = Math.max(yDim, y);
-      idx++;
     }
   }
+  const waterLayer = Array.from({ length: layer.length }, () => -1);
 
   const tag = {
     format_version: 1,
-    size: [
-      xDim,
-      yDim,
-      frameCount,
-    ],
+    size,
     structure_world_origin: [0, 0, 0],
     structure: {
       block_indices: [layer, waterLayer],
-      //entities: nbt.list([]),
+      entities: [],
       palette: {
         default: {
           block_palette: blockPalette,
-          block_position_data: Object
-            .fromEntries(
-              positionData,
-            ),
+          block_position_data: {},
+          // block_position_data: Object
+          //   .fromEntries(
+          //     positionData,
+          //   ),
         },
       },
     },
   };
 
-  const nbtBuffer = await NBT.write(tag, {
-    name,
+  const nbtBuffer = await NBT.write(NBT.parse(JSON.stringify(tag)), {
+    name: name.replace(/[\s\/]/g, "_").toLowerCase(),
     endian: "little",
     compression: null,
     bedrockLevel: null,
@@ -195,6 +193,12 @@ export async function decode(
 
 const isLightPixel = (c: RGB) => c[0] > 0.5 && c[1] > 0.5 && c[2] > 0.5;
 
+const convertPixelDepth = (c: RGB, limit = 15): number => {
+  limit = Math.max(1, Math.min(256, limit));
+  const depth = c[0] * limit;
+  return Math.max(0, Math.min(limit, Math.round(depth)));
+};
+
 export function convertImage(
   img: Image | Frame,
   palette: BlockEntry[],
@@ -202,7 +206,8 @@ export function convertImage(
   axis: Axis = "z",
   absolutePosition = false,
   mask?: Image,
-): string[] {
+  depthMap?: Image,
+) {
   const func: string[] = [];
 
   for (const [x, y, c] of img.iterateWithColors()) {
@@ -213,6 +218,10 @@ export function convertImage(
     if (maskPixel) {
       continue;
     }
+
+    const z = depthMap
+      ? convertPixelDepth(<RGB> Image.colorToRGB(depthMap.getPixelAt(x, y)))
+      : 0;
 
     const nearest =
       getNearestColor(<RGB> Image.colorToRGB(c), palette)?.behaviorId ??
@@ -231,7 +240,7 @@ export function convertImage(
       writeFill(
         Math.abs((x + offset[0]) - img.width), // Starts print column at left
         Math.abs((y + offset[1]) - img.height), // Starts print row at top
-        offset[2],
+        z + offset[2],
         nearest,
         <Axis> axis,
       ),
@@ -241,62 +250,6 @@ export function convertImage(
   return func;
 }
 
-async function printDecoded(
-  name: string,
-  idx: number,
-  img: Image | Frame,
-  palette: BlockEntry[],
-  offset: number[],
-) {
-  const axes = ["x", "y", "z"] as const;
-
-  // TODO: Add 10000 line limit
-
-  return await Promise.all(
-    materials.flatMap(async ({ label }: IMaterial) => {
-      const materialPalette = palette.filter(({ material }: BlockEntry) =>
-        label === material.label
-      );
-
-      return await Promise.all(axes.map(async (axis) => {
-        const func: string[] = [];
-
-        for (const [x, y, c] of img.iterateWithColors()) {
-          const nearest = MASK_COLOR.includes(c)
-            ? "air"
-            : getNearestColor(<RGB> Image.colorToRGB(c), materialPalette)
-              ?.behaviorId ?? "cobblestone";
-
-          func.push(
-            writeFill(
-              Math.abs((x + offset[0]) - img.width), // Starts print column at left
-              Math.abs((y + offset[1]) - img.height), // Starts print row at top
-              offset[2],
-              nearest,
-              <Axis> axis,
-            ),
-          );
-        }
-
-        // FIXME: Use sprintf
-        const filename = `${name + (idx ? `_${idx}` : "")}_${
-          label || ""
-        }_${axis}`;
-
-        await Deno.writeTextFile(
-          join(
-            DIR_FUNCTIONS,
-            `${filename}.mcfunction`,
-          ),
-          func.join(EOL.CRLF),
-        );
-
-        return filename;
-      }));
-    }),
-  );
-}
-
 export async function decodeUrl({ href }: URL): Promise<GIF | Image[]> {
   const res = await fetch(href);
   const data = new Uint8Array(await res.arrayBuffer());
@@ -304,49 +257,4 @@ export async function decodeUrl({ href }: URL): Promise<GIF | Image[]> {
   return (extname(href) !== ".gif")
     ? [await Image.decode(data)]
     : (await GIF.decode(data, false));
-}
-
-/**
- * @deprecated
- */
-export async function pixelPrinter(
-  name: string,
-  imageUrl: URL,
-  palette: BlockEntry[],
-  chunks = 2,
-) {
-  const frames = await decodeUrl(imageUrl);
-
-  const size = Math.min(MAX_PRINT_SIZE, chunks * 16);
-
-  let fnNames: Array<string | undefined> = [];
-  let idx = 0;
-  const results = [];
-
-  for await (const frame of frames) {
-    if (frame.width > size) {
-      frame.resize(size, Image.RESIZE_AUTO, Image.RESIZE_NEAREST_NEIGHBOR);
-    }
-
-    // Align frames end-to-end
-    //const offsets = [(idx * frame.width) + 1, 0, idx + 1];
-
-    // Align frames as stack
-    const offsets = [0, 0, idx];
-
-    results.push(
-      await printDecoded(
-        name,
-        idx,
-        frame,
-        palette,
-        offsets,
-      ),
-    );
-    idx++;
-  }
-
-  fnNames = results.flat(2);
-
-  return fnNames;
 }

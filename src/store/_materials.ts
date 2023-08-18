@@ -1,4 +1,4 @@
-import type { IMaterial } from "../../typings/types.ts";
+import type { IMaterial } from "../../types/index.ts";
 import { channelPercentage } from "../_utils.ts";
 export const materials: IMaterial[] = [
   {

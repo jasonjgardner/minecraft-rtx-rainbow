@@ -1,4 +1,5 @@
 export type RGB = [number, number, number];
+export type RGBA = [number, number, number, number];
 
 export type PackSizes = 16 | 32 | 64 | 128 | 256;
 
