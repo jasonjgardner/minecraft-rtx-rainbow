@@ -2,7 +2,7 @@ import * as clippy from "https://deno.land/x/clippy@v0.2.0/mod.ts";
 import { readAll } from "https://deno.land/std@0.152.0/streams/conversion.ts";
 import { convertImage, decode } from "../components/ImagePrinter.ts";
 import assemble from "../components/_assemble.ts";
-import type { Axis, WssParams } from "../../typings/types.ts";
+import type { Axis, WssParams } from "../../types/index.ts";
 import { Image } from "imagescript/mod.ts";
 
 function getBlockLibrary(material: string, exclude?: string[]) {
