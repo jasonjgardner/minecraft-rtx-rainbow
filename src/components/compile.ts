@@ -6,7 +6,7 @@ export default async function compile(
   src: string,
   dir: "client" | "server" | "gametests" = "client",
 ) {
-  const contents = await Deno.readTextFile(join(DIR_SRC, "scripts", src));
+  const contents = await Deno.readFile(join(DIR_SRC, "scripts", src));
 
   const name = basename(src, extname(src));
 
@@ -54,6 +54,7 @@ export default async function compile(
     join(DIR_BP, "scripts", dir, `${name}.js.map`),
     transformed.map,
   );
+
   esbuild.stop();
 
   return `scripts/${dir}/${name}.js`;
