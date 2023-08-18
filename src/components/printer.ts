@@ -1,13 +1,14 @@
 import "dotenv/load.ts";
+import { join } from "path/mod.ts";
 import { decode, type GIF, type Image } from "imagescript/mod.ts";
-import { basename, extname, toFileUrl } from "path/mod.ts";
+import { basename, extname } from "path/mod.ts";
 import { walk } from "fs/walk.ts";
 import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
 import BlockEntry from "./BlockEntry.ts";
-import { constructDecoded, pixelPrinter } from "./ImagePrinter.ts";
-import { DIR_PIXEL_ART } from "/src/store/_config.ts";
+import { constructDecoded, convertImage } from "./ImagePrinter.ts";
+import { DIR_BP, DIR_PIXEL_ART } from "/src/store/_config.ts";
 import { image as markdownImage, Markdown } from "deno_markdown/mod.ts";
-
+const DIR_FUNCTIONS = join(DIR_BP, "functions");
 async function githubAvatars(
   owner: string,
   repo: string,
@@ -42,30 +43,12 @@ async function githubAvatars(
       },
     ) => {
       try {
-        const fns = await pixelPrinter(
-          `stargazers/${res.login}`,
-          new URL(res.avatar_url),
-          palette,
-          sponsorChunkSize,
-        );
-
-        markdown.header(res.login, 5).paragraph(
-          markdownImage(res.login, res.avatar_url),
-        );
-        fns.forEach((fn) =>
-          markdown.codeBlock(`/function printer/${fn}`, "mcfunction")
-        );
-      } catch (err) {
-        console.error('Failed printing name: "%s"; Reason: %s', err);
-      }
-
-      try {
         const data = new Uint8Array(
           await (await fetch(res.avatar_url)).arrayBuffer(),
         );
         const avatar = (await decode(data, true)) as Image;
 
-        constructDecoded(
+        await constructDecoded(
           `stargazers/${res.login}`,
           [avatar.resize(64, 64)],
           palette,
@@ -124,16 +107,16 @@ export default async function print(
           console.error(`Failed constructing ${name}: "%s"`, err);
         }
 
-        const fns = await pixelPrinter(
-          name,
-          toFileUrl(entry.path),
-          printablePalette,
-          chunks,
-        );
+        // const fns = await pixelPrinter(
+        //   name,
+        //   toFileUrl(entry.path),
+        //   printablePalette,
+        //   chunks,
+        // );
 
-        fns.forEach((fn) =>
-          markdown.codeBlock(`/function printer/pixel_art/${fn}`, "mcfunction")
-        );
+        // fns.forEach((fn) =>
+        //   markdown.codeBlock(`/function printer/pixel_art/${fn}`, "mcfunction")
+        // );
       }
     }
   } catch (err) {
