@@ -41,11 +41,6 @@ export async function constructDecoded(
   const frameCount = frames.length;
 
   /**
-   * Block indices primary layer
-   */
-  const layer: number[] = [];
-
-  /**
    * Block palette
    */
   const blockPalette: Array<{
@@ -70,7 +65,13 @@ export async function constructDecoded(
     frameCount,
   ];
 
-  let idx = 0;
+  const volume = size[0] * size[1] * size[2];
+
+  /**
+   * Block indices primary layer
+   */
+  const layer = Array.from({ length: volume }, () => -1);
+  const waterLayer = layer.slice();
 
   for (let z = 0; z < frameCount; z++) {
     const img = frames[z];
@@ -80,6 +81,7 @@ export async function constructDecoded(
         getNearestColor(<RGB> Image.colorToRGB(c), palette)?.behaviorId ??
           "minecraft:cobblestone";
 
+      const key = Math.min(volume, x + (y * size[0]) + (z * size[0] * size[1]));
       let blockIdx = blockPalette.findIndex(({ name }) => name === nearest);
 
       if (blockIdx === -1) {
@@ -92,14 +94,15 @@ export async function constructDecoded(
         ) - 1;
       }
 
-      layer.push(blockIdx);
-
-      positionData.push([idx++, {
-        block_entity_data: {},
-      }]);
+      layer[key] = blockIdx;
     }
   }
-  const waterLayer = Array.from({ length: layer.length }, () => -1);
+
+  layer.filter((blockIdx) => blockIdx !== -1);
+
+  if (layer.length !== volume) {
+    layer.length = volume;
+  }
 
   const tag = {
     format_version: 1,
@@ -112,10 +115,6 @@ export async function constructDecoded(
         default: {
           block_palette: blockPalette,
           block_position_data: {},
-          // block_position_data: Object
-          //   .fromEntries(
-          //     positionData,
-          //   ),
         },
       },
     },
