@@ -5,7 +5,7 @@ import type {
   LanguageId,
   MinecraftEvent,
   RGB,
-} from "../../typings/types.ts";
+} from "../../types/index.ts";
 import { hex2rgb } from "https://crux.land/3RdawE";
 import { BEHAVIOR_BLOCK_FORMAT_VERSION, NAMESPACE } from "../store/_config.ts";
 
@@ -184,7 +184,7 @@ export default class BlockEntry {
       "minecraft:material_instances": {
         "*": {
           texture: this.resourceId,
-          render_method: (isGlass) ? "blend" : "opaque",
+          render_method: isGlass ? "blend" : "opaque",
           face_dimming: this._material.label !== "emissive",
           ambient_occlusion: this._material.label === "emissive",
         },

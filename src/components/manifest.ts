@@ -1,12 +1,14 @@
 import { inc, type ReleaseType } from "semver/mod.ts";
 import { join } from "path/mod.ts";
-import type { PackModule } from "../../typings/types.ts";
+import type { PackModule } from "../../types/index.ts";
 import {
   BP_MODULE_UUID,
   BP_PACK_UUID,
   DIR_BP,
-  DIR_ROOT,
   DIR_RP,
+  MODULE_SERVER_GAMETEST_VERSION,
+  MODULE_SERVER_UI_VERSION,
+  MODULE_SERVER_VERSION,
   PACK_DESCRIPTION,
   PACK_NAME,
   RP_MODULE_UUID,
@@ -17,7 +19,6 @@ import { semverVector } from "../_utils.ts";
 import { DIR_SRC } from "../store/_config.ts";
 
 async function getBuildVersion(
-  releaseType: ReleaseType = "patch",
   defaultVersion = "1.0.0",
 ): Promise<{ RP: number[]; BP: number[] }> {
   const { RP, BP } = JSON.parse(
@@ -26,27 +27,26 @@ async function getBuildVersion(
 
   return {
     RP: semverVector(
-      inc(RP || defaultVersion, <ReleaseType> releaseType) ?? defaultVersion,
+      RP || defaultVersion,
     ),
     BP: semverVector(
-      inc(BP || defaultVersion, <ReleaseType> releaseType) ?? defaultVersion,
+      BP || defaultVersion,
     ),
   };
 }
 
 export async function createManifests(
   scripts?: Array<PackModule>,
-  releaseType?: ReleaseType,
 ) {
-  const { RP: rpVersion, BP: bpVersion } = await getBuildVersion(releaseType);
+  const { RP: rpVersion, BP: bpVersion } = await getBuildVersion();
 
   const metadata = {
     authors: [
       "Jason J. Gardner",
     ],
-    // generated_with: {
-    //   rainbow_magic: rpVersion.map((v) => v.toString()),
-    // },
+    generated_with: {
+      rainbow_magic: [rpVersion.join(".")],
+    },
   } as const;
 
   await Deno.writeTextFile(
@@ -102,24 +102,26 @@ export async function createManifests(
   if (scripts && scripts.length) {
     dependencies.push({
       module_name: "@minecraft/server",
-      version: "1.0.0-beta",
+      version: MODULE_SERVER_VERSION,
     }, {
       module_name: "@minecraft/server-gametest",
-      version: "1.0.0-beta",
+      version: MODULE_SERVER_GAMETEST_VERSION,
     }, {
       module_name: "@minecraft/server-ui",
-      version: "1.0.0-beta",
+      version: MODULE_SERVER_UI_VERSION,
     });
     for (const script of scripts) {
+      const v = script.version?.toString().split(".").slice(0, 3).map((v) =>
+        parseInt(v, 10)
+      );
+
       modules.push({
         ...script,
         ...{
           type: script.type ?? "script",
           language: script.language ?? "javascript",
           uuid: script.uuid ?? crypto.randomUUID(),
-          version: (script.version ?? "1.0.0").toString().split(".").map((v) =>
-            parseInt(v, 10)
-          ).slice(0, 3),
+          version: [v?.[0] ?? 1, v?.[1] ?? 0, v?.[2] ?? 0],
         },
       });
     }
@@ -140,6 +142,9 @@ export async function createManifests(
         modules,
         dependencies,
         metadata,
+        capabilities: [
+          "editorExtension",
+        ],
       },
       null,
       2,

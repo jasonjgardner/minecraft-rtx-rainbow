@@ -1,9 +1,12 @@
 {
   "tasks": {
-    "test": "deno run --allow-read --allow-net --allow-env --allow-write --inspect ./src/mod.ts --DEPLOY true",
-    "build": "deno run --allow-read --allow-net --allow-env --allow-write ./src/mod.ts",
+    "test": "deno run --allow-read --allow-net --allow-env --allow-write --allow-run ./src/mod.ts --DEPLOY true",
+    "test:preview": "deno run --allow-read --allow-net --allow-env --allow-write --allow-run --inspect ./src/mod.ts --DEPLOY true --PREVIEW true",
+    "build": "deno run --allow-read --allow-net --allow-env --allow-write --unstable ./src/mod.ts",
     "art": "deno run --allow-read --allow-net --allow-env --allow-write ./src/mod.ts --ART_DIR ./px",
-    "serve": "deno run --allow-read --allow-net --allow-env --allow-write --unstable --allow-ffi ./serve.ts"
+    "serve": "deno run --allow-read --allow-net --allow-env --allow-write --unstable --allow-ffi ./serve.ts",
+    "structures": "powershell .\\scripts\\LittleEndian.ps1",
+    "build:data": "gh release download --skip-existing -D ./cache -A zip -R Mojang/bedrock-samples -O bedrock-samples.zip && Expand-Archive -Path ./cache/bedrock-samples.zip -D ./cache"
   },
   "fmt": {
     "files": {
