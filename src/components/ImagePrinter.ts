@@ -38,8 +38,6 @@ export async function constructDecoded(
   frames: GIF | Array<Image | Frame>,
   palette: BlockEntry[],
 ) {
-  const frameCount = frames.length;
-
   /**
    * Block palette
    */
@@ -62,18 +60,18 @@ export async function constructDecoded(
   const size: [number, number, number] = [
     frames[0].width,
     frames[0].height,
-    frameCount,
+    frames.length,
   ];
 
-  const volume = size[0] * size[1] * size[2];
+  const [width, height, depth] = size;
 
   /**
    * Block indices primary layer
    */
-  const layer = Array.from({ length: volume }, () => -1);
+  const layer = Array.from({ length: width * height * depth }, () => -1);
   const waterLayer = layer.slice();
 
-  for (let z = 0; z < frameCount; z++) {
+  for (let z = 0; z < depth; z++) {
     const img = frames[z];
 
     for (const [x, y, c] of img.iterateWithColors()) {
@@ -81,7 +79,9 @@ export async function constructDecoded(
         getNearestColor(<RGB> Image.colorToRGB(c), palette)?.behaviorId ??
           "minecraft:cobblestone";
 
-      const key = Math.min(volume, x + (y * size[0]) + (z * size[0] * size[1]));
+      // Convert X, Y, Z coordinates to Z, Y, X and flip the image on the X axis
+      const key = (width * height * z) + (width * (height - y)) + x;
+
       let blockIdx = blockPalette.findIndex(({ name }) => name === nearest);
 
       if (blockIdx === -1) {
@@ -98,18 +98,12 @@ export async function constructDecoded(
     }
   }
 
-  layer.filter((blockIdx) => blockIdx !== -1);
-
-  if (layer.length !== volume) {
-    layer.length = volume;
-  }
-
   const tag = {
     format_version: 1,
     size,
     structure_world_origin: [0, 0, 0],
     structure: {
-      block_indices: [layer, waterLayer],
+      block_indices: [layer.filter((i) => i !== -1), waterLayer],
       entities: [],
       palette: {
         default: {
