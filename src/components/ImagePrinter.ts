@@ -50,9 +50,9 @@ export async function constructDecoded(
   /**
    * Block position data. First element is the position index. Second element is the block entity data.
    */
-  const positionData: Array<
-    [number, Record<string, Record<string, number | string>>]
-  > = [];
+  // const positionData: Array<
+  //   [number, Record<string, Record<string, number | string>>]
+  // > = [];
 
   /**
    * Structure size (X, Y, Z)
@@ -72,15 +72,14 @@ export async function constructDecoded(
   const waterLayer = layer.slice();
 
   for (let z = 0; z < depth; z++) {
-    const img = frames[z];
+    const img = frames[z].rotate(180);
 
     for (const [x, y, c] of img.iterateWithColors()) {
       const nearest =
         getNearestColor(<RGB> Image.colorToRGB(c), palette)?.behaviorId ??
           "minecraft:cobblestone";
 
-      // Convert X, Y, Z coordinates to Z, Y, X and flip the image on the X axis
-      const key = (width * height * z) + (width * (height - y)) + x;
+      const key = (z * width * height) + (y * width) + (width - x - 1);
 
       let blockIdx = blockPalette.findIndex(({ name }) => name === nearest);
 
