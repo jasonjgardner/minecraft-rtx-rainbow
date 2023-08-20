@@ -3,13 +3,6 @@ import { basename, join } from "path/mod.ts";
 import * as colors from "fmt/colors.ts";
 import { rgb2hex } from "./_utils.ts";
 import { RGBA } from "../types/index.ts";
-// const kv = await Deno.openKv();
-// Loop through all image files in cache/bedrock-samples/resource_pack/textures/blocks and subdirectories.
-// Use Imagescript to find the dominant color of each image.
-// Use Deno kv to store the dominant color of each image.
-// The Minecraft block name is the key, and the dominant color is the value.
-// Ignore doors, block tops and bottoms, and other blocks that are not full cubes.
-// Prompt for confirmation before adding to database
 
 const blocksDir = join(
   "cache",

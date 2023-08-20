@@ -99,7 +99,7 @@ export default async function print(
             : [<Image> decoded];
 
           constructDecoded(
-            `art_${basename(entry.path, extname(entry.path))}`,
+            `art/${basename(entry.path, extname(entry.path))}`,
             img,
             palette,
           );

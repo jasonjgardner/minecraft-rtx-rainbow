@@ -2,8 +2,8 @@ import { load } from "https://deno.land/std@0.184.0/dotenv/mod.ts";
 import openai from "npm:openai@^3.2.1";
 import { Image } from "imagescript/mod.ts";
 import type { Axis, WssParams } from "../../types/index.ts";
-import { convertImage } from "../components/ImagePrinter.ts";
-import assemble from "../components/_assemble.ts";
+import { convertImage } from "../../src/components/ImagePrinter.ts";
+import assemble from "../../src/components/_assemble.ts";
 import { join } from "path/mod.ts";
 
 const { Configuration, OpenAIApi } = openai;

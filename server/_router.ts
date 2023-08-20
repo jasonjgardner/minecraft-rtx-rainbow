@@ -1,4 +1,4 @@
-import { ensureDir } from "https://deno.land/std@0.147.0/fs/mod.ts";
+import { ensureDir } from "fs/mod.ts";
 import { queueCommandRequest } from "./_io.ts";
 import { logFunction } from "./routes/log.ts";
 import { watch } from "./routes/watch.ts";
