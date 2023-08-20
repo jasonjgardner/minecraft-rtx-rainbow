@@ -18,6 +18,7 @@ export default async function setup() {
       `${DIR_BP}/scripts/gametests`,
       `${DIR_BP}/scripts/server`,
       `${DIR_BP}/structures`,
+      `${DIR_BP}/structures/art`,
       `${DIR_BP}/structures/stargazers`,
       `${DIR_BP}/functions`,
       `${DIR_BP}/functions/tags`,

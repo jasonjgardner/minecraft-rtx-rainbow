@@ -16,8 +16,8 @@ export interface FlipbookComponent {
   flipbook_texture: string;
   atlas_tile: string;
   atlas_index?: number;
-  ticks_per_frame: number;
-  frames: number[];
+  ticks_per_frame?: number;
+  frames?: number[];
   replicate?: number;
   blend_frames?: boolean;
 }

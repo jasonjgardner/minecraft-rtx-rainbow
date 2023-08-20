@@ -60,10 +60,10 @@ async function flipbookData(
 
   return {
     flipbook_texture: `textures/blocks/${flipbookBlock.id}`,
-    frames: flipbookFrames,
-    atlas_tile: flipbookBlock.id,
-    ticks_per_frame: 1, //Math.min(10, Math.floor(frameCount * 1.666)),
-    blend_frames: false,
+    // frames: flipbookFrames,
+    atlas_tile: flipbookBlock.resourceId,
+    ticks_per_frame: 10,
+    // blend_frames: true,
   };
 }
 

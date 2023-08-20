@@ -2,7 +2,6 @@ import type { Axis } from "../../types/index.ts";
 import { type Frame, GIF, Image } from "imagescript/mod.ts";
 import { extname, join } from "path/mod.ts";
 import { sprintf } from "fmt/printf.ts";
-import { EOL } from "fs/mod.ts";
 import { materials } from "../store/_materials.ts";
 import BlockEntry from "./BlockEntry.ts";
 import { BLOCK_VERSION, DIR_BP } from "../store/_config.ts";
@@ -11,12 +10,10 @@ import * as NBT from "nbtify";
 import type { RGB } from "../../types/index.ts";
 import { image } from "deno_markdown/mod.ts";
 
-const MAX_PRINT_SIZE = 3 * 16;
 const MASK_COLOR = [
   Image.rgbaToColor(255, 255, 255, 0),
   Image.rgbaToColor(0, 0, 0, 0),
 ]; // Image.rgbToColor(...hex2rgb("#ff00ff"));
-const FUNCTIONS_NAMESPACE = "printer";
 
 const DIR_STRUCTURES = join(DIR_BP, "structures");
 
@@ -72,7 +69,7 @@ export async function constructDecoded(
   const waterLayer = layer.slice();
 
   for (let z = 0; z < depth; z++) {
-    const img = frames[z].rotate(180);
+    const img = frames[z].rotate(90);
 
     for (const [x, y, c] of img.iterateWithColors()) {
       const nearest =
