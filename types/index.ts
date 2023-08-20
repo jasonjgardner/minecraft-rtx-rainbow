@@ -1,3 +1,4 @@
+export { type JsonValue } from "json/common.ts";
 export type RGB = [number, number, number];
 export type RGBA = [number, number, number, number];
 
