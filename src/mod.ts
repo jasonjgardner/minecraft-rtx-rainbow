@@ -11,14 +11,13 @@ import type {
   MinecraftData,
   MinecraftTerrainData,
   PackModule,
-} from "/typings/types.ts";
+} from "/types/index.ts";
 import {
   DIR_BP,
   DIR_DOCS,
   DIR_RP,
   MIP_LEVELS,
   NAMESPACE,
-  RELEASE_TYPE,
 } from "./store/_config.ts";
 import { getConfig } from "/src/_utils.ts";
 import BlockEntry from "./components/BlockEntry.ts";
@@ -164,7 +163,6 @@ for (let itr = 0; itr < len; itr++) {
   ) {
     let flipbooksJson;
     // FIXME: Dumbass dependencies injection
-    // TODO: Create GIF preview for docs
     [blocksData, textureData, languages, flipbooksJson] = await writeFlipbooks(
       atlasGroup,
       {
@@ -195,24 +193,24 @@ for (const key in blocksTableData) {
   );
 }
 
-const tickers: string[] = [];
+// const tickers: string[] = [];
 
-await Deno.writeTextFile(
-  `${DIR_BP}/functions/tick.json`,
-  JSON.stringify({
-    "values": tickers,
-  }),
-);
+// await Deno.writeTextFile(
+//   `${DIR_BP}/functions/tick.json`,
+//   JSON.stringify({
+//     "values": tickers,
+//   }),
+// );
 
-await Deno.writeTextFile(
-  `${DIR_BP}/functions/rainbow_trail.mcfunction`,
-  rainbowTrailFunction(),
-);
+// await Deno.writeTextFile(
+//   `${DIR_BP}/functions/rainbow_trail.mcfunction`,
+//   rainbowTrailFunction(),
+// );
 
-await Deno.writeTextFile(
-  `${DIR_BP}/functions/entity_trail.mcfunction`,
-  await entityTrailFunction(blockLibrary),
-);
+// await Deno.writeTextFile(
+//   `${DIR_BP}/functions/entity_trail.mcfunction`,
+//   await entityTrailFunction(blockLibrary),
+// );
 
 const colorFunctions = [...new Set(await colorTrails(blockLibrary))];
 const colorTrailsDoc = new Markdown().header("Color Trails", 1);
@@ -243,7 +241,7 @@ await Deno.writeTextFile(
 
 await Deno.writeTextFile(
   join(DIR_RP, "/textures/flipbook_textures.json"),
-  JSON.stringify(flipbooks.flat(), null, 2),
+  JSON.stringify(flipbooks.flat(1), null, 2),
 );
 
 await Deno.writeTextFile(
@@ -279,17 +277,17 @@ try {
 
 const scripts: Array<PackModule> = [];
 
-// try {
-//   scripts.push({
-//     entry: await compile("hello.ts"),
-//     version: [1, 0, 0],
-//   });
-// } catch (err) {
-//   console.error("Failed compiling script: %s", err);
-// }
+try {
+  scripts.push({
+    entry: await compile("main.ts"),
+    version: [1, 0, 0],
+  });
+} catch (err) {
+  console.error("Failed compiling script: %s", err);
+}
 
-await createManifests(scripts, RELEASE_TYPE);
+await createManifests(scripts);
 
 if (getConfig("DEPLOY", "false") !== "false") {
-  await deployToDev();
+  await deployToDev(getConfig("preview", "false") !== "false");
 }
