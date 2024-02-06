@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "rainbow_glass:block/gray_400_glass",
+    "up": "rainbow_glass:block/gray_400_glass",
+    "north": "rainbow_glass:block/gray_400_glass",
+    "east": "rainbow_glass:block/gray_400_glass",
+    "south": "rainbow_glass:block/gray_400_glass",
+    "west": "rainbow_glass:block/gray_400_glass",
+    "particle": "rainbow_glass:block/gray_400_glass"
+  },
+  "render_type": "translucent"
+}
