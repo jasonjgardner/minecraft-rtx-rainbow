@@ -15,6 +15,8 @@
     "fmt/": "https://deno.land/std@0.198.0/fmt/",
     "log/": "https://deno.land/std@0.198.0/log/",
     "http/": "https://deno.land/std@0.198.0/http/",
+    "$std/": "https://deno.land/std@0.200.0/",
+    "oak/": "https://deno.land/x/oak@v10.4.0/",
     "io/": "https://deno.land/std@0.198.0/io/",
     "testing/": "https://deno.land/std@0.198.0/testing/",
     "node/": "https://deno.land/x/std@0.198.0/node/",
@@ -22,6 +24,8 @@
     "streams/": "https://deno.land/x/std@0.198.0/streams/",
     "deno_markdown/": "https://deno.land/x/deno_markdown@v0.2/",
     "nbt-ts": "npm:nbt-ts@1.1.0",
-    "nbtify": "https://cdn.jsdelivr.net/npm/nbtify/dist/index.min.js"
+    "nbtify": "https://cdn.jsdelivr.net/npm/nbtify/dist/index.min.js",
+    "@minecraft/server": "npm:@minecraft/server",
+    "@minecraft/server-net": "npm:@minecraft/server-net"
   }
 }

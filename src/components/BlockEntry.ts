@@ -1,4 +1,4 @@
-import titleCase from "https://deno.land/x/case@v2.1.0/titleCase.ts";
+import titleCase from "https://deno.land/x/case@2.2.0/titleCase.ts";
 import type {
   IBlock,
   IMaterial,
@@ -99,7 +99,7 @@ export default class BlockEntry {
       // pbr_emissive_brightness: this._material.label === "emissive" ? 0 : 0,
       // brightness_gamma: this._material.label === "emissive" ? 0 : 0,
       textures: this.resourceId,
-      sound: this._material.sound || "dirt",
+      // sound: this.behaviorId.replace(":", "."),
     };
   }
 
@@ -116,7 +116,9 @@ export default class BlockEntry {
       group = "itemGroup.name.glass";
     } else if (this._material.label?.startsWith("metal") === true) {
       group = "itemGroup.name.copper";
-    } else if (this._material.label === "emissive") {
+    } else if (
+      this._material.label === "emissive" || this._material.label === "dot_lit"
+    ) {
       group = "itemGroup.name.stainedClay";
     }
 
@@ -220,5 +222,32 @@ export default class BlockEntry {
     > = [];
 
     return Object.fromEntries(eventData);
+  }
+
+  serialize() {
+    return {
+      id: this.id,
+      behaviorId: this.behaviorId,
+      resourceId: this.resourceId,
+      name: this.name,
+      textureSet: this.textureSet,
+      blocksData: this.blocksData,
+      terrainData: this.terrainData,
+      material: JSON.stringify(this._material),
+      level: this._level,
+    };
+  }
+
+  static deserialize(data: ReturnType<BlockEntry["serialize"]>) {
+    const block = new BlockEntry(
+      {
+        name: data.name,
+        color: data.id.split("_")[0],
+      },
+      JSON.parse(data.material),
+      data.level,
+    );
+
+    return block;
   }
 }

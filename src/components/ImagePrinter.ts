@@ -8,7 +8,8 @@ import { BLOCK_VERSION, DIR_BP } from "../store/_config.ts";
 import { hex2rgb } from "https://crux.land/api/get/3RdawE.ts";
 import * as NBT from "nbtify";
 import type { RGB } from "../../types/index.ts";
-import { image } from "deno_markdown/mod.ts";
+
+import colorDb from "../store/db.json" assert { type: "json" };
 
 const MASK_COLOR = [
   Image.rgbaToColor(255, 255, 255, 0),
@@ -60,6 +61,12 @@ export async function constructDecoded(
     frames.length,
   ];
 
+  if (frames[0].width !== frames[0].height) {
+    const newSize = Math.max(frames[0].width, frames[0].height);
+    size[0] = newSize;
+    size[1] = newSize;
+  }
+
   const [width, height, depth] = size;
 
   /**
@@ -69,12 +76,12 @@ export async function constructDecoded(
   const waterLayer = layer.slice();
 
   for (let z = 0; z < depth; z++) {
-    const img = frames[z].rotate(90);
+    const img = frames[z];
 
     for (const [x, y, c] of img.iterateWithColors()) {
       const nearest =
         getNearestColor(<RGB> Image.colorToRGB(c), palette)?.behaviorId ??
-          "minecraft:cobblestone";
+          getNearestVanillaBlock(<RGB> Image.colorToRGB(c));
 
       const key = (z * width * height) + (y * width) + (width - x - 1);
 
@@ -139,6 +146,50 @@ export function getNearestColor(
     },
     [Number.POSITIVE_INFINITY, palette[0]],
   )[1];
+}
+
+export function getNearestVanillaBlock(
+  color: RGB,
+): string {
+  const vanillaBlocks = Object.keys(colorDb);
+  const values = Object.values(colorDb);
+  const allowedBlocks: string[] = [
+    "stone",
+    "cobblestone",
+    "dirt",
+  ];
+
+  // Reverse concrete names. For example "concrete_black" to "black_concrete" and "concrete_powder_black" to "black_concrete_powder"
+  const reversedVanillaBlocks = vanillaBlocks.map((block) => {
+    if (
+      block.startsWith("concrete") || block.startsWith("wool") ||
+      block.startsWith("stained_glass")
+    ) {
+      const [type, color] = block.split("_", 2);
+      return `${color}_${type}`;
+    }
+
+    return block;
+  });
+
+  // Join reversed vanilla block names with the values
+  const reversedVanillaBlocksAndValues = vanillaBlocks.filter((block) =>
+    allowedBlocks.includes(block) ||
+    (block.includes("concrete") && !block.includes("powder")) ||
+    block.includes("glass") || block.includes("wool")
+  ).map((block) => {
+    const index = vanillaBlocks.indexOf(block);
+    const { dominantColorHex, averageColorHex } = values[index];
+    return {
+      resourceId: reversedVanillaBlocks[index],
+      behaviorId: `minecraft:${reversedVanillaBlocks[index]}`,
+      hexColor: () => averageColorHex ?? dominantColorHex,
+    } as BlockEntry;
+  });
+
+  const vanillaBlock = getNearestColor(color, reversedVanillaBlocksAndValues);
+
+  return vanillaBlock.resourceId ?? "minecraft:air";
 }
 
 function writeFill(
@@ -214,7 +265,7 @@ export function convertImage(
 
     const nearest =
       getNearestColor(<RGB> Image.colorToRGB(c), palette)?.behaviorId ??
-        "cobblestone";
+        getNearestVanillaBlock(<RGB> Image.colorToRGB(c));
 
     if (absolutePosition) {
       func.push(

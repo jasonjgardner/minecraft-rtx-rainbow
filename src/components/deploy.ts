@@ -1,8 +1,11 @@
+import { load } from "https://deno.land/std@0.204.0/dotenv/mod.ts";
 import { join } from "path/mod.ts";
 import { copy, emptyDir } from "fs/mod.ts";
 import { DIR_DIST, NAMESPACE } from "/src/store/_config.ts";
 import { getConfig } from "../_utils.ts";
-
+const env = await load();
+const bdsPath = env.BDS_PATH ?? (Deno.env.get("BDS_PATH") ||
+  getConfig("BDS", ""));
 const appData = Deno.env.get("LOCALAPPDATA") || "%LocalAppData%";
 
 export async function deployToDev(preview = false) {
@@ -52,4 +55,33 @@ export async function deployToDev(preview = false) {
 export async function resetDev(paths: string[] = []) {
   await Promise.all(paths.map((dir) => emptyDir(dir)));
   //await Promise.all(paths.map((dir) => ensureDir(dir)));
+}
+
+export async function deployToDedicatedServer() {
+  if (!bdsPath) {
+    throw Error(
+      "Can not deploy to dedicated server without BDS_PATH environment variable.",
+    );
+  }
+
+  const bp = join(
+    bdsPath.toString(),
+    "development_behavior_packs",
+    `${NAMESPACE} BP`,
+  );
+  const buildBehaviorPacks = join(DIR_DIST, `${NAMESPACE} BP`);
+  const buildResourcePacks = join(DIR_DIST, `${NAMESPACE} RP`);
+  const rp = join(
+    bdsPath.toString(),
+    "development_resource_packs",
+    `${NAMESPACE} RP`,
+  );
+  await resetDev([
+    bp,
+    rp,
+  ]);
+  return await Promise.all([
+    copy(buildBehaviorPacks, bp, { overwrite: true }),
+    copy(buildResourcePacks, rp, { overwrite: true }),
+  ]);
 }

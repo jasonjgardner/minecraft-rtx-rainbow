@@ -127,6 +127,8 @@ export interface IMaterial {
     blend: BlendModes | [BlendModes, BlendModes];
   }[];
   render?: (block: IBlock, size: number) => Promise<Uint8Array>;
+  octaves?: number;
+  uuid: string;
 }
 
 export interface IBlock {

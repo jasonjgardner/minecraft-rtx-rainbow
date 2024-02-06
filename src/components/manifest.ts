@@ -6,7 +6,8 @@ import {
   BP_PACK_UUID,
   DIR_BP,
   DIR_RP,
-  MODULE_SERVER_GAMETEST_VERSION,
+  EDITOR_BP_MODULE_UUID,
+  EDITOR_RP_MODULE_UUID,
   MODULE_SERVER_UI_VERSION,
   MODULE_SERVER_VERSION,
   PACK_DESCRIPTION,
@@ -75,7 +76,7 @@ export async function createManifests(
             version: bpVersion,
           },
         ],
-        capabilities: ["raytraced"],
+        capabilities: ["raytraced", "pbr"],
         metadata,
       },
       null,
@@ -102,13 +103,10 @@ export async function createManifests(
   if (scripts && scripts.length) {
     dependencies.push({
       module_name: "@minecraft/server",
-      version: MODULE_SERVER_VERSION,
+      version: "1.7.0-beta",
     }, {
-      module_name: "@minecraft/server-gametest",
-      version: MODULE_SERVER_GAMETEST_VERSION,
-    }, {
-      module_name: "@minecraft/server-ui",
-      version: MODULE_SERVER_UI_VERSION,
+      module_name: "@minecraft/server-net",
+      version: "1.0.0-beta",
     });
     for (const script of scripts) {
       const v = script.version?.toString().split(".").slice(0, 3).map((v) =>
@@ -142,14 +140,78 @@ export async function createManifests(
         modules,
         dependencies,
         metadata,
-        capabilities: [
-          "editorExtension",
-        ],
+        // capabilities: [
+        //   "editorExtension",
+        // ],
       },
       null,
       2,
     ),
   );
+
+  // Editor manifests
+
+  //   await Deno.writeTextFile(
+  //   join(DIR_RP, "manifest.json"),
+  //   JSON.stringify(
+  //     {
+  //       format_version: 2,
+  //       header: {
+  //         name: PACK_NAME,
+  //         description: PACK_DESCRIPTION,
+  //         uuid: ,
+  //         version: rpVersion,
+  //         min_engine_version: TARGET_VERSION,
+  //       },
+  //       modules: [
+  //         {
+  //           description: `${PACK_NAME} generated textures`,
+  //           type: "resources",
+  //           uuid: EDITOR_RP_MODULE_UUID,
+  //           version: rpVersion,
+  //         },
+  //       ],
+  //       dependencies: [
+  //         {
+  //           uuid: BP_PACK_UUID,
+  //           version: bpVersion,
+  //         },
+  //       ],
+  //       metadata,
+  //     },
+  //     null,
+  //     2,
+  //   ),
+  // );
+
+  // dependencies.push({
+  //   module_name: "@minecraft/server-editor",
+  //   version: "0.1.0-beta"
+  // });
+
+  //   await Deno.writeTextFile(
+  //   join(DIR_BP, "manifest.json"),
+  //   JSON.stringify(
+  //     {
+  //       format_version: 2,
+  //       header: {
+  //         name: `${PACK_NAME} Editor Behavior Pack`,
+  //         description: `${PACK_NAME} editor data dependency`,
+  //         uuid: ,
+  //         version: bpVersion,
+  //         min_engine_version: TARGET_VERSION,
+  //       },
+  //       modules,
+  //       dependencies,
+  //       metadata,
+  //       capabilities: [
+  //         "editorExtension",
+  //       ],
+  //     },
+  //     null,
+  //     2,
+  //   ),
+  // );
 
   return { RP: rpVersion.join("."), BP: bpVersion.join(".") };
 }

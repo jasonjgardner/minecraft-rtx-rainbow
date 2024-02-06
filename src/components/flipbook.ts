@@ -139,15 +139,15 @@ export async function writeFlipbooks(
     await makeAtlas(frames),
   );
 
-  await Deno.writeFile(
-    join(
-      DIR_DOCS,
-      "flipbooks",
-      formatFlipbookName(lastBlock.color, lastBlock.material)
-        .trim().replace(/[_ ]+/g, "_") + ".gif",
-    ),
-    await makeGif(frames),
-  );
+  // await Deno.writeFile(
+  //   join(
+  //     DIR_DOCS,
+  //     "flipbooks",
+  //     formatFlipbookName(lastBlock.color, lastBlock.material)
+  //       .trim().replace(/[_ ]+/g, "_") + ".gif",
+  //   ),
+  //   await makeGif(frames),
+  // );
 
   const flipMaterials = materials.filter(({ label }: IMaterial) =>
     !label?.startsWith("glass")

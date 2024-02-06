@@ -1,6 +1,5 @@
-import { DIR_RP, DIR_SRC } from "../store/_config.ts";
+import { DIR_SRC } from "../store/_config.ts";
 import BlockEntry from "./BlockEntry.ts";
-import { decode, Image } from "imagescript/mod.ts";
 import { createCanvas, loadImage } from "canvas/mod.ts";
 import {
   convertRgbToHsl,
