@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "rainbow_lamp:block/lime_600_lamp",
+    "up": "rainbow_lamp:block/lime_600_lamp",
+    "north": "rainbow_lamp:block/lime_600_lamp",
+    "east": "rainbow_lamp:block/lime_600_lamp",
+    "south": "rainbow_lamp:block/lime_600_lamp",
+    "west": "rainbow_lamp:block/lime_600_lamp",
+    "particle": "rainbow_lamp:block/lime_600_lamp"
+  },
+  "render_type": "solid"
+}

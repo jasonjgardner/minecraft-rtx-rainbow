@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "rainbow_metal:block/lime_200_plate",
+    "up": "rainbow_metal:block/lime_200_plate",
+    "north": "rainbow_metal:block/lime_200_plate",
+    "east": "rainbow_metal:block/lime_200_plate",
+    "south": "rainbow_metal:block/lime_200_plate",
+    "west": "rainbow_metal:block/lime_200_plate",
+    "particle": "rainbow_metal:block/lime_200_plate"
+  },
+  "render_type": "solid"
+}

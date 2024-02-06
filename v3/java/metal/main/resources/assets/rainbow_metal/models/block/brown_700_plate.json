@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "rainbow_metal:block/brown_700_plate",
+    "up": "rainbow_metal:block/brown_700_plate",
+    "north": "rainbow_metal:block/brown_700_plate",
+    "east": "rainbow_metal:block/brown_700_plate",
+    "south": "rainbow_metal:block/brown_700_plate",
+    "west": "rainbow_metal:block/brown_700_plate",
+    "particle": "rainbow_metal:block/brown_700_plate"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,22 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="All Rights Reserved"
+
+[[mods]]
+modId="rainbow_metal"
+version="3.0.0"
+displayName="RAINBOW III!!! Metallic Plates"
+displayURL="https://github.com/jasonjgardner/minecraft-rtx-rainbow"
+credits="Created using mod maker MCreator - https://mcreator.net/about"
+authors="Jason J. Gardner"
+
+[[dependencies.rainbow_metal]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1]"
+    ordering="NONE"
+    side="BOTH"
+
+
+
+
