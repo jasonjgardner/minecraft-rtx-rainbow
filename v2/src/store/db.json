@@ -1,0 +1,2914 @@
+{
+  "amethyst_block": {
+    "dominantColor": [
+      114,
+      89,
+      177,
+      255
+    ],
+    "dominantColorHex": "#7259b1",
+    "averageColor": [
+      133,
+      97,
+      191,
+      255
+    ],
+    "averageColorHex": "#8561bf"
+  },
+  "amethyst_cluster": {
+    "dominantColor": [
+      114,
+      89,
+      177,
+      255
+    ],
+    "dominantColorHex": "#7259b1",
+    "averageColor": [
+      163,
+      126,
+      207,
+      255
+    ],
+    "averageColorHex": "#a37ecf"
+  },
+  "ancient_debris": {
+    "dominantColor": [
+      87,
+      46,
+      42,
+      255
+    ],
+    "dominantColorHex": "#572e2a",
+    "averageColor": [
+      95,
+      63,
+      55,
+      255
+    ],
+    "averageColorHex": "#5f3f37"
+  },
+  "angler_pottery_pattern": {
+    "dominantColor": [
+      127,
+      72,
+      59,
+      255
+    ],
+    "dominantColorHex": "#7f483b",
+    "averageColor": [
+      126,
+      72,
+      57,
+      255
+    ],
+    "averageColorHex": "#7e4839"
+  },
+  "anvil": {
+    "dominantColor": [
+      60,
+      60,
+      60,
+      255
+    ],
+    "dominantColorHex": "#3c3c3c",
+    "averageColor": [
+      68,
+      68,
+      68,
+      255
+    ],
+    "averageColorHex": "#444444"
+  },
+  "archer_pottery_pattern": {
+    "dominantColor": [
+      116,
+      65,
+      53,
+      255
+    ],
+    "dominantColorHex": "#744135",
+    "averageColor": [
+      124,
+      71,
+      56,
+      255
+    ],
+    "averageColorHex": "#7c4738"
+  },
+  "arms_up_pottery_pattern": {
+    "dominantColor": [
+      121,
+      68,
+      56,
+      255
+    ],
+    "dominantColorHex": "#794438",
+    "averageColor": [
+      125,
+      72,
+      57,
+      255
+    ],
+    "averageColorHex": "#7d4839"
+  },
+  "azalea_leaves": {
+    "dominantColor": [
+      82,
+      101,
+      43,
+      255
+    ],
+    "dominantColorHex": "#52652b",
+    "averageColor": [
+      90,
+      114,
+      44,
+      255
+    ],
+    "averageColorHex": "#5a722c"
+  },
+  "azalea_leaves_flowers": {
+    "dominantColor": [
+      82,
+      101,
+      43,
+      255
+    ],
+    "dominantColorHex": "#52652b",
+    "averageColor": [
+      99,
+      111,
+      60,
+      255
+    ],
+    "averageColorHex": "#636f3c"
+  },
+  "azalea_leaves_flowers_opaque": {
+    "dominantColor": [
+      82,
+      101,
+      43,
+      255
+    ],
+    "dominantColorHex": "#52652b",
+    "averageColor": [
+      91,
+      104,
+      56,
+      255
+    ],
+    "averageColorHex": "#5b6838"
+  },
+  "azalea_leaves_opaque": {
+    "dominantColor": [
+      82,
+      101,
+      43,
+      255
+    ],
+    "dominantColorHex": "#52652b",
+    "averageColor": [
+      82,
+      105,
+      42,
+      255
+    ],
+    "averageColorHex": "#52692a"
+  },
+  "flowering_azalea": {
+    "dominantColor": [
+      82,
+      101,
+      43,
+      255
+    ],
+    "dominantColorHex": "#52652b",
+    "averageColor": [
+      91,
+      109,
+      42,
+      255
+    ],
+    "averageColorHex": "#5b6d2a"
+  },
+  "azalea": {
+    "dominantColor": [
+      82,
+      101,
+      43,
+      255
+    ],
+    "dominantColorHex": "#52652b",
+    "averageColor": [
+      93,
+      117,
+      45,
+      255
+    ],
+    "averageColorHex": "#5d752d"
+  },
+  "bamboo_block": {
+    "dominantColor": [
+      126,
+      138,
+      55,
+      255
+    ],
+    "dominantColorHex": "#7e8a37",
+    "averageColor": [
+      127,
+      144,
+      57,
+      255
+    ],
+    "averageColorHex": "#7f9039"
+  },
+  "bamboo": {
+    "dominantColor": [
+      95,
+      142,
+      3,
+      255
+    ],
+    "dominantColorHex": "#5f8e03",
+    "averageColor": [
+      93,
+      144,
+      19,
+      255
+    ],
+    "averageColorHex": "#5d9013"
+  },
+  "bamboo_mosaic_stairs": {
+    "dominantColor": [
+      199,
+      169,
+      76,
+      255
+    ],
+    "dominantColorHex": "#c7a94c",
+    "averageColor": [
+      190,
+      170,
+      78,
+      255
+    ],
+    "averageColorHex": "#beaa4e"
+  },
+  "bamboo_stairs": {
+    "dominantColor": [
+      199,
+      169,
+      76,
+      255
+    ],
+    "dominantColorHex": "#c7a94c",
+    "averageColor": [
+      193,
+      173,
+      80,
+      255
+    ],
+    "averageColorHex": "#c1ad50"
+  },
+  "barrel": {
+    "dominantColor": [
+      135,
+      95,
+      58,
+      255
+    ],
+    "dominantColorHex": "#875f3a",
+    "averageColor": [
+      107,
+      81,
+      50,
+      255
+    ],
+    "averageColorHex": "#6b5132"
+  },
+  "basalt": {
+    "dominantColor": [
+      78,
+      75,
+      78,
+      255
+    ],
+    "dominantColorHex": "#4e4b4e",
+    "averageColor": [
+      73,
+      72,
+      77,
+      255
+    ],
+    "averageColorHex": "#49484d"
+  },
+  "beehive": {
+    "dominantColor": [
+      182,
+      144,
+      92,
+      255
+    ],
+    "dominantColorHex": "#b6905c",
+    "averageColor": [
+      157,
+      126,
+      75,
+      255
+    ],
+    "averageColorHex": "#9d7e4b"
+  },
+  "beehive_front_honey": {
+    "dominantColor": [
+      182,
+      144,
+      92,
+      255
+    ],
+    "dominantColorHex": "#b6905c",
+    "averageColor": [
+      165,
+      129,
+      72,
+      255
+    ],
+    "averageColorHex": "#a58148"
+  },
+  "beetroots_stage_0": {
+    "dominantColor": [
+      77,
+      138,
+      39,
+      255
+    ],
+    "dominantColorHex": "#4d8a27",
+    "averageColor": [
+      65,
+      137,
+      41,
+      255
+    ],
+    "averageColorHex": "#418929"
+  },
+  "beetroots_stage_1": {
+    "dominantColor": [
+      77,
+      138,
+      39,
+      255
+    ],
+    "dominantColorHex": "#4d8a27",
+    "averageColor": [
+      66,
+      138,
+      41,
+      255
+    ],
+    "averageColorHex": "#428a29"
+  },
+  "beetroots_stage_2": {
+    "dominantColor": [
+      77,
+      138,
+      39,
+      255
+    ],
+    "dominantColorHex": "#4d8a27",
+    "averageColor": [
+      69,
+      130,
+      39,
+      255
+    ],
+    "averageColorHex": "#458227"
+  },
+  "beetroots_stage_3": {
+    "dominantColor": [
+      77,
+      138,
+      39,
+      255
+    ],
+    "dominantColorHex": "#4d8a27",
+    "averageColor": [
+      93,
+      91,
+      30,
+      255
+    ],
+    "averageColorHex": "#5d5b1e"
+  },
+  "bee_nest": {
+    "dominantColor": [
+      216,
+      159,
+      82,
+      255
+    ],
+    "dominantColorHex": "#d89f52",
+    "averageColor": [
+      196,
+      150,
+      77,
+      255
+    ],
+    "averageColorHex": "#c4964d"
+  },
+  "bee_nest_front_honey": {
+    "dominantColor": [
+      199,
+      130,
+      68,
+      255
+    ],
+    "dominantColorHex": "#c78244",
+    "averageColor": [
+      194,
+      151,
+      75,
+      255
+    ],
+    "averageColorHex": "#c2974b"
+  },
+  "big_dripleaf": {
+    "dominantColor": [
+      104,
+      122,
+      47,
+      255
+    ],
+    "dominantColorHex": "#687a2f",
+    "averageColor": [
+      91,
+      115,
+      45,
+      255
+    ],
+    "averageColorHex": "#5b732d"
+  },
+  "blackstone_wall": {
+    "dominantColor": [
+      57,
+      54,
+      66,
+      255
+    ],
+    "dominantColorHex": "#393642",
+    "averageColor": [
+      42,
+      35,
+      40,
+      255
+    ],
+    "averageColorHex": "#2a2328"
+  },
+  "blade_pottery_pattern": {
+    "dominantColor": [
+      121,
+      68,
+      56,
+      255
+    ],
+    "dominantColorHex": "#794438",
+    "averageColor": [
+      129,
+      74,
+      58,
+      255
+    ],
+    "averageColorHex": "#814a3a"
+  },
+  "blast_furnace": {
+    "dominantColor": [
+      85,
+      85,
+      85,
+      255
+    ],
+    "dominantColorHex": "#555555",
+    "averageColor": [
+      107,
+      107,
+      107,
+      255
+    ],
+    "averageColorHex": "#6b6b6b"
+  },
+  "lit_blast_furnace": {
+    "dominantColor": [
+      85,
+      85,
+      85,
+      255
+    ],
+    "dominantColorHex": "#555555",
+    "averageColor": [
+      107,
+      107,
+      107,
+      255
+    ],
+    "averageColorHex": "#6b6b6b"
+  },
+  "blue_ice": {
+    "dominantColor": [
+      103,
+      160,
+      252,
+      255
+    ],
+    "dominantColorHex": "#67a0fc",
+    "averageColor": [
+      116,
+      167,
+      253,
+      255
+    ],
+    "averageColorHex": "#74a7fd"
+  },
+  "bone_block": {
+    "dominantColor": [
+      0,
+      0,
+      0,
+      255
+    ],
+    "dominantColorHex": "#000000",
+    "averageColor": [
+      229,
+      225,
+      207,
+      255
+    ],
+    "averageColorHex": "#e5e1cf"
+  },
+  "bookshelf": {
+    "dominantColor": [
+      177,
+      136,
+      81,
+      255
+    ],
+    "dominantColorHex": "#b18851",
+    "averageColor": [
+      117,
+      94,
+      59,
+      255
+    ],
+    "averageColorHex": "#755e3b"
+  },
+  "border": {
+    "dominantColor": [
+      171,
+      46,
+      46,
+      255
+    ],
+    "dominantColorHex": "#ab2e2e",
+    "averageColor": [
+      181,
+      57,
+      47,
+      255
+    ],
+    "averageColorHex": "#b5392f"
+  },
+  "brewer_pottery_pattern": {
+    "dominantColor": [
+      127,
+      72,
+      59,
+      255
+    ],
+    "dominantColorHex": "#7f483b",
+    "averageColor": [
+      126,
+      72,
+      57,
+      255
+    ],
+    "averageColorHex": "#7e4839"
+  },
+  "brewing_stand": {
+    "dominantColor": [
+      101,
+      92,
+      92,
+      255
+    ],
+    "dominantColorHex": "#655c5c",
+    "averageColor": [
+      116,
+      105,
+      105,
+      255
+    ],
+    "averageColorHex": "#746969"
+  },
+  "brick_stairs": {
+    "dominantColor": [
+      150,
+      83,
+      67,
+      255
+    ],
+    "dominantColorHex": "#965343",
+    "averageColor": [
+      150,
+      97,
+      83,
+      255
+    ],
+    "averageColorHex": "#966153"
+  },
+  "bubble_column_inner_a": {
+    "dominantColor": [
+      28,
+      201,
+      255,
+      255
+    ],
+    "dominantColorHex": "#1cc9ff",
+    "averageColor": [
+      67,
+      195,
+      255,
+      255
+    ],
+    "averageColorHex": "#43c3ff"
+  },
+  "bubble_column_inner_b": {
+    "dominantColor": [
+      28,
+      201,
+      255,
+      255
+    ],
+    "dominantColorHex": "#1cc9ff",
+    "averageColor": [
+      67,
+      195,
+      255,
+      255
+    ],
+    "averageColorHex": "#43c3ff"
+  },
+  "bubble_column_outer_a": {
+    "dominantColor": [
+      117,
+      222,
+      255,
+      255
+    ],
+    "dominantColorHex": "#75deff",
+    "averageColor": [
+      137,
+      248,
+      42,
+      255
+    ],
+    "averageColorHex": "#89f82a"
+  },
+  "bubble_column_outer_b": {
+    "dominantColor": [
+      117,
+      222,
+      255,
+      255
+    ],
+    "dominantColorHex": "#75deff",
+    "averageColor": [
+      137,
+      248,
+      42,
+      255
+    ],
+    "averageColorHex": "#89f82a"
+  },
+  "bubble_column_outer_c": {
+    "dominantColor": [
+      117,
+      222,
+      255,
+      255
+    ],
+    "dominantColorHex": "#75deff",
+    "averageColor": [
+      137,
+      248,
+      42,
+      255
+    ],
+    "averageColorHex": "#89f82a"
+  },
+  "bubble_column_outer_d": {
+    "dominantColor": [
+      117,
+      222,
+      255,
+      255
+    ],
+    "dominantColorHex": "#75deff",
+    "averageColor": [
+      137,
+      248,
+      42,
+      255
+    ],
+    "averageColorHex": "#89f82a"
+  },
+  "bubble_column_outer_e": {
+    "dominantColor": [
+      117,
+      222,
+      255,
+      255
+    ],
+    "dominantColorHex": "#75deff",
+    "averageColor": [
+      137,
+      248,
+      42,
+      255
+    ],
+    "averageColorHex": "#89f82a"
+  },
+  "bubble_column_outer_f": {
+    "dominantColor": [
+      117,
+      222,
+      255,
+      255
+    ],
+    "dominantColorHex": "#75deff",
+    "averageColor": [
+      137,
+      248,
+      42,
+      255
+    ],
+    "averageColorHex": "#89f82a"
+  },
+  "bubble_column_outer_g": {
+    "dominantColor": [
+      117,
+      222,
+      255,
+      255
+    ],
+    "dominantColorHex": "#75deff",
+    "averageColor": [
+      137,
+      248,
+      42,
+      255
+    ],
+    "averageColorHex": "#89f82a"
+  },
+  "bubble_column_outer_h": {
+    "dominantColor": [
+      117,
+      222,
+      255,
+      255
+    ],
+    "dominantColorHex": "#75deff",
+    "averageColor": [
+      137,
+      248,
+      42,
+      255
+    ],
+    "averageColorHex": "#89f82a"
+  },
+  "budding_amethyst": {
+    "dominantColor": [
+      114,
+      89,
+      177,
+      255
+    ],
+    "dominantColorHex": "#7259b1",
+    "averageColor": [
+      132,
+      96,
+      186,
+      255
+    ],
+    "averageColorHex": "#8460ba"
+  },
+  "allow": {
+    "dominantColor": [
+      134,
+      106,
+      67,
+      255
+    ],
+    "dominantColorHex": "#866a43",
+    "averageColor": [
+      136,
+      115,
+      83,
+      255
+    ],
+    "averageColorHex": "#887353"
+  },
+  "deny": {
+    "dominantColor": [
+      105,
+      105,
+      105,
+      255
+    ],
+    "dominantColorHex": "#696969",
+    "averageColor": [
+      111,
+      111,
+      111,
+      255
+    ],
+    "averageColorHex": "#6f6f6f"
+  },
+  "burn_pottery_pattern": {
+    "dominantColor": [
+      127,
+      72,
+      59,
+      255
+    ],
+    "dominantColorHex": "#7f483b",
+    "averageColor": [
+      127,
+      73,
+      57,
+      255
+    ],
+    "averageColorHex": "#7f4939"
+  },
+  "cake_inner": {
+    "dominantColor": [
+      104,
+      46,
+      32,
+      255
+    ],
+    "dominantColorHex": "#682e20",
+    "averageColor": [
+      133,
+      84,
+      60,
+      255
+    ],
+    "averageColorHex": "#85543c"
+  },
+  "yellow_candle_cake": {
+    "dominantColor": [
+      134,
+      63,
+      35,
+      255
+    ],
+    "dominantColorHex": "#863f23",
+    "averageColor": [
+      203,
+      151,
+      121,
+      255
+    ],
+    "averageColorHex": "#cb9779"
+  },
+  "calcite": {
+    "dominantColor": [
+      178,
+      178,
+      178,
+      255
+    ],
+    "dominantColorHex": "#b2b2b2",
+    "averageColor": [
+      223,
+      224,
+      220,
+      255
+    ],
+    "averageColorHex": "#dfe0dc"
+  },
+  "calibrated_sculk_sensor_amethyst": {
+    "dominantColor": [
+      168,
+      138,
+      241,
+      255
+    ],
+    "dominantColorHex": "#a88af1",
+    "averageColor": [
+      198,
+      160,
+      225,
+      255
+    ],
+    "averageColorHex": "#c6a0e1"
+  },
+  "calibrated_sculk_sensor": {
+    "dominantColor": [
+      133,
+      105,
+      201,
+      255
+    ],
+    "dominantColorHex": "#8569c9",
+    "averageColor": [
+      59,
+      69,
+      101,
+      255
+    ],
+    "averageColorHex": "#3b4565"
+  },
+  "camera": {
+    "dominantColor": [
+      72,
+      72,
+      72,
+      255
+    ],
+    "dominantColorHex": "#484848",
+    "averageColor": [
+      53,
+      53,
+      53,
+      255
+    ],
+    "averageColorHex": "#353535"
+  },
+  "carried_waterlily": {
+    "dominantColor": [
+      67,
+      100,
+      37,
+      255
+    ],
+    "dominantColorHex": "#436425",
+    "averageColor": [
+      67,
+      102,
+      36,
+      255
+    ],
+    "averageColorHex": "#436624"
+  },
+  "carrots_stage3": {
+    "dominantColor": [
+      49,
+      111,
+      42,
+      255
+    ],
+    "dominantColorHex": "#316f2a",
+    "averageColor": [
+      81,
+      124,
+      37,
+      255
+    ],
+    "averageColorHex": "#517c25"
+  },
+  "carrots_stage_0": {
+    "dominantColor": [
+      49,
+      111,
+      42,
+      255
+    ],
+    "dominantColorHex": "#316f2a",
+    "averageColor": [
+      44,
+      110,
+      39,
+      255
+    ],
+    "averageColorHex": "#2c6e27"
+  },
+  "carrots_stage_1": {
+    "dominantColor": [
+      41,
+      93,
+      35,
+      255
+    ],
+    "dominantColorHex": "#295d23",
+    "averageColor": [
+      52,
+      120,
+      40,
+      255
+    ],
+    "averageColorHex": "#347828"
+  },
+  "carrots_stage_2": {
+    "dominantColor": [
+      41,
+      93,
+      35,
+      255
+    ],
+    "dominantColorHex": "#295d23",
+    "averageColor": [
+      56,
+      113,
+      37,
+      255
+    ],
+    "averageColorHex": "#387125"
+  },
+  "carrots_stage_3": {
+    "dominantColor": [
+      49,
+      111,
+      42,
+      255
+    ],
+    "dominantColorHex": "#316f2a",
+    "averageColor": [
+      81,
+      124,
+      37,
+      255
+    ],
+    "averageColorHex": "#517c25"
+  },
+  "cartography_table": {
+    "dominantColor": [
+      100,
+      63,
+      28,
+      255
+    ],
+    "dominantColorHex": "#643f1c",
+    "averageColor": [
+      67,
+      43,
+      20,
+      255
+    ],
+    "averageColorHex": "#432b14"
+  },
+  "lava_cauldron": {
+    "dominantColor": [
+      194,
+      194,
+      194,
+      255
+    ],
+    "dominantColorHex": "#c2c2c2",
+    "averageColor": [
+      36,
+      36,
+      36,
+      255
+    ],
+    "averageColorHex": "#242424"
+  },
+  "cauldron_water_placeholder": {
+    "dominantColor": [
+      194,
+      194,
+      194,
+      255
+    ],
+    "dominantColorHex": "#c2c2c2",
+    "averageColor": [
+      36,
+      36,
+      36,
+      255
+    ],
+    "averageColorHex": "#242424"
+  },
+  "cherry_leaves": {
+    "dominantColor": [
+      234,
+      146,
+      196,
+      255
+    ],
+    "dominantColorHex": "#ea92c4",
+    "averageColor": [
+      229,
+      172,
+      194,
+      255
+    ],
+    "averageColorHex": "#e5acc2"
+  },
+  "cherry_leaves_opaque": {
+    "dominantColor": [
+      205,
+      102,
+      161,
+      255
+    ],
+    "dominantColorHex": "#cd66a1",
+    "averageColor": [
+      226,
+      162,
+      188,
+      255
+    ],
+    "averageColorHex": "#e2a2bc"
+  },
+  "cherry_wood": {
+    "dominantColor": [
+      79,
+      50,
+      64,
+      255
+    ],
+    "dominantColorHex": "#4f3240",
+    "averageColor": [
+      54,
+      33,
+      44,
+      255
+    ],
+    "averageColorHex": "#36212c"
+  },
+  "cherry_wall_sign": {
+    "dominantColor": [
+      204,
+      127,
+      127,
+      255
+    ],
+    "dominantColorHex": "#cc7f7f",
+    "averageColor": [
+      226,
+      178,
+      172,
+      255
+    ],
+    "averageColorHex": "#e2b2ac"
+  },
+  "chiseled_bookshelf_empty": {
+    "dominantColor": [
+      177,
+      136,
+      81,
+      255
+    ],
+    "dominantColorHex": "#b18851",
+    "averageColor": [
+      90,
+      70,
+      41,
+      255
+    ],
+    "averageColorHex": "#5a4629"
+  },
+  "chiseled_bookshelf_occupied": {
+    "dominantColor": [
+      177,
+      136,
+      81,
+      255
+    ],
+    "dominantColorHex": "#b18851",
+    "averageColor": [
+      121,
+      94,
+      69,
+      255
+    ],
+    "averageColorHex": "#795e45"
+  },
+  "chiseled_bookshelf": {
+    "dominantColor": [
+      145,
+      110,
+      65,
+      255
+    ],
+    "dominantColorHex": "#916e41",
+    "averageColor": [
+      175,
+      141,
+      86,
+      255
+    ],
+    "averageColorHex": "#af8d56"
+  },
+  "chiseled_nether_bricks": {
+    "dominantColor": [
+      0,
+      0,
+      0,
+      255
+    ],
+    "dominantColorHex": "#000000",
+    "averageColor": [
+      47,
+      23,
+      28,
+      255
+    ],
+    "averageColorHex": "#2f171c"
+  },
+  "chiseled_polished_blackstone": {
+    "dominantColor": [
+      75,
+      73,
+      80,
+      255
+    ],
+    "dominantColorHex": "#4b4950",
+    "averageColor": [
+      53,
+      48,
+      56,
+      255
+    ],
+    "averageColorHex": "#353038"
+  },
+  "chorus_flower": {
+    "dominantColor": [
+      85,
+      50,
+      87,
+      255
+    ],
+    "dominantColorHex": "#553257",
+    "averageColor": [
+      151,
+      120,
+      151,
+      255
+    ],
+    "averageColorHex": "#977897"
+  },
+  "chorus_flower_dead": {
+    "dominantColor": [
+      85,
+      50,
+      87,
+      255
+    ],
+    "dominantColorHex": "#553257",
+    "averageColor": [
+      96,
+      61,
+      94,
+      255
+    ],
+    "averageColorHex": "#603d5e"
+  },
+  "chorus_plant": {
+    "dominantColor": [
+      85,
+      50,
+      87,
+      255
+    ],
+    "dominantColorHex": "#553257",
+    "averageColor": [
+      93,
+      57,
+      93,
+      255
+    ],
+    "averageColorHex": "#5d395d"
+  },
+  "clay": {
+    "dominantColor": [
+      158,
+      164,
+      173,
+      255
+    ],
+    "dominantColorHex": "#9ea4ad",
+    "averageColor": [
+      160,
+      166,
+      179,
+      255
+    ],
+    "averageColorHex": "#a0a6b3"
+  },
+  "coal_block": {
+    "dominantColor": [
+      0,
+      0,
+      0,
+      255
+    ],
+    "dominantColorHex": "#000000",
+    "averageColor": [
+      16,
+      15,
+      15,
+      255
+    ],
+    "averageColorHex": "#100f0f"
+  },
+  "coal_ore": {
+    "dominantColor": [
+      113,
+      113,
+      113,
+      255
+    ],
+    "dominantColorHex": "#717171",
+    "averageColor": [
+      105,
+      105,
+      105,
+      255
+    ],
+    "averageColorHex": "#696969"
+  },
+  "coarse_dirt": {
+    "dominantColor": [
+      120,
+      81,
+      57,
+      255
+    ],
+    "dominantColorHex": "#785139",
+    "averageColor": [
+      119,
+      85,
+      59,
+      255
+    ],
+    "averageColorHex": "#77553b"
+  },
+  "stone_stairs": {
+    "dominantColor": [
+      133,
+      133,
+      133,
+      255
+    ],
+    "dominantColorHex": "#858585",
+    "averageColor": [
+      127,
+      127,
+      127,
+      255
+    ],
+    "averageColorHex": "#7f7f7f"
+  },
+  "mossy_cobblestone_stairs": {
+    "dominantColor": [
+      81,
+      90,
+      55,
+      255
+    ],
+    "dominantColorHex": "#515a37",
+    "averageColor": [
+      110,
+      118,
+      94,
+      255
+    ],
+    "averageColorHex": "#6e765e"
+  },
+  "cocoa_stage_0": {
+    "dominantColor": [
+      117,
+      108,
+      52,
+      255
+    ],
+    "dominantColorHex": "#756c34",
+    "averageColor": [
+      133,
+      134,
+      62,
+      255
+    ],
+    "averageColorHex": "#85863e"
+  },
+  "cocoa_stage_1": {
+    "dominantColor": [
+      102,
+      73,
+      34,
+      255
+    ],
+    "dominantColorHex": "#664922",
+    "averageColor": [
+      146,
+      110,
+      56,
+      255
+    ],
+    "averageColorHex": "#926e38"
+  },
+  "cocoa_stage_2": {
+    "dominantColor": [
+      201,
+      138,
+      82,
+      255
+    ],
+    "dominantColorHex": "#c98a52",
+    "averageColor": [
+      156,
+      94,
+      43,
+      255
+    ],
+    "averageColorHex": "#9c5e2b"
+  },
+  "compost": {
+    "dominantColor": [
+      104,
+      62,
+      24,
+      255
+    ],
+    "dominantColorHex": "#683e18",
+    "averageColor": [
+      146,
+      98,
+      42,
+      255
+    ],
+    "averageColorHex": "#92622a"
+  },
+  "composter": {
+    "dominantColor": [
+      131,
+      78,
+      46,
+      255
+    ],
+    "dominantColorHex": "#834e2e",
+    "averageColor": [
+      112,
+      70,
+      31,
+      255
+    ],
+    "averageColorHex": "#70461f"
+  },
+  "compost_ready": {
+    "dominantColor": [
+      128,
+      99,
+      73,
+      255
+    ],
+    "dominantColorHex": "#806349",
+    "averageColor": [
+      174,
+      130,
+      74,
+      255
+    ],
+    "averageColorHex": "#ae824a"
+  },
+  "concrete_black": {
+    "dominantColor": [
+      0,
+      0,
+      0,
+      255
+    ],
+    "dominantColorHex": "#000000",
+    "averageColor": [
+      8,
+      10,
+      15,
+      255
+    ],
+    "averageColorHex": "#080a0f"
+  },
+  "concrete_blue": {
+    "dominantColor": [
+      45,
+      54,
+      140,
+      255
+    ],
+    "dominantColorHex": "#2d368c",
+    "averageColor": [
+      44,
+      46,
+      143,
+      255
+    ],
+    "averageColorHex": "#2c2e8f"
+  },
+  "concrete_brown": {
+    "dominantColor": [
+      91,
+      53,
+      29,
+      255
+    ],
+    "dominantColorHex": "#5b351d",
+    "averageColor": [
+      96,
+      59,
+      31,
+      255
+    ],
+    "averageColorHex": "#603b1f"
+  },
+  "concrete_cyan": {
+    "dominantColor": [
+      20,
+      117,
+      133,
+      255
+    ],
+    "dominantColorHex": "#147585",
+    "averageColor": [
+      21,
+      119,
+      136,
+      255
+    ],
+    "averageColorHex": "#157788"
+  },
+  "concrete_gray": {
+    "dominantColor": [
+      0,
+      0,
+      0,
+      255
+    ],
+    "dominantColorHex": "#000000",
+    "averageColor": [
+      54,
+      57,
+      61,
+      255
+    ],
+    "averageColorHex": "#36393d"
+  },
+  "concrete_green": {
+    "dominantColor": [
+      74,
+      86,
+      34,
+      255
+    ],
+    "dominantColorHex": "#4a5622",
+    "averageColor": [
+      73,
+      91,
+      36,
+      255
+    ],
+    "averageColorHex": "#495b24"
+  },
+  "concrete_light_blue": {
+    "dominantColor": [
+      34,
+      139,
+      192,
+      255
+    ],
+    "dominantColorHex": "#228bc0",
+    "averageColor": [
+      35,
+      137,
+      198,
+      255
+    ],
+    "averageColorHex": "#2389c6"
+  },
+  "concrete_lime": {
+    "dominantColor": [
+      103,
+      162,
+      23,
+      255
+    ],
+    "dominantColorHex": "#67a217",
+    "averageColor": [
+      94,
+      168,
+      24,
+      255
+    ],
+    "averageColorHex": "#5ea818"
+  },
+  "concrete_magenta": {
+    "dominantColor": [
+      163,
+      46,
+      158,
+      255
+    ],
+    "dominantColorHex": "#a32e9e",
+    "averageColor": [
+      169,
+      48,
+      159,
+      255
+    ],
+    "averageColorHex": "#a9309f"
+  },
+  "concrete_orange": {
+    "dominantColor": [
+      218,
+      83,
+      0,
+      255
+    ],
+    "dominantColorHex": "#da5300",
+    "averageColor": [
+      224,
+      97,
+      0,
+      255
+    ],
+    "averageColorHex": "#e06100"
+  },
+  "concrete_pink": {
+    "dominantColor": [
+      211,
+      95,
+      140,
+      255
+    ],
+    "dominantColorHex": "#d35f8c",
+    "averageColor": [
+      213,
+      101,
+      142,
+      255
+    ],
+    "averageColorHex": "#d5658e"
+  },
+  "concrete_powder_black": {
+    "dominantColor": [
+      58,
+      58,
+      62,
+      255
+    ],
+    "dominantColorHex": "#3a3a3e",
+    "averageColor": [
+      25,
+      26,
+      31,
+      255
+    ],
+    "averageColorHex": "#191a1f"
+  },
+  "concrete_powder_blue": {
+    "dominantColor": [
+      66,
+      75,
+      160,
+      255
+    ],
+    "dominantColorHex": "#424ba0",
+    "averageColor": [
+      70,
+      73,
+      166,
+      255
+    ],
+    "averageColorHex": "#4649a6"
+  },
+  "concrete_powder_brown": {
+    "dominantColor": [
+      118,
+      76,
+      51,
+      255
+    ],
+    "dominantColorHex": "#764c33",
+    "averageColor": [
+      125,
+      84,
+      53,
+      255
+    ],
+    "averageColorHex": "#7d5435"
+  },
+  "concrete_powder_cyan": {
+    "dominantColor": [
+      36,
+      143,
+      149,
+      255
+    ],
+    "dominantColorHex": "#248f95",
+    "averageColor": [
+      36,
+      147,
+      157,
+      255
+    ],
+    "averageColorHex": "#24939d"
+  },
+  "concrete_powder_gray": {
+    "dominantColor": [
+      77,
+      81,
+      84,
+      255
+    ],
+    "dominantColorHex": "#4d5154",
+    "averageColor": [
+      76,
+      81,
+      84,
+      255
+    ],
+    "averageColorHex": "#4c5154"
+  },
+  "concrete_powder_green": {
+    "dominantColor": [
+      92,
+      107,
+      46,
+      255
+    ],
+    "dominantColorHex": "#5c6b2e",
+    "averageColor": [
+      97,
+      119,
+      44,
+      255
+    ],
+    "averageColorHex": "#61772c"
+  },
+  "concrete_powder_light_blue": {
+    "dominantColor": [
+      73,
+      190,
+      210,
+      255
+    ],
+    "dominantColorHex": "#49bed2",
+    "averageColor": [
+      74,
+      180,
+      213,
+      255
+    ],
+    "averageColorHex": "#4ab4d5"
+  },
+  "concrete_powder_lime": {
+    "dominantColor": [
+      119,
+      178,
+      39,
+      255
+    ],
+    "dominantColorHex": "#77b227",
+    "averageColor": [
+      125,
+      189,
+      41,
+      255
+    ],
+    "averageColorHex": "#7dbd29"
+  },
+  "concrete_powder_magenta": {
+    "dominantColor": [
+      193,
+      81,
+      188,
+      255
+    ],
+    "dominantColorHex": "#c151bc",
+    "averageColor": [
+      192,
+      83,
+      184,
+      255
+    ],
+    "averageColorHex": "#c053b8"
+  },
+  "concrete_powder_orange": {
+    "dominantColor": [
+      223,
+      120,
+      27,
+      255
+    ],
+    "dominantColorHex": "#df781b",
+    "averageColor": [
+      227,
+      131,
+      31,
+      255
+    ],
+    "averageColorHex": "#e3831f"
+  },
+  "concrete_powder_pink": {
+    "dominantColor": [
+      227,
+      144,
+      176,
+      255
+    ],
+    "dominantColorHex": "#e390b0",
+    "averageColor": [
+      228,
+      153,
+      181,
+      255
+    ],
+    "averageColorHex": "#e499b5"
+  },
+  "concrete_powder_purple": {
+    "dominantColor": [
+      121,
+      53,
+      172,
+      255
+    ],
+    "dominantColorHex": "#7935ac",
+    "averageColor": [
+      131,
+      55,
+      177,
+      255
+    ],
+    "averageColorHex": "#8337b1"
+  },
+  "concrete_powder_red": {
+    "dominantColor": [
+      160,
+      50,
+      50,
+      255
+    ],
+    "dominantColorHex": "#a03232",
+    "averageColor": [
+      168,
+      54,
+      50,
+      255
+    ],
+    "averageColorHex": "#a83632"
+  },
+  "concrete_powder_silver": {
+    "dominantColor": [
+      155,
+      155,
+      152,
+      255
+    ],
+    "dominantColorHex": "#9b9b98",
+    "averageColor": [
+      154,
+      154,
+      148,
+      255
+    ],
+    "averageColorHex": "#9a9a94"
+  },
+  "concrete_powder_white": {
+    "dominantColor": [
+      0,
+      0,
+      0,
+      255
+    ],
+    "dominantColorHex": "#000000",
+    "averageColor": [
+      225,
+      227,
+      227,
+      255
+    ],
+    "averageColorHex": "#e1e3e3"
+  },
+  "concrete_powder_yellow": {
+    "dominantColor": [
+      228,
+      185,
+      46,
+      255
+    ],
+    "dominantColorHex": "#e4b92e",
+    "averageColor": [
+      232,
+      199,
+      54,
+      255
+    ],
+    "averageColorHex": "#e8c736"
+  },
+  "concrete_purple": {
+    "dominantColor": [
+      90,
+      32,
+      153,
+      255
+    ],
+    "dominantColorHex": "#5a2099",
+    "averageColor": [
+      100,
+      31,
+      156,
+      255
+    ],
+    "averageColorHex": "#641f9c"
+  },
+  "concrete_red": {
+    "dominantColor": [
+      137,
+      32,
+      32,
+      255
+    ],
+    "dominantColorHex": "#892020",
+    "averageColor": [
+      142,
+      32,
+      32,
+      255
+    ],
+    "averageColorHex": "#8e2020"
+  },
+  "concrete_silver": {
+    "dominantColor": [
+      121,
+      120,
+      113,
+      255
+    ],
+    "dominantColorHex": "#797871",
+    "averageColor": [
+      125,
+      125,
+      115,
+      255
+    ],
+    "averageColorHex": "#7d7d73"
+  },
+  "concrete_white": {
+    "dominantColor": [
+      0,
+      0,
+      0,
+      255
+    ],
+    "dominantColorHex": "#000000",
+    "averageColor": [
+      207,
+      213,
+      214,
+      255
+    ],
+    "averageColorHex": "#cfd5d6"
+  },
+  "concrete_yellow": {
+    "dominantColor": [
+      239,
+      166,
+      19,
+      255
+    ],
+    "dominantColorHex": "#efa613",
+    "averageColor": [
+      240,
+      175,
+      21,
+      255
+    ],
+    "averageColorHex": "#f0af15"
+  },
+  "waxed_copper": {
+    "dominantColor": [
+      199,
+      106,
+      84,
+      255
+    ],
+    "dominantColorHex": "#c76a54",
+    "averageColor": [
+      192,
+      107,
+      79,
+      255
+    ],
+    "averageColorHex": "#c06b4f"
+  },
+  "copper_ore": {
+    "dominantColor": [
+      125,
+      125,
+      125,
+      255
+    ],
+    "dominantColorHex": "#7d7d7d",
+    "averageColor": [
+      124,
+      125,
+      120,
+      255
+    ],
+    "averageColorHex": "#7c7d78"
+  },
+  "coral_blue": {
+    "dominantColor": [
+      46,
+      79,
+      220,
+      255
+    ],
+    "dominantColorHex": "#2e4fdc",
+    "averageColor": [
+      49,
+      87,
+      206,
+      255
+    ],
+    "averageColorHex": "#3157ce"
+  },
+  "coral_blue_dead": {
+    "dominantColor": [
+      131,
+      121,
+      119,
+      255
+    ],
+    "dominantColorHex": "#837977",
+    "averageColor": [
+      130,
+      123,
+      119,
+      255
+    ],
+    "averageColorHex": "#827b77"
+  },
+  "coral_fan_blue": {
+    "dominantColor": [
+      46,
+      79,
+      220,
+      255
+    ],
+    "dominantColorHex": "#2e4fdc",
+    "averageColor": [
+      50,
+      91,
+      208,
+      255
+    ],
+    "averageColorHex": "#325bd0"
+  },
+  "coral_fan_blue_dead": {
+    "dominantColor": [
+      150,
+      145,
+      140,
+      255
+    ],
+    "dominantColorHex": "#96918c",
+    "averageColor": [
+      143,
+      135,
+      130,
+      255
+    ],
+    "averageColorHex": "#8f8782"
+  },
+  "coral_fan_pink": {
+    "dominantColor": [
+      189,
+      69,
+      149,
+      255
+    ],
+    "dominantColorHex": "#bd4595",
+    "averageColor": [
+      202,
+      84,
+      153,
+      255
+    ],
+    "averageColorHex": "#ca5499"
+  },
+  "coral_fan_pink_dead": {
+    "dominantColor": [
+      111,
+      102,
+      98,
+      255
+    ],
+    "dominantColorHex": "#6f6662",
+    "averageColor": [
+      233,
+      221,
+      215,
+      255
+    ],
+    "averageColorHex": "#e9ddd7"
+  },
+  "coral_fan_purple": {
+    "dominantColor": [
+      151,
+      28,
+      158,
+      255
+    ],
+    "dominantColorHex": "#971c9e",
+    "averageColor": [
+      160,
+      32,
+      159,
+      255
+    ],
+    "averageColorHex": "#a0209f"
+  },
+  "coral_fan_purple_dead": {
+    "dominantColor": [
+      150,
+      145,
+      140,
+      255
+    ],
+    "dominantColorHex": "#96918c",
+    "averageColor": [
+      185,
+      177,
+      172,
+      255
+    ],
+    "averageColorHex": "#b9b1ac"
+  },
+  "coral_fan_red": {
+    "dominantColor": [
+      119,
+      26,
+      44,
+      255
+    ],
+    "dominantColorHex": "#771a2c",
+    "averageColor": [
+      158,
+      34,
+      45,
+      255
+    ],
+    "averageColorHex": "#9e222d"
+  },
+  "coral_fan_red_dead": {
+    "dominantColor": [
+      90,
+      88,
+      87,
+      255
+    ],
+    "dominantColorHex": "#5a5857",
+    "averageColor": [
+      159,
+      150,
+      146,
+      255
+    ],
+    "averageColorHex": "#9f9692"
+  },
+  "coral_fan_yellow": {
+    "dominantColor": [
+      206,
+      171,
+      60,
+      255
+    ],
+    "dominantColorHex": "#ceab3c",
+    "averageColor": [
+      205,
+      183,
+      61,
+      255
+    ],
+    "averageColorHex": "#cdb73d"
+  },
+  "coral_fan_yellow_dead": {
+    "dominantColor": [
+      111,
+      102,
+      98,
+      255
+    ],
+    "dominantColorHex": "#6f6662",
+    "averageColor": [
+      5,
+      249,
+      243,
+      255
+    ],
+    "averageColorHex": "#05f9f3"
+  },
+  "coral_pink": {
+    "dominantColor": [
+      189,
+      69,
+      149,
+      255
+    ],
+    "dominantColorHex": "#bd4595",
+    "averageColor": [
+      207,
+      91,
+      159,
+      255
+    ],
+    "averageColorHex": "#cf5b9f"
+  },
+  "coral_pink_dead": {
+    "dominantColor": [
+      102,
+      100,
+      99,
+      255
+    ],
+    "dominantColorHex": "#666463",
+    "averageColor": [
+      124,
+      117,
+      114,
+      255
+    ],
+    "averageColorHex": "#7c7572"
+  },
+  "coral_plant_blue": {
+    "dominantColor": [
+      46,
+      79,
+      220,
+      255
+    ],
+    "dominantColorHex": "#2e4fdc",
+    "averageColor": [
+      47,
+      83,
+      197,
+      255
+    ],
+    "averageColorHex": "#2f53c5"
+  },
+  "coral_plant_blue_dead": {
+    "dominantColor": [
+      111,
+      102,
+      98,
+      255
+    ],
+    "dominantColorHex": "#6f6662",
+    "averageColor": [
+      118,
+      111,
+      107,
+      255
+    ],
+    "averageColorHex": "#766f6b"
+  },
+  "coral_plant_pink": {
+    "dominantColor": [
+      154,
+      48,
+      118,
+      255
+    ],
+    "dominantColorHex": "#9a3076",
+    "averageColor": [
+      197,
+      84,
+      152,
+      255
+    ],
+    "averageColorHex": "#c55498"
+  },
+  "coral_plant_pink_dead": {
+    "dominantColor": [
+      111,
+      102,
+      98,
+      255
+    ],
+    "dominantColorHex": "#6f6662",
+    "averageColor": [
+      133,
+      125,
+      120,
+      255
+    ],
+    "averageColorHex": "#857d78"
+  },
+  "coral_plant_purple": {
+    "dominantColor": [
+      151,
+      28,
+      158,
+      255
+    ],
+    "dominantColorHex": "#971c9e",
+    "averageColor": [
+      161,
+      23,
+      159,
+      255
+    ],
+    "averageColorHex": "#a1179f"
+  },
+  "coral_plant_purple_dead": {
+    "dominantColor": [
+      131,
+      121,
+      119,
+      255
+    ],
+    "dominantColorHex": "#837977",
+    "averageColor": [
+      132,
+      124,
+      120,
+      255
+    ],
+    "averageColorHex": "#847c78"
+  },
+  "coral_plant_red": {
+    "dominantColor": [
+      119,
+      26,
+      44,
+      255
+    ],
+    "dominantColorHex": "#771a2c",
+    "averageColor": [
+      166,
+      37,
+      46,
+      255
+    ],
+    "averageColorHex": "#a6252e"
+  },
+  "coral_plant_red_dead": {
+    "dominantColor": [
+      111,
+      102,
+      98,
+      255
+    ],
+    "dominantColorHex": "#6f6662",
+    "averageColor": [
+      136,
+      128,
+      124,
+      255
+    ],
+    "averageColorHex": "#88807c"
+  },
+  "coral_plant_yellow": {
+    "dominantColor": [
+      206,
+      171,
+      60,
+      255
+    ],
+    "dominantColorHex": "#ceab3c",
+    "averageColor": [
+      209,
+      186,
+      62,
+      255
+    ],
+    "averageColorHex": "#d1ba3e"
+  },
+  "coral_plant_yellow_dead": {
+    "dominantColor": [
+      150,
+      145,
+      140,
+      255
+    ],
+    "dominantColorHex": "#96918c",
+    "averageColor": [
+      142,
+      135,
+      129,
+      255
+    ],
+    "averageColorHex": "#8e8781"
+  },
+  "coral_purple": {
+    "dominantColor": [
+      175,
+      36,
+      182,
+      255
+    ],
+    "dominantColorHex": "#af24b6",
+    "averageColor": [
+      183,
+      32,
+      180,
+      255
+    ],
+    "averageColorHex": "#b720b4"
+  },
+  "coral_purple_dead": {
+    "dominantColor": [
+      131,
+      121,
+      119,
+      255
+    ],
+    "dominantColorHex": "#837977",
+    "averageColor": [
+      131,
+      123,
+      119,
+      255
+    ],
+    "averageColorHex": "#837b77"
+  },
+  "coral_red": {
+    "dominantColor": [
+      160,
+      33,
+      58,
+      255
+    ],
+    "dominantColorHex": "#a0213a",
+    "averageColor": [
+      162,
+      35,
+      48,
+      255
+    ],
+    "averageColorHex": "#a22330"
+  },
+  "coral_red_dead": {
+    "dominantColor": [
+      131,
+      121,
+      119,
+      255
+    ],
+    "dominantColorHex": "#837977",
+    "averageColor": [
+      131,
+      123,
+      119,
+      255
+    ],
+    "averageColorHex": "#837b77"
+  },
+  "coral_yellow": {
+    "dominantColor": [
+      210,
+      188,
+      56,
+      255
+    ],
+    "dominantColorHex": "#d2bc38",
+    "averageColor": [
+      216,
+      199,
+      66,
+      255
+    ],
+    "averageColorHex": "#d8c742"
+  },
+  "coral_yellow_dead": {
+    "dominantColor": [
+      111,
+      102,
+      98,
+      255
+    ],
+    "dominantColorHex": "#6f6662",
+    "averageColor": [
+      133,
+      126,
+      122,
+      255
+    ],
+    "averageColorHex": "#857e7a"
+  },
+  "cracked_nether_bricks": {
+    "dominantColor": [
+      0,
+      0,
+      0,
+      255
+    ],
+    "dominantColorHex": "#000000",
+    "averageColor": [
+      40,
+      20,
+      23,
+      255
+    ],
+    "averageColorHex": "#281417"
+  },
+  "cracked_polished_blackstone_bricks": {
+    "dominantColor": [
+      57,
+      54,
+      66,
+      255
+    ],
+    "dominantColorHex": "#393642",
+    "averageColor": [
+      44,
+      37,
+      43,
+      255
+    ],
+    "averageColorHex": "#2c252b"
+  },
+  "crafting_table": {
+    "dominantColor": [
+      182,
+      144,
+      92,
+      255
+    ],
+    "dominantColorHex": "#b6905c",
+    "averageColor": [
+      128,
+      102,
+      63,
+      255
+    ],
+    "averageColorHex": "#80663f"
+  },
+  "crimson_fungus": {
+    "dominantColor": [
+      190,
+      52,
+      65,
+      255
+    ],
+    "dominantColorHex": "#be3441",
+    "averageColor": [
+      141,
+      44,
+      29,
+      255
+    ],
+    "averageColorHex": "#8d2c1d"
+  },
+  "crimson_nylium": {
+    "dominantColor": [
+      111,
+      50,
+      50,
+      255
+    ],
+    "dominantColorHex": "#6f3232",
+    "averageColor": [
+      107,
+      26,
+      26,
+      255
+    ],
+    "averageColorHex": "#6b1a1a"
+  },
+  "crimson_roots": {
+    "dominantColor": [
+      139,
+      5,
+      56,
+      255
+    ],
+    "dominantColorHex": "#8b0538",
+    "averageColor": [
+      133,
+      8,
+      43,
+      255
+    ],
+    "averageColorHex": "#85082b"
+  },
+  "crying_obsidian": {
+    "dominantColor": [
+      81,
+      6,
+      163,
+      255
+    ],
+    "dominantColorHex": "#5106a3",
+    "averageColor": [
+      32,
+      10,
+      60,
+      255
+    ],
+    "averageColorHex": "#200a3c"
+  },
+  "waxed_double_cut_copper_slab": {
+    "dominantColor": [
+      225,
+      117,
+      106,
+      255
+    ],
+    "dominantColorHex": "#e1756a",
+    "averageColor": [
+      191,
+      106,
+      80,
+      255
+    ],
+    "averageColorHex": "#bf6a50"
+  },
+  "danger_pottery_pattern": {
+    "dominantColor": [
+      121,
+      68,
+      56,
+      255
+    ],
+    "dominantColorHex": "#794438",
+    "averageColor": [
+      127,
+      73,
+      57,
+      255
+    ],
+    "averageColorHex": "#7f4939"
+  },
+  "deadbush": {
+    "dominantColor": [
+      101,
+      76,
+      43,
+      255
+    ],
+    "dominantColorHex": "#654c2b",
+    "averageColor": [
+      107,
+      78,
+      40,
+      255
+    ],
+    "averageColorHex": "#6b4e28"
+  },
+  "chiseled_deepslate": {
+    "dominantColor": [
+      75,
+      76,
+      78,
+      255
+    ],
+    "dominantColorHex": "#4b4c4e",
+    "averageColor": [
+      54,
+      54,
+      54,
+      255
+    ],
+    "averageColorHex": "#363636"
+  },
+  "cobbled_deepslate_wall": {
+    "dominantColor": [
+      70,
+      70,
+      75,
+      255
+    ],
+    "dominantColorHex": "#46464b",
+    "averageColor": [
+      77,
+      77,
+      80,
+      255
+    ],
+    "averageColorHex": "#4d4d50"
+  },
+  "cracked_deepslate_bricks": {
+    "dominantColor": [
+      85,
+      85,
+      85,
+      255
+    ],
+    "dominantColorHex": "#555555",
+    "averageColor": [
+      64,
+      64,
+      65,
+      255
+    ],
+    "averageColorHex": "#404041"
+  },
+  "cracked_deepslate_tiles": {
+    "dominantColor": [
+      64,
+      64,
+      64,
+      255
+    ],
+    "dominantColorHex": "#404040",
+    "averageColor": [
+      52,
+      52,
+      52,
+      255
+    ],
+    "averageColorHex": "#343434"
+  },
+  "infested_deepslate": {
+    "dominantColor": [
+      80,
+      80,
+      80,
+      255
+    ],
+    "dominantColorHex": "#505050",
+    "averageColor": [
+      80,
+      80,
+      82,
+      255
+    ],
+    "averageColorHex": "#505052"
+  },
+  "deepslate_bricks": {
+    "dominantColor": [
+      85,
+      85,
+      85,
+      255
+    ],
+    "dominantColorHex": "#555555",
+    "averageColor": [
+      70,
+      70,
+      71,
+      255
+    ],
+    "averageColorHex": "#464647"
+  },
+  "deepslate_coal_ore": {
+    "dominantColor": [
+      80,
+      80,
+      80,
+      255
+    ],
+    "dominantColorHex": "#505050",
+    "averageColor": [
+      74,
+      74,
+      76,
+      255
+    ],
+    "averageColorHex": "#4a4a4c"
+  },
+  "deepslate_copper_ore": {
+    "dominantColor": [
+      80,
+      80,
+      80,
+      255
+    ],
+    "dominantColorHex": "#505050",
+    "averageColor": [
+      92,
+      93,
+      89,
+      255
+    ],
+    "averageColorHex": "#5c5d59"
+  },
+  "deepslate_diamond_ore": {
+    "dominantColor": [
+      80,
+      80,
+      80,
+      255
+    ],
+    "dominantColorHex": "#505050",
+    "averageColor": [
+      83,
+      106,
+      106,
+      255
+    ],
+    "averageColorHex": "#536a6a"
+  },
+  "deepslate_emerald_ore": {
+    "dominantColor": [
+      97,
+      97,
+      97,
+      255
+    ],
+    "dominantColorHex": "#616161",
+    "averageColor": [
+      78,
+      104,
+      87,
+      255
+    ],
+    "averageColorHex": "#4e6857"
+  },
+  "deepslate_gold_ore": {
+    "dominantColor": [
+      80,
+      80,
+      80,
+      255
+    ],
+    "dominantColorHex": "#505050",
+    "averageColor": [
+      115,
+      102,
+      78,
+      255
+    ],
+    "averageColorHex": "#73664e"
+  },
+  "deepslate_iron_ore": {
+    "dominantColor": [
+      58,
+      58,
+      62,
+      255
+    ],
+    "dominantColorHex": "#3a3a3e",
+    "averageColor": [
+      106,
+      99,
+      94,
+      255
+    ],
+    "averageColorHex": "#6a635e"
+  },
+  "deepslate_lapis_ore": {
+    "dominantColor": [
+      97,
+      97,
+      97,
+      255
+    ],
+    "dominantColorHex": "#616161",
+    "averageColor": [
+      79,
+      90,
+      115,
+      255
+    ],
+    "averageColorHex": "#4f5a73"
+  },
+  "lit_deepslate_redstone_ore": {
+    "dominantColor": [
+      80,
+      80,
+      80,
+      255
+    ],
+    "dominantColorHex": "#505050",
+    "averageColor": [
+      104,
+      73,
+      74,
+      255
+    ],
+    "averageColorHex": "#68494a"
+  },
+  "deepslate_tiles": {
+    "dominantColor": [
+      64,
+      64,
+      64,
+      255
+    ],
+    "dominantColorHex": "#404040",
+    "averageColor": [
+      54,
+      54,
+      55,
+      255
+    ],
+    "averageColorHex": "#363637"
+  },
+  "polished_deepslate_wall": {
+    "dominantColor": [
+      85,
+      85,
+      85,
+      255
+    ],
+    "dominantColorHex": "#555555",
+    "averageColor": [
+      72,
+      72,
+      73,
+      255
+    ],
+    "averageColorHex": "#484849"
+  }
+}
