@@ -1,0 +1,135 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "rainbow:gray_50_glass_stairs",
+      "menu_category": {
+        "category": "construction",
+        "group": "itemGroup.name.stairs"
+      },
+      "traits": {
+        "minecraft:placement_direction": {
+          "enabled_states": [
+            "minecraft:cardinal_direction",
+            "minecraft:facing_direction"
+          ],
+          "y_rotation_offset": 90
+        },
+        "minecraft:placement_position": {
+          "enabled_states": [
+            "minecraft:vertical_half"
+          ]
+        }
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.stairs",
+      "minecraft:map_color": "#ffffff",
+      "minecraft:light_dampening": 4,
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "rainbow_gray_50_glass",
+          "render_method": "blend"
+        }
+      }
+    },
+    "permutations": [
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'north' && q.block_state('minecraft:vertical_half') == 'bottom'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'north' && q.block_state('minecraft:vertical_half') == 'top'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              -180,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'east' && q.block_state('minecraft:vertical_half') == 'bottom'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              270,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'east' && q.block_state('minecraft:vertical_half') == 'top'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              -180,
+              270,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'south' && q.block_state('minecraft:vertical_half') == 'bottom'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              180,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'south' && q.block_state('minecraft:vertical_half') == 'top'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              -180,
+              180,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'west' && q.block_state('minecraft:vertical_half') == 'bottom'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              90,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:cardinal_direction') == 'west' && q.block_state('minecraft:vertical_half') == 'top'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              -180,
+              90,
+              0
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

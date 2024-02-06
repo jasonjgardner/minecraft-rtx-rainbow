@@ -1,0 +1,8 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "brown_200_lit_s_basecolor",
+    "metalness_emissive_roughness": "brown_200_lit_s_mer",
+    "normal": "brown_200_lit_s_normal"
+  }
+}

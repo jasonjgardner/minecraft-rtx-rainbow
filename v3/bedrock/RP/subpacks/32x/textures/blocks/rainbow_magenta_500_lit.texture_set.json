@@ -1,0 +1,8 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "magenta_500_lit_basecolor",
+    "metalness_emissive_roughness": "magenta_500_lit_mer",
+    "normal": "magenta_500_lit_normal"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "rainbow:blue_300_plate",
+      "traits": {},
+      "menu_category": {
+        "category": "construction",
+        "group": "itemGroup.name.copper"
+      }
+    },
+    "components": {
+      "minecraft:unit_cube": {},
+      "minecraft:map_color": "#9cb2f6",
+      "minecraft:light_emission": 0,
+      "minecraft:light_dampening": 15,
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "rainbow_blue_300_plate",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}

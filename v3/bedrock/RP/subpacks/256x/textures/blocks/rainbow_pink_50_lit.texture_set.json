@@ -1,0 +1,8 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "pink_50_lit_basecolor",
+    "metalness_emissive_roughness": "pink_50_lit_mer",
+    "normal": "pink_50_lit_normal"
+  }
+}

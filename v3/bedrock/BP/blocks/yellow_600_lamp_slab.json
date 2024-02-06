@@ -1,0 +1,68 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "rainbow:yellow_600_lamp_slab",
+      "menu_category": {
+        "category": "construction",
+        "group": "itemGroup.name.slab"
+      },
+      "traits": {
+        "minecraft:placement_position": {
+          "enabled_states": [
+            "minecraft:vertical_half"
+          ]
+        }
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.slab",
+      "minecraft:map_color": "#e0b960",
+      "minecraft:light_emission": 14,
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "rainbow_yellow_600_lamp",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:selection_box": {
+        "origin": [
+          -8,
+          0,
+          -8
+        ],
+        "size": [
+          16,
+          8,
+          16
+        ]
+      },
+      "minecraft:collision_box": {
+        "origin": [
+          -8,
+          0,
+          -8
+        ],
+        "size": [
+          16,
+          8,
+          16
+        ]
+      }
+    },
+    "permutations": [
+      {
+        "condition": "q.block_state('minecraft:vertical_half') == 'top'",
+        "components": {
+          "minecraft:transformation": {
+            "translation": [
+              0,
+              0.5,
+              0
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

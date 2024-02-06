@@ -1,0 +1,70 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "RAINBOW III!!!",
+    "description": "RAINBOW resource pack for Minecraft Bedrock Edition",
+    "version": [
+      3,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      20,
+      20
+    ],
+    "uuid": "cc095f90-d2c1-474a-a03f-df0c53f3ca44"
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "194c593a-8702-425c-9fd7-7b852ae23c67",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "5bd99162-b504-4904-a9af-66ba27c96f19",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    }
+  ],
+  "capabilities": [
+    "raytraced",
+    "pbr"
+  ],
+  "subpacks": [
+    {
+      "folder_name": "16x",
+      "name": "16x",
+      "memory_tier": 0
+    },
+    {
+      "folder_name": "32x",
+      "name": "32x",
+      "memory_tier": 1
+    },
+    {
+      "folder_name": "64x",
+      "name": "64x",
+      "memory_tier": 2
+    },
+    {
+      "folder_name": "128x",
+      "name": "128x",
+      "memory_tier": 3
+    },
+    {
+      "folder_name": "256x",
+      "name": "256x",
+      "memory_tier": 4
+    }
+  ]
+}

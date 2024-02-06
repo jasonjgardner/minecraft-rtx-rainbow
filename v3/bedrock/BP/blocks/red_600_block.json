@@ -1,0 +1,26 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "rainbow:red_600_block",
+      "menu_category": {
+        "category": "construction",
+        "group": "itemGroup.name.concrete"
+      },
+      "traits": {}
+    },
+    "components": {
+      "minecraft:unit_cube": {},
+      "minecraft:map_color": "#751c26",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "rainbow_red_600_block",
+          "render_method": "opaque",
+          "ambient_occlusion": true,
+          "face_dimming": true
+        }
+      }
+    },
+    "permutations": []
+  }
+}

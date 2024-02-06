@@ -1,0 +1,39 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "RAINBOW III!!!",
+    "description": "RAINBOW behavior pack for Minecraft Bedrock Edition",
+    "version": [
+      3,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      20,
+      20
+    ],
+    "uuid": "5bd99162-b504-4904-a9af-66ba27c96f19"
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "82eeba3f-0b56-49fc-9409-8bdbcccabd29",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "cc095f90-d2c1-474a-a03f-df0c53f3ca44",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    }
+  ]
+}
