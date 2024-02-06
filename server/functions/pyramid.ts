@@ -1,4 +1,4 @@
-import type { WssParams } from "../../typings/types.ts";
+import type { WssParams } from "../../types/index.ts";
 export default function pyramid(
   { parameters, queueCommandRequest, formatPosition }: WssParams,
 ) {

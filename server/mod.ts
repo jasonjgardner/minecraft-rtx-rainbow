@@ -1,4 +1,4 @@
-import type { SubscribeEvents } from "./types.d.ts";
+import type { SubscribeEvents } from "../types/server.ts";
 /**
  * Subscribe to events from the server
  * @param socket WebSocket connection to the server

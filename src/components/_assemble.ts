@@ -1,4 +1,4 @@
-import type { IBlock, IMaterial } from "../../typings/types.ts";
+import type { IBlock, IMaterial } from "../../types/index.ts";
 import { filteredBlocks } from "../store/_blocks.ts";
 import BlockEntry from "./BlockEntry.ts";
 import { materials } from "../store/_materials.ts";

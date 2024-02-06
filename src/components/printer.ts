@@ -1,19 +1,17 @@
 import "dotenv/load.ts";
-import { decode, type GIF, type Image } from "imagescript/mod.ts";
-import { basename, extname, toFileUrl } from "path/mod.ts";
-import { walk } from "fs/walk.ts";
+import { basename, extname, join } from "path/mod.ts";
+import { decode, type GIF, Image } from "imagescript/mod.ts";
+import { ensureDir, walk } from "fs/mod.ts";
 import { Octokit } from "https://cdn.skypack.dev/@octokit/core";
 import BlockEntry from "./BlockEntry.ts";
-import { constructDecoded, pixelPrinter } from "./ImagePrinter.ts";
-import { DIR_PIXEL_ART } from "/src/store/_config.ts";
-import { image as markdownImage, Markdown } from "deno_markdown/mod.ts";
-
+import { constructDecoded } from "./ImagePrinter.ts";
+import { DIR_BP, DIR_PIXEL_ART } from "/src/store/_config.ts";
+const DIR_STRUCTURES = join(DIR_BP, "structures");
 async function githubAvatars(
   owner: string,
   repo: string,
   palette: BlockEntry[],
-): Promise<string> {
-  const sponsorChunkSize = 4;
+): Promise<void> {
   const octokit = new Octokit();
 
   const { status, data } = await octokit.request(
@@ -29,9 +27,17 @@ async function githubAvatars(
     throw Error("Failed fetching GitHub data");
   }
 
-  const markdown = new Markdown();
+  // const markdown = new Markdown();
 
-  markdown.header("GitHub Stargazers", 3);
+  // markdown.header("GitHub Stargazers", 3);
+
+  const materials = [
+    ...new Set(
+      palette.map(({ material }: BlockEntry) =>
+        material.label ?? material.name.en_US
+      ),
+    ),
+  ];
 
   await Promise.allSettled(
     data.map(async (
@@ -42,49 +48,46 @@ async function githubAvatars(
       },
     ) => {
       try {
-        const fns = await pixelPrinter(
-          `stargazers/${res.login}`,
-          new URL(res.avatar_url),
-          palette,
-          sponsorChunkSize,
-        );
-
-        markdown.header(res.login, 5).paragraph(
-          markdownImage(res.login, res.avatar_url),
-        );
-        fns.forEach((fn) =>
-          markdown.codeBlock(`/function printer/${fn}`, "mcfunction")
-        );
-      } catch (err) {
-        console.error('Failed printing name: "%s"; Reason: %s', err);
-      }
-
-      try {
         const data = new Uint8Array(
           await (await fetch(res.avatar_url)).arrayBuffer(),
         );
-        const avatar = (await decode(data, true)) as Image;
+        const avatar = ((await decode(data, true)) as Image).resize(64, 64)
+          .rotate(90);
 
-        constructDecoded(
-          `stargazers/${res.login}`,
-          [avatar.resize(64, 64)],
-          palette,
+        await ensureDir(
+          join(
+            DIR_STRUCTURES,
+            "stargazers",
+            res.login,
+          ),
+        );
+        await Promise.all(materials.map(async (material) => {
+          console.log("Constructing %s avatar for %s", material, res.login);
+
+          await constructDecoded(
+            `stargazers/${res.login}/${res.login}_${material}`,
+            [avatar],
+            palette.filter(({ material: { label } }: BlockEntry) =>
+              label === material
+            ),
+          );
+        }));
+
+        await constructDecoded(
+          `stargazers/${res.login}/${res.login}_vanilla`,
+          [avatar],
+          [],
         );
       } catch (err) {
         console.error('Failed constructing name: "%s"; Reason: %s', err);
       }
     }),
   );
-
-  return markdown.content;
 }
 
 export default async function print(
   palette: BlockEntry[],
-  chunks = 6,
-): Promise<string> {
-  const markdown = new Markdown();
-
+): Promise<void> {
   /**
    * Block palette containing filtered materials. Excludes very bright blocks and lower levels.
    */
@@ -92,47 +95,58 @@ export default async function print(
     material.label !== "emissive" || level <= 60
   );
 
-  //const printChunks = Math.max(1, Math.min(16, chunks));
-
   try {
-    markdown.header("Pixel Art", 3);
+    const materials = [
+      ...new Set(
+        palette.map(({ material }: BlockEntry) =>
+          material.label ?? material.name.en_US
+        ),
+      ),
+    ];
 
     // Print images in pixel_art directory
     for await (const entry of walk(DIR_PIXEL_ART)) {
       if (entry.isFile) {
         const name = basename(entry.path, extname(entry.path));
 
-        const remoteUrl = new URL(
-          `https://raw.githubusercontent.com/jasonjgardner/minecraft-rtx-rainbow/main/src/assets/pixel_art/${entry.path}`,
+        await ensureDir(
+          join(
+            DIR_STRUCTURES,
+            "art",
+            name,
+          ),
         );
 
-        markdown.header(name, 5).paragraph(markdownImage(name, remoteUrl.href));
+        const data = await Deno.readFile(entry.path);
+        const decoded = await decode(data);
+        const img = extname(entry.path) === ".gif"
+          ? (<GIF> decoded)
+          : [<Image> decoded];
 
-        try {
-          const data = await Deno.readFile(entry.path);
-          const decoded = await decode(data);
-          const img = extname(entry.path) === ".gif"
-            ? (<GIF> decoded)
-            : [<Image> decoded];
-
-          constructDecoded(
-            `art_${basename(entry.path, extname(entry.path))}`,
-            img,
-            palette,
-          );
-        } catch (err) {
-          console.error(`Failed constructing ${name}: "%s"`, err);
-        }
-
-        const fns = await pixelPrinter(
-          name,
-          toFileUrl(entry.path),
-          printablePalette,
-          chunks,
+        const imgResized = img.map((img) =>
+          img.resize(Image.RESIZE_AUTO, Math.min(16 * 8, img.height))
         );
 
-        fns.forEach((fn) =>
-          markdown.codeBlock(`/function printer/pixel_art/${fn}`, "mcfunction")
+        await Promise.all(materials.map(async (material) => {
+          try {
+            console.log("Constructing artwork %s from %s", name, material);
+
+            await constructDecoded(
+              `art/${name}/${name}_${material}`,
+              imgResized,
+              palette.filter(({ material: { label } }: BlockEntry) =>
+                label === material
+              ),
+            );
+          } catch (err) {
+            console.error(`Failed constructing ${name}: "%s"`, err);
+          }
+        }));
+
+        await constructDecoded(
+          `art/${name}/${name}_vanilla`,
+          img,
+          [],
         );
       }
     }
@@ -153,7 +167,7 @@ export default async function print(
   if (actionRepo.length > 1) {
     try {
       // Print images from GitHub API
-      markdown.content += await githubAvatars(
+      await githubAvatars(
         actionRepo[0],
         actionRepo[1],
         printablePalette,
@@ -162,6 +176,4 @@ export default async function print(
       console.error("Failed adding Stargazers: %s", err);
     }
   }
-
-  return markdown.content;
 }

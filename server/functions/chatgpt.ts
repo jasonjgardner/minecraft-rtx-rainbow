@@ -1,7 +1,7 @@
 import { load } from "https://deno.land/std@0.184.0/dotenv/mod.ts";
 import openai from "npm:openai@^3.2.1";
 import { sprintf } from "fmt/printf.ts";
-import type { WssParams } from "../../typings/types.ts";
+import type { WssParams } from "../../types/index.ts";
 
 const { Configuration, OpenAIApi } = openai;
 

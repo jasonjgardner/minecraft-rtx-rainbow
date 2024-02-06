@@ -1,7 +1,8 @@
-import type { IMaterial } from "../../typings/types.ts";
+import type { IMaterial } from "../../types/index.ts";
 import { channelPercentage } from "../_utils.ts";
 export const materials: IMaterial[] = [
   {
+    uuid: "82596330-64ea-4f9c-bdb2-7080036ae1db",
     name: { en_US: "Plastic" },
     label: "rough",
     normal: "brick_normal",
@@ -20,17 +21,19 @@ export const materials: IMaterial[] = [
     roughness: (idx: number) => channelPercentage(100 - idx),
     opacity: () => 1,
     shading: [
-      {
-        texture: "plastic_soft-light",
-        blend: "soft-light",
-      },
-      {
-        blend: "multiply",
-        texture: "plastic_multiply",
-      },
+      // {
+      //   texture: "plastic_soft-light",
+      //   blend: "soft-light",
+      // },
+      // {
+      //   blend: "multiply",
+      //   texture: "plastic_multiply",
+      // },
     ],
+    octaves: 3,
   },
   {
+    uuid: "baf7e0ba-57e4-440e-9557-abcca23f65d4",
     name: { en_US: "Metallic" },
     label: "metal",
     normal: "metal_normal",
@@ -50,17 +53,19 @@ export const materials: IMaterial[] = [
     roughness: () => 0,
     opacity: () => 1,
     shading: [
-      {
-        blend: ["color-dodge", "overlay"],
-        texture: "metal_overlay",
-      },
-      {
-        blend: ["color-burn", "overlay"],
-        texture: "metal_reflectivity",
-      },
+      // {
+      //   blend: ["color-dodge", "overlay"],
+      //   texture: "metal_overlay",
+      // },
+      // {
+      //   blend: ["color-burn", "overlay"],
+      //   texture: "metal_reflectivity",
+      // },
     ],
+    octaves: 3,
   },
   {
+    uuid: "4ecaa878-a15c-4d97-b73b-f2d80a7954eb",
     name: {
       en_US: "Planks",
     },
@@ -84,8 +89,10 @@ export const materials: IMaterial[] = [
       blend: "overlay",
       texture: "planks_multiply",
     }],
+    octaves: 3,
   },
   {
+    uuid: "1bfedaa6-eec2-48ad-b1d0-ace6aede6f95",
     name: {
       en_US: "Stud",
     },
@@ -105,8 +112,10 @@ export const materials: IMaterial[] = [
     emissive: () => 0,
     roughness: () => 25,
     opacity: () => 1,
+    octaves: 3,
   },
   {
+    uuid: "1a4619d9-1897-4b0c-8fe6-eb5c99dc5074",
     name: {
       en_US: "Brick",
     },
@@ -131,8 +140,10 @@ export const materials: IMaterial[] = [
       blend: "multiply",
       texture: "big_brick",
     }],
+    octaves: 3,
   },
   {
+    uuid: "4a049e57-cb34-4973-8ae5-b4f0ba2f9335",
     name: {
       en_US: "Brick Lit",
     },
@@ -157,8 +168,10 @@ export const materials: IMaterial[] = [
       blend: "multiply",
       texture: "big_brick",
     }],
+    octaves: 3,
   },
   {
+    uuid: "8e0e0737-d02d-42f4-8298-14e2374347e8",
     name: { en_US: "Glowing" },
     label: "emissive",
     normal: "block_normal",
@@ -172,18 +185,20 @@ export const materials: IMaterial[] = [
     explosionResistance: () => 0,
     lightAbsorption: (_itr: number) => 10,
     lightEmission: (itr: number) =>
-      Math.max(0, Math.min(15, Math.round(itr * 0.9))),
+      Math.max(0, Math.min(15, Math.ceil(itr * 0.9))),
     metalness: () => 0,
     emissive: (idx: number) =>
-      Math.min(80, Math.floor(channelPercentage(idx) * 0.75)),
+      Math.max(50, Math.min(80, Math.floor(channelPercentage(idx) * 0.666))),
     roughness: () => channelPercentage(30),
     opacity: () => 1,
     shading: [{
       blend: "overlay",
       texture: "glowing",
     }],
+    octaves: 3,
   },
   {
+    uuid: "aed2fc55-cfc4-4048-8609-8304c59759c0",
     name: { en_US: "Glass" },
     label: "glass",
     normal: "block_normal",
@@ -205,8 +220,10 @@ export const materials: IMaterial[] = [
       blend: ["overlay", "multiply"],
       texture: "glass",
     }],
+    octaves: 3,
   },
   {
+    uuid: "9f576c0a-6a7d-402d-84c0-2257faba4fd3",
     name: { en_US: "Glass Pane" },
     label: "glass_pane",
     normal: "block_normal",
@@ -229,26 +246,10 @@ export const materials: IMaterial[] = [
       blend: ["overlay", "multiply"],
       texture: "glass",
     }],
+    octaves: 3,
   },
-  // {
-  //   name: { en_US: "Dot" },
-  //   label: "dot",
-  //   normal: "dot_normal",
-  //   sound: "pop",
-  //   friction: () => 0.5,
-  //   minimumLevel: 0,
-  //   maximumLevel: 100,
-  //   endStep: 100,
-  //   step: 25,
-  //   explosionResistance: () => 1,
-  //   lightAbsorption: () => 15,
-  //   lightEmission: () => 0,
-  //   metalness: () => 0,
-  //   emissive: () => 0,
-  //   roughness: () => 0,
-  //   opacity: () => 1,
-  // }
   {
+    uuid: "e7620d80-112c-41db-b159-31446174f76c",
     name: { en_US: "Dot" },
     label: "dot",
     normal: "dot_normal",
@@ -273,12 +274,14 @@ export const materials: IMaterial[] = [
         blend: "multiply",
       },
     ],
+    octaves: 3,
   },
   {
+    uuid: "884b3443-0241-41a7-90e3-a53ba215a279",
     name: { en_US: "Lit Dot" },
     label: "lit_dot",
     normal: "dot_normal",
-    mer: "dot_glowing_mer",
+    mer: "lit_dot_mer",
     sound: "pop",
     friction: (_idx: number) => 0.5,
     minimumLevel: 50,
@@ -299,5 +302,62 @@ export const materials: IMaterial[] = [
         blend: "multiply",
       },
     ],
+    octaves: 3,
+  },
+  {
+    uuid: "238f73d9-5261-456c-a8f4-a82683261dba",
+    name: { en_US: "Negative" },
+    label: "negative",
+    normal: "negative_normal",
+    mer: "negative_mer",
+    sound: "glass",
+    friction: (_idx: number) => 0.4,
+    minimumLevel: 50,
+    maximumLevel: 100,
+    endStep: 100,
+    step: 25,
+    steps: [50],
+    explosionResistance: (_idx: number) => 1,
+    lightAbsorption: (_itr: number) => 0,
+    lightEmission: () => 0.4,
+    metalness: () => 0,
+    emissive: () => 0,
+    roughness: (_idx: number) => 55,
+    opacity: () => 1,
+    shading: [
+      {
+        texture: "negative_overlay",
+        blend: "multiply",
+      },
+    ],
+    octaves: 2,
+  },
+  {
+    uuid: "783e37fe-3a37-48a4-9acb-90b2840608df",
+    name: { en_US: "Positive" },
+    label: "positive",
+    normal: "positive_normal",
+    mer: "positive_mer",
+    sound: "glass",
+    friction: (_idx: number) => 0.6,
+    minimumLevel: 50,
+    maximumLevel: 100,
+    endStep: 100,
+    step: 25,
+    steps: [50],
+    explosionResistance: (_idx: number) => 1,
+    lightAbsorption: (_itr: number) => 0,
+    lightEmission: () => 0.4,
+    metalness: () => 0,
+    emissive: () => 0,
+    roughness: (_idx: number) => 55,
+    opacity: () => 1,
+    shading: [
+      {
+        texture: "positive_dodge",
+        blend: "multiply",
+      },
+    ],
+    octaves: 2,
   },
 ];

@@ -1,4 +1,6 @@
+export { type JsonValue } from "json/common.ts";
 export type RGB = [number, number, number];
+export type RGBA = [number, number, number, number];
 
 export type PackSizes = 16 | 32 | 64 | 128 | 256;
 
@@ -14,8 +16,8 @@ export interface FlipbookComponent {
   flipbook_texture: string;
   atlas_tile: string;
   atlas_index?: number;
-  ticks_per_frame: number;
-  frames: number[];
+  ticks_per_frame?: number;
+  frames?: number[];
   replicate?: number;
   blend_frames?: boolean;
 }
@@ -125,6 +127,8 @@ export interface IMaterial {
     blend: BlendModes | [BlendModes, BlendModes];
   }[];
   render?: (block: IBlock, size: number) => Promise<Uint8Array>;
+  octaves?: number;
+  uuid: string;
 }
 
 export interface IBlock {

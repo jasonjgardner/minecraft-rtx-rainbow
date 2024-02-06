@@ -1,0 +1,23 @@
+name: Publish Docs
+
+on:
+  workflow_dispatch:
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/download-artifact@v2
+            with:
+                name: docs
+                path: docs.zip
+          - uses: actions/checkout@v2
+            with:
+                ref: docs
+                fetch-depth: 0
+          - name: Commit docs
+            run: |
+                git config --global user.name "GitHub Actions"
+                
+
+            

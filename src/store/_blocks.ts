@@ -1,4 +1,4 @@
-import type { IBlock } from "../../typings/types.ts";
+import type { IBlock } from "../../types/index.ts";
 const blocks: IBlock[] = [
   { name: "red_50", enabled: true, color: "#ffebee" },
   { name: "red_100", enabled: true, color: "#ffcdd2" },
@@ -256,8 +256,8 @@ const blocks: IBlock[] = [
   { name: "grey_900", enabled: true, color: "#212121" },
 ];
 
-export const filteredBlocks = Object.values(blocks).filter(({ enabled }: IBlock) =>
-  enabled === true
-);
+export const filteredBlocks = Object.values(blocks).filter((
+  { enabled }: IBlock,
+) => enabled === true);
 
 export default blocks;
