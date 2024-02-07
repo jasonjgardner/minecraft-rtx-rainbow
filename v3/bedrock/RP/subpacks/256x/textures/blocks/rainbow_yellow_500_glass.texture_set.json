@@ -1,0 +1,8 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "yellow_500_glass_basecolor",
+    "metalness_emissive_roughness": "yellow_500_glass_mer",
+    "normal": "yellow_500_glass_normal"
+  }
+}

@@ -1,0 +1,2808 @@
+{
+  "resource_pack_name": "rainbow",
+  "texture_name": "atlas.terrain",
+  "padding": 1,
+  "num_mip_levels": 0,
+  "texture_data": {
+    "rainbow_blue_50_block": {
+      "textures": "textures/blocks/rainbow_blue_50_block",
+      "carried_texture": "textures/blocks/rainbow_blue_50_block_carried.png"
+    },
+    "rainbow_blue_50_plate": {
+      "textures": "textures/blocks/rainbow_blue_50_plate",
+      "carried_texture": "textures/blocks/rainbow_blue_50_plate_carried.png"
+    },
+    "rainbow_blue_50_lit": {
+      "textures": "textures/blocks/rainbow_blue_50_lit",
+      "carried_texture": "textures/blocks/rainbow_blue_50_lit_carried.png"
+    },
+    "rainbow_blue_50_lamp": {
+      "textures": "textures/blocks/rainbow_blue_50_lamp",
+      "carried_texture": "textures/blocks/rainbow_blue_50_lamp_carried.png"
+    },
+    "rainbow_blue_50_glass": {
+      "textures": "textures/blocks/rainbow_blue_50_glass",
+      "carried_texture": "textures/blocks/rainbow_blue_50_glass_carried.png"
+    },
+    "rainbow_blue_100_block": {
+      "textures": "textures/blocks/rainbow_blue_100_block",
+      "carried_texture": "textures/blocks/rainbow_blue_100_block_carried.png"
+    },
+    "rainbow_blue_100_plate": {
+      "textures": "textures/blocks/rainbow_blue_100_plate",
+      "carried_texture": "textures/blocks/rainbow_blue_100_plate_carried.png"
+    },
+    "rainbow_blue_100_lit": {
+      "textures": "textures/blocks/rainbow_blue_100_lit",
+      "carried_texture": "textures/blocks/rainbow_blue_100_lit_carried.png"
+    },
+    "rainbow_blue_100_lamp": {
+      "textures": "textures/blocks/rainbow_blue_100_lamp",
+      "carried_texture": "textures/blocks/rainbow_blue_100_lamp_carried.png"
+    },
+    "rainbow_blue_100_glass": {
+      "textures": "textures/blocks/rainbow_blue_100_glass",
+      "carried_texture": "textures/blocks/rainbow_blue_100_glass_carried.png"
+    },
+    "rainbow_blue_200_block": {
+      "textures": "textures/blocks/rainbow_blue_200_block",
+      "carried_texture": "textures/blocks/rainbow_blue_200_block_carried.png"
+    },
+    "rainbow_blue_200_plate": {
+      "textures": "textures/blocks/rainbow_blue_200_plate",
+      "carried_texture": "textures/blocks/rainbow_blue_200_plate_carried.png"
+    },
+    "rainbow_blue_200_lit": {
+      "textures": "textures/blocks/rainbow_blue_200_lit",
+      "carried_texture": "textures/blocks/rainbow_blue_200_lit_carried.png"
+    },
+    "rainbow_blue_200_lamp": {
+      "textures": "textures/blocks/rainbow_blue_200_lamp",
+      "carried_texture": "textures/blocks/rainbow_blue_200_lamp_carried.png"
+    },
+    "rainbow_blue_200_glass": {
+      "textures": "textures/blocks/rainbow_blue_200_glass",
+      "carried_texture": "textures/blocks/rainbow_blue_200_glass_carried.png"
+    },
+    "rainbow_blue_300_block": {
+      "textures": "textures/blocks/rainbow_blue_300_block",
+      "carried_texture": "textures/blocks/rainbow_blue_300_block_carried.png"
+    },
+    "rainbow_blue_300_plate": {
+      "textures": "textures/blocks/rainbow_blue_300_plate",
+      "carried_texture": "textures/blocks/rainbow_blue_300_plate_carried.png"
+    },
+    "rainbow_blue_300_lit": {
+      "textures": "textures/blocks/rainbow_blue_300_lit",
+      "carried_texture": "textures/blocks/rainbow_blue_300_lit_carried.png"
+    },
+    "rainbow_blue_300_lamp": {
+      "textures": "textures/blocks/rainbow_blue_300_lamp",
+      "carried_texture": "textures/blocks/rainbow_blue_300_lamp_carried.png"
+    },
+    "rainbow_blue_300_glass": {
+      "textures": "textures/blocks/rainbow_blue_300_glass",
+      "carried_texture": "textures/blocks/rainbow_blue_300_glass_carried.png"
+    },
+    "rainbow_blue_400_block": {
+      "textures": "textures/blocks/rainbow_blue_400_block",
+      "carried_texture": "textures/blocks/rainbow_blue_400_block_carried.png"
+    },
+    "rainbow_blue_400_plate": {
+      "textures": "textures/blocks/rainbow_blue_400_plate",
+      "carried_texture": "textures/blocks/rainbow_blue_400_plate_carried.png"
+    },
+    "rainbow_blue_400_lit": {
+      "textures": "textures/blocks/rainbow_blue_400_lit",
+      "carried_texture": "textures/blocks/rainbow_blue_400_lit_carried.png"
+    },
+    "rainbow_blue_400_lamp": {
+      "textures": "textures/blocks/rainbow_blue_400_lamp",
+      "carried_texture": "textures/blocks/rainbow_blue_400_lamp_carried.png"
+    },
+    "rainbow_blue_400_glass": {
+      "textures": "textures/blocks/rainbow_blue_400_glass",
+      "carried_texture": "textures/blocks/rainbow_blue_400_glass_carried.png"
+    },
+    "rainbow_blue_500_block": {
+      "textures": "textures/blocks/rainbow_blue_500_block",
+      "carried_texture": "textures/blocks/rainbow_blue_500_block_carried.png"
+    },
+    "rainbow_blue_500_plate": {
+      "textures": "textures/blocks/rainbow_blue_500_plate",
+      "carried_texture": "textures/blocks/rainbow_blue_500_plate_carried.png"
+    },
+    "rainbow_blue_500_lit": {
+      "textures": "textures/blocks/rainbow_blue_500_lit",
+      "carried_texture": "textures/blocks/rainbow_blue_500_lit_carried.png"
+    },
+    "rainbow_blue_500_lamp": {
+      "textures": "textures/blocks/rainbow_blue_500_lamp",
+      "carried_texture": "textures/blocks/rainbow_blue_500_lamp_carried.png"
+    },
+    "rainbow_blue_500_glass": {
+      "textures": "textures/blocks/rainbow_blue_500_glass",
+      "carried_texture": "textures/blocks/rainbow_blue_500_glass_carried.png"
+    },
+    "rainbow_blue_600_block": {
+      "textures": "textures/blocks/rainbow_blue_600_block",
+      "carried_texture": "textures/blocks/rainbow_blue_600_block_carried.png"
+    },
+    "rainbow_blue_600_plate": {
+      "textures": "textures/blocks/rainbow_blue_600_plate",
+      "carried_texture": "textures/blocks/rainbow_blue_600_plate_carried.png"
+    },
+    "rainbow_blue_600_lit": {
+      "textures": "textures/blocks/rainbow_blue_600_lit",
+      "carried_texture": "textures/blocks/rainbow_blue_600_lit_carried.png"
+    },
+    "rainbow_blue_600_lamp": {
+      "textures": "textures/blocks/rainbow_blue_600_lamp",
+      "carried_texture": "textures/blocks/rainbow_blue_600_lamp_carried.png"
+    },
+    "rainbow_blue_600_glass": {
+      "textures": "textures/blocks/rainbow_blue_600_glass",
+      "carried_texture": "textures/blocks/rainbow_blue_600_glass_carried.png"
+    },
+    "rainbow_blue_700_block": {
+      "textures": "textures/blocks/rainbow_blue_700_block",
+      "carried_texture": "textures/blocks/rainbow_blue_700_block_carried.png"
+    },
+    "rainbow_blue_700_plate": {
+      "textures": "textures/blocks/rainbow_blue_700_plate",
+      "carried_texture": "textures/blocks/rainbow_blue_700_plate_carried.png"
+    },
+    "rainbow_blue_700_lit": {
+      "textures": "textures/blocks/rainbow_blue_700_lit",
+      "carried_texture": "textures/blocks/rainbow_blue_700_lit_carried.png"
+    },
+    "rainbow_blue_700_lamp": {
+      "textures": "textures/blocks/rainbow_blue_700_lamp",
+      "carried_texture": "textures/blocks/rainbow_blue_700_lamp_carried.png"
+    },
+    "rainbow_blue_700_glass": {
+      "textures": "textures/blocks/rainbow_blue_700_glass",
+      "carried_texture": "textures/blocks/rainbow_blue_700_glass_carried.png"
+    },
+    "rainbow_blue_800_block": {
+      "textures": "textures/blocks/rainbow_blue_800_block",
+      "carried_texture": "textures/blocks/rainbow_blue_800_block_carried.png"
+    },
+    "rainbow_blue_800_plate": {
+      "textures": "textures/blocks/rainbow_blue_800_plate",
+      "carried_texture": "textures/blocks/rainbow_blue_800_plate_carried.png"
+    },
+    "rainbow_blue_800_lit": {
+      "textures": "textures/blocks/rainbow_blue_800_lit",
+      "carried_texture": "textures/blocks/rainbow_blue_800_lit_carried.png"
+    },
+    "rainbow_blue_800_lamp": {
+      "textures": "textures/blocks/rainbow_blue_800_lamp",
+      "carried_texture": "textures/blocks/rainbow_blue_800_lamp_carried.png"
+    },
+    "rainbow_blue_800_glass": {
+      "textures": "textures/blocks/rainbow_blue_800_glass",
+      "carried_texture": "textures/blocks/rainbow_blue_800_glass_carried.png"
+    },
+    "rainbow_blue_900_block": {
+      "textures": "textures/blocks/rainbow_blue_900_block",
+      "carried_texture": "textures/blocks/rainbow_blue_900_block_carried.png"
+    },
+    "rainbow_blue_900_plate": {
+      "textures": "textures/blocks/rainbow_blue_900_plate",
+      "carried_texture": "textures/blocks/rainbow_blue_900_plate_carried.png"
+    },
+    "rainbow_blue_900_lit": {
+      "textures": "textures/blocks/rainbow_blue_900_lit",
+      "carried_texture": "textures/blocks/rainbow_blue_900_lit_carried.png"
+    },
+    "rainbow_blue_900_lamp": {
+      "textures": "textures/blocks/rainbow_blue_900_lamp",
+      "carried_texture": "textures/blocks/rainbow_blue_900_lamp_carried.png"
+    },
+    "rainbow_blue_900_glass": {
+      "textures": "textures/blocks/rainbow_blue_900_glass",
+      "carried_texture": "textures/blocks/rainbow_blue_900_glass_carried.png"
+    },
+    "rainbow_brown_50_block": {
+      "textures": "textures/blocks/rainbow_brown_50_block",
+      "carried_texture": "textures/blocks/rainbow_brown_50_block_carried.png"
+    },
+    "rainbow_brown_50_plate": {
+      "textures": "textures/blocks/rainbow_brown_50_plate",
+      "carried_texture": "textures/blocks/rainbow_brown_50_plate_carried.png"
+    },
+    "rainbow_brown_50_lit": {
+      "textures": "textures/blocks/rainbow_brown_50_lit",
+      "carried_texture": "textures/blocks/rainbow_brown_50_lit_carried.png"
+    },
+    "rainbow_brown_50_lamp": {
+      "textures": "textures/blocks/rainbow_brown_50_lamp",
+      "carried_texture": "textures/blocks/rainbow_brown_50_lamp_carried.png"
+    },
+    "rainbow_brown_50_glass": {
+      "textures": "textures/blocks/rainbow_brown_50_glass",
+      "carried_texture": "textures/blocks/rainbow_brown_50_glass_carried.png"
+    },
+    "rainbow_brown_100_block": {
+      "textures": "textures/blocks/rainbow_brown_100_block",
+      "carried_texture": "textures/blocks/rainbow_brown_100_block_carried.png"
+    },
+    "rainbow_brown_100_plate": {
+      "textures": "textures/blocks/rainbow_brown_100_plate",
+      "carried_texture": "textures/blocks/rainbow_brown_100_plate_carried.png"
+    },
+    "rainbow_brown_100_lit": {
+      "textures": "textures/blocks/rainbow_brown_100_lit",
+      "carried_texture": "textures/blocks/rainbow_brown_100_lit_carried.png"
+    },
+    "rainbow_brown_100_lamp": {
+      "textures": "textures/blocks/rainbow_brown_100_lamp",
+      "carried_texture": "textures/blocks/rainbow_brown_100_lamp_carried.png"
+    },
+    "rainbow_brown_100_glass": {
+      "textures": "textures/blocks/rainbow_brown_100_glass",
+      "carried_texture": "textures/blocks/rainbow_brown_100_glass_carried.png"
+    },
+    "rainbow_brown_200_block": {
+      "textures": "textures/blocks/rainbow_brown_200_block",
+      "carried_texture": "textures/blocks/rainbow_brown_200_block_carried.png"
+    },
+    "rainbow_brown_200_plate": {
+      "textures": "textures/blocks/rainbow_brown_200_plate",
+      "carried_texture": "textures/blocks/rainbow_brown_200_plate_carried.png"
+    },
+    "rainbow_brown_200_lit": {
+      "textures": "textures/blocks/rainbow_brown_200_lit",
+      "carried_texture": "textures/blocks/rainbow_brown_200_lit_carried.png"
+    },
+    "rainbow_brown_200_lamp": {
+      "textures": "textures/blocks/rainbow_brown_200_lamp",
+      "carried_texture": "textures/blocks/rainbow_brown_200_lamp_carried.png"
+    },
+    "rainbow_brown_200_glass": {
+      "textures": "textures/blocks/rainbow_brown_200_glass",
+      "carried_texture": "textures/blocks/rainbow_brown_200_glass_carried.png"
+    },
+    "rainbow_brown_300_block": {
+      "textures": "textures/blocks/rainbow_brown_300_block",
+      "carried_texture": "textures/blocks/rainbow_brown_300_block_carried.png"
+    },
+    "rainbow_brown_300_plate": {
+      "textures": "textures/blocks/rainbow_brown_300_plate",
+      "carried_texture": "textures/blocks/rainbow_brown_300_plate_carried.png"
+    },
+    "rainbow_brown_300_lit": {
+      "textures": "textures/blocks/rainbow_brown_300_lit",
+      "carried_texture": "textures/blocks/rainbow_brown_300_lit_carried.png"
+    },
+    "rainbow_brown_300_lamp": {
+      "textures": "textures/blocks/rainbow_brown_300_lamp",
+      "carried_texture": "textures/blocks/rainbow_brown_300_lamp_carried.png"
+    },
+    "rainbow_brown_300_glass": {
+      "textures": "textures/blocks/rainbow_brown_300_glass",
+      "carried_texture": "textures/blocks/rainbow_brown_300_glass_carried.png"
+    },
+    "rainbow_brown_400_block": {
+      "textures": "textures/blocks/rainbow_brown_400_block",
+      "carried_texture": "textures/blocks/rainbow_brown_400_block_carried.png"
+    },
+    "rainbow_brown_400_plate": {
+      "textures": "textures/blocks/rainbow_brown_400_plate",
+      "carried_texture": "textures/blocks/rainbow_brown_400_plate_carried.png"
+    },
+    "rainbow_brown_400_lit": {
+      "textures": "textures/blocks/rainbow_brown_400_lit",
+      "carried_texture": "textures/blocks/rainbow_brown_400_lit_carried.png"
+    },
+    "rainbow_brown_400_lamp": {
+      "textures": "textures/blocks/rainbow_brown_400_lamp",
+      "carried_texture": "textures/blocks/rainbow_brown_400_lamp_carried.png"
+    },
+    "rainbow_brown_400_glass": {
+      "textures": "textures/blocks/rainbow_brown_400_glass",
+      "carried_texture": "textures/blocks/rainbow_brown_400_glass_carried.png"
+    },
+    "rainbow_brown_500_block": {
+      "textures": "textures/blocks/rainbow_brown_500_block",
+      "carried_texture": "textures/blocks/rainbow_brown_500_block_carried.png"
+    },
+    "rainbow_brown_500_plate": {
+      "textures": "textures/blocks/rainbow_brown_500_plate",
+      "carried_texture": "textures/blocks/rainbow_brown_500_plate_carried.png"
+    },
+    "rainbow_brown_500_lit": {
+      "textures": "textures/blocks/rainbow_brown_500_lit",
+      "carried_texture": "textures/blocks/rainbow_brown_500_lit_carried.png"
+    },
+    "rainbow_brown_500_lamp": {
+      "textures": "textures/blocks/rainbow_brown_500_lamp",
+      "carried_texture": "textures/blocks/rainbow_brown_500_lamp_carried.png"
+    },
+    "rainbow_brown_500_glass": {
+      "textures": "textures/blocks/rainbow_brown_500_glass",
+      "carried_texture": "textures/blocks/rainbow_brown_500_glass_carried.png"
+    },
+    "rainbow_brown_600_block": {
+      "textures": "textures/blocks/rainbow_brown_600_block",
+      "carried_texture": "textures/blocks/rainbow_brown_600_block_carried.png"
+    },
+    "rainbow_brown_600_plate": {
+      "textures": "textures/blocks/rainbow_brown_600_plate",
+      "carried_texture": "textures/blocks/rainbow_brown_600_plate_carried.png"
+    },
+    "rainbow_brown_600_lit": {
+      "textures": "textures/blocks/rainbow_brown_600_lit",
+      "carried_texture": "textures/blocks/rainbow_brown_600_lit_carried.png"
+    },
+    "rainbow_brown_600_lamp": {
+      "textures": "textures/blocks/rainbow_brown_600_lamp",
+      "carried_texture": "textures/blocks/rainbow_brown_600_lamp_carried.png"
+    },
+    "rainbow_brown_600_glass": {
+      "textures": "textures/blocks/rainbow_brown_600_glass",
+      "carried_texture": "textures/blocks/rainbow_brown_600_glass_carried.png"
+    },
+    "rainbow_brown_700_block": {
+      "textures": "textures/blocks/rainbow_brown_700_block",
+      "carried_texture": "textures/blocks/rainbow_brown_700_block_carried.png"
+    },
+    "rainbow_brown_700_plate": {
+      "textures": "textures/blocks/rainbow_brown_700_plate",
+      "carried_texture": "textures/blocks/rainbow_brown_700_plate_carried.png"
+    },
+    "rainbow_brown_700_lit": {
+      "textures": "textures/blocks/rainbow_brown_700_lit",
+      "carried_texture": "textures/blocks/rainbow_brown_700_lit_carried.png"
+    },
+    "rainbow_brown_700_lamp": {
+      "textures": "textures/blocks/rainbow_brown_700_lamp",
+      "carried_texture": "textures/blocks/rainbow_brown_700_lamp_carried.png"
+    },
+    "rainbow_brown_700_glass": {
+      "textures": "textures/blocks/rainbow_brown_700_glass",
+      "carried_texture": "textures/blocks/rainbow_brown_700_glass_carried.png"
+    },
+    "rainbow_brown_800_block": {
+      "textures": "textures/blocks/rainbow_brown_800_block",
+      "carried_texture": "textures/blocks/rainbow_brown_800_block_carried.png"
+    },
+    "rainbow_brown_800_plate": {
+      "textures": "textures/blocks/rainbow_brown_800_plate",
+      "carried_texture": "textures/blocks/rainbow_brown_800_plate_carried.png"
+    },
+    "rainbow_brown_800_lit": {
+      "textures": "textures/blocks/rainbow_brown_800_lit",
+      "carried_texture": "textures/blocks/rainbow_brown_800_lit_carried.png"
+    },
+    "rainbow_brown_800_lamp": {
+      "textures": "textures/blocks/rainbow_brown_800_lamp",
+      "carried_texture": "textures/blocks/rainbow_brown_800_lamp_carried.png"
+    },
+    "rainbow_brown_800_glass": {
+      "textures": "textures/blocks/rainbow_brown_800_glass",
+      "carried_texture": "textures/blocks/rainbow_brown_800_glass_carried.png"
+    },
+    "rainbow_brown_900_block": {
+      "textures": "textures/blocks/rainbow_brown_900_block",
+      "carried_texture": "textures/blocks/rainbow_brown_900_block_carried.png"
+    },
+    "rainbow_brown_900_plate": {
+      "textures": "textures/blocks/rainbow_brown_900_plate",
+      "carried_texture": "textures/blocks/rainbow_brown_900_plate_carried.png"
+    },
+    "rainbow_brown_900_lit": {
+      "textures": "textures/blocks/rainbow_brown_900_lit",
+      "carried_texture": "textures/blocks/rainbow_brown_900_lit_carried.png"
+    },
+    "rainbow_brown_900_lamp": {
+      "textures": "textures/blocks/rainbow_brown_900_lamp",
+      "carried_texture": "textures/blocks/rainbow_brown_900_lamp_carried.png"
+    },
+    "rainbow_brown_900_glass": {
+      "textures": "textures/blocks/rainbow_brown_900_glass",
+      "carried_texture": "textures/blocks/rainbow_brown_900_glass_carried.png"
+    },
+    "rainbow_cyan_50_block": {
+      "textures": "textures/blocks/rainbow_cyan_50_block",
+      "carried_texture": "textures/blocks/rainbow_cyan_50_block_carried.png"
+    },
+    "rainbow_cyan_50_plate": {
+      "textures": "textures/blocks/rainbow_cyan_50_plate",
+      "carried_texture": "textures/blocks/rainbow_cyan_50_plate_carried.png"
+    },
+    "rainbow_cyan_50_lit": {
+      "textures": "textures/blocks/rainbow_cyan_50_lit",
+      "carried_texture": "textures/blocks/rainbow_cyan_50_lit_carried.png"
+    },
+    "rainbow_cyan_50_lamp": {
+      "textures": "textures/blocks/rainbow_cyan_50_lamp",
+      "carried_texture": "textures/blocks/rainbow_cyan_50_lamp_carried.png"
+    },
+    "rainbow_cyan_50_glass": {
+      "textures": "textures/blocks/rainbow_cyan_50_glass",
+      "carried_texture": "textures/blocks/rainbow_cyan_50_glass_carried.png"
+    },
+    "rainbow_cyan_100_block": {
+      "textures": "textures/blocks/rainbow_cyan_100_block",
+      "carried_texture": "textures/blocks/rainbow_cyan_100_block_carried.png"
+    },
+    "rainbow_cyan_100_plate": {
+      "textures": "textures/blocks/rainbow_cyan_100_plate",
+      "carried_texture": "textures/blocks/rainbow_cyan_100_plate_carried.png"
+    },
+    "rainbow_cyan_100_lit": {
+      "textures": "textures/blocks/rainbow_cyan_100_lit",
+      "carried_texture": "textures/blocks/rainbow_cyan_100_lit_carried.png"
+    },
+    "rainbow_cyan_100_lamp": {
+      "textures": "textures/blocks/rainbow_cyan_100_lamp",
+      "carried_texture": "textures/blocks/rainbow_cyan_100_lamp_carried.png"
+    },
+    "rainbow_cyan_100_glass": {
+      "textures": "textures/blocks/rainbow_cyan_100_glass",
+      "carried_texture": "textures/blocks/rainbow_cyan_100_glass_carried.png"
+    },
+    "rainbow_cyan_200_block": {
+      "textures": "textures/blocks/rainbow_cyan_200_block",
+      "carried_texture": "textures/blocks/rainbow_cyan_200_block_carried.png"
+    },
+    "rainbow_cyan_200_plate": {
+      "textures": "textures/blocks/rainbow_cyan_200_plate",
+      "carried_texture": "textures/blocks/rainbow_cyan_200_plate_carried.png"
+    },
+    "rainbow_cyan_200_lit": {
+      "textures": "textures/blocks/rainbow_cyan_200_lit",
+      "carried_texture": "textures/blocks/rainbow_cyan_200_lit_carried.png"
+    },
+    "rainbow_cyan_200_lamp": {
+      "textures": "textures/blocks/rainbow_cyan_200_lamp",
+      "carried_texture": "textures/blocks/rainbow_cyan_200_lamp_carried.png"
+    },
+    "rainbow_cyan_200_glass": {
+      "textures": "textures/blocks/rainbow_cyan_200_glass",
+      "carried_texture": "textures/blocks/rainbow_cyan_200_glass_carried.png"
+    },
+    "rainbow_cyan_300_block": {
+      "textures": "textures/blocks/rainbow_cyan_300_block",
+      "carried_texture": "textures/blocks/rainbow_cyan_300_block_carried.png"
+    },
+    "rainbow_cyan_300_plate": {
+      "textures": "textures/blocks/rainbow_cyan_300_plate",
+      "carried_texture": "textures/blocks/rainbow_cyan_300_plate_carried.png"
+    },
+    "rainbow_cyan_300_lit": {
+      "textures": "textures/blocks/rainbow_cyan_300_lit",
+      "carried_texture": "textures/blocks/rainbow_cyan_300_lit_carried.png"
+    },
+    "rainbow_cyan_300_lamp": {
+      "textures": "textures/blocks/rainbow_cyan_300_lamp",
+      "carried_texture": "textures/blocks/rainbow_cyan_300_lamp_carried.png"
+    },
+    "rainbow_cyan_300_glass": {
+      "textures": "textures/blocks/rainbow_cyan_300_glass",
+      "carried_texture": "textures/blocks/rainbow_cyan_300_glass_carried.png"
+    },
+    "rainbow_cyan_400_block": {
+      "textures": "textures/blocks/rainbow_cyan_400_block",
+      "carried_texture": "textures/blocks/rainbow_cyan_400_block_carried.png"
+    },
+    "rainbow_cyan_400_plate": {
+      "textures": "textures/blocks/rainbow_cyan_400_plate",
+      "carried_texture": "textures/blocks/rainbow_cyan_400_plate_carried.png"
+    },
+    "rainbow_cyan_400_lit": {
+      "textures": "textures/blocks/rainbow_cyan_400_lit",
+      "carried_texture": "textures/blocks/rainbow_cyan_400_lit_carried.png"
+    },
+    "rainbow_cyan_400_lamp": {
+      "textures": "textures/blocks/rainbow_cyan_400_lamp",
+      "carried_texture": "textures/blocks/rainbow_cyan_400_lamp_carried.png"
+    },
+    "rainbow_cyan_400_glass": {
+      "textures": "textures/blocks/rainbow_cyan_400_glass",
+      "carried_texture": "textures/blocks/rainbow_cyan_400_glass_carried.png"
+    },
+    "rainbow_cyan_500_block": {
+      "textures": "textures/blocks/rainbow_cyan_500_block",
+      "carried_texture": "textures/blocks/rainbow_cyan_500_block_carried.png"
+    },
+    "rainbow_cyan_500_plate": {
+      "textures": "textures/blocks/rainbow_cyan_500_plate",
+      "carried_texture": "textures/blocks/rainbow_cyan_500_plate_carried.png"
+    },
+    "rainbow_cyan_500_lit": {
+      "textures": "textures/blocks/rainbow_cyan_500_lit",
+      "carried_texture": "textures/blocks/rainbow_cyan_500_lit_carried.png"
+    },
+    "rainbow_cyan_500_lamp": {
+      "textures": "textures/blocks/rainbow_cyan_500_lamp",
+      "carried_texture": "textures/blocks/rainbow_cyan_500_lamp_carried.png"
+    },
+    "rainbow_cyan_500_glass": {
+      "textures": "textures/blocks/rainbow_cyan_500_glass",
+      "carried_texture": "textures/blocks/rainbow_cyan_500_glass_carried.png"
+    },
+    "rainbow_cyan_600_block": {
+      "textures": "textures/blocks/rainbow_cyan_600_block",
+      "carried_texture": "textures/blocks/rainbow_cyan_600_block_carried.png"
+    },
+    "rainbow_cyan_600_plate": {
+      "textures": "textures/blocks/rainbow_cyan_600_plate",
+      "carried_texture": "textures/blocks/rainbow_cyan_600_plate_carried.png"
+    },
+    "rainbow_cyan_600_lit": {
+      "textures": "textures/blocks/rainbow_cyan_600_lit",
+      "carried_texture": "textures/blocks/rainbow_cyan_600_lit_carried.png"
+    },
+    "rainbow_cyan_600_lamp": {
+      "textures": "textures/blocks/rainbow_cyan_600_lamp",
+      "carried_texture": "textures/blocks/rainbow_cyan_600_lamp_carried.png"
+    },
+    "rainbow_cyan_600_glass": {
+      "textures": "textures/blocks/rainbow_cyan_600_glass",
+      "carried_texture": "textures/blocks/rainbow_cyan_600_glass_carried.png"
+    },
+    "rainbow_cyan_700_block": {
+      "textures": "textures/blocks/rainbow_cyan_700_block",
+      "carried_texture": "textures/blocks/rainbow_cyan_700_block_carried.png"
+    },
+    "rainbow_cyan_700_plate": {
+      "textures": "textures/blocks/rainbow_cyan_700_plate",
+      "carried_texture": "textures/blocks/rainbow_cyan_700_plate_carried.png"
+    },
+    "rainbow_cyan_700_lit": {
+      "textures": "textures/blocks/rainbow_cyan_700_lit",
+      "carried_texture": "textures/blocks/rainbow_cyan_700_lit_carried.png"
+    },
+    "rainbow_cyan_700_lamp": {
+      "textures": "textures/blocks/rainbow_cyan_700_lamp",
+      "carried_texture": "textures/blocks/rainbow_cyan_700_lamp_carried.png"
+    },
+    "rainbow_cyan_700_glass": {
+      "textures": "textures/blocks/rainbow_cyan_700_glass",
+      "carried_texture": "textures/blocks/rainbow_cyan_700_glass_carried.png"
+    },
+    "rainbow_cyan_800_block": {
+      "textures": "textures/blocks/rainbow_cyan_800_block",
+      "carried_texture": "textures/blocks/rainbow_cyan_800_block_carried.png"
+    },
+    "rainbow_cyan_800_plate": {
+      "textures": "textures/blocks/rainbow_cyan_800_plate",
+      "carried_texture": "textures/blocks/rainbow_cyan_800_plate_carried.png"
+    },
+    "rainbow_cyan_800_lit": {
+      "textures": "textures/blocks/rainbow_cyan_800_lit",
+      "carried_texture": "textures/blocks/rainbow_cyan_800_lit_carried.png"
+    },
+    "rainbow_cyan_800_lamp": {
+      "textures": "textures/blocks/rainbow_cyan_800_lamp",
+      "carried_texture": "textures/blocks/rainbow_cyan_800_lamp_carried.png"
+    },
+    "rainbow_cyan_800_glass": {
+      "textures": "textures/blocks/rainbow_cyan_800_glass",
+      "carried_texture": "textures/blocks/rainbow_cyan_800_glass_carried.png"
+    },
+    "rainbow_cyan_900_block": {
+      "textures": "textures/blocks/rainbow_cyan_900_block",
+      "carried_texture": "textures/blocks/rainbow_cyan_900_block_carried.png"
+    },
+    "rainbow_cyan_900_plate": {
+      "textures": "textures/blocks/rainbow_cyan_900_plate",
+      "carried_texture": "textures/blocks/rainbow_cyan_900_plate_carried.png"
+    },
+    "rainbow_cyan_900_lit": {
+      "textures": "textures/blocks/rainbow_cyan_900_lit",
+      "carried_texture": "textures/blocks/rainbow_cyan_900_lit_carried.png"
+    },
+    "rainbow_cyan_900_lamp": {
+      "textures": "textures/blocks/rainbow_cyan_900_lamp",
+      "carried_texture": "textures/blocks/rainbow_cyan_900_lamp_carried.png"
+    },
+    "rainbow_cyan_900_glass": {
+      "textures": "textures/blocks/rainbow_cyan_900_glass",
+      "carried_texture": "textures/blocks/rainbow_cyan_900_glass_carried.png"
+    },
+    "rainbow_gray_50_block": {
+      "textures": "textures/blocks/rainbow_gray_50_block",
+      "carried_texture": "textures/blocks/rainbow_gray_50_block_carried.png"
+    },
+    "rainbow_gray_50_plate": {
+      "textures": "textures/blocks/rainbow_gray_50_plate",
+      "carried_texture": "textures/blocks/rainbow_gray_50_plate_carried.png"
+    },
+    "rainbow_gray_50_lit": {
+      "textures": "textures/blocks/rainbow_gray_50_lit",
+      "carried_texture": "textures/blocks/rainbow_gray_50_lit_carried.png"
+    },
+    "rainbow_gray_50_lamp": {
+      "textures": "textures/blocks/rainbow_gray_50_lamp",
+      "carried_texture": "textures/blocks/rainbow_gray_50_lamp_carried.png"
+    },
+    "rainbow_gray_50_glass": {
+      "textures": "textures/blocks/rainbow_gray_50_glass",
+      "carried_texture": "textures/blocks/rainbow_gray_50_glass_carried.png"
+    },
+    "rainbow_gray_100_block": {
+      "textures": "textures/blocks/rainbow_gray_100_block",
+      "carried_texture": "textures/blocks/rainbow_gray_100_block_carried.png"
+    },
+    "rainbow_gray_100_plate": {
+      "textures": "textures/blocks/rainbow_gray_100_plate",
+      "carried_texture": "textures/blocks/rainbow_gray_100_plate_carried.png"
+    },
+    "rainbow_gray_100_lit": {
+      "textures": "textures/blocks/rainbow_gray_100_lit",
+      "carried_texture": "textures/blocks/rainbow_gray_100_lit_carried.png"
+    },
+    "rainbow_gray_100_lamp": {
+      "textures": "textures/blocks/rainbow_gray_100_lamp",
+      "carried_texture": "textures/blocks/rainbow_gray_100_lamp_carried.png"
+    },
+    "rainbow_gray_100_glass": {
+      "textures": "textures/blocks/rainbow_gray_100_glass",
+      "carried_texture": "textures/blocks/rainbow_gray_100_glass_carried.png"
+    },
+    "rainbow_gray_200_block": {
+      "textures": "textures/blocks/rainbow_gray_200_block",
+      "carried_texture": "textures/blocks/rainbow_gray_200_block_carried.png"
+    },
+    "rainbow_gray_200_plate": {
+      "textures": "textures/blocks/rainbow_gray_200_plate",
+      "carried_texture": "textures/blocks/rainbow_gray_200_plate_carried.png"
+    },
+    "rainbow_gray_200_lit": {
+      "textures": "textures/blocks/rainbow_gray_200_lit",
+      "carried_texture": "textures/blocks/rainbow_gray_200_lit_carried.png"
+    },
+    "rainbow_gray_200_lamp": {
+      "textures": "textures/blocks/rainbow_gray_200_lamp",
+      "carried_texture": "textures/blocks/rainbow_gray_200_lamp_carried.png"
+    },
+    "rainbow_gray_200_glass": {
+      "textures": "textures/blocks/rainbow_gray_200_glass",
+      "carried_texture": "textures/blocks/rainbow_gray_200_glass_carried.png"
+    },
+    "rainbow_gray_300_block": {
+      "textures": "textures/blocks/rainbow_gray_300_block",
+      "carried_texture": "textures/blocks/rainbow_gray_300_block_carried.png"
+    },
+    "rainbow_gray_300_plate": {
+      "textures": "textures/blocks/rainbow_gray_300_plate",
+      "carried_texture": "textures/blocks/rainbow_gray_300_plate_carried.png"
+    },
+    "rainbow_gray_300_lit": {
+      "textures": "textures/blocks/rainbow_gray_300_lit",
+      "carried_texture": "textures/blocks/rainbow_gray_300_lit_carried.png"
+    },
+    "rainbow_gray_300_lamp": {
+      "textures": "textures/blocks/rainbow_gray_300_lamp",
+      "carried_texture": "textures/blocks/rainbow_gray_300_lamp_carried.png"
+    },
+    "rainbow_gray_300_glass": {
+      "textures": "textures/blocks/rainbow_gray_300_glass",
+      "carried_texture": "textures/blocks/rainbow_gray_300_glass_carried.png"
+    },
+    "rainbow_gray_400_block": {
+      "textures": "textures/blocks/rainbow_gray_400_block",
+      "carried_texture": "textures/blocks/rainbow_gray_400_block_carried.png"
+    },
+    "rainbow_gray_400_plate": {
+      "textures": "textures/blocks/rainbow_gray_400_plate",
+      "carried_texture": "textures/blocks/rainbow_gray_400_plate_carried.png"
+    },
+    "rainbow_gray_400_lit": {
+      "textures": "textures/blocks/rainbow_gray_400_lit",
+      "carried_texture": "textures/blocks/rainbow_gray_400_lit_carried.png"
+    },
+    "rainbow_gray_400_lamp": {
+      "textures": "textures/blocks/rainbow_gray_400_lamp",
+      "carried_texture": "textures/blocks/rainbow_gray_400_lamp_carried.png"
+    },
+    "rainbow_gray_400_glass": {
+      "textures": "textures/blocks/rainbow_gray_400_glass",
+      "carried_texture": "textures/blocks/rainbow_gray_400_glass_carried.png"
+    },
+    "rainbow_gray_500_block": {
+      "textures": "textures/blocks/rainbow_gray_500_block",
+      "carried_texture": "textures/blocks/rainbow_gray_500_block_carried.png"
+    },
+    "rainbow_gray_500_plate": {
+      "textures": "textures/blocks/rainbow_gray_500_plate",
+      "carried_texture": "textures/blocks/rainbow_gray_500_plate_carried.png"
+    },
+    "rainbow_gray_500_lit": {
+      "textures": "textures/blocks/rainbow_gray_500_lit",
+      "carried_texture": "textures/blocks/rainbow_gray_500_lit_carried.png"
+    },
+    "rainbow_gray_500_lamp": {
+      "textures": "textures/blocks/rainbow_gray_500_lamp",
+      "carried_texture": "textures/blocks/rainbow_gray_500_lamp_carried.png"
+    },
+    "rainbow_gray_500_glass": {
+      "textures": "textures/blocks/rainbow_gray_500_glass",
+      "carried_texture": "textures/blocks/rainbow_gray_500_glass_carried.png"
+    },
+    "rainbow_gray_600_block": {
+      "textures": "textures/blocks/rainbow_gray_600_block",
+      "carried_texture": "textures/blocks/rainbow_gray_600_block_carried.png"
+    },
+    "rainbow_gray_600_plate": {
+      "textures": "textures/blocks/rainbow_gray_600_plate",
+      "carried_texture": "textures/blocks/rainbow_gray_600_plate_carried.png"
+    },
+    "rainbow_gray_600_lit": {
+      "textures": "textures/blocks/rainbow_gray_600_lit",
+      "carried_texture": "textures/blocks/rainbow_gray_600_lit_carried.png"
+    },
+    "rainbow_gray_600_lamp": {
+      "textures": "textures/blocks/rainbow_gray_600_lamp",
+      "carried_texture": "textures/blocks/rainbow_gray_600_lamp_carried.png"
+    },
+    "rainbow_gray_600_glass": {
+      "textures": "textures/blocks/rainbow_gray_600_glass",
+      "carried_texture": "textures/blocks/rainbow_gray_600_glass_carried.png"
+    },
+    "rainbow_gray_700_block": {
+      "textures": "textures/blocks/rainbow_gray_700_block",
+      "carried_texture": "textures/blocks/rainbow_gray_700_block_carried.png"
+    },
+    "rainbow_gray_700_plate": {
+      "textures": "textures/blocks/rainbow_gray_700_plate",
+      "carried_texture": "textures/blocks/rainbow_gray_700_plate_carried.png"
+    },
+    "rainbow_gray_700_lit": {
+      "textures": "textures/blocks/rainbow_gray_700_lit",
+      "carried_texture": "textures/blocks/rainbow_gray_700_lit_carried.png"
+    },
+    "rainbow_gray_700_lamp": {
+      "textures": "textures/blocks/rainbow_gray_700_lamp",
+      "carried_texture": "textures/blocks/rainbow_gray_700_lamp_carried.png"
+    },
+    "rainbow_gray_700_glass": {
+      "textures": "textures/blocks/rainbow_gray_700_glass",
+      "carried_texture": "textures/blocks/rainbow_gray_700_glass_carried.png"
+    },
+    "rainbow_gray_800_block": {
+      "textures": "textures/blocks/rainbow_gray_800_block",
+      "carried_texture": "textures/blocks/rainbow_gray_800_block_carried.png"
+    },
+    "rainbow_gray_800_plate": {
+      "textures": "textures/blocks/rainbow_gray_800_plate",
+      "carried_texture": "textures/blocks/rainbow_gray_800_plate_carried.png"
+    },
+    "rainbow_gray_800_lit": {
+      "textures": "textures/blocks/rainbow_gray_800_lit",
+      "carried_texture": "textures/blocks/rainbow_gray_800_lit_carried.png"
+    },
+    "rainbow_gray_800_lamp": {
+      "textures": "textures/blocks/rainbow_gray_800_lamp",
+      "carried_texture": "textures/blocks/rainbow_gray_800_lamp_carried.png"
+    },
+    "rainbow_gray_800_glass": {
+      "textures": "textures/blocks/rainbow_gray_800_glass",
+      "carried_texture": "textures/blocks/rainbow_gray_800_glass_carried.png"
+    },
+    "rainbow_gray_900_block": {
+      "textures": "textures/blocks/rainbow_gray_900_block",
+      "carried_texture": "textures/blocks/rainbow_gray_900_block_carried.png"
+    },
+    "rainbow_gray_900_plate": {
+      "textures": "textures/blocks/rainbow_gray_900_plate",
+      "carried_texture": "textures/blocks/rainbow_gray_900_plate_carried.png"
+    },
+    "rainbow_gray_900_lit": {
+      "textures": "textures/blocks/rainbow_gray_900_lit",
+      "carried_texture": "textures/blocks/rainbow_gray_900_lit_carried.png"
+    },
+    "rainbow_gray_900_lamp": {
+      "textures": "textures/blocks/rainbow_gray_900_lamp",
+      "carried_texture": "textures/blocks/rainbow_gray_900_lamp_carried.png"
+    },
+    "rainbow_gray_900_glass": {
+      "textures": "textures/blocks/rainbow_gray_900_glass",
+      "carried_texture": "textures/blocks/rainbow_gray_900_glass_carried.png"
+    },
+    "rainbow_green_50_block": {
+      "textures": "textures/blocks/rainbow_green_50_block",
+      "carried_texture": "textures/blocks/rainbow_green_50_block_carried.png"
+    },
+    "rainbow_green_50_plate": {
+      "textures": "textures/blocks/rainbow_green_50_plate",
+      "carried_texture": "textures/blocks/rainbow_green_50_plate_carried.png"
+    },
+    "rainbow_green_50_lit": {
+      "textures": "textures/blocks/rainbow_green_50_lit",
+      "carried_texture": "textures/blocks/rainbow_green_50_lit_carried.png"
+    },
+    "rainbow_green_50_lamp": {
+      "textures": "textures/blocks/rainbow_green_50_lamp",
+      "carried_texture": "textures/blocks/rainbow_green_50_lamp_carried.png"
+    },
+    "rainbow_green_50_glass": {
+      "textures": "textures/blocks/rainbow_green_50_glass",
+      "carried_texture": "textures/blocks/rainbow_green_50_glass_carried.png"
+    },
+    "rainbow_green_100_block": {
+      "textures": "textures/blocks/rainbow_green_100_block",
+      "carried_texture": "textures/blocks/rainbow_green_100_block_carried.png"
+    },
+    "rainbow_green_100_plate": {
+      "textures": "textures/blocks/rainbow_green_100_plate",
+      "carried_texture": "textures/blocks/rainbow_green_100_plate_carried.png"
+    },
+    "rainbow_green_100_lit": {
+      "textures": "textures/blocks/rainbow_green_100_lit",
+      "carried_texture": "textures/blocks/rainbow_green_100_lit_carried.png"
+    },
+    "rainbow_green_100_lamp": {
+      "textures": "textures/blocks/rainbow_green_100_lamp",
+      "carried_texture": "textures/blocks/rainbow_green_100_lamp_carried.png"
+    },
+    "rainbow_green_100_glass": {
+      "textures": "textures/blocks/rainbow_green_100_glass",
+      "carried_texture": "textures/blocks/rainbow_green_100_glass_carried.png"
+    },
+    "rainbow_green_200_block": {
+      "textures": "textures/blocks/rainbow_green_200_block",
+      "carried_texture": "textures/blocks/rainbow_green_200_block_carried.png"
+    },
+    "rainbow_green_200_plate": {
+      "textures": "textures/blocks/rainbow_green_200_plate",
+      "carried_texture": "textures/blocks/rainbow_green_200_plate_carried.png"
+    },
+    "rainbow_green_200_lit": {
+      "textures": "textures/blocks/rainbow_green_200_lit",
+      "carried_texture": "textures/blocks/rainbow_green_200_lit_carried.png"
+    },
+    "rainbow_green_200_lamp": {
+      "textures": "textures/blocks/rainbow_green_200_lamp",
+      "carried_texture": "textures/blocks/rainbow_green_200_lamp_carried.png"
+    },
+    "rainbow_green_200_glass": {
+      "textures": "textures/blocks/rainbow_green_200_glass",
+      "carried_texture": "textures/blocks/rainbow_green_200_glass_carried.png"
+    },
+    "rainbow_green_300_block": {
+      "textures": "textures/blocks/rainbow_green_300_block",
+      "carried_texture": "textures/blocks/rainbow_green_300_block_carried.png"
+    },
+    "rainbow_green_300_plate": {
+      "textures": "textures/blocks/rainbow_green_300_plate",
+      "carried_texture": "textures/blocks/rainbow_green_300_plate_carried.png"
+    },
+    "rainbow_green_300_lit": {
+      "textures": "textures/blocks/rainbow_green_300_lit",
+      "carried_texture": "textures/blocks/rainbow_green_300_lit_carried.png"
+    },
+    "rainbow_green_300_lamp": {
+      "textures": "textures/blocks/rainbow_green_300_lamp",
+      "carried_texture": "textures/blocks/rainbow_green_300_lamp_carried.png"
+    },
+    "rainbow_green_300_glass": {
+      "textures": "textures/blocks/rainbow_green_300_glass",
+      "carried_texture": "textures/blocks/rainbow_green_300_glass_carried.png"
+    },
+    "rainbow_green_400_block": {
+      "textures": "textures/blocks/rainbow_green_400_block",
+      "carried_texture": "textures/blocks/rainbow_green_400_block_carried.png"
+    },
+    "rainbow_green_400_plate": {
+      "textures": "textures/blocks/rainbow_green_400_plate",
+      "carried_texture": "textures/blocks/rainbow_green_400_plate_carried.png"
+    },
+    "rainbow_green_400_lit": {
+      "textures": "textures/blocks/rainbow_green_400_lit",
+      "carried_texture": "textures/blocks/rainbow_green_400_lit_carried.png"
+    },
+    "rainbow_green_400_lamp": {
+      "textures": "textures/blocks/rainbow_green_400_lamp",
+      "carried_texture": "textures/blocks/rainbow_green_400_lamp_carried.png"
+    },
+    "rainbow_green_400_glass": {
+      "textures": "textures/blocks/rainbow_green_400_glass",
+      "carried_texture": "textures/blocks/rainbow_green_400_glass_carried.png"
+    },
+    "rainbow_green_500_block": {
+      "textures": "textures/blocks/rainbow_green_500_block",
+      "carried_texture": "textures/blocks/rainbow_green_500_block_carried.png"
+    },
+    "rainbow_green_500_plate": {
+      "textures": "textures/blocks/rainbow_green_500_plate",
+      "carried_texture": "textures/blocks/rainbow_green_500_plate_carried.png"
+    },
+    "rainbow_green_500_lit": {
+      "textures": "textures/blocks/rainbow_green_500_lit",
+      "carried_texture": "textures/blocks/rainbow_green_500_lit_carried.png"
+    },
+    "rainbow_green_500_lamp": {
+      "textures": "textures/blocks/rainbow_green_500_lamp",
+      "carried_texture": "textures/blocks/rainbow_green_500_lamp_carried.png"
+    },
+    "rainbow_green_500_glass": {
+      "textures": "textures/blocks/rainbow_green_500_glass",
+      "carried_texture": "textures/blocks/rainbow_green_500_glass_carried.png"
+    },
+    "rainbow_green_600_block": {
+      "textures": "textures/blocks/rainbow_green_600_block",
+      "carried_texture": "textures/blocks/rainbow_green_600_block_carried.png"
+    },
+    "rainbow_green_600_plate": {
+      "textures": "textures/blocks/rainbow_green_600_plate",
+      "carried_texture": "textures/blocks/rainbow_green_600_plate_carried.png"
+    },
+    "rainbow_green_600_lit": {
+      "textures": "textures/blocks/rainbow_green_600_lit",
+      "carried_texture": "textures/blocks/rainbow_green_600_lit_carried.png"
+    },
+    "rainbow_green_600_lamp": {
+      "textures": "textures/blocks/rainbow_green_600_lamp",
+      "carried_texture": "textures/blocks/rainbow_green_600_lamp_carried.png"
+    },
+    "rainbow_green_600_glass": {
+      "textures": "textures/blocks/rainbow_green_600_glass",
+      "carried_texture": "textures/blocks/rainbow_green_600_glass_carried.png"
+    },
+    "rainbow_green_700_block": {
+      "textures": "textures/blocks/rainbow_green_700_block",
+      "carried_texture": "textures/blocks/rainbow_green_700_block_carried.png"
+    },
+    "rainbow_green_700_plate": {
+      "textures": "textures/blocks/rainbow_green_700_plate",
+      "carried_texture": "textures/blocks/rainbow_green_700_plate_carried.png"
+    },
+    "rainbow_green_700_lit": {
+      "textures": "textures/blocks/rainbow_green_700_lit",
+      "carried_texture": "textures/blocks/rainbow_green_700_lit_carried.png"
+    },
+    "rainbow_green_700_lamp": {
+      "textures": "textures/blocks/rainbow_green_700_lamp",
+      "carried_texture": "textures/blocks/rainbow_green_700_lamp_carried.png"
+    },
+    "rainbow_green_700_glass": {
+      "textures": "textures/blocks/rainbow_green_700_glass",
+      "carried_texture": "textures/blocks/rainbow_green_700_glass_carried.png"
+    },
+    "rainbow_green_800_block": {
+      "textures": "textures/blocks/rainbow_green_800_block",
+      "carried_texture": "textures/blocks/rainbow_green_800_block_carried.png"
+    },
+    "rainbow_green_800_plate": {
+      "textures": "textures/blocks/rainbow_green_800_plate",
+      "carried_texture": "textures/blocks/rainbow_green_800_plate_carried.png"
+    },
+    "rainbow_green_800_lit": {
+      "textures": "textures/blocks/rainbow_green_800_lit",
+      "carried_texture": "textures/blocks/rainbow_green_800_lit_carried.png"
+    },
+    "rainbow_green_800_lamp": {
+      "textures": "textures/blocks/rainbow_green_800_lamp",
+      "carried_texture": "textures/blocks/rainbow_green_800_lamp_carried.png"
+    },
+    "rainbow_green_800_glass": {
+      "textures": "textures/blocks/rainbow_green_800_glass",
+      "carried_texture": "textures/blocks/rainbow_green_800_glass_carried.png"
+    },
+    "rainbow_green_900_block": {
+      "textures": "textures/blocks/rainbow_green_900_block",
+      "carried_texture": "textures/blocks/rainbow_green_900_block_carried.png"
+    },
+    "rainbow_green_900_plate": {
+      "textures": "textures/blocks/rainbow_green_900_plate",
+      "carried_texture": "textures/blocks/rainbow_green_900_plate_carried.png"
+    },
+    "rainbow_green_900_lit": {
+      "textures": "textures/blocks/rainbow_green_900_lit",
+      "carried_texture": "textures/blocks/rainbow_green_900_lit_carried.png"
+    },
+    "rainbow_green_900_lamp": {
+      "textures": "textures/blocks/rainbow_green_900_lamp",
+      "carried_texture": "textures/blocks/rainbow_green_900_lamp_carried.png"
+    },
+    "rainbow_green_900_glass": {
+      "textures": "textures/blocks/rainbow_green_900_glass",
+      "carried_texture": "textures/blocks/rainbow_green_900_glass_carried.png"
+    },
+    "rainbow_light_blue_50_block": {
+      "textures": "textures/blocks/rainbow_light_blue_50_block",
+      "carried_texture": "textures/blocks/rainbow_light_blue_50_block_carried.png"
+    },
+    "rainbow_light_blue_50_plate": {
+      "textures": "textures/blocks/rainbow_light_blue_50_plate",
+      "carried_texture": "textures/blocks/rainbow_light_blue_50_plate_carried.png"
+    },
+    "rainbow_light_blue_50_lit": {
+      "textures": "textures/blocks/rainbow_light_blue_50_lit",
+      "carried_texture": "textures/blocks/rainbow_light_blue_50_lit_carried.png"
+    },
+    "rainbow_light_blue_50_lamp": {
+      "textures": "textures/blocks/rainbow_light_blue_50_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_blue_50_lamp_carried.png"
+    },
+    "rainbow_light_blue_50_glass": {
+      "textures": "textures/blocks/rainbow_light_blue_50_glass",
+      "carried_texture": "textures/blocks/rainbow_light_blue_50_glass_carried.png"
+    },
+    "rainbow_light_blue_100_block": {
+      "textures": "textures/blocks/rainbow_light_blue_100_block",
+      "carried_texture": "textures/blocks/rainbow_light_blue_100_block_carried.png"
+    },
+    "rainbow_light_blue_100_plate": {
+      "textures": "textures/blocks/rainbow_light_blue_100_plate",
+      "carried_texture": "textures/blocks/rainbow_light_blue_100_plate_carried.png"
+    },
+    "rainbow_light_blue_100_lit": {
+      "textures": "textures/blocks/rainbow_light_blue_100_lit",
+      "carried_texture": "textures/blocks/rainbow_light_blue_100_lit_carried.png"
+    },
+    "rainbow_light_blue_100_lamp": {
+      "textures": "textures/blocks/rainbow_light_blue_100_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_blue_100_lamp_carried.png"
+    },
+    "rainbow_light_blue_100_glass": {
+      "textures": "textures/blocks/rainbow_light_blue_100_glass",
+      "carried_texture": "textures/blocks/rainbow_light_blue_100_glass_carried.png"
+    },
+    "rainbow_light_blue_200_block": {
+      "textures": "textures/blocks/rainbow_light_blue_200_block",
+      "carried_texture": "textures/blocks/rainbow_light_blue_200_block_carried.png"
+    },
+    "rainbow_light_blue_200_plate": {
+      "textures": "textures/blocks/rainbow_light_blue_200_plate",
+      "carried_texture": "textures/blocks/rainbow_light_blue_200_plate_carried.png"
+    },
+    "rainbow_light_blue_200_lit": {
+      "textures": "textures/blocks/rainbow_light_blue_200_lit",
+      "carried_texture": "textures/blocks/rainbow_light_blue_200_lit_carried.png"
+    },
+    "rainbow_light_blue_200_lamp": {
+      "textures": "textures/blocks/rainbow_light_blue_200_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_blue_200_lamp_carried.png"
+    },
+    "rainbow_light_blue_200_glass": {
+      "textures": "textures/blocks/rainbow_light_blue_200_glass",
+      "carried_texture": "textures/blocks/rainbow_light_blue_200_glass_carried.png"
+    },
+    "rainbow_light_blue_300_block": {
+      "textures": "textures/blocks/rainbow_light_blue_300_block",
+      "carried_texture": "textures/blocks/rainbow_light_blue_300_block_carried.png"
+    },
+    "rainbow_light_blue_300_plate": {
+      "textures": "textures/blocks/rainbow_light_blue_300_plate",
+      "carried_texture": "textures/blocks/rainbow_light_blue_300_plate_carried.png"
+    },
+    "rainbow_light_blue_300_lit": {
+      "textures": "textures/blocks/rainbow_light_blue_300_lit",
+      "carried_texture": "textures/blocks/rainbow_light_blue_300_lit_carried.png"
+    },
+    "rainbow_light_blue_300_lamp": {
+      "textures": "textures/blocks/rainbow_light_blue_300_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_blue_300_lamp_carried.png"
+    },
+    "rainbow_light_blue_300_glass": {
+      "textures": "textures/blocks/rainbow_light_blue_300_glass",
+      "carried_texture": "textures/blocks/rainbow_light_blue_300_glass_carried.png"
+    },
+    "rainbow_light_blue_400_block": {
+      "textures": "textures/blocks/rainbow_light_blue_400_block",
+      "carried_texture": "textures/blocks/rainbow_light_blue_400_block_carried.png"
+    },
+    "rainbow_light_blue_400_plate": {
+      "textures": "textures/blocks/rainbow_light_blue_400_plate",
+      "carried_texture": "textures/blocks/rainbow_light_blue_400_plate_carried.png"
+    },
+    "rainbow_light_blue_400_lit": {
+      "textures": "textures/blocks/rainbow_light_blue_400_lit",
+      "carried_texture": "textures/blocks/rainbow_light_blue_400_lit_carried.png"
+    },
+    "rainbow_light_blue_400_lamp": {
+      "textures": "textures/blocks/rainbow_light_blue_400_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_blue_400_lamp_carried.png"
+    },
+    "rainbow_light_blue_400_glass": {
+      "textures": "textures/blocks/rainbow_light_blue_400_glass",
+      "carried_texture": "textures/blocks/rainbow_light_blue_400_glass_carried.png"
+    },
+    "rainbow_light_blue_500_block": {
+      "textures": "textures/blocks/rainbow_light_blue_500_block",
+      "carried_texture": "textures/blocks/rainbow_light_blue_500_block_carried.png"
+    },
+    "rainbow_light_blue_500_plate": {
+      "textures": "textures/blocks/rainbow_light_blue_500_plate",
+      "carried_texture": "textures/blocks/rainbow_light_blue_500_plate_carried.png"
+    },
+    "rainbow_light_blue_500_lit": {
+      "textures": "textures/blocks/rainbow_light_blue_500_lit",
+      "carried_texture": "textures/blocks/rainbow_light_blue_500_lit_carried.png"
+    },
+    "rainbow_light_blue_500_lamp": {
+      "textures": "textures/blocks/rainbow_light_blue_500_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_blue_500_lamp_carried.png"
+    },
+    "rainbow_light_blue_500_glass": {
+      "textures": "textures/blocks/rainbow_light_blue_500_glass",
+      "carried_texture": "textures/blocks/rainbow_light_blue_500_glass_carried.png"
+    },
+    "rainbow_light_blue_600_block": {
+      "textures": "textures/blocks/rainbow_light_blue_600_block",
+      "carried_texture": "textures/blocks/rainbow_light_blue_600_block_carried.png"
+    },
+    "rainbow_light_blue_600_plate": {
+      "textures": "textures/blocks/rainbow_light_blue_600_plate",
+      "carried_texture": "textures/blocks/rainbow_light_blue_600_plate_carried.png"
+    },
+    "rainbow_light_blue_600_lit": {
+      "textures": "textures/blocks/rainbow_light_blue_600_lit",
+      "carried_texture": "textures/blocks/rainbow_light_blue_600_lit_carried.png"
+    },
+    "rainbow_light_blue_600_lamp": {
+      "textures": "textures/blocks/rainbow_light_blue_600_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_blue_600_lamp_carried.png"
+    },
+    "rainbow_light_blue_600_glass": {
+      "textures": "textures/blocks/rainbow_light_blue_600_glass",
+      "carried_texture": "textures/blocks/rainbow_light_blue_600_glass_carried.png"
+    },
+    "rainbow_light_blue_700_block": {
+      "textures": "textures/blocks/rainbow_light_blue_700_block",
+      "carried_texture": "textures/blocks/rainbow_light_blue_700_block_carried.png"
+    },
+    "rainbow_light_blue_700_plate": {
+      "textures": "textures/blocks/rainbow_light_blue_700_plate",
+      "carried_texture": "textures/blocks/rainbow_light_blue_700_plate_carried.png"
+    },
+    "rainbow_light_blue_700_lit": {
+      "textures": "textures/blocks/rainbow_light_blue_700_lit",
+      "carried_texture": "textures/blocks/rainbow_light_blue_700_lit_carried.png"
+    },
+    "rainbow_light_blue_700_lamp": {
+      "textures": "textures/blocks/rainbow_light_blue_700_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_blue_700_lamp_carried.png"
+    },
+    "rainbow_light_blue_700_glass": {
+      "textures": "textures/blocks/rainbow_light_blue_700_glass",
+      "carried_texture": "textures/blocks/rainbow_light_blue_700_glass_carried.png"
+    },
+    "rainbow_light_blue_800_block": {
+      "textures": "textures/blocks/rainbow_light_blue_800_block",
+      "carried_texture": "textures/blocks/rainbow_light_blue_800_block_carried.png"
+    },
+    "rainbow_light_blue_800_plate": {
+      "textures": "textures/blocks/rainbow_light_blue_800_plate",
+      "carried_texture": "textures/blocks/rainbow_light_blue_800_plate_carried.png"
+    },
+    "rainbow_light_blue_800_lit": {
+      "textures": "textures/blocks/rainbow_light_blue_800_lit",
+      "carried_texture": "textures/blocks/rainbow_light_blue_800_lit_carried.png"
+    },
+    "rainbow_light_blue_800_lamp": {
+      "textures": "textures/blocks/rainbow_light_blue_800_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_blue_800_lamp_carried.png"
+    },
+    "rainbow_light_blue_800_glass": {
+      "textures": "textures/blocks/rainbow_light_blue_800_glass",
+      "carried_texture": "textures/blocks/rainbow_light_blue_800_glass_carried.png"
+    },
+    "rainbow_light_blue_900_block": {
+      "textures": "textures/blocks/rainbow_light_blue_900_block",
+      "carried_texture": "textures/blocks/rainbow_light_blue_900_block_carried.png"
+    },
+    "rainbow_light_blue_900_plate": {
+      "textures": "textures/blocks/rainbow_light_blue_900_plate",
+      "carried_texture": "textures/blocks/rainbow_light_blue_900_plate_carried.png"
+    },
+    "rainbow_light_blue_900_lit": {
+      "textures": "textures/blocks/rainbow_light_blue_900_lit",
+      "carried_texture": "textures/blocks/rainbow_light_blue_900_lit_carried.png"
+    },
+    "rainbow_light_blue_900_lamp": {
+      "textures": "textures/blocks/rainbow_light_blue_900_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_blue_900_lamp_carried.png"
+    },
+    "rainbow_light_blue_900_glass": {
+      "textures": "textures/blocks/rainbow_light_blue_900_glass",
+      "carried_texture": "textures/blocks/rainbow_light_blue_900_glass_carried.png"
+    },
+    "rainbow_light_gray_50_block": {
+      "textures": "textures/blocks/rainbow_light_gray_50_block",
+      "carried_texture": "textures/blocks/rainbow_light_gray_50_block_carried.png"
+    },
+    "rainbow_light_gray_50_plate": {
+      "textures": "textures/blocks/rainbow_light_gray_50_plate",
+      "carried_texture": "textures/blocks/rainbow_light_gray_50_plate_carried.png"
+    },
+    "rainbow_light_gray_50_lit": {
+      "textures": "textures/blocks/rainbow_light_gray_50_lit",
+      "carried_texture": "textures/blocks/rainbow_light_gray_50_lit_carried.png"
+    },
+    "rainbow_light_gray_50_lamp": {
+      "textures": "textures/blocks/rainbow_light_gray_50_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_gray_50_lamp_carried.png"
+    },
+    "rainbow_light_gray_50_glass": {
+      "textures": "textures/blocks/rainbow_light_gray_50_glass",
+      "carried_texture": "textures/blocks/rainbow_light_gray_50_glass_carried.png"
+    },
+    "rainbow_light_gray_100_block": {
+      "textures": "textures/blocks/rainbow_light_gray_100_block",
+      "carried_texture": "textures/blocks/rainbow_light_gray_100_block_carried.png"
+    },
+    "rainbow_light_gray_100_plate": {
+      "textures": "textures/blocks/rainbow_light_gray_100_plate",
+      "carried_texture": "textures/blocks/rainbow_light_gray_100_plate_carried.png"
+    },
+    "rainbow_light_gray_100_lit": {
+      "textures": "textures/blocks/rainbow_light_gray_100_lit",
+      "carried_texture": "textures/blocks/rainbow_light_gray_100_lit_carried.png"
+    },
+    "rainbow_light_gray_100_lamp": {
+      "textures": "textures/blocks/rainbow_light_gray_100_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_gray_100_lamp_carried.png"
+    },
+    "rainbow_light_gray_100_glass": {
+      "textures": "textures/blocks/rainbow_light_gray_100_glass",
+      "carried_texture": "textures/blocks/rainbow_light_gray_100_glass_carried.png"
+    },
+    "rainbow_light_gray_200_block": {
+      "textures": "textures/blocks/rainbow_light_gray_200_block",
+      "carried_texture": "textures/blocks/rainbow_light_gray_200_block_carried.png"
+    },
+    "rainbow_light_gray_200_plate": {
+      "textures": "textures/blocks/rainbow_light_gray_200_plate",
+      "carried_texture": "textures/blocks/rainbow_light_gray_200_plate_carried.png"
+    },
+    "rainbow_light_gray_200_lit": {
+      "textures": "textures/blocks/rainbow_light_gray_200_lit",
+      "carried_texture": "textures/blocks/rainbow_light_gray_200_lit_carried.png"
+    },
+    "rainbow_light_gray_200_lamp": {
+      "textures": "textures/blocks/rainbow_light_gray_200_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_gray_200_lamp_carried.png"
+    },
+    "rainbow_light_gray_200_glass": {
+      "textures": "textures/blocks/rainbow_light_gray_200_glass",
+      "carried_texture": "textures/blocks/rainbow_light_gray_200_glass_carried.png"
+    },
+    "rainbow_light_gray_300_block": {
+      "textures": "textures/blocks/rainbow_light_gray_300_block",
+      "carried_texture": "textures/blocks/rainbow_light_gray_300_block_carried.png"
+    },
+    "rainbow_light_gray_300_plate": {
+      "textures": "textures/blocks/rainbow_light_gray_300_plate",
+      "carried_texture": "textures/blocks/rainbow_light_gray_300_plate_carried.png"
+    },
+    "rainbow_light_gray_300_lit": {
+      "textures": "textures/blocks/rainbow_light_gray_300_lit",
+      "carried_texture": "textures/blocks/rainbow_light_gray_300_lit_carried.png"
+    },
+    "rainbow_light_gray_300_lamp": {
+      "textures": "textures/blocks/rainbow_light_gray_300_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_gray_300_lamp_carried.png"
+    },
+    "rainbow_light_gray_300_glass": {
+      "textures": "textures/blocks/rainbow_light_gray_300_glass",
+      "carried_texture": "textures/blocks/rainbow_light_gray_300_glass_carried.png"
+    },
+    "rainbow_light_gray_400_block": {
+      "textures": "textures/blocks/rainbow_light_gray_400_block",
+      "carried_texture": "textures/blocks/rainbow_light_gray_400_block_carried.png"
+    },
+    "rainbow_light_gray_400_plate": {
+      "textures": "textures/blocks/rainbow_light_gray_400_plate",
+      "carried_texture": "textures/blocks/rainbow_light_gray_400_plate_carried.png"
+    },
+    "rainbow_light_gray_400_lit": {
+      "textures": "textures/blocks/rainbow_light_gray_400_lit",
+      "carried_texture": "textures/blocks/rainbow_light_gray_400_lit_carried.png"
+    },
+    "rainbow_light_gray_400_lamp": {
+      "textures": "textures/blocks/rainbow_light_gray_400_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_gray_400_lamp_carried.png"
+    },
+    "rainbow_light_gray_400_glass": {
+      "textures": "textures/blocks/rainbow_light_gray_400_glass",
+      "carried_texture": "textures/blocks/rainbow_light_gray_400_glass_carried.png"
+    },
+    "rainbow_light_gray_500_block": {
+      "textures": "textures/blocks/rainbow_light_gray_500_block",
+      "carried_texture": "textures/blocks/rainbow_light_gray_500_block_carried.png"
+    },
+    "rainbow_light_gray_500_plate": {
+      "textures": "textures/blocks/rainbow_light_gray_500_plate",
+      "carried_texture": "textures/blocks/rainbow_light_gray_500_plate_carried.png"
+    },
+    "rainbow_light_gray_500_lit": {
+      "textures": "textures/blocks/rainbow_light_gray_500_lit",
+      "carried_texture": "textures/blocks/rainbow_light_gray_500_lit_carried.png"
+    },
+    "rainbow_light_gray_500_lamp": {
+      "textures": "textures/blocks/rainbow_light_gray_500_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_gray_500_lamp_carried.png"
+    },
+    "rainbow_light_gray_500_glass": {
+      "textures": "textures/blocks/rainbow_light_gray_500_glass",
+      "carried_texture": "textures/blocks/rainbow_light_gray_500_glass_carried.png"
+    },
+    "rainbow_light_gray_600_block": {
+      "textures": "textures/blocks/rainbow_light_gray_600_block",
+      "carried_texture": "textures/blocks/rainbow_light_gray_600_block_carried.png"
+    },
+    "rainbow_light_gray_600_plate": {
+      "textures": "textures/blocks/rainbow_light_gray_600_plate",
+      "carried_texture": "textures/blocks/rainbow_light_gray_600_plate_carried.png"
+    },
+    "rainbow_light_gray_600_lit": {
+      "textures": "textures/blocks/rainbow_light_gray_600_lit",
+      "carried_texture": "textures/blocks/rainbow_light_gray_600_lit_carried.png"
+    },
+    "rainbow_light_gray_600_lamp": {
+      "textures": "textures/blocks/rainbow_light_gray_600_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_gray_600_lamp_carried.png"
+    },
+    "rainbow_light_gray_600_glass": {
+      "textures": "textures/blocks/rainbow_light_gray_600_glass",
+      "carried_texture": "textures/blocks/rainbow_light_gray_600_glass_carried.png"
+    },
+    "rainbow_light_gray_700_block": {
+      "textures": "textures/blocks/rainbow_light_gray_700_block",
+      "carried_texture": "textures/blocks/rainbow_light_gray_700_block_carried.png"
+    },
+    "rainbow_light_gray_700_plate": {
+      "textures": "textures/blocks/rainbow_light_gray_700_plate",
+      "carried_texture": "textures/blocks/rainbow_light_gray_700_plate_carried.png"
+    },
+    "rainbow_light_gray_700_lit": {
+      "textures": "textures/blocks/rainbow_light_gray_700_lit",
+      "carried_texture": "textures/blocks/rainbow_light_gray_700_lit_carried.png"
+    },
+    "rainbow_light_gray_700_lamp": {
+      "textures": "textures/blocks/rainbow_light_gray_700_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_gray_700_lamp_carried.png"
+    },
+    "rainbow_light_gray_700_glass": {
+      "textures": "textures/blocks/rainbow_light_gray_700_glass",
+      "carried_texture": "textures/blocks/rainbow_light_gray_700_glass_carried.png"
+    },
+    "rainbow_light_gray_800_block": {
+      "textures": "textures/blocks/rainbow_light_gray_800_block",
+      "carried_texture": "textures/blocks/rainbow_light_gray_800_block_carried.png"
+    },
+    "rainbow_light_gray_800_plate": {
+      "textures": "textures/blocks/rainbow_light_gray_800_plate",
+      "carried_texture": "textures/blocks/rainbow_light_gray_800_plate_carried.png"
+    },
+    "rainbow_light_gray_800_lit": {
+      "textures": "textures/blocks/rainbow_light_gray_800_lit",
+      "carried_texture": "textures/blocks/rainbow_light_gray_800_lit_carried.png"
+    },
+    "rainbow_light_gray_800_lamp": {
+      "textures": "textures/blocks/rainbow_light_gray_800_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_gray_800_lamp_carried.png"
+    },
+    "rainbow_light_gray_800_glass": {
+      "textures": "textures/blocks/rainbow_light_gray_800_glass",
+      "carried_texture": "textures/blocks/rainbow_light_gray_800_glass_carried.png"
+    },
+    "rainbow_light_gray_900_block": {
+      "textures": "textures/blocks/rainbow_light_gray_900_block",
+      "carried_texture": "textures/blocks/rainbow_light_gray_900_block_carried.png"
+    },
+    "rainbow_light_gray_900_plate": {
+      "textures": "textures/blocks/rainbow_light_gray_900_plate",
+      "carried_texture": "textures/blocks/rainbow_light_gray_900_plate_carried.png"
+    },
+    "rainbow_light_gray_900_lit": {
+      "textures": "textures/blocks/rainbow_light_gray_900_lit",
+      "carried_texture": "textures/blocks/rainbow_light_gray_900_lit_carried.png"
+    },
+    "rainbow_light_gray_900_lamp": {
+      "textures": "textures/blocks/rainbow_light_gray_900_lamp",
+      "carried_texture": "textures/blocks/rainbow_light_gray_900_lamp_carried.png"
+    },
+    "rainbow_light_gray_900_glass": {
+      "textures": "textures/blocks/rainbow_light_gray_900_glass",
+      "carried_texture": "textures/blocks/rainbow_light_gray_900_glass_carried.png"
+    },
+    "rainbow_lime_50_block": {
+      "textures": "textures/blocks/rainbow_lime_50_block",
+      "carried_texture": "textures/blocks/rainbow_lime_50_block_carried.png"
+    },
+    "rainbow_lime_50_plate": {
+      "textures": "textures/blocks/rainbow_lime_50_plate",
+      "carried_texture": "textures/blocks/rainbow_lime_50_plate_carried.png"
+    },
+    "rainbow_lime_50_lit": {
+      "textures": "textures/blocks/rainbow_lime_50_lit",
+      "carried_texture": "textures/blocks/rainbow_lime_50_lit_carried.png"
+    },
+    "rainbow_lime_50_lamp": {
+      "textures": "textures/blocks/rainbow_lime_50_lamp",
+      "carried_texture": "textures/blocks/rainbow_lime_50_lamp_carried.png"
+    },
+    "rainbow_lime_50_glass": {
+      "textures": "textures/blocks/rainbow_lime_50_glass",
+      "carried_texture": "textures/blocks/rainbow_lime_50_glass_carried.png"
+    },
+    "rainbow_lime_100_block": {
+      "textures": "textures/blocks/rainbow_lime_100_block",
+      "carried_texture": "textures/blocks/rainbow_lime_100_block_carried.png"
+    },
+    "rainbow_lime_100_plate": {
+      "textures": "textures/blocks/rainbow_lime_100_plate",
+      "carried_texture": "textures/blocks/rainbow_lime_100_plate_carried.png"
+    },
+    "rainbow_lime_100_lit": {
+      "textures": "textures/blocks/rainbow_lime_100_lit",
+      "carried_texture": "textures/blocks/rainbow_lime_100_lit_carried.png"
+    },
+    "rainbow_lime_100_lamp": {
+      "textures": "textures/blocks/rainbow_lime_100_lamp",
+      "carried_texture": "textures/blocks/rainbow_lime_100_lamp_carried.png"
+    },
+    "rainbow_lime_100_glass": {
+      "textures": "textures/blocks/rainbow_lime_100_glass",
+      "carried_texture": "textures/blocks/rainbow_lime_100_glass_carried.png"
+    },
+    "rainbow_lime_200_block": {
+      "textures": "textures/blocks/rainbow_lime_200_block",
+      "carried_texture": "textures/blocks/rainbow_lime_200_block_carried.png"
+    },
+    "rainbow_lime_200_plate": {
+      "textures": "textures/blocks/rainbow_lime_200_plate",
+      "carried_texture": "textures/blocks/rainbow_lime_200_plate_carried.png"
+    },
+    "rainbow_lime_200_lit": {
+      "textures": "textures/blocks/rainbow_lime_200_lit",
+      "carried_texture": "textures/blocks/rainbow_lime_200_lit_carried.png"
+    },
+    "rainbow_lime_200_lamp": {
+      "textures": "textures/blocks/rainbow_lime_200_lamp",
+      "carried_texture": "textures/blocks/rainbow_lime_200_lamp_carried.png"
+    },
+    "rainbow_lime_200_glass": {
+      "textures": "textures/blocks/rainbow_lime_200_glass",
+      "carried_texture": "textures/blocks/rainbow_lime_200_glass_carried.png"
+    },
+    "rainbow_lime_300_block": {
+      "textures": "textures/blocks/rainbow_lime_300_block",
+      "carried_texture": "textures/blocks/rainbow_lime_300_block_carried.png"
+    },
+    "rainbow_lime_300_plate": {
+      "textures": "textures/blocks/rainbow_lime_300_plate",
+      "carried_texture": "textures/blocks/rainbow_lime_300_plate_carried.png"
+    },
+    "rainbow_lime_300_lit": {
+      "textures": "textures/blocks/rainbow_lime_300_lit",
+      "carried_texture": "textures/blocks/rainbow_lime_300_lit_carried.png"
+    },
+    "rainbow_lime_300_lamp": {
+      "textures": "textures/blocks/rainbow_lime_300_lamp",
+      "carried_texture": "textures/blocks/rainbow_lime_300_lamp_carried.png"
+    },
+    "rainbow_lime_300_glass": {
+      "textures": "textures/blocks/rainbow_lime_300_glass",
+      "carried_texture": "textures/blocks/rainbow_lime_300_glass_carried.png"
+    },
+    "rainbow_lime_400_block": {
+      "textures": "textures/blocks/rainbow_lime_400_block",
+      "carried_texture": "textures/blocks/rainbow_lime_400_block_carried.png"
+    },
+    "rainbow_lime_400_plate": {
+      "textures": "textures/blocks/rainbow_lime_400_plate",
+      "carried_texture": "textures/blocks/rainbow_lime_400_plate_carried.png"
+    },
+    "rainbow_lime_400_lit": {
+      "textures": "textures/blocks/rainbow_lime_400_lit",
+      "carried_texture": "textures/blocks/rainbow_lime_400_lit_carried.png"
+    },
+    "rainbow_lime_400_lamp": {
+      "textures": "textures/blocks/rainbow_lime_400_lamp",
+      "carried_texture": "textures/blocks/rainbow_lime_400_lamp_carried.png"
+    },
+    "rainbow_lime_400_glass": {
+      "textures": "textures/blocks/rainbow_lime_400_glass",
+      "carried_texture": "textures/blocks/rainbow_lime_400_glass_carried.png"
+    },
+    "rainbow_lime_500_block": {
+      "textures": "textures/blocks/rainbow_lime_500_block",
+      "carried_texture": "textures/blocks/rainbow_lime_500_block_carried.png"
+    },
+    "rainbow_lime_500_plate": {
+      "textures": "textures/blocks/rainbow_lime_500_plate",
+      "carried_texture": "textures/blocks/rainbow_lime_500_plate_carried.png"
+    },
+    "rainbow_lime_500_lit": {
+      "textures": "textures/blocks/rainbow_lime_500_lit",
+      "carried_texture": "textures/blocks/rainbow_lime_500_lit_carried.png"
+    },
+    "rainbow_lime_500_lamp": {
+      "textures": "textures/blocks/rainbow_lime_500_lamp",
+      "carried_texture": "textures/blocks/rainbow_lime_500_lamp_carried.png"
+    },
+    "rainbow_lime_500_glass": {
+      "textures": "textures/blocks/rainbow_lime_500_glass",
+      "carried_texture": "textures/blocks/rainbow_lime_500_glass_carried.png"
+    },
+    "rainbow_lime_600_block": {
+      "textures": "textures/blocks/rainbow_lime_600_block",
+      "carried_texture": "textures/blocks/rainbow_lime_600_block_carried.png"
+    },
+    "rainbow_lime_600_plate": {
+      "textures": "textures/blocks/rainbow_lime_600_plate",
+      "carried_texture": "textures/blocks/rainbow_lime_600_plate_carried.png"
+    },
+    "rainbow_lime_600_lit": {
+      "textures": "textures/blocks/rainbow_lime_600_lit",
+      "carried_texture": "textures/blocks/rainbow_lime_600_lit_carried.png"
+    },
+    "rainbow_lime_600_lamp": {
+      "textures": "textures/blocks/rainbow_lime_600_lamp",
+      "carried_texture": "textures/blocks/rainbow_lime_600_lamp_carried.png"
+    },
+    "rainbow_lime_600_glass": {
+      "textures": "textures/blocks/rainbow_lime_600_glass",
+      "carried_texture": "textures/blocks/rainbow_lime_600_glass_carried.png"
+    },
+    "rainbow_lime_700_block": {
+      "textures": "textures/blocks/rainbow_lime_700_block",
+      "carried_texture": "textures/blocks/rainbow_lime_700_block_carried.png"
+    },
+    "rainbow_lime_700_plate": {
+      "textures": "textures/blocks/rainbow_lime_700_plate",
+      "carried_texture": "textures/blocks/rainbow_lime_700_plate_carried.png"
+    },
+    "rainbow_lime_700_lit": {
+      "textures": "textures/blocks/rainbow_lime_700_lit",
+      "carried_texture": "textures/blocks/rainbow_lime_700_lit_carried.png"
+    },
+    "rainbow_lime_700_lamp": {
+      "textures": "textures/blocks/rainbow_lime_700_lamp",
+      "carried_texture": "textures/blocks/rainbow_lime_700_lamp_carried.png"
+    },
+    "rainbow_lime_700_glass": {
+      "textures": "textures/blocks/rainbow_lime_700_glass",
+      "carried_texture": "textures/blocks/rainbow_lime_700_glass_carried.png"
+    },
+    "rainbow_lime_800_block": {
+      "textures": "textures/blocks/rainbow_lime_800_block",
+      "carried_texture": "textures/blocks/rainbow_lime_800_block_carried.png"
+    },
+    "rainbow_lime_800_plate": {
+      "textures": "textures/blocks/rainbow_lime_800_plate",
+      "carried_texture": "textures/blocks/rainbow_lime_800_plate_carried.png"
+    },
+    "rainbow_lime_800_lit": {
+      "textures": "textures/blocks/rainbow_lime_800_lit",
+      "carried_texture": "textures/blocks/rainbow_lime_800_lit_carried.png"
+    },
+    "rainbow_lime_800_lamp": {
+      "textures": "textures/blocks/rainbow_lime_800_lamp",
+      "carried_texture": "textures/blocks/rainbow_lime_800_lamp_carried.png"
+    },
+    "rainbow_lime_800_glass": {
+      "textures": "textures/blocks/rainbow_lime_800_glass",
+      "carried_texture": "textures/blocks/rainbow_lime_800_glass_carried.png"
+    },
+    "rainbow_lime_900_block": {
+      "textures": "textures/blocks/rainbow_lime_900_block",
+      "carried_texture": "textures/blocks/rainbow_lime_900_block_carried.png"
+    },
+    "rainbow_lime_900_plate": {
+      "textures": "textures/blocks/rainbow_lime_900_plate",
+      "carried_texture": "textures/blocks/rainbow_lime_900_plate_carried.png"
+    },
+    "rainbow_lime_900_lit": {
+      "textures": "textures/blocks/rainbow_lime_900_lit",
+      "carried_texture": "textures/blocks/rainbow_lime_900_lit_carried.png"
+    },
+    "rainbow_lime_900_lamp": {
+      "textures": "textures/blocks/rainbow_lime_900_lamp",
+      "carried_texture": "textures/blocks/rainbow_lime_900_lamp_carried.png"
+    },
+    "rainbow_lime_900_glass": {
+      "textures": "textures/blocks/rainbow_lime_900_glass",
+      "carried_texture": "textures/blocks/rainbow_lime_900_glass_carried.png"
+    },
+    "rainbow_magenta_50_block": {
+      "textures": "textures/blocks/rainbow_magenta_50_block",
+      "carried_texture": "textures/blocks/rainbow_magenta_50_block_carried.png"
+    },
+    "rainbow_magenta_50_plate": {
+      "textures": "textures/blocks/rainbow_magenta_50_plate",
+      "carried_texture": "textures/blocks/rainbow_magenta_50_plate_carried.png"
+    },
+    "rainbow_magenta_50_lit": {
+      "textures": "textures/blocks/rainbow_magenta_50_lit",
+      "carried_texture": "textures/blocks/rainbow_magenta_50_lit_carried.png"
+    },
+    "rainbow_magenta_50_lamp": {
+      "textures": "textures/blocks/rainbow_magenta_50_lamp",
+      "carried_texture": "textures/blocks/rainbow_magenta_50_lamp_carried.png"
+    },
+    "rainbow_magenta_50_glass": {
+      "textures": "textures/blocks/rainbow_magenta_50_glass",
+      "carried_texture": "textures/blocks/rainbow_magenta_50_glass_carried.png"
+    },
+    "rainbow_magenta_100_block": {
+      "textures": "textures/blocks/rainbow_magenta_100_block",
+      "carried_texture": "textures/blocks/rainbow_magenta_100_block_carried.png"
+    },
+    "rainbow_magenta_100_plate": {
+      "textures": "textures/blocks/rainbow_magenta_100_plate",
+      "carried_texture": "textures/blocks/rainbow_magenta_100_plate_carried.png"
+    },
+    "rainbow_magenta_100_lit": {
+      "textures": "textures/blocks/rainbow_magenta_100_lit",
+      "carried_texture": "textures/blocks/rainbow_magenta_100_lit_carried.png"
+    },
+    "rainbow_magenta_100_lamp": {
+      "textures": "textures/blocks/rainbow_magenta_100_lamp",
+      "carried_texture": "textures/blocks/rainbow_magenta_100_lamp_carried.png"
+    },
+    "rainbow_magenta_100_glass": {
+      "textures": "textures/blocks/rainbow_magenta_100_glass",
+      "carried_texture": "textures/blocks/rainbow_magenta_100_glass_carried.png"
+    },
+    "rainbow_magenta_200_block": {
+      "textures": "textures/blocks/rainbow_magenta_200_block",
+      "carried_texture": "textures/blocks/rainbow_magenta_200_block_carried.png"
+    },
+    "rainbow_magenta_200_plate": {
+      "textures": "textures/blocks/rainbow_magenta_200_plate",
+      "carried_texture": "textures/blocks/rainbow_magenta_200_plate_carried.png"
+    },
+    "rainbow_magenta_200_lit": {
+      "textures": "textures/blocks/rainbow_magenta_200_lit",
+      "carried_texture": "textures/blocks/rainbow_magenta_200_lit_carried.png"
+    },
+    "rainbow_magenta_200_lamp": {
+      "textures": "textures/blocks/rainbow_magenta_200_lamp",
+      "carried_texture": "textures/blocks/rainbow_magenta_200_lamp_carried.png"
+    },
+    "rainbow_magenta_200_glass": {
+      "textures": "textures/blocks/rainbow_magenta_200_glass",
+      "carried_texture": "textures/blocks/rainbow_magenta_200_glass_carried.png"
+    },
+    "rainbow_magenta_300_block": {
+      "textures": "textures/blocks/rainbow_magenta_300_block",
+      "carried_texture": "textures/blocks/rainbow_magenta_300_block_carried.png"
+    },
+    "rainbow_magenta_300_plate": {
+      "textures": "textures/blocks/rainbow_magenta_300_plate",
+      "carried_texture": "textures/blocks/rainbow_magenta_300_plate_carried.png"
+    },
+    "rainbow_magenta_300_lit": {
+      "textures": "textures/blocks/rainbow_magenta_300_lit",
+      "carried_texture": "textures/blocks/rainbow_magenta_300_lit_carried.png"
+    },
+    "rainbow_magenta_300_lamp": {
+      "textures": "textures/blocks/rainbow_magenta_300_lamp",
+      "carried_texture": "textures/blocks/rainbow_magenta_300_lamp_carried.png"
+    },
+    "rainbow_magenta_300_glass": {
+      "textures": "textures/blocks/rainbow_magenta_300_glass",
+      "carried_texture": "textures/blocks/rainbow_magenta_300_glass_carried.png"
+    },
+    "rainbow_magenta_400_block": {
+      "textures": "textures/blocks/rainbow_magenta_400_block",
+      "carried_texture": "textures/blocks/rainbow_magenta_400_block_carried.png"
+    },
+    "rainbow_magenta_400_plate": {
+      "textures": "textures/blocks/rainbow_magenta_400_plate",
+      "carried_texture": "textures/blocks/rainbow_magenta_400_plate_carried.png"
+    },
+    "rainbow_magenta_400_lit": {
+      "textures": "textures/blocks/rainbow_magenta_400_lit",
+      "carried_texture": "textures/blocks/rainbow_magenta_400_lit_carried.png"
+    },
+    "rainbow_magenta_400_lamp": {
+      "textures": "textures/blocks/rainbow_magenta_400_lamp",
+      "carried_texture": "textures/blocks/rainbow_magenta_400_lamp_carried.png"
+    },
+    "rainbow_magenta_400_glass": {
+      "textures": "textures/blocks/rainbow_magenta_400_glass",
+      "carried_texture": "textures/blocks/rainbow_magenta_400_glass_carried.png"
+    },
+    "rainbow_magenta_500_block": {
+      "textures": "textures/blocks/rainbow_magenta_500_block",
+      "carried_texture": "textures/blocks/rainbow_magenta_500_block_carried.png"
+    },
+    "rainbow_magenta_500_plate": {
+      "textures": "textures/blocks/rainbow_magenta_500_plate",
+      "carried_texture": "textures/blocks/rainbow_magenta_500_plate_carried.png"
+    },
+    "rainbow_magenta_500_lit": {
+      "textures": "textures/blocks/rainbow_magenta_500_lit",
+      "carried_texture": "textures/blocks/rainbow_magenta_500_lit_carried.png"
+    },
+    "rainbow_magenta_500_lamp": {
+      "textures": "textures/blocks/rainbow_magenta_500_lamp",
+      "carried_texture": "textures/blocks/rainbow_magenta_500_lamp_carried.png"
+    },
+    "rainbow_magenta_500_glass": {
+      "textures": "textures/blocks/rainbow_magenta_500_glass",
+      "carried_texture": "textures/blocks/rainbow_magenta_500_glass_carried.png"
+    },
+    "rainbow_magenta_600_block": {
+      "textures": "textures/blocks/rainbow_magenta_600_block",
+      "carried_texture": "textures/blocks/rainbow_magenta_600_block_carried.png"
+    },
+    "rainbow_magenta_600_plate": {
+      "textures": "textures/blocks/rainbow_magenta_600_plate",
+      "carried_texture": "textures/blocks/rainbow_magenta_600_plate_carried.png"
+    },
+    "rainbow_magenta_600_lit": {
+      "textures": "textures/blocks/rainbow_magenta_600_lit",
+      "carried_texture": "textures/blocks/rainbow_magenta_600_lit_carried.png"
+    },
+    "rainbow_magenta_600_lamp": {
+      "textures": "textures/blocks/rainbow_magenta_600_lamp",
+      "carried_texture": "textures/blocks/rainbow_magenta_600_lamp_carried.png"
+    },
+    "rainbow_magenta_600_glass": {
+      "textures": "textures/blocks/rainbow_magenta_600_glass",
+      "carried_texture": "textures/blocks/rainbow_magenta_600_glass_carried.png"
+    },
+    "rainbow_magenta_700_block": {
+      "textures": "textures/blocks/rainbow_magenta_700_block",
+      "carried_texture": "textures/blocks/rainbow_magenta_700_block_carried.png"
+    },
+    "rainbow_magenta_700_plate": {
+      "textures": "textures/blocks/rainbow_magenta_700_plate",
+      "carried_texture": "textures/blocks/rainbow_magenta_700_plate_carried.png"
+    },
+    "rainbow_magenta_700_lit": {
+      "textures": "textures/blocks/rainbow_magenta_700_lit",
+      "carried_texture": "textures/blocks/rainbow_magenta_700_lit_carried.png"
+    },
+    "rainbow_magenta_700_lamp": {
+      "textures": "textures/blocks/rainbow_magenta_700_lamp",
+      "carried_texture": "textures/blocks/rainbow_magenta_700_lamp_carried.png"
+    },
+    "rainbow_magenta_700_glass": {
+      "textures": "textures/blocks/rainbow_magenta_700_glass",
+      "carried_texture": "textures/blocks/rainbow_magenta_700_glass_carried.png"
+    },
+    "rainbow_magenta_800_block": {
+      "textures": "textures/blocks/rainbow_magenta_800_block",
+      "carried_texture": "textures/blocks/rainbow_magenta_800_block_carried.png"
+    },
+    "rainbow_magenta_800_plate": {
+      "textures": "textures/blocks/rainbow_magenta_800_plate",
+      "carried_texture": "textures/blocks/rainbow_magenta_800_plate_carried.png"
+    },
+    "rainbow_magenta_800_lit": {
+      "textures": "textures/blocks/rainbow_magenta_800_lit",
+      "carried_texture": "textures/blocks/rainbow_magenta_800_lit_carried.png"
+    },
+    "rainbow_magenta_800_lamp": {
+      "textures": "textures/blocks/rainbow_magenta_800_lamp",
+      "carried_texture": "textures/blocks/rainbow_magenta_800_lamp_carried.png"
+    },
+    "rainbow_magenta_800_glass": {
+      "textures": "textures/blocks/rainbow_magenta_800_glass",
+      "carried_texture": "textures/blocks/rainbow_magenta_800_glass_carried.png"
+    },
+    "rainbow_magenta_900_block": {
+      "textures": "textures/blocks/rainbow_magenta_900_block",
+      "carried_texture": "textures/blocks/rainbow_magenta_900_block_carried.png"
+    },
+    "rainbow_magenta_900_plate": {
+      "textures": "textures/blocks/rainbow_magenta_900_plate",
+      "carried_texture": "textures/blocks/rainbow_magenta_900_plate_carried.png"
+    },
+    "rainbow_magenta_900_lit": {
+      "textures": "textures/blocks/rainbow_magenta_900_lit",
+      "carried_texture": "textures/blocks/rainbow_magenta_900_lit_carried.png"
+    },
+    "rainbow_magenta_900_lamp": {
+      "textures": "textures/blocks/rainbow_magenta_900_lamp",
+      "carried_texture": "textures/blocks/rainbow_magenta_900_lamp_carried.png"
+    },
+    "rainbow_magenta_900_glass": {
+      "textures": "textures/blocks/rainbow_magenta_900_glass",
+      "carried_texture": "textures/blocks/rainbow_magenta_900_glass_carried.png"
+    },
+    "rainbow_orange_50_block": {
+      "textures": "textures/blocks/rainbow_orange_50_block",
+      "carried_texture": "textures/blocks/rainbow_orange_50_block_carried.png"
+    },
+    "rainbow_orange_50_plate": {
+      "textures": "textures/blocks/rainbow_orange_50_plate",
+      "carried_texture": "textures/blocks/rainbow_orange_50_plate_carried.png"
+    },
+    "rainbow_orange_50_lit": {
+      "textures": "textures/blocks/rainbow_orange_50_lit",
+      "carried_texture": "textures/blocks/rainbow_orange_50_lit_carried.png"
+    },
+    "rainbow_orange_50_lamp": {
+      "textures": "textures/blocks/rainbow_orange_50_lamp",
+      "carried_texture": "textures/blocks/rainbow_orange_50_lamp_carried.png"
+    },
+    "rainbow_orange_50_glass": {
+      "textures": "textures/blocks/rainbow_orange_50_glass",
+      "carried_texture": "textures/blocks/rainbow_orange_50_glass_carried.png"
+    },
+    "rainbow_orange_100_block": {
+      "textures": "textures/blocks/rainbow_orange_100_block",
+      "carried_texture": "textures/blocks/rainbow_orange_100_block_carried.png"
+    },
+    "rainbow_orange_100_plate": {
+      "textures": "textures/blocks/rainbow_orange_100_plate",
+      "carried_texture": "textures/blocks/rainbow_orange_100_plate_carried.png"
+    },
+    "rainbow_orange_100_lit": {
+      "textures": "textures/blocks/rainbow_orange_100_lit",
+      "carried_texture": "textures/blocks/rainbow_orange_100_lit_carried.png"
+    },
+    "rainbow_orange_100_lamp": {
+      "textures": "textures/blocks/rainbow_orange_100_lamp",
+      "carried_texture": "textures/blocks/rainbow_orange_100_lamp_carried.png"
+    },
+    "rainbow_orange_100_glass": {
+      "textures": "textures/blocks/rainbow_orange_100_glass",
+      "carried_texture": "textures/blocks/rainbow_orange_100_glass_carried.png"
+    },
+    "rainbow_orange_200_block": {
+      "textures": "textures/blocks/rainbow_orange_200_block",
+      "carried_texture": "textures/blocks/rainbow_orange_200_block_carried.png"
+    },
+    "rainbow_orange_200_plate": {
+      "textures": "textures/blocks/rainbow_orange_200_plate",
+      "carried_texture": "textures/blocks/rainbow_orange_200_plate_carried.png"
+    },
+    "rainbow_orange_200_lit": {
+      "textures": "textures/blocks/rainbow_orange_200_lit",
+      "carried_texture": "textures/blocks/rainbow_orange_200_lit_carried.png"
+    },
+    "rainbow_orange_200_lamp": {
+      "textures": "textures/blocks/rainbow_orange_200_lamp",
+      "carried_texture": "textures/blocks/rainbow_orange_200_lamp_carried.png"
+    },
+    "rainbow_orange_200_glass": {
+      "textures": "textures/blocks/rainbow_orange_200_glass",
+      "carried_texture": "textures/blocks/rainbow_orange_200_glass_carried.png"
+    },
+    "rainbow_orange_300_block": {
+      "textures": "textures/blocks/rainbow_orange_300_block",
+      "carried_texture": "textures/blocks/rainbow_orange_300_block_carried.png"
+    },
+    "rainbow_orange_300_plate": {
+      "textures": "textures/blocks/rainbow_orange_300_plate",
+      "carried_texture": "textures/blocks/rainbow_orange_300_plate_carried.png"
+    },
+    "rainbow_orange_300_lit": {
+      "textures": "textures/blocks/rainbow_orange_300_lit",
+      "carried_texture": "textures/blocks/rainbow_orange_300_lit_carried.png"
+    },
+    "rainbow_orange_300_lamp": {
+      "textures": "textures/blocks/rainbow_orange_300_lamp",
+      "carried_texture": "textures/blocks/rainbow_orange_300_lamp_carried.png"
+    },
+    "rainbow_orange_300_glass": {
+      "textures": "textures/blocks/rainbow_orange_300_glass",
+      "carried_texture": "textures/blocks/rainbow_orange_300_glass_carried.png"
+    },
+    "rainbow_orange_400_block": {
+      "textures": "textures/blocks/rainbow_orange_400_block",
+      "carried_texture": "textures/blocks/rainbow_orange_400_block_carried.png"
+    },
+    "rainbow_orange_400_plate": {
+      "textures": "textures/blocks/rainbow_orange_400_plate",
+      "carried_texture": "textures/blocks/rainbow_orange_400_plate_carried.png"
+    },
+    "rainbow_orange_400_lit": {
+      "textures": "textures/blocks/rainbow_orange_400_lit",
+      "carried_texture": "textures/blocks/rainbow_orange_400_lit_carried.png"
+    },
+    "rainbow_orange_400_lamp": {
+      "textures": "textures/blocks/rainbow_orange_400_lamp",
+      "carried_texture": "textures/blocks/rainbow_orange_400_lamp_carried.png"
+    },
+    "rainbow_orange_400_glass": {
+      "textures": "textures/blocks/rainbow_orange_400_glass",
+      "carried_texture": "textures/blocks/rainbow_orange_400_glass_carried.png"
+    },
+    "rainbow_orange_500_block": {
+      "textures": "textures/blocks/rainbow_orange_500_block",
+      "carried_texture": "textures/blocks/rainbow_orange_500_block_carried.png"
+    },
+    "rainbow_orange_500_plate": {
+      "textures": "textures/blocks/rainbow_orange_500_plate",
+      "carried_texture": "textures/blocks/rainbow_orange_500_plate_carried.png"
+    },
+    "rainbow_orange_500_lit": {
+      "textures": "textures/blocks/rainbow_orange_500_lit",
+      "carried_texture": "textures/blocks/rainbow_orange_500_lit_carried.png"
+    },
+    "rainbow_orange_500_lamp": {
+      "textures": "textures/blocks/rainbow_orange_500_lamp",
+      "carried_texture": "textures/blocks/rainbow_orange_500_lamp_carried.png"
+    },
+    "rainbow_orange_500_glass": {
+      "textures": "textures/blocks/rainbow_orange_500_glass",
+      "carried_texture": "textures/blocks/rainbow_orange_500_glass_carried.png"
+    },
+    "rainbow_orange_600_block": {
+      "textures": "textures/blocks/rainbow_orange_600_block",
+      "carried_texture": "textures/blocks/rainbow_orange_600_block_carried.png"
+    },
+    "rainbow_orange_600_plate": {
+      "textures": "textures/blocks/rainbow_orange_600_plate",
+      "carried_texture": "textures/blocks/rainbow_orange_600_plate_carried.png"
+    },
+    "rainbow_orange_600_lit": {
+      "textures": "textures/blocks/rainbow_orange_600_lit",
+      "carried_texture": "textures/blocks/rainbow_orange_600_lit_carried.png"
+    },
+    "rainbow_orange_600_lamp": {
+      "textures": "textures/blocks/rainbow_orange_600_lamp",
+      "carried_texture": "textures/blocks/rainbow_orange_600_lamp_carried.png"
+    },
+    "rainbow_orange_600_glass": {
+      "textures": "textures/blocks/rainbow_orange_600_glass",
+      "carried_texture": "textures/blocks/rainbow_orange_600_glass_carried.png"
+    },
+    "rainbow_orange_700_block": {
+      "textures": "textures/blocks/rainbow_orange_700_block",
+      "carried_texture": "textures/blocks/rainbow_orange_700_block_carried.png"
+    },
+    "rainbow_orange_700_plate": {
+      "textures": "textures/blocks/rainbow_orange_700_plate",
+      "carried_texture": "textures/blocks/rainbow_orange_700_plate_carried.png"
+    },
+    "rainbow_orange_700_lit": {
+      "textures": "textures/blocks/rainbow_orange_700_lit",
+      "carried_texture": "textures/blocks/rainbow_orange_700_lit_carried.png"
+    },
+    "rainbow_orange_700_lamp": {
+      "textures": "textures/blocks/rainbow_orange_700_lamp",
+      "carried_texture": "textures/blocks/rainbow_orange_700_lamp_carried.png"
+    },
+    "rainbow_orange_700_glass": {
+      "textures": "textures/blocks/rainbow_orange_700_glass",
+      "carried_texture": "textures/blocks/rainbow_orange_700_glass_carried.png"
+    },
+    "rainbow_orange_800_block": {
+      "textures": "textures/blocks/rainbow_orange_800_block",
+      "carried_texture": "textures/blocks/rainbow_orange_800_block_carried.png"
+    },
+    "rainbow_orange_800_plate": {
+      "textures": "textures/blocks/rainbow_orange_800_plate",
+      "carried_texture": "textures/blocks/rainbow_orange_800_plate_carried.png"
+    },
+    "rainbow_orange_800_lit": {
+      "textures": "textures/blocks/rainbow_orange_800_lit",
+      "carried_texture": "textures/blocks/rainbow_orange_800_lit_carried.png"
+    },
+    "rainbow_orange_800_lamp": {
+      "textures": "textures/blocks/rainbow_orange_800_lamp",
+      "carried_texture": "textures/blocks/rainbow_orange_800_lamp_carried.png"
+    },
+    "rainbow_orange_800_glass": {
+      "textures": "textures/blocks/rainbow_orange_800_glass",
+      "carried_texture": "textures/blocks/rainbow_orange_800_glass_carried.png"
+    },
+    "rainbow_orange_900_block": {
+      "textures": "textures/blocks/rainbow_orange_900_block",
+      "carried_texture": "textures/blocks/rainbow_orange_900_block_carried.png"
+    },
+    "rainbow_orange_900_plate": {
+      "textures": "textures/blocks/rainbow_orange_900_plate",
+      "carried_texture": "textures/blocks/rainbow_orange_900_plate_carried.png"
+    },
+    "rainbow_orange_900_lit": {
+      "textures": "textures/blocks/rainbow_orange_900_lit",
+      "carried_texture": "textures/blocks/rainbow_orange_900_lit_carried.png"
+    },
+    "rainbow_orange_900_lamp": {
+      "textures": "textures/blocks/rainbow_orange_900_lamp",
+      "carried_texture": "textures/blocks/rainbow_orange_900_lamp_carried.png"
+    },
+    "rainbow_orange_900_glass": {
+      "textures": "textures/blocks/rainbow_orange_900_glass",
+      "carried_texture": "textures/blocks/rainbow_orange_900_glass_carried.png"
+    },
+    "rainbow_pink_50_block": {
+      "textures": "textures/blocks/rainbow_pink_50_block",
+      "carried_texture": "textures/blocks/rainbow_pink_50_block_carried.png"
+    },
+    "rainbow_pink_50_plate": {
+      "textures": "textures/blocks/rainbow_pink_50_plate",
+      "carried_texture": "textures/blocks/rainbow_pink_50_plate_carried.png"
+    },
+    "rainbow_pink_50_lit": {
+      "textures": "textures/blocks/rainbow_pink_50_lit",
+      "carried_texture": "textures/blocks/rainbow_pink_50_lit_carried.png"
+    },
+    "rainbow_pink_50_lamp": {
+      "textures": "textures/blocks/rainbow_pink_50_lamp",
+      "carried_texture": "textures/blocks/rainbow_pink_50_lamp_carried.png"
+    },
+    "rainbow_pink_50_glass": {
+      "textures": "textures/blocks/rainbow_pink_50_glass",
+      "carried_texture": "textures/blocks/rainbow_pink_50_glass_carried.png"
+    },
+    "rainbow_pink_100_block": {
+      "textures": "textures/blocks/rainbow_pink_100_block",
+      "carried_texture": "textures/blocks/rainbow_pink_100_block_carried.png"
+    },
+    "rainbow_pink_100_plate": {
+      "textures": "textures/blocks/rainbow_pink_100_plate",
+      "carried_texture": "textures/blocks/rainbow_pink_100_plate_carried.png"
+    },
+    "rainbow_pink_100_lit": {
+      "textures": "textures/blocks/rainbow_pink_100_lit",
+      "carried_texture": "textures/blocks/rainbow_pink_100_lit_carried.png"
+    },
+    "rainbow_pink_100_lamp": {
+      "textures": "textures/blocks/rainbow_pink_100_lamp",
+      "carried_texture": "textures/blocks/rainbow_pink_100_lamp_carried.png"
+    },
+    "rainbow_pink_100_glass": {
+      "textures": "textures/blocks/rainbow_pink_100_glass",
+      "carried_texture": "textures/blocks/rainbow_pink_100_glass_carried.png"
+    },
+    "rainbow_pink_200_block": {
+      "textures": "textures/blocks/rainbow_pink_200_block",
+      "carried_texture": "textures/blocks/rainbow_pink_200_block_carried.png"
+    },
+    "rainbow_pink_200_plate": {
+      "textures": "textures/blocks/rainbow_pink_200_plate",
+      "carried_texture": "textures/blocks/rainbow_pink_200_plate_carried.png"
+    },
+    "rainbow_pink_200_lit": {
+      "textures": "textures/blocks/rainbow_pink_200_lit",
+      "carried_texture": "textures/blocks/rainbow_pink_200_lit_carried.png"
+    },
+    "rainbow_pink_200_lamp": {
+      "textures": "textures/blocks/rainbow_pink_200_lamp",
+      "carried_texture": "textures/blocks/rainbow_pink_200_lamp_carried.png"
+    },
+    "rainbow_pink_200_glass": {
+      "textures": "textures/blocks/rainbow_pink_200_glass",
+      "carried_texture": "textures/blocks/rainbow_pink_200_glass_carried.png"
+    },
+    "rainbow_pink_300_block": {
+      "textures": "textures/blocks/rainbow_pink_300_block",
+      "carried_texture": "textures/blocks/rainbow_pink_300_block_carried.png"
+    },
+    "rainbow_pink_300_plate": {
+      "textures": "textures/blocks/rainbow_pink_300_plate",
+      "carried_texture": "textures/blocks/rainbow_pink_300_plate_carried.png"
+    },
+    "rainbow_pink_300_lit": {
+      "textures": "textures/blocks/rainbow_pink_300_lit",
+      "carried_texture": "textures/blocks/rainbow_pink_300_lit_carried.png"
+    },
+    "rainbow_pink_300_lamp": {
+      "textures": "textures/blocks/rainbow_pink_300_lamp",
+      "carried_texture": "textures/blocks/rainbow_pink_300_lamp_carried.png"
+    },
+    "rainbow_pink_300_glass": {
+      "textures": "textures/blocks/rainbow_pink_300_glass",
+      "carried_texture": "textures/blocks/rainbow_pink_300_glass_carried.png"
+    },
+    "rainbow_pink_400_block": {
+      "textures": "textures/blocks/rainbow_pink_400_block",
+      "carried_texture": "textures/blocks/rainbow_pink_400_block_carried.png"
+    },
+    "rainbow_pink_400_plate": {
+      "textures": "textures/blocks/rainbow_pink_400_plate",
+      "carried_texture": "textures/blocks/rainbow_pink_400_plate_carried.png"
+    },
+    "rainbow_pink_400_lit": {
+      "textures": "textures/blocks/rainbow_pink_400_lit",
+      "carried_texture": "textures/blocks/rainbow_pink_400_lit_carried.png"
+    },
+    "rainbow_pink_400_lamp": {
+      "textures": "textures/blocks/rainbow_pink_400_lamp",
+      "carried_texture": "textures/blocks/rainbow_pink_400_lamp_carried.png"
+    },
+    "rainbow_pink_400_glass": {
+      "textures": "textures/blocks/rainbow_pink_400_glass",
+      "carried_texture": "textures/blocks/rainbow_pink_400_glass_carried.png"
+    },
+    "rainbow_pink_500_block": {
+      "textures": "textures/blocks/rainbow_pink_500_block",
+      "carried_texture": "textures/blocks/rainbow_pink_500_block_carried.png"
+    },
+    "rainbow_pink_500_plate": {
+      "textures": "textures/blocks/rainbow_pink_500_plate",
+      "carried_texture": "textures/blocks/rainbow_pink_500_plate_carried.png"
+    },
+    "rainbow_pink_500_lit": {
+      "textures": "textures/blocks/rainbow_pink_500_lit",
+      "carried_texture": "textures/blocks/rainbow_pink_500_lit_carried.png"
+    },
+    "rainbow_pink_500_lamp": {
+      "textures": "textures/blocks/rainbow_pink_500_lamp",
+      "carried_texture": "textures/blocks/rainbow_pink_500_lamp_carried.png"
+    },
+    "rainbow_pink_500_glass": {
+      "textures": "textures/blocks/rainbow_pink_500_glass",
+      "carried_texture": "textures/blocks/rainbow_pink_500_glass_carried.png"
+    },
+    "rainbow_pink_600_block": {
+      "textures": "textures/blocks/rainbow_pink_600_block",
+      "carried_texture": "textures/blocks/rainbow_pink_600_block_carried.png"
+    },
+    "rainbow_pink_600_plate": {
+      "textures": "textures/blocks/rainbow_pink_600_plate",
+      "carried_texture": "textures/blocks/rainbow_pink_600_plate_carried.png"
+    },
+    "rainbow_pink_600_lit": {
+      "textures": "textures/blocks/rainbow_pink_600_lit",
+      "carried_texture": "textures/blocks/rainbow_pink_600_lit_carried.png"
+    },
+    "rainbow_pink_600_lamp": {
+      "textures": "textures/blocks/rainbow_pink_600_lamp",
+      "carried_texture": "textures/blocks/rainbow_pink_600_lamp_carried.png"
+    },
+    "rainbow_pink_600_glass": {
+      "textures": "textures/blocks/rainbow_pink_600_glass",
+      "carried_texture": "textures/blocks/rainbow_pink_600_glass_carried.png"
+    },
+    "rainbow_pink_700_block": {
+      "textures": "textures/blocks/rainbow_pink_700_block",
+      "carried_texture": "textures/blocks/rainbow_pink_700_block_carried.png"
+    },
+    "rainbow_pink_700_plate": {
+      "textures": "textures/blocks/rainbow_pink_700_plate",
+      "carried_texture": "textures/blocks/rainbow_pink_700_plate_carried.png"
+    },
+    "rainbow_pink_700_lit": {
+      "textures": "textures/blocks/rainbow_pink_700_lit",
+      "carried_texture": "textures/blocks/rainbow_pink_700_lit_carried.png"
+    },
+    "rainbow_pink_700_lamp": {
+      "textures": "textures/blocks/rainbow_pink_700_lamp",
+      "carried_texture": "textures/blocks/rainbow_pink_700_lamp_carried.png"
+    },
+    "rainbow_pink_700_glass": {
+      "textures": "textures/blocks/rainbow_pink_700_glass",
+      "carried_texture": "textures/blocks/rainbow_pink_700_glass_carried.png"
+    },
+    "rainbow_pink_800_block": {
+      "textures": "textures/blocks/rainbow_pink_800_block",
+      "carried_texture": "textures/blocks/rainbow_pink_800_block_carried.png"
+    },
+    "rainbow_pink_800_plate": {
+      "textures": "textures/blocks/rainbow_pink_800_plate",
+      "carried_texture": "textures/blocks/rainbow_pink_800_plate_carried.png"
+    },
+    "rainbow_pink_800_lit": {
+      "textures": "textures/blocks/rainbow_pink_800_lit",
+      "carried_texture": "textures/blocks/rainbow_pink_800_lit_carried.png"
+    },
+    "rainbow_pink_800_lamp": {
+      "textures": "textures/blocks/rainbow_pink_800_lamp",
+      "carried_texture": "textures/blocks/rainbow_pink_800_lamp_carried.png"
+    },
+    "rainbow_pink_800_glass": {
+      "textures": "textures/blocks/rainbow_pink_800_glass",
+      "carried_texture": "textures/blocks/rainbow_pink_800_glass_carried.png"
+    },
+    "rainbow_pink_900_block": {
+      "textures": "textures/blocks/rainbow_pink_900_block",
+      "carried_texture": "textures/blocks/rainbow_pink_900_block_carried.png"
+    },
+    "rainbow_pink_900_plate": {
+      "textures": "textures/blocks/rainbow_pink_900_plate",
+      "carried_texture": "textures/blocks/rainbow_pink_900_plate_carried.png"
+    },
+    "rainbow_pink_900_lit": {
+      "textures": "textures/blocks/rainbow_pink_900_lit",
+      "carried_texture": "textures/blocks/rainbow_pink_900_lit_carried.png"
+    },
+    "rainbow_pink_900_lamp": {
+      "textures": "textures/blocks/rainbow_pink_900_lamp",
+      "carried_texture": "textures/blocks/rainbow_pink_900_lamp_carried.png"
+    },
+    "rainbow_pink_900_glass": {
+      "textures": "textures/blocks/rainbow_pink_900_glass",
+      "carried_texture": "textures/blocks/rainbow_pink_900_glass_carried.png"
+    },
+    "rainbow_purple_50_block": {
+      "textures": "textures/blocks/rainbow_purple_50_block",
+      "carried_texture": "textures/blocks/rainbow_purple_50_block_carried.png"
+    },
+    "rainbow_purple_50_plate": {
+      "textures": "textures/blocks/rainbow_purple_50_plate",
+      "carried_texture": "textures/blocks/rainbow_purple_50_plate_carried.png"
+    },
+    "rainbow_purple_50_lit": {
+      "textures": "textures/blocks/rainbow_purple_50_lit",
+      "carried_texture": "textures/blocks/rainbow_purple_50_lit_carried.png"
+    },
+    "rainbow_purple_50_lamp": {
+      "textures": "textures/blocks/rainbow_purple_50_lamp",
+      "carried_texture": "textures/blocks/rainbow_purple_50_lamp_carried.png"
+    },
+    "rainbow_purple_50_glass": {
+      "textures": "textures/blocks/rainbow_purple_50_glass",
+      "carried_texture": "textures/blocks/rainbow_purple_50_glass_carried.png"
+    },
+    "rainbow_purple_100_block": {
+      "textures": "textures/blocks/rainbow_purple_100_block",
+      "carried_texture": "textures/blocks/rainbow_purple_100_block_carried.png"
+    },
+    "rainbow_purple_100_plate": {
+      "textures": "textures/blocks/rainbow_purple_100_plate",
+      "carried_texture": "textures/blocks/rainbow_purple_100_plate_carried.png"
+    },
+    "rainbow_purple_100_lit": {
+      "textures": "textures/blocks/rainbow_purple_100_lit",
+      "carried_texture": "textures/blocks/rainbow_purple_100_lit_carried.png"
+    },
+    "rainbow_purple_100_lamp": {
+      "textures": "textures/blocks/rainbow_purple_100_lamp",
+      "carried_texture": "textures/blocks/rainbow_purple_100_lamp_carried.png"
+    },
+    "rainbow_purple_100_glass": {
+      "textures": "textures/blocks/rainbow_purple_100_glass",
+      "carried_texture": "textures/blocks/rainbow_purple_100_glass_carried.png"
+    },
+    "rainbow_purple_200_block": {
+      "textures": "textures/blocks/rainbow_purple_200_block",
+      "carried_texture": "textures/blocks/rainbow_purple_200_block_carried.png"
+    },
+    "rainbow_purple_200_plate": {
+      "textures": "textures/blocks/rainbow_purple_200_plate",
+      "carried_texture": "textures/blocks/rainbow_purple_200_plate_carried.png"
+    },
+    "rainbow_purple_200_lit": {
+      "textures": "textures/blocks/rainbow_purple_200_lit",
+      "carried_texture": "textures/blocks/rainbow_purple_200_lit_carried.png"
+    },
+    "rainbow_purple_200_lamp": {
+      "textures": "textures/blocks/rainbow_purple_200_lamp",
+      "carried_texture": "textures/blocks/rainbow_purple_200_lamp_carried.png"
+    },
+    "rainbow_purple_200_glass": {
+      "textures": "textures/blocks/rainbow_purple_200_glass",
+      "carried_texture": "textures/blocks/rainbow_purple_200_glass_carried.png"
+    },
+    "rainbow_purple_300_block": {
+      "textures": "textures/blocks/rainbow_purple_300_block",
+      "carried_texture": "textures/blocks/rainbow_purple_300_block_carried.png"
+    },
+    "rainbow_purple_300_plate": {
+      "textures": "textures/blocks/rainbow_purple_300_plate",
+      "carried_texture": "textures/blocks/rainbow_purple_300_plate_carried.png"
+    },
+    "rainbow_purple_300_lit": {
+      "textures": "textures/blocks/rainbow_purple_300_lit",
+      "carried_texture": "textures/blocks/rainbow_purple_300_lit_carried.png"
+    },
+    "rainbow_purple_300_lamp": {
+      "textures": "textures/blocks/rainbow_purple_300_lamp",
+      "carried_texture": "textures/blocks/rainbow_purple_300_lamp_carried.png"
+    },
+    "rainbow_purple_300_glass": {
+      "textures": "textures/blocks/rainbow_purple_300_glass",
+      "carried_texture": "textures/blocks/rainbow_purple_300_glass_carried.png"
+    },
+    "rainbow_purple_400_block": {
+      "textures": "textures/blocks/rainbow_purple_400_block",
+      "carried_texture": "textures/blocks/rainbow_purple_400_block_carried.png"
+    },
+    "rainbow_purple_400_plate": {
+      "textures": "textures/blocks/rainbow_purple_400_plate",
+      "carried_texture": "textures/blocks/rainbow_purple_400_plate_carried.png"
+    },
+    "rainbow_purple_400_lit": {
+      "textures": "textures/blocks/rainbow_purple_400_lit",
+      "carried_texture": "textures/blocks/rainbow_purple_400_lit_carried.png"
+    },
+    "rainbow_purple_400_lamp": {
+      "textures": "textures/blocks/rainbow_purple_400_lamp",
+      "carried_texture": "textures/blocks/rainbow_purple_400_lamp_carried.png"
+    },
+    "rainbow_purple_400_glass": {
+      "textures": "textures/blocks/rainbow_purple_400_glass",
+      "carried_texture": "textures/blocks/rainbow_purple_400_glass_carried.png"
+    },
+    "rainbow_purple_500_block": {
+      "textures": "textures/blocks/rainbow_purple_500_block",
+      "carried_texture": "textures/blocks/rainbow_purple_500_block_carried.png"
+    },
+    "rainbow_purple_500_plate": {
+      "textures": "textures/blocks/rainbow_purple_500_plate",
+      "carried_texture": "textures/blocks/rainbow_purple_500_plate_carried.png"
+    },
+    "rainbow_purple_500_lit": {
+      "textures": "textures/blocks/rainbow_purple_500_lit",
+      "carried_texture": "textures/blocks/rainbow_purple_500_lit_carried.png"
+    },
+    "rainbow_purple_500_lamp": {
+      "textures": "textures/blocks/rainbow_purple_500_lamp",
+      "carried_texture": "textures/blocks/rainbow_purple_500_lamp_carried.png"
+    },
+    "rainbow_purple_500_glass": {
+      "textures": "textures/blocks/rainbow_purple_500_glass",
+      "carried_texture": "textures/blocks/rainbow_purple_500_glass_carried.png"
+    },
+    "rainbow_purple_600_block": {
+      "textures": "textures/blocks/rainbow_purple_600_block",
+      "carried_texture": "textures/blocks/rainbow_purple_600_block_carried.png"
+    },
+    "rainbow_purple_600_plate": {
+      "textures": "textures/blocks/rainbow_purple_600_plate",
+      "carried_texture": "textures/blocks/rainbow_purple_600_plate_carried.png"
+    },
+    "rainbow_purple_600_lit": {
+      "textures": "textures/blocks/rainbow_purple_600_lit",
+      "carried_texture": "textures/blocks/rainbow_purple_600_lit_carried.png"
+    },
+    "rainbow_purple_600_lamp": {
+      "textures": "textures/blocks/rainbow_purple_600_lamp",
+      "carried_texture": "textures/blocks/rainbow_purple_600_lamp_carried.png"
+    },
+    "rainbow_purple_600_glass": {
+      "textures": "textures/blocks/rainbow_purple_600_glass",
+      "carried_texture": "textures/blocks/rainbow_purple_600_glass_carried.png"
+    },
+    "rainbow_purple_700_block": {
+      "textures": "textures/blocks/rainbow_purple_700_block",
+      "carried_texture": "textures/blocks/rainbow_purple_700_block_carried.png"
+    },
+    "rainbow_purple_700_plate": {
+      "textures": "textures/blocks/rainbow_purple_700_plate",
+      "carried_texture": "textures/blocks/rainbow_purple_700_plate_carried.png"
+    },
+    "rainbow_purple_700_lit": {
+      "textures": "textures/blocks/rainbow_purple_700_lit",
+      "carried_texture": "textures/blocks/rainbow_purple_700_lit_carried.png"
+    },
+    "rainbow_purple_700_lamp": {
+      "textures": "textures/blocks/rainbow_purple_700_lamp",
+      "carried_texture": "textures/blocks/rainbow_purple_700_lamp_carried.png"
+    },
+    "rainbow_purple_700_glass": {
+      "textures": "textures/blocks/rainbow_purple_700_glass",
+      "carried_texture": "textures/blocks/rainbow_purple_700_glass_carried.png"
+    },
+    "rainbow_purple_800_block": {
+      "textures": "textures/blocks/rainbow_purple_800_block",
+      "carried_texture": "textures/blocks/rainbow_purple_800_block_carried.png"
+    },
+    "rainbow_purple_800_plate": {
+      "textures": "textures/blocks/rainbow_purple_800_plate",
+      "carried_texture": "textures/blocks/rainbow_purple_800_plate_carried.png"
+    },
+    "rainbow_purple_800_lit": {
+      "textures": "textures/blocks/rainbow_purple_800_lit",
+      "carried_texture": "textures/blocks/rainbow_purple_800_lit_carried.png"
+    },
+    "rainbow_purple_800_lamp": {
+      "textures": "textures/blocks/rainbow_purple_800_lamp",
+      "carried_texture": "textures/blocks/rainbow_purple_800_lamp_carried.png"
+    },
+    "rainbow_purple_800_glass": {
+      "textures": "textures/blocks/rainbow_purple_800_glass",
+      "carried_texture": "textures/blocks/rainbow_purple_800_glass_carried.png"
+    },
+    "rainbow_purple_900_block": {
+      "textures": "textures/blocks/rainbow_purple_900_block",
+      "carried_texture": "textures/blocks/rainbow_purple_900_block_carried.png"
+    },
+    "rainbow_purple_900_plate": {
+      "textures": "textures/blocks/rainbow_purple_900_plate",
+      "carried_texture": "textures/blocks/rainbow_purple_900_plate_carried.png"
+    },
+    "rainbow_purple_900_lit": {
+      "textures": "textures/blocks/rainbow_purple_900_lit",
+      "carried_texture": "textures/blocks/rainbow_purple_900_lit_carried.png"
+    },
+    "rainbow_purple_900_lamp": {
+      "textures": "textures/blocks/rainbow_purple_900_lamp",
+      "carried_texture": "textures/blocks/rainbow_purple_900_lamp_carried.png"
+    },
+    "rainbow_purple_900_glass": {
+      "textures": "textures/blocks/rainbow_purple_900_glass",
+      "carried_texture": "textures/blocks/rainbow_purple_900_glass_carried.png"
+    },
+    "rainbow_red_50_block": {
+      "textures": "textures/blocks/rainbow_red_50_block",
+      "carried_texture": "textures/blocks/rainbow_red_50_block_carried.png"
+    },
+    "rainbow_red_50_plate": {
+      "textures": "textures/blocks/rainbow_red_50_plate",
+      "carried_texture": "textures/blocks/rainbow_red_50_plate_carried.png"
+    },
+    "rainbow_red_50_lit": {
+      "textures": "textures/blocks/rainbow_red_50_lit",
+      "carried_texture": "textures/blocks/rainbow_red_50_lit_carried.png"
+    },
+    "rainbow_red_50_lamp": {
+      "textures": "textures/blocks/rainbow_red_50_lamp",
+      "carried_texture": "textures/blocks/rainbow_red_50_lamp_carried.png"
+    },
+    "rainbow_red_50_glass": {
+      "textures": "textures/blocks/rainbow_red_50_glass",
+      "carried_texture": "textures/blocks/rainbow_red_50_glass_carried.png"
+    },
+    "rainbow_red_100_block": {
+      "textures": "textures/blocks/rainbow_red_100_block",
+      "carried_texture": "textures/blocks/rainbow_red_100_block_carried.png"
+    },
+    "rainbow_red_100_plate": {
+      "textures": "textures/blocks/rainbow_red_100_plate",
+      "carried_texture": "textures/blocks/rainbow_red_100_plate_carried.png"
+    },
+    "rainbow_red_100_lit": {
+      "textures": "textures/blocks/rainbow_red_100_lit",
+      "carried_texture": "textures/blocks/rainbow_red_100_lit_carried.png"
+    },
+    "rainbow_red_100_lamp": {
+      "textures": "textures/blocks/rainbow_red_100_lamp",
+      "carried_texture": "textures/blocks/rainbow_red_100_lamp_carried.png"
+    },
+    "rainbow_red_100_glass": {
+      "textures": "textures/blocks/rainbow_red_100_glass",
+      "carried_texture": "textures/blocks/rainbow_red_100_glass_carried.png"
+    },
+    "rainbow_red_200_block": {
+      "textures": "textures/blocks/rainbow_red_200_block",
+      "carried_texture": "textures/blocks/rainbow_red_200_block_carried.png"
+    },
+    "rainbow_red_200_plate": {
+      "textures": "textures/blocks/rainbow_red_200_plate",
+      "carried_texture": "textures/blocks/rainbow_red_200_plate_carried.png"
+    },
+    "rainbow_red_200_lit": {
+      "textures": "textures/blocks/rainbow_red_200_lit",
+      "carried_texture": "textures/blocks/rainbow_red_200_lit_carried.png"
+    },
+    "rainbow_red_200_lamp": {
+      "textures": "textures/blocks/rainbow_red_200_lamp",
+      "carried_texture": "textures/blocks/rainbow_red_200_lamp_carried.png"
+    },
+    "rainbow_red_200_glass": {
+      "textures": "textures/blocks/rainbow_red_200_glass",
+      "carried_texture": "textures/blocks/rainbow_red_200_glass_carried.png"
+    },
+    "rainbow_red_300_block": {
+      "textures": "textures/blocks/rainbow_red_300_block",
+      "carried_texture": "textures/blocks/rainbow_red_300_block_carried.png"
+    },
+    "rainbow_red_300_plate": {
+      "textures": "textures/blocks/rainbow_red_300_plate",
+      "carried_texture": "textures/blocks/rainbow_red_300_plate_carried.png"
+    },
+    "rainbow_red_300_lit": {
+      "textures": "textures/blocks/rainbow_red_300_lit",
+      "carried_texture": "textures/blocks/rainbow_red_300_lit_carried.png"
+    },
+    "rainbow_red_300_lamp": {
+      "textures": "textures/blocks/rainbow_red_300_lamp",
+      "carried_texture": "textures/blocks/rainbow_red_300_lamp_carried.png"
+    },
+    "rainbow_red_300_glass": {
+      "textures": "textures/blocks/rainbow_red_300_glass",
+      "carried_texture": "textures/blocks/rainbow_red_300_glass_carried.png"
+    },
+    "rainbow_red_400_block": {
+      "textures": "textures/blocks/rainbow_red_400_block",
+      "carried_texture": "textures/blocks/rainbow_red_400_block_carried.png"
+    },
+    "rainbow_red_400_plate": {
+      "textures": "textures/blocks/rainbow_red_400_plate",
+      "carried_texture": "textures/blocks/rainbow_red_400_plate_carried.png"
+    },
+    "rainbow_red_400_lit": {
+      "textures": "textures/blocks/rainbow_red_400_lit",
+      "carried_texture": "textures/blocks/rainbow_red_400_lit_carried.png"
+    },
+    "rainbow_red_400_lamp": {
+      "textures": "textures/blocks/rainbow_red_400_lamp",
+      "carried_texture": "textures/blocks/rainbow_red_400_lamp_carried.png"
+    },
+    "rainbow_red_400_glass": {
+      "textures": "textures/blocks/rainbow_red_400_glass",
+      "carried_texture": "textures/blocks/rainbow_red_400_glass_carried.png"
+    },
+    "rainbow_red_500_block": {
+      "textures": "textures/blocks/rainbow_red_500_block",
+      "carried_texture": "textures/blocks/rainbow_red_500_block_carried.png"
+    },
+    "rainbow_red_500_plate": {
+      "textures": "textures/blocks/rainbow_red_500_plate",
+      "carried_texture": "textures/blocks/rainbow_red_500_plate_carried.png"
+    },
+    "rainbow_red_500_lit": {
+      "textures": "textures/blocks/rainbow_red_500_lit",
+      "carried_texture": "textures/blocks/rainbow_red_500_lit_carried.png"
+    },
+    "rainbow_red_500_lamp": {
+      "textures": "textures/blocks/rainbow_red_500_lamp",
+      "carried_texture": "textures/blocks/rainbow_red_500_lamp_carried.png"
+    },
+    "rainbow_red_500_glass": {
+      "textures": "textures/blocks/rainbow_red_500_glass",
+      "carried_texture": "textures/blocks/rainbow_red_500_glass_carried.png"
+    },
+    "rainbow_red_600_block": {
+      "textures": "textures/blocks/rainbow_red_600_block",
+      "carried_texture": "textures/blocks/rainbow_red_600_block_carried.png"
+    },
+    "rainbow_red_600_plate": {
+      "textures": "textures/blocks/rainbow_red_600_plate",
+      "carried_texture": "textures/blocks/rainbow_red_600_plate_carried.png"
+    },
+    "rainbow_red_600_lit": {
+      "textures": "textures/blocks/rainbow_red_600_lit",
+      "carried_texture": "textures/blocks/rainbow_red_600_lit_carried.png"
+    },
+    "rainbow_red_600_lamp": {
+      "textures": "textures/blocks/rainbow_red_600_lamp",
+      "carried_texture": "textures/blocks/rainbow_red_600_lamp_carried.png"
+    },
+    "rainbow_red_600_glass": {
+      "textures": "textures/blocks/rainbow_red_600_glass",
+      "carried_texture": "textures/blocks/rainbow_red_600_glass_carried.png"
+    },
+    "rainbow_red_700_block": {
+      "textures": "textures/blocks/rainbow_red_700_block",
+      "carried_texture": "textures/blocks/rainbow_red_700_block_carried.png"
+    },
+    "rainbow_red_700_plate": {
+      "textures": "textures/blocks/rainbow_red_700_plate",
+      "carried_texture": "textures/blocks/rainbow_red_700_plate_carried.png"
+    },
+    "rainbow_red_700_lit": {
+      "textures": "textures/blocks/rainbow_red_700_lit",
+      "carried_texture": "textures/blocks/rainbow_red_700_lit_carried.png"
+    },
+    "rainbow_red_700_lamp": {
+      "textures": "textures/blocks/rainbow_red_700_lamp",
+      "carried_texture": "textures/blocks/rainbow_red_700_lamp_carried.png"
+    },
+    "rainbow_red_700_glass": {
+      "textures": "textures/blocks/rainbow_red_700_glass",
+      "carried_texture": "textures/blocks/rainbow_red_700_glass_carried.png"
+    },
+    "rainbow_red_800_block": {
+      "textures": "textures/blocks/rainbow_red_800_block",
+      "carried_texture": "textures/blocks/rainbow_red_800_block_carried.png"
+    },
+    "rainbow_red_800_plate": {
+      "textures": "textures/blocks/rainbow_red_800_plate",
+      "carried_texture": "textures/blocks/rainbow_red_800_plate_carried.png"
+    },
+    "rainbow_red_800_lit": {
+      "textures": "textures/blocks/rainbow_red_800_lit",
+      "carried_texture": "textures/blocks/rainbow_red_800_lit_carried.png"
+    },
+    "rainbow_red_800_lamp": {
+      "textures": "textures/blocks/rainbow_red_800_lamp",
+      "carried_texture": "textures/blocks/rainbow_red_800_lamp_carried.png"
+    },
+    "rainbow_red_800_glass": {
+      "textures": "textures/blocks/rainbow_red_800_glass",
+      "carried_texture": "textures/blocks/rainbow_red_800_glass_carried.png"
+    },
+    "rainbow_red_900_block": {
+      "textures": "textures/blocks/rainbow_red_900_block",
+      "carried_texture": "textures/blocks/rainbow_red_900_block_carried.png"
+    },
+    "rainbow_red_900_plate": {
+      "textures": "textures/blocks/rainbow_red_900_plate",
+      "carried_texture": "textures/blocks/rainbow_red_900_plate_carried.png"
+    },
+    "rainbow_red_900_lit": {
+      "textures": "textures/blocks/rainbow_red_900_lit",
+      "carried_texture": "textures/blocks/rainbow_red_900_lit_carried.png"
+    },
+    "rainbow_red_900_lamp": {
+      "textures": "textures/blocks/rainbow_red_900_lamp",
+      "carried_texture": "textures/blocks/rainbow_red_900_lamp_carried.png"
+    },
+    "rainbow_red_900_glass": {
+      "textures": "textures/blocks/rainbow_red_900_glass",
+      "carried_texture": "textures/blocks/rainbow_red_900_glass_carried.png"
+    },
+    "rainbow_yellow_50_block": {
+      "textures": "textures/blocks/rainbow_yellow_50_block",
+      "carried_texture": "textures/blocks/rainbow_yellow_50_block_carried.png"
+    },
+    "rainbow_yellow_50_plate": {
+      "textures": "textures/blocks/rainbow_yellow_50_plate",
+      "carried_texture": "textures/blocks/rainbow_yellow_50_plate_carried.png"
+    },
+    "rainbow_yellow_50_lit": {
+      "textures": "textures/blocks/rainbow_yellow_50_lit",
+      "carried_texture": "textures/blocks/rainbow_yellow_50_lit_carried.png"
+    },
+    "rainbow_yellow_50_lamp": {
+      "textures": "textures/blocks/rainbow_yellow_50_lamp",
+      "carried_texture": "textures/blocks/rainbow_yellow_50_lamp_carried.png"
+    },
+    "rainbow_yellow_50_glass": {
+      "textures": "textures/blocks/rainbow_yellow_50_glass",
+      "carried_texture": "textures/blocks/rainbow_yellow_50_glass_carried.png"
+    },
+    "rainbow_yellow_100_block": {
+      "textures": "textures/blocks/rainbow_yellow_100_block",
+      "carried_texture": "textures/blocks/rainbow_yellow_100_block_carried.png"
+    },
+    "rainbow_yellow_100_plate": {
+      "textures": "textures/blocks/rainbow_yellow_100_plate",
+      "carried_texture": "textures/blocks/rainbow_yellow_100_plate_carried.png"
+    },
+    "rainbow_yellow_100_lit": {
+      "textures": "textures/blocks/rainbow_yellow_100_lit",
+      "carried_texture": "textures/blocks/rainbow_yellow_100_lit_carried.png"
+    },
+    "rainbow_yellow_100_lamp": {
+      "textures": "textures/blocks/rainbow_yellow_100_lamp",
+      "carried_texture": "textures/blocks/rainbow_yellow_100_lamp_carried.png"
+    },
+    "rainbow_yellow_100_glass": {
+      "textures": "textures/blocks/rainbow_yellow_100_glass",
+      "carried_texture": "textures/blocks/rainbow_yellow_100_glass_carried.png"
+    },
+    "rainbow_yellow_200_block": {
+      "textures": "textures/blocks/rainbow_yellow_200_block",
+      "carried_texture": "textures/blocks/rainbow_yellow_200_block_carried.png"
+    },
+    "rainbow_yellow_200_plate": {
+      "textures": "textures/blocks/rainbow_yellow_200_plate",
+      "carried_texture": "textures/blocks/rainbow_yellow_200_plate_carried.png"
+    },
+    "rainbow_yellow_200_lit": {
+      "textures": "textures/blocks/rainbow_yellow_200_lit",
+      "carried_texture": "textures/blocks/rainbow_yellow_200_lit_carried.png"
+    },
+    "rainbow_yellow_200_lamp": {
+      "textures": "textures/blocks/rainbow_yellow_200_lamp",
+      "carried_texture": "textures/blocks/rainbow_yellow_200_lamp_carried.png"
+    },
+    "rainbow_yellow_200_glass": {
+      "textures": "textures/blocks/rainbow_yellow_200_glass",
+      "carried_texture": "textures/blocks/rainbow_yellow_200_glass_carried.png"
+    },
+    "rainbow_yellow_300_block": {
+      "textures": "textures/blocks/rainbow_yellow_300_block",
+      "carried_texture": "textures/blocks/rainbow_yellow_300_block_carried.png"
+    },
+    "rainbow_yellow_300_plate": {
+      "textures": "textures/blocks/rainbow_yellow_300_plate",
+      "carried_texture": "textures/blocks/rainbow_yellow_300_plate_carried.png"
+    },
+    "rainbow_yellow_300_lit": {
+      "textures": "textures/blocks/rainbow_yellow_300_lit",
+      "carried_texture": "textures/blocks/rainbow_yellow_300_lit_carried.png"
+    },
+    "rainbow_yellow_300_lamp": {
+      "textures": "textures/blocks/rainbow_yellow_300_lamp",
+      "carried_texture": "textures/blocks/rainbow_yellow_300_lamp_carried.png"
+    },
+    "rainbow_yellow_300_glass": {
+      "textures": "textures/blocks/rainbow_yellow_300_glass",
+      "carried_texture": "textures/blocks/rainbow_yellow_300_glass_carried.png"
+    },
+    "rainbow_yellow_400_block": {
+      "textures": "textures/blocks/rainbow_yellow_400_block",
+      "carried_texture": "textures/blocks/rainbow_yellow_400_block_carried.png"
+    },
+    "rainbow_yellow_400_plate": {
+      "textures": "textures/blocks/rainbow_yellow_400_plate",
+      "carried_texture": "textures/blocks/rainbow_yellow_400_plate_carried.png"
+    },
+    "rainbow_yellow_400_lit": {
+      "textures": "textures/blocks/rainbow_yellow_400_lit",
+      "carried_texture": "textures/blocks/rainbow_yellow_400_lit_carried.png"
+    },
+    "rainbow_yellow_400_lamp": {
+      "textures": "textures/blocks/rainbow_yellow_400_lamp",
+      "carried_texture": "textures/blocks/rainbow_yellow_400_lamp_carried.png"
+    },
+    "rainbow_yellow_400_glass": {
+      "textures": "textures/blocks/rainbow_yellow_400_glass",
+      "carried_texture": "textures/blocks/rainbow_yellow_400_glass_carried.png"
+    },
+    "rainbow_yellow_500_block": {
+      "textures": "textures/blocks/rainbow_yellow_500_block",
+      "carried_texture": "textures/blocks/rainbow_yellow_500_block_carried.png"
+    },
+    "rainbow_yellow_500_plate": {
+      "textures": "textures/blocks/rainbow_yellow_500_plate",
+      "carried_texture": "textures/blocks/rainbow_yellow_500_plate_carried.png"
+    },
+    "rainbow_yellow_500_lit": {
+      "textures": "textures/blocks/rainbow_yellow_500_lit",
+      "carried_texture": "textures/blocks/rainbow_yellow_500_lit_carried.png"
+    },
+    "rainbow_yellow_500_lamp": {
+      "textures": "textures/blocks/rainbow_yellow_500_lamp",
+      "carried_texture": "textures/blocks/rainbow_yellow_500_lamp_carried.png"
+    },
+    "rainbow_yellow_500_glass": {
+      "textures": "textures/blocks/rainbow_yellow_500_glass",
+      "carried_texture": "textures/blocks/rainbow_yellow_500_glass_carried.png"
+    },
+    "rainbow_yellow_600_block": {
+      "textures": "textures/blocks/rainbow_yellow_600_block",
+      "carried_texture": "textures/blocks/rainbow_yellow_600_block_carried.png"
+    },
+    "rainbow_yellow_600_plate": {
+      "textures": "textures/blocks/rainbow_yellow_600_plate",
+      "carried_texture": "textures/blocks/rainbow_yellow_600_plate_carried.png"
+    },
+    "rainbow_yellow_600_lit": {
+      "textures": "textures/blocks/rainbow_yellow_600_lit",
+      "carried_texture": "textures/blocks/rainbow_yellow_600_lit_carried.png"
+    },
+    "rainbow_yellow_600_lamp": {
+      "textures": "textures/blocks/rainbow_yellow_600_lamp",
+      "carried_texture": "textures/blocks/rainbow_yellow_600_lamp_carried.png"
+    },
+    "rainbow_yellow_600_glass": {
+      "textures": "textures/blocks/rainbow_yellow_600_glass",
+      "carried_texture": "textures/blocks/rainbow_yellow_600_glass_carried.png"
+    },
+    "rainbow_yellow_700_block": {
+      "textures": "textures/blocks/rainbow_yellow_700_block",
+      "carried_texture": "textures/blocks/rainbow_yellow_700_block_carried.png"
+    },
+    "rainbow_yellow_700_plate": {
+      "textures": "textures/blocks/rainbow_yellow_700_plate",
+      "carried_texture": "textures/blocks/rainbow_yellow_700_plate_carried.png"
+    },
+    "rainbow_yellow_700_lit": {
+      "textures": "textures/blocks/rainbow_yellow_700_lit",
+      "carried_texture": "textures/blocks/rainbow_yellow_700_lit_carried.png"
+    },
+    "rainbow_yellow_700_lamp": {
+      "textures": "textures/blocks/rainbow_yellow_700_lamp",
+      "carried_texture": "textures/blocks/rainbow_yellow_700_lamp_carried.png"
+    },
+    "rainbow_yellow_700_glass": {
+      "textures": "textures/blocks/rainbow_yellow_700_glass",
+      "carried_texture": "textures/blocks/rainbow_yellow_700_glass_carried.png"
+    },
+    "rainbow_yellow_800_block": {
+      "textures": "textures/blocks/rainbow_yellow_800_block",
+      "carried_texture": "textures/blocks/rainbow_yellow_800_block_carried.png"
+    },
+    "rainbow_yellow_800_plate": {
+      "textures": "textures/blocks/rainbow_yellow_800_plate",
+      "carried_texture": "textures/blocks/rainbow_yellow_800_plate_carried.png"
+    },
+    "rainbow_yellow_800_lit": {
+      "textures": "textures/blocks/rainbow_yellow_800_lit",
+      "carried_texture": "textures/blocks/rainbow_yellow_800_lit_carried.png"
+    },
+    "rainbow_yellow_800_lamp": {
+      "textures": "textures/blocks/rainbow_yellow_800_lamp",
+      "carried_texture": "textures/blocks/rainbow_yellow_800_lamp_carried.png"
+    },
+    "rainbow_yellow_800_glass": {
+      "textures": "textures/blocks/rainbow_yellow_800_glass",
+      "carried_texture": "textures/blocks/rainbow_yellow_800_glass_carried.png"
+    },
+    "rainbow_yellow_900_block": {
+      "textures": "textures/blocks/rainbow_yellow_900_block",
+      "carried_texture": "textures/blocks/rainbow_yellow_900_block_carried.png"
+    },
+    "rainbow_yellow_900_plate": {
+      "textures": "textures/blocks/rainbow_yellow_900_plate",
+      "carried_texture": "textures/blocks/rainbow_yellow_900_plate_carried.png"
+    },
+    "rainbow_yellow_900_lit": {
+      "textures": "textures/blocks/rainbow_yellow_900_lit",
+      "carried_texture": "textures/blocks/rainbow_yellow_900_lit_carried.png"
+    },
+    "rainbow_yellow_900_lamp": {
+      "textures": "textures/blocks/rainbow_yellow_900_lamp",
+      "carried_texture": "textures/blocks/rainbow_yellow_900_lamp_carried.png"
+    },
+    "rainbow_yellow_900_glass": {
+      "textures": "textures/blocks/rainbow_yellow_900_glass",
+      "carried_texture": "textures/blocks/rainbow_yellow_900_glass_carried.png"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "lime_300_block_basecolor",
+    "metalness_emissive_roughness": "lime_300_block_mer",
+    "normal": "lime_300_block_normal"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "cyan_900_lit_basecolor",
+    "metalness_emissive_roughness": "cyan_900_lit_mer",
+    "normal": "cyan_900_lit_normal"
+  }
+}

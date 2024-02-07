@@ -1,0 +1,8 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "cyan_100_plate_basecolor",
+    "metalness_emissive_roughness": "cyan_100_plate_mer",
+    "normal": "cyan_100_plate_normal"
+  }
+}

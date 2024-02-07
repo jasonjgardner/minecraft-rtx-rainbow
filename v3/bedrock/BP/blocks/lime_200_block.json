@@ -1,0 +1,26 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "rainbow:lime_200_block",
+      "menu_category": {
+        "category": "construction",
+        "group": "itemGroup.name.concrete"
+      },
+      "traits": {}
+    },
+    "components": {
+      "minecraft:unit_cube": {},
+      "minecraft:map_color": "#fffff5",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "rainbow_lime_200_block",
+          "render_method": "opaque",
+          "ambient_occlusion": true,
+          "face_dimming": true
+        }
+      }
+    },
+    "permutations": []
+  }
+}

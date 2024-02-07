@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "rainbow_glass:block/pink_600_glass",
+    "up": "rainbow_glass:block/pink_600_glass",
+    "north": "rainbow_glass:block/pink_600_glass",
+    "east": "rainbow_glass:block/pink_600_glass",
+    "south": "rainbow_glass:block/pink_600_glass",
+    "west": "rainbow_glass:block/pink_600_glass",
+    "particle": "rainbow_glass:block/pink_600_glass"
+  },
+  "render_type": "translucent"
+}

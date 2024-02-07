@@ -1,0 +1,24 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "rainbow:blue_700_lamp",
+      "menu_category": {
+        "category": "construction",
+        "group": "itemGroup.name.glazedTerracotta"
+      },
+      "traits": {}
+    },
+    "components": {
+      "minecraft:unit_cube": {},
+      "minecraft:map_color": "#1b2136",
+      "minecraft:light_emission": 15,
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "rainbow_blue_700_lamp",
+          "render_method": "opaque"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "red_700_block_basecolor",
+    "metalness_emissive_roughness": "red_700_block_mer",
+    "normal": "red_700_block_normal"
+  }
+}

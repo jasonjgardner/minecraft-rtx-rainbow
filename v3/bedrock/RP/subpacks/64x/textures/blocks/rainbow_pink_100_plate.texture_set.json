@@ -1,0 +1,8 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "pink_100_plate_basecolor",
+    "metalness_emissive_roughness": "pink_100_plate_mer",
+    "normal": "pink_100_plate_normal"
+  }
+}

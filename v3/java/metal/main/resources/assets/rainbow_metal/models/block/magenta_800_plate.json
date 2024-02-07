@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "rainbow_metal:block/magenta_800_plate",
+    "up": "rainbow_metal:block/magenta_800_plate",
+    "north": "rainbow_metal:block/magenta_800_plate",
+    "east": "rainbow_metal:block/magenta_800_plate",
+    "south": "rainbow_metal:block/magenta_800_plate",
+    "west": "rainbow_metal:block/magenta_800_plate",
+    "particle": "rainbow_metal:block/magenta_800_plate"
+  },
+  "render_type": "solid"
+}

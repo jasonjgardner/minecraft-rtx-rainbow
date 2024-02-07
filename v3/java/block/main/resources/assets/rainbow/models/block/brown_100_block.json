@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "rainbow:block/brown_100_block",
+    "up": "rainbow:block/brown_100_block",
+    "north": "rainbow:block/brown_100_block",
+    "east": "rainbow:block/brown_100_block",
+    "south": "rainbow:block/brown_100_block",
+    "west": "rainbow:block/brown_100_block",
+    "particle": "rainbow:block/brown_100_block"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,27 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "rainbow:purple_50_glass",
+      "menu_category": {
+        "category": "construction",
+        "group": "itemGroup.name.glass"
+      },
+      "traits": {}
+    },
+    "components": {
+      "minecraft:unit_cube": {},
+      "minecraft:map_color": "#ffffff",
+      "minecraft:light_dampening": 5,
+      "minecraft:friction": 0.5,
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "rainbow_purple_50_glass",
+          "render_method": "blend",
+          "ambient_occlusion": true,
+          "face_dimming": true
+        }
+      }
+    }
+  }
+}
