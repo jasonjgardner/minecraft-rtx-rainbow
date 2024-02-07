@@ -1,4 +1,4 @@
-import type { Axis, WssParams, WssState } from "./typings/types.ts";
+import type { Axis, WssParams, WssState } from "./types/index.ts";
 import { serve } from "http/server.ts";
 import { join } from "path/win32.ts";
 import { ensureDir } from "fs/mod.ts";
@@ -148,7 +148,7 @@ async function watch(fnNameInput: string) {
 
   // TODO: Add params for `watch` command, and remove them before passing to `queueFunctionFile`
 
-  const filepath = `./src/functions/${fnName}.mcfunction`;
+  const filepath = `./server/functions/${fnName}.mcfunction`;
 
   console.log("Watching function file %s", filepath);
 
@@ -261,7 +261,7 @@ async function loadFunctionScript(fnNameInput: string) {
   const [scriptFile, params] = fnNameInput.split("?", 2);
   try {
     // TODO: Add cache busting to import statement
-    const { default: mod } = await import(`./src/functions/${scriptFile}.ts`);
+    const { default: mod } = await import(`./server/functions/${scriptFile}.ts`);
     const wssParams: WssParams = {
       queueCommandRequest,
       parameters: new URLSearchParams(params),
@@ -282,7 +282,7 @@ async function loadFunctionScript(fnNameInput: string) {
 async function queueFunctionFile(fnNameInput: string) {
   const [fnName, fnParams] = fnNameInput.split("?", 2);
 
-  const filepath = `./src/functions/${fnName}.mcfunction`;
+  const filepath = `./server/functions/${fnName}.mcfunction`;
 
   console.log("Loading function file %s", filepath);
 

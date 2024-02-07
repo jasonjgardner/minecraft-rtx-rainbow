@@ -1,10 +1,10 @@
-import type { WssParams } from "../../typings/types.ts";
-import { join, toFileUrl } from "https://deno.land/std@0.149.0/path/mod.ts";
+import type { WssParams } from "../../types/index.ts";
+import { join, toFileUrl } from "path/mod.ts";
 import { queueCommandRequest } from "../_io.ts";
 import { state } from "../_state.ts";
 import { formatPosition } from "../utils/formatPosition.ts";
 
-const fnsPath = join(Deno.cwd(), "src", "functions");
+const fnsPath = join(Deno.cwd(), "server", "functions");
 
 /**
  * Load special functions found in `./src/functions/`

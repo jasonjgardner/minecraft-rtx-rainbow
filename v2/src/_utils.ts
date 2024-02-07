@@ -1,5 +1,9 @@
 import { Image } from "imagescript/mod.ts";
 
+export function rgb2hex(r: number, g: number, b: number) {
+  return "#" + [r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("");
+}
+
 export async function encodeRGBColor(layerValue: number[], size = 16) {
   const [r, g, b, alpha] = layerValue;
   const imgOutput = new Image(size, size);
@@ -40,4 +44,20 @@ export function getConfig(
 
 export function channelPercentage(percentage: number) {
   return Math.ceil((Math.max(0, percentage) * 255) / 100);
+}
+
+export function getMinecraftLocation(): string {
+  const { code, stdout, stderr } = (new Deno.Command("powershell.exe", {
+    args: [
+      'Get-AppxPackage -Name "Microsoft.MinecraftUWP*" | Select-Object -ExpandProperty InstallLocation',
+    ],
+  })).outputSync();
+
+  if (code !== 0) {
+    console.error(stderr);
+    Deno.exit(code);
+  }
+
+  const decoder = new TextDecoder();
+  return decoder.decode(stdout).trim();
 }

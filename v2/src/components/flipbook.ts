@@ -10,7 +10,7 @@ import type {
   MinecraftTerrainData,
   PackSizes,
   RGB,
-} from "../../typings/types.ts";
+} from "../../types/index.ts";
 
 import { DIR_BP, DIR_DOCS, DIR_RP } from "../store/_config.ts";
 import { materials } from "../store/_materials.ts";
@@ -60,10 +60,10 @@ async function flipbookData(
 
   return {
     flipbook_texture: `textures/blocks/${flipbookBlock.id}`,
-    frames: flipbookFrames,
-    atlas_tile: flipbookBlock.id,
-    ticks_per_frame: 1, //Math.min(10, Math.floor(frameCount * 1.666)),
-    blend_frames: false,
+    // frames: flipbookFrames,
+    atlas_tile: flipbookBlock.resourceId,
+    ticks_per_frame: 10,
+    // blend_frames: true,
   };
 }
 
@@ -138,6 +138,16 @@ export async function writeFlipbooks(
     ),
     await makeAtlas(frames),
   );
+
+  // await Deno.writeFile(
+  //   join(
+  //     DIR_DOCS,
+  //     "flipbooks",
+  //     formatFlipbookName(lastBlock.color, lastBlock.material)
+  //       .trim().replace(/[_ ]+/g, "_") + ".gif",
+  //   ),
+  //   await makeGif(frames),
+  // );
 
   const flipMaterials = materials.filter(({ label }: IMaterial) =>
     !label?.startsWith("glass")

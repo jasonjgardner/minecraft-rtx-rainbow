@@ -2,8 +2,16 @@
   // Use IntelliSense to learn about possible attributes.
   // Hover to view descriptions of existing attributes.
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-  "version": "0.2.0",
+  "version": "0.3.0",
   "configurations": [
+    {
+      "type": "minecraft-js",
+      "request": "attach",
+      "name": "Wait for Minecraft Debug Connections",
+      "mode": "listen",
+      "localRoot": "${workspaceFolder}/",
+      "port": 19144
+    },
     {
       "request": "launch",
       "name": "Build",

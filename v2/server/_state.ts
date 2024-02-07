@@ -1,4 +1,4 @@
-import type { Axis, WssParams, WssState } from "../typings/types.ts";
+import type { Axis, WssParams, WssState } from "../types/index.ts";
 import type { Request} from './_io.ts'
 import { join } from "path/win32.ts";
 import { queueCommandRequest } from "./_io.ts";

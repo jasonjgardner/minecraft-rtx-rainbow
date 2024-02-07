@@ -1,4 +1,4 @@
-import { join } from "https://deno.land/std@0.149.0/path/mod.ts";
+import { join } from "path/mod.ts";
 import { queueCommandRequest } from "../_io.ts";
 import { state } from "../_state.ts";
 
