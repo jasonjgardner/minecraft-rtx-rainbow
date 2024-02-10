@@ -1,0 +1,51 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "RAINBOW III!!! World Resources",
+    "description": "RAINBOW world resources",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      20,
+      20
+    ],
+    "uuid": "19b35b50-6c13-42df-87cd-1bc29528cb0e"
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "42749d17-7c72-4db7-962c-24394b6fe28c",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "5bd99162-b504-4904-a9af-66ba27c96f19",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "uuid": "cc095f90-d2c1-474a-a03f-df0c53f3ca44",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    }
+  ],
+  "capabilities": [
+    "raytraced",
+    "pbr"
+  ]
+}
