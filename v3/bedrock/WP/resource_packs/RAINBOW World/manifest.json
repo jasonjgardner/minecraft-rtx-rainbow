@@ -26,24 +26,6 @@
       ]
     }
   ],
-  "dependencies": [
-    {
-      "uuid": "5bd99162-b504-4904-a9af-66ba27c96f19",
-      "version": [
-        3,
-        0,
-        0
-      ]
-    },
-    {
-      "uuid": "cc095f90-d2c1-474a-a03f-df0c53f3ca44",
-      "version": [
-        3,
-        0,
-        0
-      ]
-    }
-  ],
   "capabilities": [
     "raytraced",
     "pbr"
