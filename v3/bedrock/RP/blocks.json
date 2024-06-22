@@ -1,4 +1,9 @@
 {
+  "format_version": [
+    1,
+    1,
+    0
+  ],
   "blue_50_block": {
     "sound": "glass",
     "isotropic": false
