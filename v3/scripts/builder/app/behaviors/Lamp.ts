@@ -5,7 +5,7 @@ import stairsPermutations from "./permutes/stairs.ts";
 export class Lamp extends DecorativeBlock {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string,
+    hexColor: string
   ) {
     super(block, hexColor);
     this.name = "lamp";
@@ -51,7 +51,7 @@ export class Lamp extends DecorativeBlock {
 export class LampSlab extends Lamp {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string,
+    hexColor: string
   ) {
     super(block, hexColor);
     this.name = "lamp_slab";
@@ -130,7 +130,7 @@ const placementTrait = {
 export class LampStairs extends Lamp {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string,
+    hexColor: string
   ) {
     super(block, hexColor);
     this.name = "lamp_stairs";
@@ -168,9 +168,7 @@ export class LampStairs extends Lamp {
             },
           },
         },
-        permutations: [
-          ...stairsPermutations,
-        ],
+        permutations: [...stairsPermutations],
       },
     };
   }
@@ -179,7 +177,7 @@ export class LampStairs extends Lamp {
 export class LampCube extends Lamp {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string,
+    hexColor: string
   ) {
     super(block, hexColor);
     this.name = "lamp_cube";
@@ -217,9 +215,7 @@ export class LampCube extends Lamp {
             },
           },
         },
-        permutations: [
-          ...stairsPermutations,
-        ],
+        permutations: [...stairsPermutations],
       },
     };
   }

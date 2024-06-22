@@ -41,15 +41,17 @@ export type MinecraftData = {
 export type MinecraftEvent = {
   [key: string]:
     | {
-      [key: string]:
-        | MinecraftRecordTypes
-        | MinecraftEvent
-        | Array<
-          MinecraftRecordTypes | MinecraftEvent | {
-            [key: string]: MinecraftRecordTypes | MinecraftEvent;
-          }
-        >;
-    }
+        [key: string]:
+          | MinecraftRecordTypes
+          | MinecraftEvent
+          | Array<
+              | MinecraftRecordTypes
+              | MinecraftEvent
+              | {
+                  [key: string]: MinecraftRecordTypes | MinecraftEvent;
+                }
+            >;
+      }
     | MinecraftRecordTypes
     | MinecraftEvent[];
 };
@@ -132,7 +134,7 @@ export interface IBlock {
   enabled?: boolean;
   color: string;
   isotropic?: boolean;
-  sound?: string
+  sound?: string;
 }
 
 export type Axis = "x" | "y" | "z";
@@ -170,11 +172,11 @@ export interface WssParams {
     z: number,
     offsetX?: number,
     offsetY?: number,
-    offsetZ?: number,
+    offsetZ?: number
   ) => string;
   state?: WssState;
 }
 
 export interface IColorShades {
-    shades: 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+  shades: 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 }

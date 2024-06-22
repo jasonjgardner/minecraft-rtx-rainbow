@@ -15,31 +15,30 @@ export const states = {
   [`${NAMESPACE}:permute`]: [0, 1, 2, 3, 4, 5, 6, 7],
 };
 
-const permutes: Array<
-  {
-    condition: string;
-    components: BlockComponents;
-  }
-> = [];
+const permutes: Array<{
+  condition: string;
+  components: BlockComponents;
+}> = [];
 
 for (const [direction, rotation] of Object.entries(directions)) {
-  permutes.push({
-    condition:
-      `q.block_state('minecraft:cardinal_direction') == '${direction}' && q.block_state('minecraft:vertical_half') == 'bottom'`,
-    components: {
-      "minecraft:transformation": {
-        rotation,
+  permutes.push(
+    {
+      condition: `q.block_state('minecraft:cardinal_direction') == '${direction}' && q.block_state('minecraft:vertical_half') == 'bottom'`,
+      components: {
+        "minecraft:transformation": {
+          rotation,
+        },
       },
     },
-  }, {
-    condition:
-      `q.block_state('minecraft:cardinal_direction') == '${direction}' && q.block_state('minecraft:vertical_half') == 'top'`,
-    components: {
-      "minecraft:transformation": {
-        rotation: [rotation[0] - 180, rotation[1], rotation[2]],
+    {
+      condition: `q.block_state('minecraft:cardinal_direction') == '${direction}' && q.block_state('minecraft:vertical_half') == 'top'`,
+      components: {
+        "minecraft:transformation": {
+          rotation: [rotation[0] - 180, rotation[1], rotation[2]],
+        },
       },
-    },
-  });
+    }
+  );
 }
 
 const placementTrait = {
@@ -90,7 +89,7 @@ const events: BlockEvents = {};
 export class LampCube extends Lamp {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string,
+    hexColor: string
   ) {
     super(block, hexColor);
     this.name = "lamp_cube";
@@ -145,9 +144,7 @@ export class LampCube extends Lamp {
           //     group: "itemGroup.name.glazedTerracotta",
           //   },
         },
-        permutations: [
-          ...permutes,
-        ],
+        permutations: [...permutes],
         events,
       },
     };

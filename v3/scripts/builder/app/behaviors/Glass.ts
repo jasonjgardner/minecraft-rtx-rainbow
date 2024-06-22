@@ -6,7 +6,7 @@ import { BLOCK_VERSION } from "../../_constants.ts";
 export class Glass extends DecorativeBlock {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string,
+    hexColor: string
   ) {
     super(block, hexColor);
     this.name = "glass";
@@ -51,7 +51,7 @@ export class Glass extends DecorativeBlock {
 export class GlassSlab extends Glass {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string,
+    hexColor: string
   ) {
     super(block, hexColor);
     this.name = "glass_slab";
@@ -129,7 +129,7 @@ const placementTrait = {
 export class GlassStairs extends Glass {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string,
+    hexColor: string
   ) {
     super(block, hexColor);
     this.name = "glass_stairs";
@@ -169,9 +169,7 @@ export class GlassStairs extends Glass {
             },
           },
         },
-        permutations: [
-          ...stairsPermutations,
-        ],
+        permutations: [...stairsPermutations],
       },
     };
   }
@@ -180,7 +178,7 @@ export class GlassStairs extends Glass {
 export class GlassCarpet extends Glass {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string,
+    hexColor: string
   ) {
     super(block, hexColor);
     this.name = "glass_carpet";

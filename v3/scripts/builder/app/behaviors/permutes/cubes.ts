@@ -15,23 +15,24 @@ const permutes: Array<
 > = [];
 
 for (const [direction, rotation] of Object.entries(directions)) {
-  permutes.push({
-    condition:
-      `q.block_state('minecraft:cardinal_direction') == '${direction}' && q.block_state('minecraft:vertical_half') == 'bottom'`,
-    components: {
-      "minecraft:transformation": {
-        rotation,
+  permutes.push(
+    {
+      condition: `q.block_state('minecraft:cardinal_direction') == '${direction}' && q.block_state('minecraft:vertical_half') == 'bottom'`,
+      components: {
+        "minecraft:transformation": {
+          rotation,
+        },
       },
     },
-  }, {
-    condition:
-      `q.block_state('minecraft:cardinal_direction') == '${direction}' && q.block_state('minecraft:vertical_half') == 'top'`,
-    components: {
-      "minecraft:transformation": {
-        rotation: [rotation[0] - 180, rotation[1], rotation[2]],
+    {
+      condition: `q.block_state('minecraft:cardinal_direction') == '${direction}' && q.block_state('minecraft:vertical_half') == 'top'`,
+      components: {
+        "minecraft:transformation": {
+          rotation: [rotation[0] - 180, rotation[1], rotation[2]],
+        },
       },
-    },
-  });
+    }
+  );
 }
 
 export default permutes;

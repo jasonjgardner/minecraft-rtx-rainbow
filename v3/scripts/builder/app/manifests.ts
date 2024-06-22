@@ -1,4 +1,4 @@
-import { writeFile } from "node:fs/promises"
+import { writeFile } from "node:fs/promises";
 import { sizes, TARGET_VERSION } from "../_constants.ts";
 
 const RP_UUID = "cc095f90-d2c1-474a-a03f-df0c53f3ca44";
@@ -50,10 +50,7 @@ const rpManifest = {
       version: bpManifest.header.version,
     },
   ],
-  capabilities: [
-    "raytraced",
-    "pbr",
-  ],
+  capabilities: ["raytraced", "pbr"],
   subpacks: sizes.map((size, idx) => ({
     folder_name: `${size}x`,
     name: `${size}x`,
@@ -61,12 +58,6 @@ const rpManifest = {
   })),
 };
 
-await writeFile(
-  "pack/BP/manifest.json",
-  JSON.stringify(bpManifest, null, 2),
-);
+await writeFile("pack/BP/manifest.json", JSON.stringify(bpManifest, null, 2));
 
-await writeFile(
-  "pack/RP/manifest.json",
-  JSON.stringify(rpManifest, null, 2),
-);
+await writeFile("pack/RP/manifest.json", JSON.stringify(rpManifest, null, 2));

@@ -1,5 +1,5 @@
-import * as Bun from "bun"
-import { join } from "node:path"
+import * as Bun from "bun";
+import { join } from "node:path";
 
 await Bun.build({
   entrypoints: [join(process.cwd(), "v3/addon/scripts/main.ts")],

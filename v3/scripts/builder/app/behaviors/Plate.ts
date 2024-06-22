@@ -5,11 +5,14 @@ import DecorativeBlock from "./DecorativeBlock.ts";
 export class Plate extends DecorativeBlock {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string,
+    hexColor: string
   ) {
-    super({
-      ...block,
-    }, hexColor);
+    super(
+      {
+        ...block,
+      },
+      hexColor
+    );
 
     this.block = {
       isotropic: false,

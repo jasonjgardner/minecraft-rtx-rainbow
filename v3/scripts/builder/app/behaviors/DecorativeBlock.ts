@@ -13,7 +13,7 @@ export default class DecorativeBlock {
 
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string,
+    hexColor: string
   ) {
     this.block = {
       isotropic: false,
@@ -71,7 +71,7 @@ export default class DecorativeBlock {
   async save() {
     await writeFile(
       join(BP_DIR, `/blocks/${this.blockId}.json`),
-      JSON.stringify(this.toJsonObject(), null, 2),
+      JSON.stringify(this.toJsonObject(), null, 2)
     );
 
     return this;

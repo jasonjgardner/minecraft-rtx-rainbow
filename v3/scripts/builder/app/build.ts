@@ -11,21 +11,17 @@ import { Lamp, LampSlab, LampStairs } from "./behaviors/Lamp.ts";
 import { Plate } from "./behaviors/Plate.ts";
 import { LitDecorativeBlock } from "./behaviors/Lit.ts";
 import { LampCube } from "./behaviors/LampCube.ts";
-import { writeFile, rename, readFile, readdir } from "node:fs/promises"
-import { join, basename } from "node:path"
-import { ensureDir } from "fs-extra"
+import { writeFile, rename, readFile, readdir } from "node:fs/promises";
+import { join, basename } from "node:path";
+import { ensureDir } from "fs-extra";
 
-await ensureDir(
-  join(RP_DIR, "texts"),
-);
+await ensureDir(join(RP_DIR, "texts"));
 
 await ensureDir(join(BP_DIR, "blocks"));
 
 await writeFile(
   join(RP_DIR, "texts", "languages.json"),
-  JSON.stringify([
-    "en_US",
-  ]),
+  JSON.stringify(["en_US"])
 );
 
 const behaviors = [
@@ -73,29 +69,29 @@ for (const color of colors) {
       "16x",
       "textures",
       "blocks",
-      `${color}_${shade}_block_basecolor.png`,
+      `${color}_${shade}_block_basecolor.png`
     );
 
-    const img = await Image.decode(
-      await readFile(imgFile),
-    );
+    const img = await Image.decode(await readFile(imgFile));
 
     const averageColor = Image.colorToRGB(img.averageColor());
 
-    const hexColor = `#${
-      averageColor.map((c) => c.toString(16).padStart(2, "0")).join("")
-    }`;
+    const hexColor = `#${averageColor
+      .map((c) => c.toString(16).padStart(2, "0"))
+      .join("")}`;
 
     for (const BehaviorBlock of behaviors) {
-      const colorName = `${
-        color.split("_").map((word) =>
-          word.charAt(0).toUpperCase() + word.slice(1)
-        ).join(" ")
-      } ${shade}`;
-      const Block = new BehaviorBlock({
-        colorName,
-        id: `${color}_${shade}`,
-      }, hexColor);
+      const colorName = `${color
+        .split("_")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ")} ${shade}`;
+      const Block = new BehaviorBlock(
+        {
+          colorName,
+          id: `${color}_${shade}`,
+        },
+        hexColor
+      );
       texts[Block.textId] = Block.title;
 
       await Block.save();
@@ -104,13 +100,11 @@ for (const color of colors) {
   }
 }
 
-const lang = Object.entries(texts).map(([key, value]) => `${key}=${value}`)
+const lang = Object.entries(texts)
+  .map(([key, value]) => `${key}=${value}`)
   .join("\n");
 
-await writeFile(
-  join(RP_DIR, "texts", "en_US.lang"),
-  lang,
-);
+await writeFile(join(RP_DIR, "texts", "en_US.lang"), lang);
 
 const paddings = [8, 4, 2, 1, 0];
 
@@ -126,7 +120,7 @@ const terrainAtlas = {
         textures: `textures/blocks/${textureId}`,
         carried_texture: `textures/blocks/${textureId}_carried.png`,
       },
-    ]),
+    ])
   ),
 };
 
@@ -139,9 +133,9 @@ async function addOpacity(size: number, baseColor: string) {
         `${size}x`,
         "textures",
         "blocks",
-        `${baseColor}.png`,
-      ),
-    ),
+        `${baseColor}.png`
+      )
+    )
   );
 
   // const opacityImage = await Image.decode(
@@ -159,9 +153,9 @@ async function addOpacity(size: number, baseColor: string) {
       `${size}x`,
       "textures",
       "blocks",
-      `${baseColor}.png`,
+      `${baseColor}.png`
     ),
-    await image.encode(),
+    await image.encode()
   );
 }
 
@@ -200,148 +194,136 @@ const largestSize = Math.max(...sizes);
 //   }),
 // );
 
-await Promise.all(sizes.map(async (size, idx) => {
-  const sizeDir = join(RP_DIR, "subpacks", `${size}x`);
+await Promise.all(
+  sizes.map(async (size, idx) => {
+    const sizeDir = join(RP_DIR, "subpacks", `${size}x`);
 
-  // await copy(
-  //   join(RP_DIR, "models", "blocks"),
-  //   join(sizeDir, "models", "blocks"),
-  // );
+    // await copy(
+    //   join(RP_DIR, "models", "blocks"),
+    //   join(sizeDir, "models", "blocks"),
+    // );
 
-  // Resize every image in this directory to the appropriate size
-  const texturesDir = join(
-    sizeDir,
-    "textures",
-    "blocks",
-  );
+    // Resize every image in this directory to the appropriate size
+    const texturesDir = join(sizeDir, "textures", "blocks");
 
-  await ensureDir(
-    texturesDir,
-  );
+    await ensureDir(texturesDir);
 
-  const files = await readdir(texturesDir, {
-    recursive: true
-  });
+    const files = await readdir(texturesDir, {
+      recursive: true,
+    });
 
-  await Promise.all(files.map(async (file) => {
-    // Ensure file name is lowercase
-    if (file !== file.toLowerCase()) {
-      await rename(file, file.toLowerCase());
-    }
+    await Promise.all(
+      files.map(async (file) => {
+        // Ensure file name is lowercase
+        if (file !== file.toLowerCase()) {
+          await rename(file, file.toLowerCase());
+        }
 
-    if (!file.endsWith(".png")) {
-      return;
-    }
+        if (!file.endsWith(".png")) {
+          return;
+        }
 
-    const blockName = basename(file, ".png").replace(
-      /_(baseColor|carried|mer|normal|height|opacity)?$/i,
-      "",
+        const blockName = basename(file, ".png").replace(
+          /_(baseColor|carried|mer|normal|height|opacity)?$/i,
+          ""
+        );
+
+        // if (
+        //   (file.endsWith("_baseColor.png") || file.endsWith("_carried.png")) &&
+        //   files.includes(join(texturesDir, `${blockName}_opacity.png`))
+        // ) {
+        //   await addOpacity(size, basename(file, ".png"));
+        // }
+
+        const isIsotropic =
+          blocks.find(({ name }) => name === blockName)?.block.isotropic ??
+          false;
+
+        const depth = isIsotropic
+          ? {
+              heightmap: `${blockName}_height`,
+            }
+          : {
+              normal: `${blockName}_normal`,
+            };
+
+        await writeFile(
+          join(texturesDir, `${NAMESPACE}_${blockName}.texture_set.json`),
+          JSON.stringify(
+            {
+              format_version: "1.16.100",
+              "minecraft:texture_set": {
+                color: `${blockName}_basecolor`,
+                metalness_emissive_roughness: `${blockName}_mer`,
+                ...depth,
+              },
+            },
+            null,
+            2
+          )
+        );
+
+        // const image = await Image.decode(
+        //   await Deno.readFile(file),
+        // );
+
+        // await Deno.writeFile(
+        //   file,
+        //   await image.resize(size, size).encode(),
+        // );
+      })
     );
 
-    // if (
-    //   (file.endsWith("_baseColor.png") || file.endsWith("_carried.png")) &&
-    //   files.includes(join(texturesDir, `${blockName}_opacity.png`))
-    // ) {
-    //   await addOpacity(size, basename(file, ".png"));
-    // }
-
-    const isIsotropic = blocks.find(({ name }) =>
-      name === blockName
-    )?.block.isotropic ?? false;
-
-    const depth = isIsotropic
-      ? {
-        heightmap: `${blockName}_height`,
-      }
-      : {
-        normal: `${blockName}_normal`,
-      };
+    const terrainAtlasForSize = {
+      ...terrainAtlas,
+      padding: paddings[idx],
+      num_mip_levels: Math.floor(paddings[idx] * 0.5),
+    };
 
     await writeFile(
-      join(
-        texturesDir,
-        `${NAMESPACE}_${blockName}.texture_set.json`,
-      ),
-      JSON.stringify(
-        {
-          format_version: "1.16.100",
-          "minecraft:texture_set": {
-            color: `${blockName}_basecolor`,
-            metalness_emissive_roughness: `${blockName}_mer`,
-            ...depth,
-          },
-        },
-        null,
-        2,
-      ),
+      join(RP_DIR, "subpacks", `${size}x`, "textures", "terrain_texture.json"),
+      JSON.stringify(terrainAtlasForSize, null, 2)
     );
 
-    // const image = await Image.decode(
-    //   await Deno.readFile(file),
-    // );
+    const textDir = join(RP_DIR, "subpacks", `${size}x`, "texts");
 
-    // await Deno.writeFile(
-    //   file,
-    //   await image.resize(size, size).encode(),
-    // );
-  }));
+    await ensureDir(textDir);
 
-  const terrainAtlasForSize = {
-    ...terrainAtlas,
-    padding: paddings[idx],
-    num_mip_levels: Math.floor(paddings[idx] * 0.5),
-  };
-
-  await writeFile(
-    join(RP_DIR, "subpacks", `${size}x`, "textures", "terrain_texture.json"),
-    JSON.stringify(terrainAtlasForSize, null, 2),
-  );
-
-  const textDir = join(RP_DIR, "subpacks", `${size}x`, "texts");
-
-  await ensureDir(
-    textDir,
-  );
-
-  await writeFile(
-    join(textDir, "en_US.lang"),
-    lang,
-  );
-}));
-
+    await writeFile(join(textDir, "en_US.lang"), lang);
+  })
+);
 
 const blocksData = Object.fromEntries(
-      blocks.map(({ blockId, block }) => [blockId, {
-        sound: block.sound,
-        isotropic: block.isotropic,
-      }]));
+  blocks.map(({ blockId, block }) => [
+    blockId,
+    {
+      sound: block.sound,
+      isotropic: block.isotropic,
+    },
+  ])
+);
 
 await writeFile(
   join(RP_DIR, "blocks.json"),
-  JSON.stringify({
-format_version: [
-		1,
-		1,
-		0
-	],
-  ...blocksData
-  },
+  JSON.stringify(
+    {
+      format_version: [1, 1, 0],
+      ...blocksData,
+    },
     null,
-    2,
-  ),
+    2
+  )
 );
 
 await writeFile(
   join(process.cwd(), "db.json"),
   JSON.stringify(
     Object.fromEntries(
-      blocks.map((
-        { blockId, hexColor },
-      ) => [blockId, hexColor]),
+      blocks.map(({ blockId, hexColor }) => [blockId, hexColor])
     ),
     null,
-    2,
-  ),
+    2
+  )
 );
 
 const deferredLightingDir = join(RP_DIR, "lighting");
@@ -372,11 +354,13 @@ await writeFile(
     },
     point_lights: {
       colors: Object.fromEntries(
-        blocks.filter((b) =>
-          b.blockId.endsWith("lit") || b.blockId.endsWith("lamp")
-        ).map(({ blockId, hexColor }) => {
-          return [`rainbow:${blockId}`, hexColor];
-        }),
+        blocks
+          .filter(
+            (b) => b.blockId.endsWith("lit") || b.blockId.endsWith("lamp")
+          )
+          .map(({ blockId, hexColor }) => {
+            return [`rainbow:${blockId}`, hexColor];
+          })
       ),
     },
     pbr: {
@@ -387,5 +371,5 @@ await writeFile(
         global_metalness_emissive_roughness: [0.0, 0.0, 1.0],
       },
     },
-  }),
+  })
 );

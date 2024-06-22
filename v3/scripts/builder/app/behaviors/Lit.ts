@@ -5,7 +5,7 @@ import { BLOCK_VERSION, NAMESPACE } from "../../_constants.ts";
 export class LitDecorativeBlock extends DecorativeBlock {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string,
+    hexColor: string
   ) {
     super(block, hexColor);
     this.name = "lit";

@@ -9,10 +9,12 @@ export default class Block {
   _isotropic: boolean;
   _title: string;
   _hexColor: string;
-  _geometry?: string | {
-    identifier: string;
-    bone_visibility: Record<string, boolean>;
-  };
+  _geometry?:
+    | string
+    | {
+        identifier: string;
+        bone_visibility: Record<string, boolean>;
+      };
   _textureId: string;
 
   constructor({
@@ -32,10 +34,12 @@ export default class Block {
     title: string;
     textId: string;
     hexColor: string;
-    geometry?: string | {
-      identifier: string;
-      bone_visibility: Record<string, boolean>;
-    };
+    geometry?:
+      | string
+      | {
+          identifier: string;
+          bone_visibility: Record<string, boolean>;
+        };
     textureId: string;
   }) {
     this._id = id;
@@ -157,7 +161,7 @@ export default class Block {
   async save(bp: string) {
     await writeFile(
       join(bp, "blocks", `${this.behaviorId}.json`),
-      JSON.stringify(this.toJsonObject(), null, 2),
+      JSON.stringify(this.toJsonObject(), null, 2)
     );
 
     return this;
