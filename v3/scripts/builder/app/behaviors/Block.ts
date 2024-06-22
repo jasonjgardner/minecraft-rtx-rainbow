@@ -1,5 +1,6 @@
 import { BLOCK_VERSION, NAMESPACE } from "../../_constants.ts";
-import { join } from "../../deps.ts";
+import { join } from "node:path";
+import { writeFile } from "node:fs/promises";
 
 export default class Block {
   _id: string;
@@ -154,7 +155,7 @@ export default class Block {
   }
 
   async save(bp: string) {
-    await Deno.writeTextFile(
+    await writeFile(
       join(bp, "blocks", `${this.behaviorId}.json`),
       JSON.stringify(this.toJsonObject(), null, 2),
     );

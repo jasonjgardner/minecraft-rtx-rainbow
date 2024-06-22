@@ -1,3 +1,4 @@
+import { writeFile } from "node:fs/promises"
 import { sizes, TARGET_VERSION } from "../_constants.ts";
 
 const RP_UUID = "cc095f90-d2c1-474a-a03f-df0c53f3ca44";
@@ -16,13 +17,13 @@ const bpManifest = {
     {
       type: "data",
       uuid: "82eeba3f-0b56-49fc-9409-8bdbcccabd29",
-      version: [3, 0, 0],
+      version: [3, 1, 0],
     },
   ],
   dependencies: [
     {
       uuid: RP_UUID,
-      version: [3, 0, 0],
+      version: [3, 1, 0],
     },
   ],
 };
@@ -32,7 +33,7 @@ const rpManifest = {
   header: {
     name: "RAINBOW III!!!",
     description: "RAINBOW resource pack for Minecraft Bedrock Edition",
-    version: [3, 0, 0],
+    version: [3, 1, 0],
     min_engine_version: TARGET_VERSION,
     uuid: RP_UUID,
   },
@@ -40,7 +41,7 @@ const rpManifest = {
     {
       type: "resources",
       uuid: "194c593a-8702-425c-9fd7-7b852ae23c67",
-      version: [3, 0, 0],
+      version: [3, 1, 0],
     },
   ],
   dependencies: [
@@ -60,12 +61,12 @@ const rpManifest = {
   })),
 };
 
-await Deno.writeTextFile(
+await writeFile(
   "pack/BP/manifest.json",
   JSON.stringify(bpManifest, null, 2),
 );
 
-await Deno.writeTextFile(
+await writeFile(
   "pack/RP/manifest.json",
   JSON.stringify(rpManifest, null, 2),
 );

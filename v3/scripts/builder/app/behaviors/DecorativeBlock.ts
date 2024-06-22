@@ -1,6 +1,7 @@
 import type { IBlock } from "../../types.ts";
 import { BLOCK_VERSION, BP_DIR, NAMESPACE } from "../../_constants.ts";
-import { join } from "../../deps.ts";
+import { join } from "node:path";
+import { writeFile } from "node:fs/promises";
 export default class DecorativeBlock {
   block: IBlock;
   name: string;
@@ -68,7 +69,7 @@ export default class DecorativeBlock {
   }
 
   async save() {
-    await Deno.writeTextFile(
+    await writeFile(
       join(BP_DIR, `/blocks/${this.blockId}.json`),
       JSON.stringify(this.toJsonObject(), null, 2),
     );

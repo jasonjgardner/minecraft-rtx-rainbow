@@ -1,8 +1,6 @@
 import { BP_DIR, NAMESPACE, RP_DIR, sizes } from "../_constants.ts";
-import { basename, copy, ensureDir, Image, join } from "../deps.ts";
-import { recursiveReaddir } from "../_utils.ts";
+import { Image } from "imagescript";
 import DecorativeBlock from "./behaviors/DecorativeBlock.ts";
-import type { RGB } from "../types.ts";
 import {
   Glass,
   GlassCarpet,
@@ -13,6 +11,9 @@ import { Lamp, LampSlab, LampStairs } from "./behaviors/Lamp.ts";
 import { Plate } from "./behaviors/Plate.ts";
 import { LitDecorativeBlock } from "./behaviors/Lit.ts";
 import { LampCube } from "./behaviors/LampCube.ts";
+import { writeFile, rename, readFile, readdir } from "node:fs/promises"
+import { join, basename } from "node:path"
+import { ensureDir } from "fs-extra"
 
 await ensureDir(
   join(RP_DIR, "texts"),
@@ -20,7 +21,7 @@ await ensureDir(
 
 await ensureDir(join(BP_DIR, "blocks"));
 
-await Deno.writeTextFile(
+await writeFile(
   join(RP_DIR, "texts", "languages.json"),
   JSON.stringify([
     "en_US",
@@ -76,10 +77,10 @@ for (const color of colors) {
     );
 
     const img = await Image.decode(
-      await Deno.readFile(imgFile),
+      await readFile(imgFile),
     );
 
-    const averageColor = Image.colorToRGB(img.averageColor()) as RGB;
+    const averageColor = Image.colorToRGB(img.averageColor());
 
     const hexColor = `#${
       averageColor.map((c) => c.toString(16).padStart(2, "0")).join("")
@@ -106,7 +107,7 @@ for (const color of colors) {
 const lang = Object.entries(texts).map(([key, value]) => `${key}=${value}`)
   .join("\n");
 
-await Deno.writeTextFile(
+await writeFile(
   join(RP_DIR, "texts", "en_US.lang"),
   lang,
 );
@@ -131,7 +132,7 @@ const terrainAtlas = {
 
 async function addOpacity(size: number, baseColor: string) {
   const baseImage = await Image.decode(
-    await Deno.readFile(
+    await readFile(
       join(
         RP_DIR,
         "subpacks",
@@ -151,7 +152,7 @@ async function addOpacity(size: number, baseColor: string) {
 
   const image = baseImage.opacity(0.5, true);
 
-  await Deno.writeFile(
+  await writeFile(
     join(
       RP_DIR,
       "subpacks",
@@ -218,12 +219,14 @@ await Promise.all(sizes.map(async (size, idx) => {
     texturesDir,
   );
 
-  const files = await recursiveReaddir(texturesDir);
+  const files = await readdir(texturesDir, {
+    recursive: true
+  });
 
   await Promise.all(files.map(async (file) => {
     // Ensure file name is lowercase
     if (file !== file.toLowerCase()) {
-      await Deno.rename(file, file.toLowerCase());
+      await rename(file, file.toLowerCase());
     }
 
     if (!file.endsWith(".png")) {
@@ -254,7 +257,7 @@ await Promise.all(sizes.map(async (size, idx) => {
         normal: `${blockName}_normal`,
       };
 
-    await Deno.writeTextFile(
+    await writeFile(
       join(
         texturesDir,
         `${NAMESPACE}_${blockName}.texture_set.json`,
@@ -289,7 +292,7 @@ await Promise.all(sizes.map(async (size, idx) => {
     num_mip_levels: Math.floor(paddings[idx] * 0.5),
   };
 
-  await Deno.writeTextFile(
+  await writeFile(
     join(RP_DIR, "subpacks", `${size}x`, "textures", "terrain_texture.json"),
     JSON.stringify(terrainAtlasForSize, null, 2),
   );
@@ -300,28 +303,36 @@ await Promise.all(sizes.map(async (size, idx) => {
     textDir,
   );
 
-  await Deno.writeTextFile(
+  await writeFile(
     join(textDir, "en_US.lang"),
     lang,
   );
 }));
 
-await Deno.writeTextFile(
-  join(RP_DIR, "blocks.json"),
-  JSON.stringify(
-    Object.fromEntries(
+
+const blocksData = Object.fromEntries(
       blocks.map(({ blockId, block }) => [blockId, {
         sound: block.sound,
         isotropic: block.isotropic,
-      }]),
-    ),
+      }]));
+
+await writeFile(
+  join(RP_DIR, "blocks.json"),
+  JSON.stringify({
+format_version: [
+		1,
+		1,
+		0
+	],
+  ...blocksData
+  },
     null,
     2,
   ),
 );
 
-await Deno.writeTextFile(
-  join(Deno.cwd(), "db.json"),
+await writeFile(
+  join(process.cwd(), "db.json"),
   JSON.stringify(
     Object.fromEntries(
       blocks.map((
@@ -336,7 +347,7 @@ await Deno.writeTextFile(
 const deferredLightingDir = join(RP_DIR, "lighting");
 await ensureDir(deferredLightingDir);
 
-await Deno.writeTextFile(
+await writeFile(
   join(deferredLightingDir, "global.json"),
   JSON.stringify({
     format_version: [1, 0, 0],

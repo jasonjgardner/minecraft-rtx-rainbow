@@ -1,11 +1,12 @@
-import { copy, join } from "./deps.ts";
 import { BP_DIR, NAMESPACE, ROOT_DIR, RP_DIR } from "./_constants.ts";
-import { emptyDir } from "https://deno.land/std@0.212.0/fs/empty_dir.ts";
+import { emptyDir, copy } from "fs-extra";
+import { join } from "node:path";
+import { platform } from "node:os"
 
-const appData = Deno.env.get("LOCALAPPDATA") || "%LocalAppData%";
+const appData = process.env["LOCALAPPDATA"] || "%LocalAppData%";
 export async function deployToDev(preview = false) {
   if (
-    Deno.build.os !== "windows" || Deno.env.get("GITHUB_ACTIONS") !== undefined
+    platform() !== "win32"
   ) {
     throw Error(
       "Can not deploy to development directory in current environment.",
