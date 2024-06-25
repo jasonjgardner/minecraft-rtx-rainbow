@@ -5,13 +5,13 @@ import DecorativeBlock from "./DecorativeBlock.ts";
 export class Plate extends DecorativeBlock {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string
+    hexColor: string,
   ) {
     super(
       {
         ...block,
       },
-      hexColor
+      hexColor,
     );
 
     this.block = {
@@ -45,7 +45,7 @@ export class Plate extends DecorativeBlock {
           //   category: "construction",
           //   group: "itemGroup.name.copper",
           // },
-          "minecraft:unit_cube": {},
+          "minecraft:geometry": "minecraft:geometry.full_block",
           "minecraft:map_color": this.hexColor,
           "minecraft:light_emission": 0,
           "minecraft:light_dampening": 15,

@@ -48,6 +48,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "blue_50_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "blue_50_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "blue_100_block": {
     "sound": "glass",
     "isotropic": false
@@ -89,6 +97,14 @@
     "isotropic": false
   },
   "blue_100_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "blue_100_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "blue_100_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -136,6 +152,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "blue_200_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "blue_200_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "blue_300_block": {
     "sound": "glass",
     "isotropic": false
@@ -177,6 +201,14 @@
     "isotropic": false
   },
   "blue_300_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "blue_300_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "blue_300_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -224,6 +256,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "blue_400_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "blue_400_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "blue_500_block": {
     "sound": "glass",
     "isotropic": false
@@ -265,6 +305,14 @@
     "isotropic": false
   },
   "blue_500_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "blue_500_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "blue_500_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -312,6 +360,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "blue_600_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "blue_600_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "blue_700_block": {
     "sound": "glass",
     "isotropic": false
@@ -353,6 +409,14 @@
     "isotropic": false
   },
   "blue_700_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "blue_700_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "blue_700_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -400,6 +464,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "blue_800_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "blue_800_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "blue_900_block": {
     "sound": "glass",
     "isotropic": false
@@ -441,6 +513,14 @@
     "isotropic": false
   },
   "blue_900_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "blue_900_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "blue_900_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -488,6 +568,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "brown_50_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "brown_50_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "brown_100_block": {
     "sound": "glass",
     "isotropic": false
@@ -529,6 +617,14 @@
     "isotropic": false
   },
   "brown_100_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "brown_100_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "brown_100_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -576,6 +672,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "brown_200_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "brown_200_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "brown_300_block": {
     "sound": "glass",
     "isotropic": false
@@ -617,6 +721,14 @@
     "isotropic": false
   },
   "brown_300_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "brown_300_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "brown_300_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -664,6 +776,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "brown_400_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "brown_400_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "brown_500_block": {
     "sound": "glass",
     "isotropic": false
@@ -705,6 +825,14 @@
     "isotropic": false
   },
   "brown_500_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "brown_500_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "brown_500_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -752,6 +880,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "brown_600_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "brown_600_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "brown_700_block": {
     "sound": "glass",
     "isotropic": false
@@ -793,6 +929,14 @@
     "isotropic": false
   },
   "brown_700_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "brown_700_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "brown_700_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -840,6 +984,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "brown_800_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "brown_800_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "brown_900_block": {
     "sound": "glass",
     "isotropic": false
@@ -881,6 +1033,14 @@
     "isotropic": false
   },
   "brown_900_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "brown_900_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "brown_900_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -928,6 +1088,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "cyan_50_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "cyan_50_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "cyan_100_block": {
     "sound": "glass",
     "isotropic": false
@@ -969,6 +1137,14 @@
     "isotropic": false
   },
   "cyan_100_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "cyan_100_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "cyan_100_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -1016,6 +1192,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "cyan_200_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "cyan_200_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "cyan_300_block": {
     "sound": "glass",
     "isotropic": false
@@ -1057,6 +1241,14 @@
     "isotropic": false
   },
   "cyan_300_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "cyan_300_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "cyan_300_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -1104,6 +1296,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "cyan_400_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "cyan_400_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "cyan_500_block": {
     "sound": "glass",
     "isotropic": false
@@ -1145,6 +1345,14 @@
     "isotropic": false
   },
   "cyan_500_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "cyan_500_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "cyan_500_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -1192,6 +1400,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "cyan_600_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "cyan_600_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "cyan_700_block": {
     "sound": "glass",
     "isotropic": false
@@ -1233,6 +1449,14 @@
     "isotropic": false
   },
   "cyan_700_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "cyan_700_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "cyan_700_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -1280,6 +1504,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "cyan_800_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "cyan_800_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "cyan_900_block": {
     "sound": "glass",
     "isotropic": false
@@ -1321,6 +1553,14 @@
     "isotropic": false
   },
   "cyan_900_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "cyan_900_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "cyan_900_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -1368,6 +1608,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "gray_50_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "gray_50_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "gray_100_block": {
     "sound": "glass",
     "isotropic": false
@@ -1409,6 +1657,14 @@
     "isotropic": false
   },
   "gray_100_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "gray_100_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "gray_100_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -1456,6 +1712,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "gray_200_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "gray_200_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "gray_300_block": {
     "sound": "glass",
     "isotropic": false
@@ -1497,6 +1761,14 @@
     "isotropic": false
   },
   "gray_300_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "gray_300_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "gray_300_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -1544,6 +1816,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "gray_400_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "gray_400_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "gray_500_block": {
     "sound": "glass",
     "isotropic": false
@@ -1585,6 +1865,14 @@
     "isotropic": false
   },
   "gray_500_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "gray_500_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "gray_500_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -1632,6 +1920,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "gray_600_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "gray_600_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "gray_700_block": {
     "sound": "glass",
     "isotropic": false
@@ -1673,6 +1969,14 @@
     "isotropic": false
   },
   "gray_700_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "gray_700_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "gray_700_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -1720,6 +2024,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "gray_800_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "gray_800_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "gray_900_block": {
     "sound": "glass",
     "isotropic": false
@@ -1761,6 +2073,14 @@
     "isotropic": false
   },
   "gray_900_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "gray_900_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "gray_900_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -1808,6 +2128,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "green_50_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "green_50_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "green_100_block": {
     "sound": "glass",
     "isotropic": false
@@ -1849,6 +2177,14 @@
     "isotropic": false
   },
   "green_100_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "green_100_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "green_100_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -1896,6 +2232,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "green_200_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "green_200_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "green_300_block": {
     "sound": "glass",
     "isotropic": false
@@ -1937,6 +2281,14 @@
     "isotropic": false
   },
   "green_300_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "green_300_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "green_300_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -1984,6 +2336,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "green_400_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "green_400_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "green_500_block": {
     "sound": "glass",
     "isotropic": false
@@ -2025,6 +2385,14 @@
     "isotropic": false
   },
   "green_500_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "green_500_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "green_500_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -2072,6 +2440,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "green_600_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "green_600_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "green_700_block": {
     "sound": "glass",
     "isotropic": false
@@ -2113,6 +2489,14 @@
     "isotropic": false
   },
   "green_700_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "green_700_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "green_700_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -2160,6 +2544,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "green_800_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "green_800_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "green_900_block": {
     "sound": "glass",
     "isotropic": false
@@ -2201,6 +2593,14 @@
     "isotropic": false
   },
   "green_900_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "green_900_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "green_900_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -2248,6 +2648,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "light_blue_50_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_blue_50_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "light_blue_100_block": {
     "sound": "glass",
     "isotropic": false
@@ -2289,6 +2697,14 @@
     "isotropic": false
   },
   "light_blue_100_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_blue_100_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_blue_100_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -2336,6 +2752,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "light_blue_200_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_blue_200_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "light_blue_300_block": {
     "sound": "glass",
     "isotropic": false
@@ -2377,6 +2801,14 @@
     "isotropic": false
   },
   "light_blue_300_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_blue_300_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_blue_300_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -2424,6 +2856,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "light_blue_400_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_blue_400_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "light_blue_500_block": {
     "sound": "glass",
     "isotropic": false
@@ -2465,6 +2905,14 @@
     "isotropic": false
   },
   "light_blue_500_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_blue_500_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_blue_500_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -2512,6 +2960,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "light_blue_600_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_blue_600_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "light_blue_700_block": {
     "sound": "glass",
     "isotropic": false
@@ -2553,6 +3009,14 @@
     "isotropic": false
   },
   "light_blue_700_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_blue_700_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_blue_700_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -2600,6 +3064,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "light_blue_800_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_blue_800_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "light_blue_900_block": {
     "sound": "glass",
     "isotropic": false
@@ -2641,6 +3113,14 @@
     "isotropic": false
   },
   "light_blue_900_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_blue_900_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_blue_900_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -2688,6 +3168,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "light_gray_50_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_gray_50_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "light_gray_100_block": {
     "sound": "glass",
     "isotropic": false
@@ -2729,6 +3217,14 @@
     "isotropic": false
   },
   "light_gray_100_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_gray_100_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_gray_100_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -2776,6 +3272,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "light_gray_200_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_gray_200_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "light_gray_300_block": {
     "sound": "glass",
     "isotropic": false
@@ -2817,6 +3321,14 @@
     "isotropic": false
   },
   "light_gray_300_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_gray_300_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_gray_300_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -2864,6 +3376,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "light_gray_400_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_gray_400_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "light_gray_500_block": {
     "sound": "glass",
     "isotropic": false
@@ -2905,6 +3425,14 @@
     "isotropic": false
   },
   "light_gray_500_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_gray_500_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_gray_500_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -2952,6 +3480,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "light_gray_600_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_gray_600_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "light_gray_700_block": {
     "sound": "glass",
     "isotropic": false
@@ -2993,6 +3529,14 @@
     "isotropic": false
   },
   "light_gray_700_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_gray_700_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_gray_700_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -3040,6 +3584,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "light_gray_800_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_gray_800_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "light_gray_900_block": {
     "sound": "glass",
     "isotropic": false
@@ -3081,6 +3633,14 @@
     "isotropic": false
   },
   "light_gray_900_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_gray_900_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "light_gray_900_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -3128,6 +3688,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "lime_50_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "lime_50_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "lime_100_block": {
     "sound": "glass",
     "isotropic": false
@@ -3169,6 +3737,14 @@
     "isotropic": false
   },
   "lime_100_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "lime_100_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "lime_100_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -3216,6 +3792,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "lime_200_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "lime_200_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "lime_300_block": {
     "sound": "glass",
     "isotropic": false
@@ -3257,6 +3841,14 @@
     "isotropic": false
   },
   "lime_300_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "lime_300_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "lime_300_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -3304,6 +3896,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "lime_400_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "lime_400_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "lime_500_block": {
     "sound": "glass",
     "isotropic": false
@@ -3345,6 +3945,14 @@
     "isotropic": false
   },
   "lime_500_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "lime_500_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "lime_500_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -3392,6 +4000,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "lime_600_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "lime_600_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "lime_700_block": {
     "sound": "glass",
     "isotropic": false
@@ -3433,6 +4049,14 @@
     "isotropic": false
   },
   "lime_700_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "lime_700_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "lime_700_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -3480,6 +4104,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "lime_800_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "lime_800_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "lime_900_block": {
     "sound": "glass",
     "isotropic": false
@@ -3521,6 +4153,14 @@
     "isotropic": false
   },
   "lime_900_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "lime_900_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "lime_900_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -3568,6 +4208,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "magenta_50_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "magenta_50_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "magenta_100_block": {
     "sound": "glass",
     "isotropic": false
@@ -3609,6 +4257,14 @@
     "isotropic": false
   },
   "magenta_100_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "magenta_100_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "magenta_100_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -3656,6 +4312,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "magenta_200_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "magenta_200_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "magenta_300_block": {
     "sound": "glass",
     "isotropic": false
@@ -3697,6 +4361,14 @@
     "isotropic": false
   },
   "magenta_300_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "magenta_300_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "magenta_300_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -3744,6 +4416,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "magenta_400_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "magenta_400_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "magenta_500_block": {
     "sound": "glass",
     "isotropic": false
@@ -3785,6 +4465,14 @@
     "isotropic": false
   },
   "magenta_500_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "magenta_500_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "magenta_500_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -3832,6 +4520,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "magenta_600_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "magenta_600_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "magenta_700_block": {
     "sound": "glass",
     "isotropic": false
@@ -3873,6 +4569,14 @@
     "isotropic": false
   },
   "magenta_700_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "magenta_700_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "magenta_700_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -3920,6 +4624,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "magenta_800_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "magenta_800_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "magenta_900_block": {
     "sound": "glass",
     "isotropic": false
@@ -3961,6 +4673,14 @@
     "isotropic": false
   },
   "magenta_900_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "magenta_900_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "magenta_900_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -4008,6 +4728,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "orange_50_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "orange_50_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "orange_100_block": {
     "sound": "glass",
     "isotropic": false
@@ -4049,6 +4777,14 @@
     "isotropic": false
   },
   "orange_100_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "orange_100_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "orange_100_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -4096,6 +4832,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "orange_200_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "orange_200_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "orange_300_block": {
     "sound": "glass",
     "isotropic": false
@@ -4137,6 +4881,14 @@
     "isotropic": false
   },
   "orange_300_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "orange_300_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "orange_300_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -4184,6 +4936,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "orange_400_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "orange_400_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "orange_500_block": {
     "sound": "glass",
     "isotropic": false
@@ -4225,6 +4985,14 @@
     "isotropic": false
   },
   "orange_500_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "orange_500_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "orange_500_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -4272,6 +5040,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "orange_600_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "orange_600_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "orange_700_block": {
     "sound": "glass",
     "isotropic": false
@@ -4313,6 +5089,14 @@
     "isotropic": false
   },
   "orange_700_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "orange_700_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "orange_700_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -4360,6 +5144,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "orange_800_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "orange_800_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "orange_900_block": {
     "sound": "glass",
     "isotropic": false
@@ -4401,6 +5193,14 @@
     "isotropic": false
   },
   "orange_900_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "orange_900_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "orange_900_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -4448,6 +5248,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "pink_50_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "pink_50_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "pink_100_block": {
     "sound": "glass",
     "isotropic": false
@@ -4489,6 +5297,14 @@
     "isotropic": false
   },
   "pink_100_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "pink_100_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "pink_100_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -4536,6 +5352,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "pink_200_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "pink_200_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "pink_300_block": {
     "sound": "glass",
     "isotropic": false
@@ -4577,6 +5401,14 @@
     "isotropic": false
   },
   "pink_300_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "pink_300_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "pink_300_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -4624,6 +5456,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "pink_400_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "pink_400_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "pink_500_block": {
     "sound": "glass",
     "isotropic": false
@@ -4665,6 +5505,14 @@
     "isotropic": false
   },
   "pink_500_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "pink_500_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "pink_500_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -4712,6 +5560,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "pink_600_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "pink_600_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "pink_700_block": {
     "sound": "glass",
     "isotropic": false
@@ -4753,6 +5609,14 @@
     "isotropic": false
   },
   "pink_700_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "pink_700_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "pink_700_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -4800,6 +5664,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "pink_800_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "pink_800_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "pink_900_block": {
     "sound": "glass",
     "isotropic": false
@@ -4841,6 +5713,14 @@
     "isotropic": false
   },
   "pink_900_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "pink_900_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "pink_900_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -4888,6 +5768,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "purple_50_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "purple_50_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "purple_100_block": {
     "sound": "glass",
     "isotropic": false
@@ -4929,6 +5817,14 @@
     "isotropic": false
   },
   "purple_100_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "purple_100_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "purple_100_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -4976,6 +5872,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "purple_200_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "purple_200_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "purple_300_block": {
     "sound": "glass",
     "isotropic": false
@@ -5017,6 +5921,14 @@
     "isotropic": false
   },
   "purple_300_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "purple_300_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "purple_300_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -5064,6 +5976,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "purple_400_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "purple_400_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "purple_500_block": {
     "sound": "glass",
     "isotropic": false
@@ -5105,6 +6025,14 @@
     "isotropic": false
   },
   "purple_500_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "purple_500_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "purple_500_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -5152,6 +6080,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "purple_600_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "purple_600_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "purple_700_block": {
     "sound": "glass",
     "isotropic": false
@@ -5193,6 +6129,14 @@
     "isotropic": false
   },
   "purple_700_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "purple_700_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "purple_700_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -5240,6 +6184,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "purple_800_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "purple_800_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "purple_900_block": {
     "sound": "glass",
     "isotropic": false
@@ -5281,6 +6233,14 @@
     "isotropic": false
   },
   "purple_900_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "purple_900_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "purple_900_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -5328,6 +6288,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "red_50_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "red_50_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "red_100_block": {
     "sound": "glass",
     "isotropic": false
@@ -5369,6 +6337,14 @@
     "isotropic": false
   },
   "red_100_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "red_100_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "red_100_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -5416,6 +6392,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "red_200_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "red_200_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "red_300_block": {
     "sound": "glass",
     "isotropic": false
@@ -5457,6 +6441,14 @@
     "isotropic": false
   },
   "red_300_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "red_300_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "red_300_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -5504,6 +6496,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "red_400_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "red_400_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "red_500_block": {
     "sound": "glass",
     "isotropic": false
@@ -5545,6 +6545,14 @@
     "isotropic": false
   },
   "red_500_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "red_500_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "red_500_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -5592,6 +6600,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "red_600_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "red_600_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "red_700_block": {
     "sound": "glass",
     "isotropic": false
@@ -5633,6 +6649,14 @@
     "isotropic": false
   },
   "red_700_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "red_700_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "red_700_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -5680,6 +6704,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "red_800_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "red_800_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "red_900_block": {
     "sound": "glass",
     "isotropic": false
@@ -5721,6 +6753,14 @@
     "isotropic": false
   },
   "red_900_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "red_900_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "red_900_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -5768,6 +6808,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "yellow_50_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "yellow_50_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "yellow_100_block": {
     "sound": "glass",
     "isotropic": false
@@ -5809,6 +6857,14 @@
     "isotropic": false
   },
   "yellow_100_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "yellow_100_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "yellow_100_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -5856,6 +6912,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "yellow_200_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "yellow_200_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "yellow_300_block": {
     "sound": "glass",
     "isotropic": false
@@ -5897,6 +6961,14 @@
     "isotropic": false
   },
   "yellow_300_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "yellow_300_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "yellow_300_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -5944,6 +7016,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "yellow_400_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "yellow_400_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "yellow_500_block": {
     "sound": "glass",
     "isotropic": false
@@ -5985,6 +7065,14 @@
     "isotropic": false
   },
   "yellow_500_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "yellow_500_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "yellow_500_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -6032,6 +7120,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "yellow_600_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "yellow_600_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "yellow_700_block": {
     "sound": "glass",
     "isotropic": false
@@ -6073,6 +7169,14 @@
     "isotropic": false
   },
   "yellow_700_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "yellow_700_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "yellow_700_line_lamp": {
     "sound": "glass",
     "isotropic": false
   },
@@ -6120,6 +7224,14 @@
     "sound": "glass",
     "isotropic": false
   },
+  "yellow_800_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "yellow_800_line_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
   "yellow_900_block": {
     "sound": "glass",
     "isotropic": false
@@ -6161,6 +7273,14 @@
     "isotropic": false
   },
   "yellow_900_glass_stairs": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "yellow_900_plate_lamp": {
+    "sound": "glass",
+    "isotropic": false
+  },
+  "yellow_900_line_lamp": {
     "sound": "glass",
     "isotropic": false
   }

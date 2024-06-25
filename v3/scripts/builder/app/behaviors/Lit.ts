@@ -5,7 +5,7 @@ import { BLOCK_VERSION, NAMESPACE } from "../../_constants.ts";
 export class LitDecorativeBlock extends DecorativeBlock {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string
+    hexColor: string,
   ) {
     super(block, hexColor);
     this.name = "lit";
@@ -33,7 +33,7 @@ export class LitDecorativeBlock extends DecorativeBlock {
           //     category: "construction",
           //     group: "itemGroup.name.glazedTerracotta",
           //   },
-          "minecraft:unit_cube": {},
+          "minecraft:geometry": "minecraft:geometry.full_block",
           "minecraft:map_color": this.hexColor,
           "minecraft:light_emission": 15,
           "minecraft:material_instances": {

@@ -1,0 +1,56 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "rainbow:mix_block",
+      "menu_category": {
+        "category": "construction",
+        "group": "itemGroup.name.concrete"
+      },
+      "traits": {}
+    },
+    "components": {
+      "minecraft:unit_cube": {},
+      "minecraft:map_color": "#ffffff",
+      "minecraft:material_instances": {
+        "north": {
+          "texture": "rainbow_blue_500_block",
+          "render_method": "opaque",
+          "ambient_occlusion": true,
+          "face_dimming": true
+        },
+        "south": {
+          "texture": "rainbow_red_500_block",
+          "render_method": "opaque",
+          "ambient_occlusion": true,
+          "face_dimming": true
+        },
+        "east": {
+          "texture": "rainbow_green_500_block",
+          "render_method": "opaque",
+          "ambient_occlusion": true,
+          "face_dimming": true
+        },
+        "west": {
+          "texture": "rainbow_purple_500_block",
+          "render_method": "opaque",
+          "ambient_occlusion": true,
+          "face_dimming": true
+        },
+        "up": {
+          "texture": "rainbow_yellow_500_block",
+          "render_method": "opaque",
+          "ambient_occlusion": true,
+          "face_dimming": true
+        },
+        "down": {
+          "texture": "rainbow_orange_500_block",
+          "render_method": "opaque",
+          "ambient_occlusion": true,
+          "face_dimming": true
+        }
+      }
+    },
+    "permutations": []
+  }
+}

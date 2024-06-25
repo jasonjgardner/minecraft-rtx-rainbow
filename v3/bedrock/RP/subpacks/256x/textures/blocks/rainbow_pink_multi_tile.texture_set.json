@@ -1,0 +1,8 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "pink_multi_tile_basecolor",
+    "metalness_emissive_roughness": "pink_multi_tile_mer",
+    "normal": "pink_multi_tile_normal"
+  }
+}

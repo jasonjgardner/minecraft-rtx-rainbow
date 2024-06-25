@@ -1,5 +1,5 @@
 {
-  "format_version": "1.20.20",
+  "format_version": "1.20.80",
   "minecraft:block": {
     "description": {
       "identifier": "rainbow:blue_200_lamp_cube",

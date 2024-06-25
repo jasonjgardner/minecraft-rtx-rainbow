@@ -1,0 +1,295 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.line_block",
+				"texture_width": 16,
+				"texture_height": 16,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 3,
+				"visible_bounds_offset": [
+					0,
+					0.5,
+					0
+				]
+			},
+			"bones": [
+				{
+					"name": "bone",
+					"pivot": [
+						0,
+						8,
+						-5.2
+					],
+					"cubes": [
+						{
+							"origin": [
+								-8,
+								0,
+								-2
+							],
+							"size": [
+								16,
+								16,
+								10
+							],
+							"uv": {
+								"east": {
+									"uv": [
+										0,
+										0
+									],
+									"uv_size": [
+										10,
+										16
+									]
+								},
+								"south": {
+									"uv": [
+										0,
+										0
+									],
+									"uv_size": [
+										16,
+										16
+									]
+								},
+								"west": {
+									"uv": [
+										6,
+										0
+									],
+									"uv_size": [
+										10,
+										16
+									]
+								},
+								"up": {
+									"uv": [
+										16,
+										16
+									],
+									"uv_size": [
+										-16,
+										-10
+									]
+								},
+								"down": {
+									"uv": [
+										16,
+										10
+									],
+									"uv_size": [
+										-16,
+										-10
+									]
+								}
+							}
+						},
+						{
+							"origin": [
+								-8,
+								0,
+								-8
+							],
+							"size": [
+								7,
+								16,
+								6
+							],
+							"uv": {
+								"north": {
+									"uv": [
+										0,
+										0
+									],
+									"uv_size": [
+										7,
+										16
+									]
+								},
+								"east": {
+									"uv": [
+										10,
+										0
+									],
+									"uv_size": [
+										6,
+										16
+									]
+								},
+								"west": {
+									"uv": [
+										10,
+										0
+									],
+									"uv_size": [
+										6,
+										16
+									]
+								},
+								"up": {
+									"uv": [
+										16,
+										6
+									],
+									"uv_size": [
+										-7,
+										-6
+									]
+								},
+								"down": {
+									"uv": [
+										16,
+										16
+									],
+									"uv_size": [
+										-7,
+										-6
+									]
+								}
+							}
+						},
+						{
+							"origin": [
+								1,
+								0,
+								-8
+							],
+							"size": [
+								7,
+								16,
+								6
+							],
+							"uv": {
+								"north": {
+									"uv": [
+										9,
+										0
+									],
+									"uv_size": [
+										7,
+										16
+									]
+								},
+								"east": {
+									"uv": [
+										0,
+										0
+									],
+									"uv_size": [
+										6,
+										16
+									]
+								},
+								"west": {
+									"uv": [
+										0,
+										0
+									],
+									"uv_size": [
+										6,
+										16
+									]
+								},
+								"up": {
+									"uv": [
+										7,
+										6
+									],
+									"uv_size": [
+										-7,
+										-6
+									]
+								},
+								"down": {
+									"uv": [
+										7,
+										16
+									],
+									"uv_size": [
+										-7,
+										-6
+									]
+								}
+							}
+						},
+						{
+							"origin": [
+								-1,
+								8,
+								-3
+							],
+							"size": [
+								2,
+								8,
+								1
+							],
+							"uv": {
+								"north": {
+									"uv": [
+										4,
+										0
+									],
+									"uv_size": [
+										2,
+										8
+									],
+									"material_instance": "primary"
+								},
+								"up": {
+									"uv": [
+										6,
+										1
+									],
+									"uv_size": [
+										-2,
+										-1
+									],
+									"material_instance": "primary"
+								}
+							}
+						},
+						{
+							"origin": [
+								-1,
+								0,
+								-3
+							],
+							"size": [
+								2,
+								8,
+								1
+							],
+							"uv": {
+								"north": {
+									"uv": [
+										4,
+										0
+									],
+									"uv_size": [
+										2,
+										8
+									],
+									"material_instance": "secondary"
+								},
+								"down": {
+									"uv": [
+										6,
+										1
+									],
+									"uv_size": [
+										-2,
+										-1
+									],
+									"material_instance": "secondary"
+								}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

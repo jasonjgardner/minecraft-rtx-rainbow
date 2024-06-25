@@ -99,7 +99,7 @@ export default class Block {
     }
 
     return {
-      "minecraft:unit_cube": {},
+      "minecraft:geometry": "minecraft:geometry.full_block",
     };
   }
 
@@ -161,7 +161,7 @@ export default class Block {
   async save(bp: string) {
     await writeFile(
       join(bp, "blocks", `${this.behaviorId}.json`),
-      JSON.stringify(this.toJsonObject(), null, 2)
+      JSON.stringify(this.toJsonObject(), null, 2),
     );
 
     return this;

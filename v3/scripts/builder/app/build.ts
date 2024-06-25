@@ -11,9 +11,11 @@ import { Lamp, LampSlab, LampStairs } from "./behaviors/Lamp.ts";
 import { Plate } from "./behaviors/Plate.ts";
 import { LitDecorativeBlock } from "./behaviors/Lit.ts";
 import { LampCube } from "./behaviors/LampCube.ts";
+import PlateLamp from "./behaviors/PlateLamp.ts";
 import { writeFile, rename, readFile, readdir } from "node:fs/promises";
 import { join, basename } from "node:path";
 import { ensureDir } from "fs-extra";
+import LineBlock from "./behaviors/LineBlock.ts";
 
 await ensureDir(join(RP_DIR, "texts"));
 
@@ -21,7 +23,7 @@ await ensureDir(join(BP_DIR, "blocks"));
 
 await writeFile(
   join(RP_DIR, "texts", "languages.json"),
-  JSON.stringify(["en_US"])
+  JSON.stringify(["en_US"]),
 );
 
 const behaviors = [
@@ -36,32 +38,91 @@ const behaviors = [
   GlassSlab,
   GlassCarpet,
   GlassStairs,
+  PlateLamp,
+  LineBlock,
 ];
 
 const blocks: DecorativeBlock[] = [];
 const texts: Record<string, string> = {};
 
-const colors = [
-  "blue",
-  "brown",
-  "cyan",
-  "gray",
-  "green",
-  "light_blue",
-  "light_gray",
-  "lime",
-  "magenta",
-  "orange",
-  "pink",
-  "purple",
-  "red",
-  // "white",
-  "yellow",
-];
+const colors = {
+  blue: {
+    complimentary: "orange",
+    secondary: "light_blue",
+    tertiary: "cyan",
+  },
+  brown: {
+    complimentary: "light_blue",
+    secondary: "green",
+    tertiary: "red",
+  },
+  cyan: {
+    complimentary: "red",
+    secondary: "blue",
+    tertiary: "yellow",
+  },
+  gray: {
+    complimentary: "light_gray",
+    secondary: "light_blue",
+    tertiary: "brown",
+  },
+  green: {
+    complimentary: "pink",
+    secondary: "lime",
+    tertiary: "magenta",
+  },
+  light_blue: {
+    complimentary: "brown",
+    secondary: "cyan",
+    tertiary: "gray",
+  },
+  light_gray: {
+    complimentary: "gray",
+    secondary: "brown",
+    tertiary: "light_blue",
+  },
+  lime: {
+    complimentary: "magenta",
+    secondary: "green",
+    tertiary: "pink",
+  },
+  magenta: {
+    complimentary: "lime",
+    secondary: "pink",
+    tertiary: "green",
+  },
+  orange: {
+    complimentary: "blue",
+    secondary: "yellow",
+    tertiary: "red",
+  },
+  pink: {
+    complimentary: "green",
+    secondary: "magenta",
+    tertiary: "lime",
+  },
+  purple: {
+    complimentary: "yellow",
+    secondary: "red",
+    tertiary: "blue",
+  },
+  red: {
+    complimentary: "cyan",
+    secondary: "orange",
+    tertiary: "yellow",
+  },
+  yellow: {
+    complimentary: "purple",
+    secondary: "red",
+    tertiary: "blue",
+  },
+};
 
 const shades = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
 
-for (const color of colors) {
+const colorKeys = Object.keys(colors);
+
+for (const color of colorKeys) {
   for (const shade of shades) {
     const imgFile = join(
       RP_DIR,
@@ -69,7 +130,7 @@ for (const color of colors) {
       "16x",
       "textures",
       "blocks",
-      `${color}_${shade}_block_basecolor.png`
+      `${color}_${shade}_block_basecolor.png`,
     );
 
     const img = await Image.decode(await readFile(imgFile));
@@ -90,7 +151,7 @@ for (const color of colors) {
           colorName,
           id: `${color}_${shade}`,
         },
-        hexColor
+        hexColor,
       );
       texts[Block.textId] = Block.title;
 
@@ -120,7 +181,7 @@ const terrainAtlas = {
         textures: `textures/blocks/${textureId}`,
         carried_texture: `textures/blocks/${textureId}_carried.png`,
       },
-    ])
+    ]),
   ),
 };
 
@@ -133,9 +194,9 @@ async function addOpacity(size: number, baseColor: string) {
         `${size}x`,
         "textures",
         "blocks",
-        `${baseColor}.png`
-      )
-    )
+        `${baseColor}.png`,
+      ),
+    ),
   );
 
   // const opacityImage = await Image.decode(
@@ -153,9 +214,9 @@ async function addOpacity(size: number, baseColor: string) {
       `${size}x`,
       "textures",
       "blocks",
-      `${baseColor}.png`
+      `${baseColor}.png`,
     ),
-    await image.encode()
+    await image.encode(),
   );
 }
 
@@ -225,7 +286,7 @@ await Promise.all(
 
         const blockName = basename(file, ".png").replace(
           /_(baseColor|carried|mer|normal|height|opacity)?$/i,
-          ""
+          "",
         );
 
         // if (
@@ -259,8 +320,8 @@ await Promise.all(
               },
             },
             null,
-            2
-          )
+            2,
+          ),
         );
 
         // const image = await Image.decode(
@@ -271,7 +332,7 @@ await Promise.all(
         //   file,
         //   await image.resize(size, size).encode(),
         // );
-      })
+      }),
     );
 
     const terrainAtlasForSize = {
@@ -282,7 +343,7 @@ await Promise.all(
 
     await writeFile(
       join(RP_DIR, "subpacks", `${size}x`, "textures", "terrain_texture.json"),
-      JSON.stringify(terrainAtlasForSize, null, 2)
+      JSON.stringify(terrainAtlasForSize, null, 2),
     );
 
     const textDir = join(RP_DIR, "subpacks", `${size}x`, "texts");
@@ -290,7 +351,7 @@ await Promise.all(
     await ensureDir(textDir);
 
     await writeFile(join(textDir, "en_US.lang"), lang);
-  })
+  }),
 );
 
 const blocksData = Object.fromEntries(
@@ -300,7 +361,7 @@ const blocksData = Object.fromEntries(
       sound: block.sound,
       isotropic: block.isotropic,
     },
-  ])
+  ]),
 );
 
 await writeFile(
@@ -311,19 +372,19 @@ await writeFile(
       ...blocksData,
     },
     null,
-    2
-  )
+    2,
+  ),
 );
 
 await writeFile(
   join(process.cwd(), "db.json"),
   JSON.stringify(
     Object.fromEntries(
-      blocks.map(({ blockId, hexColor }) => [blockId, hexColor])
+      blocks.map(({ blockId, hexColor }) => [blockId, hexColor]),
     ),
     null,
-    2
-  )
+    2,
+  ),
 );
 
 const deferredLightingDir = join(RP_DIR, "lighting");
@@ -331,45 +392,49 @@ await ensureDir(deferredLightingDir);
 
 await writeFile(
   join(deferredLightingDir, "global.json"),
-  JSON.stringify({
-    format_version: [1, 0, 0],
-    directional_lights: {
-      sun: {
-        illuminance: {
-          "0.0": 1.0, // Noon
-          "0.25": 400.0, // Sunset
-          "0.35": 39000.0,
-          "0.5": 100000.0, // Midnight
-          "0.65": 39000.0,
-          "0.75": 400.0, // Sunrise
-          "1.0": 1.0,
+  JSON.stringify(
+    {
+      format_version: [1, 0, 0],
+      directional_lights: {
+        sun: {
+          illuminance: {
+            "0.0": 1.0, // Noon
+            "0.25": 400.0, // Sunset
+            "0.35": 39000.0,
+            "0.5": 100000.0, // Midnight
+            "0.65": 39000.0,
+            "0.75": 400.0, // Sunrise
+            "1.0": 1.0,
+          },
+          color: [255.0, 255.0, 255.0, 255.0],
         },
-        color: [255.0, 255.0, 255.0, 255.0],
+        moon: {
+          illuminance: 0.25,
+          color: [255.0, 255.0, 255.0, 255.0],
+        },
+        orbital_offset_degrees: 41.25,
       },
-      moon: {
-        illuminance: 0.25,
-        color: [255.0, 255.0, 255.0, 255.0],
+      point_lights: {
+        colors: Object.fromEntries(
+          blocks
+            .filter(
+              (b) => b.blockId.endsWith("lit") || b.blockId.endsWith("lamp"),
+            )
+            .map(({ blockId, hexColor }) => {
+              return [`rainbow:${blockId}`, hexColor];
+            }),
+        ),
       },
-      orbital_offset_degrees: 41.25,
+      pbr: {
+        blocks: {
+          global_metalness_emissive_roughness: [0.0, 0.0, 1.0],
+        },
+        actors: {
+          global_metalness_emissive_roughness: [0.0, 0.0, 1.0],
+        },
+      },
     },
-    point_lights: {
-      colors: Object.fromEntries(
-        blocks
-          .filter(
-            (b) => b.blockId.endsWith("lit") || b.blockId.endsWith("lamp")
-          )
-          .map(({ blockId, hexColor }) => {
-            return [`rainbow:${blockId}`, hexColor];
-          })
-      ),
-    },
-    pbr: {
-      blocks: {
-        global_metalness_emissive_roughness: [0.0, 0.0, 1.0],
-      },
-      actors: {
-        global_metalness_emissive_roughness: [0.0, 0.0, 1.0],
-      },
-    },
-  })
+    null,
+    2,
+  ),
 );

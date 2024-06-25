@@ -13,7 +13,7 @@ export default class DecorativeBlock {
 
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string
+    hexColor: string,
   ) {
     this.block = {
       isotropic: false,
@@ -52,7 +52,8 @@ export default class DecorativeBlock {
           //   category: "construction",
           //   group: "itemGroup.name.concrete",
           // },
-          "minecraft:unit_cube": {},
+          //
+          "minecraft:geometry": "minecraft:geometry.full_block",
           "minecraft:map_color": this.hexColor,
           "minecraft:material_instances": {
             "*": {
@@ -71,7 +72,7 @@ export default class DecorativeBlock {
   async save() {
     await writeFile(
       join(BP_DIR, `/blocks/${this.blockId}.json`),
-      JSON.stringify(this.toJsonObject(), null, 2)
+      JSON.stringify(this.toJsonObject(), null, 2),
     );
 
     return this;

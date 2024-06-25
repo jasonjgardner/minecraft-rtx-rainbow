@@ -26,7 +26,7 @@ for (const [direction, rotation] of Object.entries(directions)) {
           rotation: [rotation[0] - 180, rotation[1], rotation[2]],
         },
       },
-    }
+    },
   );
 }
 

@@ -7,4 +7,14 @@ node_modules/
 cache/
 out/*
 .autosave
-.sbs*
+*.sbs
+*.sbsar
+*.psd
+**/block/main/**/*glass*
+**/block/main/**/*lamp*
+**/block/main/**/*lit*
+**/block/main/**/*plate*
+**/glass/main/resources/**/*plate*
+**/glass/main/resources/**/*lamp*
+**/glass/main/resources/**/*lit*
+**/glass/main/resources/**/*block*

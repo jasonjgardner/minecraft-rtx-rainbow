@@ -2,6 +2,8 @@ import * as Bun from "bun";
 import { join } from "node:path";
 
 await Bun.build({
-  entrypoints: [join(process.cwd(), "v3/addon/scripts/main.ts")],
-  outdir: join(process.cwd(), "v3/bedrock/BP/scripts"),
+  entrypoints: [join(process.cwd(), "src/main.ts")],
+  outdir: join(process.cwd(), "addon/scripts"),
+  external: ["@minecraft/server"],
+  sourcemap: "external",
 });

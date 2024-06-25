@@ -1,0 +1,39 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "rainbow:temp_block",
+      "traits": {}
+    },
+    "components": {
+      "minecraft:unit_cube": {},
+      "minecraft:map_color": "#ffffff",
+      "minecraft:light_emission": 10,
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "rainbow_lime_400_lit",
+          "render_method": "opaque",
+          "ambient_occlusion": true,
+          "face_dimming": true
+        }
+      },
+      "minecraft:queued_ticking": {
+        "interval_range": [10, 11],
+        "looping": false,
+        "on_tick": {
+            "condition": 1,
+            "event": "rainbow:disappear",
+            "target": "self"
+        }
+      }
+    },
+    "permutations": [],
+    "events": {
+        "rainbow:disappear": {
+            "set_block": {
+                "block_type": "minecraft:air"
+            }
+        }
+    }
+  }
+}

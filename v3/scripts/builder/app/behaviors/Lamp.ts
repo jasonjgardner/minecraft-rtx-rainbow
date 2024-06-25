@@ -1,11 +1,11 @@
 import type { IBlock } from "../../types.ts";
-import { DecorativeBlock } from "./mod.ts";
+import { DecorativeBlock } from "./index.ts";
 import { BLOCK_VERSION, NAMESPACE } from "../../_constants.ts";
 import stairsPermutations from "./permutes/stairs.ts";
 export class Lamp extends DecorativeBlock {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string
+    hexColor: string,
   ) {
     super(block, hexColor);
     this.name = "lamp";
@@ -33,7 +33,7 @@ export class Lamp extends DecorativeBlock {
           //     category: "construction",
           //     group: "itemGroup.name.glazedTerracotta",
           //   },
-          "minecraft:unit_cube": {},
+          "minecraft:geometry": "minecraft:geometry.full_block",
           "minecraft:map_color": this.hexColor,
           "minecraft:light_emission": 15,
           "minecraft:material_instances": {
@@ -51,7 +51,7 @@ export class Lamp extends DecorativeBlock {
 export class LampSlab extends Lamp {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string
+    hexColor: string,
   ) {
     super(block, hexColor);
     this.name = "lamp_slab";
@@ -130,7 +130,7 @@ const placementTrait = {
 export class LampStairs extends Lamp {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string
+    hexColor: string,
   ) {
     super(block, hexColor);
     this.name = "lamp_stairs";
@@ -177,7 +177,7 @@ export class LampStairs extends Lamp {
 export class LampCube extends Lamp {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string
+    hexColor: string,
   ) {
     super(block, hexColor);
     this.name = "lamp_cube";

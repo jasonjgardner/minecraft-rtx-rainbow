@@ -66,70 +66,8 @@ export type MultiLingual = {
 
 export type LanguagesContainer = Record<LanguageId, string[]>;
 
-export type BlendModes =
-  | "source-over"
-  | "source-in"
-  | "source-atop"
-  | "destination-over"
-  | "lighter"
-  | "copy"
-  | "xor"
-  | "multiply"
-  | "screen"
-  | "overlay"
-  | "darken"
-  | "lighten"
-  | "color-dodge"
-  | "color-burn"
-  | "hard-light"
-  | "soft-light"
-  | "difference"
-  | "exclusion"
-  | "hue"
-  | "saturation"
-  | "color"
-  | "luminosity";
-
-export interface IMaterial {
-  name: MultiLingual;
-  label?: string;
-  normal?: string;
-  mer?: string | RGB;
-  sound?: string;
-  friction: MaterialMultiplier;
-  flammable?: {
-    burn_odds: number;
-    flame_odds: number;
-  };
-
-  explosionResistance: MaterialMultiplier;
-
-  lightAbsorption: MaterialMultiplier;
-
-  lightEmission: MaterialMultiplier;
-  metalness: MaterialMultiplier;
-  emissive: MaterialMultiplier;
-  roughness: MaterialMultiplier;
-  opacity: MaterialMultiplier;
-
-  minimumLevel: number;
-  maximumLevel: number;
-
-  endStep: number;
-
-  step: number;
-
-  steps: number[];
-
-  geometry?: string;
-  shading?: {
-    texture: string;
-    blend: BlendModes | [BlendModes, BlendModes];
-  }[];
-  render?: (block: IBlock, size: number) => Promise<Uint8Array>;
-}
-
 export interface IBlock {
+  id: string;
   name: string | MultiLingual;
   enabled?: boolean;
   color: string;
@@ -148,34 +86,6 @@ export type PackModule = {
   type?: "script" | "data" | "resource";
   entry?: string;
 };
-
-export type WssState = {
-  currentRequestIdx: number;
-  updatePending?: boolean;
-  sendRate?: number;
-  offset?: [number, number, number];
-  useAbsolutePosition?: boolean;
-  axis?: Axis;
-  material?: string;
-  enableBlockHistory?: boolean;
-  blockHistory: Array<[number, number, number]>;
-  blockHistoryMaxLength: number;
-  functionLog?: string;
-};
-
-export interface WssParams {
-  parameters: URLSearchParams;
-  queueCommandRequest: (commandLine: string) => void;
-  formatPosition: (
-    x: number,
-    y: number,
-    z: number,
-    offsetX?: number,
-    offsetY?: number,
-    offsetZ?: number
-  ) => string;
-  state?: WssState;
-}
 
 export interface IColorShades {
   shades: 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;

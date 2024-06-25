@@ -1,5 +1,5 @@
 {
-  "format_version": "1.20.20",
+  "format_version": "1.20.80",
   "minecraft:block": {
     "description": {
       "identifier": "rainbow:blue_600_lit",
@@ -10,7 +10,7 @@
       "traits": {}
     },
     "components": {
-      "minecraft:unit_cube": {},
+      "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:map_color": "#263661",
       "minecraft:light_emission": 15,
       "minecraft:material_instances": {

@@ -37,7 +37,7 @@ for (const [direction, rotation] of Object.entries(directions)) {
           rotation: [rotation[0] - 180, rotation[1], rotation[2]],
         },
       },
-    }
+    },
   );
 }
 
@@ -89,7 +89,7 @@ const events: BlockEvents = {};
 export class LampCube extends Lamp {
   constructor(
     block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string
+    hexColor: string,
   ) {
     super(block, hexColor);
     this.name = "lamp_cube";

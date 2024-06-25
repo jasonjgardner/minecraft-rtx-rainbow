@@ -1,0 +1,86 @@
+{
+  "format_version": "1.20.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "rainbow:runaway_block",
+      "traits": {},
+      "states": {
+        "rainbow:permute": [0, 1, 2, 3]
+      }
+    },
+    "components": {
+      "minecraft:unit_cube": {},
+      "minecraft:map_color": "#ffffff",
+      "minecraft:light_emission": 10,
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "rainbow_yellow_600_lit",
+          "render_method": "opaque",
+          "ambient_occlusion": true,
+          "face_dimming": true
+        }
+      },
+      "minecraft:queued_ticking": {
+        "interval_range": [20, 25],
+        "looping": false,
+        "on_tick": {
+          "condition": "math.random(0, 100) < 25",
+          "event": "rainbow:disappear",
+          "target": "self"
+        }
+      }
+    },
+    "permutations": [{
+      "condition": "q.block_state('rainbow:permute') == 0",
+      "components": {
+        "minecraft:material_instances": {
+          "*": {
+            "texture": "rainbow_yellow_700_lit",
+            "render_method": "opaque",
+            "ambient_occlusion": true,
+            "face_dimming": true
+          }
+        },
+        "minecraft:queued_ticking": {
+          "interval_range": [3, 10],
+          "looping": false,
+          "on_tick": {
+            "event": "rainbow:crawl_north",
+            "target": "self"
+          }
+        }
+      }
+    }],
+    "events": {
+      "rainbow:disappear": {
+        "set_block": {
+          "block_type": "minecraft:air"
+        }
+      },
+      "rainbow:crawl_north": {
+        "set_block_at_pos": {
+          "block_type": "rainbow:runaway_block",
+          "block_offset": [0, 0, -1]
+        }
+      },
+      "rainbow:crawl_south": {
+        "set_block_at_pos": {
+          "block_type": "rainbow:runaway_block",
+          "block_offset": [0, 0, 1]
+        }
+      },
+      "rainbow:crawl_east": {
+        "set_block_at_pos": {
+          "block_type": "rainbow:runaway_block",
+          "block_offset": [1, 0, 0]
+        }
+      },
+      "rainbow:crawl_west": {
+        "set_block_at_pos": {
+          "block_type": "rainbow:runaway_block",
+          "block_offset": [-1, 0, 0]
+        }
+      }
+    }
+  }
+}

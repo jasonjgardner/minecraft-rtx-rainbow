@@ -1,5 +1,9 @@
 {
-  "format_version": [1, 0, 0],
+  "format_version": [
+    1,
+    0,
+    0
+  ],
   "directional_lights": {
     "sun": {
       "illuminance": {
@@ -11,9 +15,22 @@
         "0.75": 400,
         "1.0": 1
       },
-      "color": [255, 255, 255, 255]
+      "color": [
+        255,
+        255,
+        255,
+        255
+      ]
     },
-    "moon": { "illuminance": 0.25, "color": [255, 255, 255, 255] },
+    "moon": {
+      "illuminance": 0.25,
+      "color": [
+        255,
+        255,
+        255,
+        255
+      ]
+    },
     "orbital_offset_degrees": 41.25
   },
   "point_lights": {
@@ -301,7 +318,19 @@
     }
   },
   "pbr": {
-    "blocks": { "global_metalness_emissive_roughness": [0, 0, 1] },
-    "actors": { "global_metalness_emissive_roughness": [0, 0, 1] }
+    "blocks": {
+      "global_metalness_emissive_roughness": [
+        0,
+        0,
+        1
+      ]
+    },
+    "actors": {
+      "global_metalness_emissive_roughness": [
+        0,
+        0,
+        1
+      ]
+    }
   }
 }

@@ -1,0 +1,88 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:block": {
+    "description": {
+      "identifier": "rainbow:light_blue_50_plate_lamp",
+      "traits": {
+        "minecraft:placement_direction": {
+          "enabled_states": [
+            "minecraft:facing_direction"
+          ]
+        }
+      },
+      "menu_category": {
+        "category": "construction",
+        "group": "itemGroup.name.copper"
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.plate_lamp",
+      "minecraft:light_emission": 10,
+      "minecraft:light_dampening": 15,
+      "minecraft:material_instances": {
+        "primary_lamp": {
+          "texture": "rainbow_light_blue_300_lamp",
+          "render_method": "opaque"
+        },
+        "secondary_lamp": {
+          "texture": "rainbow_light_blue_400_lamp",
+          "render_method": "opaque"
+        },
+        "*": {
+          "texture": "rainbow_light_blue_50_plate",
+          "render_method": "opaque"
+        }
+      }
+    },
+    "permutations": [
+      {
+        "condition": "q.block_state('minecraft:facing_direction') == 'up' || q.block_state('minecraft:facing_direction') == 'down' ",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              90,
+              0,
+              90
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:facing_direction') == 'east'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:facing_direction') == 'west'",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              0,
+              180,
+              0
+            ]
+          }
+        }
+      },
+      {
+        "condition": "q.block_state('minecraft:facing_direction') == 'north' || q.block_state('minecraft:facing_direction') == 'south' ",
+        "components": {
+          "minecraft:transformation": {
+            "rotation": [
+              180,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

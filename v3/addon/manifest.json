@@ -1,0 +1,53 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "RAINBOW III!!! Scripts",
+    "description": "RAINBOW Bedrock scripts",
+    "version": [
+      3,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ],
+    "uuid": "e5add75c-baf9-474b-92f0-7cad5f38baa4"
+  },
+  "modules": [
+    {
+      "entry": "main.js",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "9433423d-1a7e-496f-bf70-33beb9ab3128",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "cc095f90-d2c1-474a-a03f-df0c53f3ca44",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "uuid": "5bd99162-b504-4904-a9af-66ba27c96f19",
+      "version": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.8.0"
+    }
+  ]
+}

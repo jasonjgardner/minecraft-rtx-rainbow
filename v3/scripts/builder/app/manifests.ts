@@ -9,7 +9,7 @@ const bpManifest = {
   header: {
     name: "RAINBOW III!!!",
     description: "RAINBOW behavior pack for Minecraft Bedrock Edition",
-    version: [3, 0, 0],
+    version: [3, 1, 0],
     min_engine_version: TARGET_VERSION,
     uuid: BP_UUID,
   },
