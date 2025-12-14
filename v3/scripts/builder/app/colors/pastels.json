@@ -1,0 +1,104 @@
+{
+  "colors": [
+    {
+      "id": "pastel_pink",
+      "colorName": "Pastel Pink",
+      "hexCode": "#ffd1dc"
+    },
+    {
+      "id": "mellow_apricot",
+      "colorName": "Mellow Apricot",
+      "hexCode": "#fdd9b5"
+    },
+    {
+      "id": "pastel_blue",
+      "colorName": "Pastel Blue",
+      "hexCode": "#aec6cf"
+    },
+    {
+      "id": "misty_moss",
+      "colorName": "Misty Moss",
+      "hexCode": "#bbb477"
+    },
+    {
+      "id": "pale_lavender",
+      "colorName": "Pale Lavender",
+      "hexCode": "#dcd0ff"
+    },
+    {
+      "id": "magic_mint",
+      "colorName": "Magic Mint",
+      "hexCode": "#aaf0d1"
+    },
+    {
+      "id": "pastel_gray",
+      "colorName": "Pastel Gray",
+      "hexCode": "#cfcfc4"
+    },
+    {
+      "id": "pale_chestnut",
+      "colorName": "Pale Chestnut",
+      "hexCode": "#ddadaf"
+    },
+    {
+      "id": "champagne_pink",
+      "colorName": "Champagne Pink",
+      "hexCode": "#f1ddcf"
+    },
+    {
+      "id": "wheat",
+      "colorName": "Wheat",
+      "hexCode": "#f5deb3"
+    },
+    {
+      "id": "thistle",
+      "colorName": "Thistle",
+      "hexCode": "#d8bfd8"
+    },
+    {
+      "id": "powder_blue",
+      "colorName": "Powder Blue",
+      "hexCode": "#b0e0e6"
+    },
+    {
+      "id": "honeydew",
+      "colorName": "Honeydew",
+      "hexCode": "#f0fff0"
+    },
+    {
+      "id": "lavender_blush",
+      "colorName": "Lavender Blush",
+      "hexCode": "#fff0f5"
+    },
+    {
+      "id": "peach",
+      "colorName": "Peach",
+      "hexCode": "#ffe5b4"
+    },
+    {
+      "id": "baby_blue",
+      "colorName": "Baby Blue",
+      "hexCode": "#89cff0"
+    },
+    {
+      "id": "mauve",
+      "colorName": "Mauve",
+      "hexCode": "#e0b0ff"
+    },
+    {
+      "id": "tea_green",
+      "colorName": "Tea Green",
+      "hexCode": "#d0f0c0"
+    },
+    {
+      "id": "vanilla",
+      "colorName": "Vanilla",
+      "hexCode": "#f3e5ab"
+    },
+    {
+      "id": "lavender_rose",
+      "colorName": "Lavender Rose",
+      "hexCode": "#fba0e3"
+    }
+  ]
+}

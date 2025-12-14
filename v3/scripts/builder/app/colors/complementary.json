@@ -1,0 +1,104 @@
+{
+  "colors": [
+    {
+      "id": "red",
+      "colorName": "Red",
+      "hexCode": "#ff0000"
+    },
+    {
+      "id": "cyan",
+      "colorName": "Cyan",
+      "hexCode": "#00ffff"
+    },
+    {
+      "id": "blue",
+      "colorName": "Blue",
+      "hexCode": "#0000ff"
+    },
+    {
+      "id": "yellow",
+      "colorName": "Yellow",
+      "hexCode": "#ffff00"
+    },
+    {
+      "id": "green",
+      "colorName": "Green",
+      "hexCode": "#008000"
+    },
+    {
+      "id": "magenta",
+      "colorName": "Magenta",
+      "hexCode": "#ff00ff"
+    },
+    {
+      "id": "orange",
+      "colorName": "Orange",
+      "hexCode": "#ff7f00"
+    },
+    {
+      "id": "azure",
+      "colorName": "Azure",
+      "hexCode": "#007fff"
+    },
+    {
+      "id": "violet",
+      "colorName": "Violet",
+      "hexCode": "#7f00ff"
+    },
+    {
+      "id": "chartreuse",
+      "colorName": "Chartreuse",
+      "hexCode": "#7fff00"
+    },
+    {
+      "id": "spring_green",
+      "colorName": "Spring Green",
+      "hexCode": "#00ff7f"
+    },
+    {
+      "id": "rose",
+      "colorName": "Rose",
+      "hexCode": "#ff007f"
+    },
+    {
+      "id": "indigo",
+      "colorName": "Indigo",
+      "hexCode": "#4b0082"
+    },
+    {
+      "id": "lime",
+      "colorName": "Lime",
+      "hexCode": "#bfff00"
+    },
+    {
+      "id": "teal",
+      "colorName": "Teal",
+      "hexCode": "#008080"
+    },
+    {
+      "id": "vermilion",
+      "colorName": "Vermilion",
+      "hexCode": "#ff5f00"
+    },
+    {
+      "id": "purple",
+      "colorName": "Purple",
+      "hexCode": "#800080"
+    },
+    {
+      "id": "olive",
+      "colorName": "Olive",
+      "hexCode": "#808000"
+    },
+    {
+      "id": "scarlet",
+      "colorName": "Scarlet",
+      "hexCode": "#ff2400"
+    },
+    {
+      "id": "turquoise",
+      "colorName": "Turquoise",
+      "hexCode": "#40e0d0"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "colors": [
+    {
+      "id": "neon_pink",
+      "colorName": "Neon Pink",
+      "hexCode": "#ff6ec7"
+    },
+    {
+      "id": "electric_purple",
+      "colorName": "Electric Purple",
+      "hexCode": "#bf00ff"
+    },
+    {
+      "id": "fluorescent_yellow",
+      "colorName": "Fluorescent Yellow",
+      "hexCode": "#ccff00"
+    },
+    {
+      "id": "neon_green",
+      "colorName": "Neon Green",
+      "hexCode": "#39ff14"
+    },
+    {
+      "id": "bright_turquoise",
+      "colorName": "Bright Turquoise",
+      "hexCode": "#08e8de"
+    },
+    {
+      "id": "radical_red",
+      "colorName": "Radical Red",
+      "hexCode": "#ff355e"
+    },
+    {
+      "id": "electric_cyan",
+      "colorName": "Electric Cyan",
+      "hexCode": "#00ffff"
+    },
+    {
+      "id": "laser_lemon",
+      "colorName": "Laser Lemon",
+      "hexCode": "#ffff66"
+    },
+    {
+      "id": "hot_magenta",
+      "colorName": "Hot Magenta",
+      "hexCode": "#ff1dce"
+    },
+    {
+      "id": "electric_blue",
+      "colorName": "Electric Blue",
+      "hexCode": "#7df9ff"
+    },
+    {
+      "id": "harlequin",
+      "colorName": "Harlequin",
+      "hexCode": "#3fff00"
+    },
+    {
+      "id": "shocking_pink",
+      "colorName": "Shocking Pink",
+      "hexCode": "#fc0fc0"
+    },
+    {
+      "id": "fluorescent_orange",
+      "colorName": "Fluorescent Orange",
+      "hexCode": "#ffbf00"
+    },
+    {
+      "id": "electric_lime",
+      "colorName": "Electric Lime",
+      "hexCode": "#ccff00"
+    },
+    {
+      "id": "neon_fuchsia",
+      "colorName": "Neon Fuchsia",
+      "hexCode": "#fe4164"
+    },
+    {
+      "id": "electric_indigo",
+      "colorName": "Electric Indigo",
+      "hexCode": "#6f00ff"
+    },
+    {
+      "id": "neon_carrot",
+      "colorName": "Neon Carrot",
+      "hexCode": "#ffa343"
+    },
+    {
+      "id": "neon_scarlet",
+      "colorName": "Neon Scarlet",
+      "hexCode": "#ff4050"
+    },
+    {
+      "id": "wild_strawberry",
+      "colorName": "Wild Strawberry",
+      "hexCode": "#ff43a4"
+    },
+    {
+      "id": "neon_tangerine",
+      "colorName": "Neon Tangerine",
+      "hexCode": "#f6890a"
+    }
+  ]
+}

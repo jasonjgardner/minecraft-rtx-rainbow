@@ -1,0 +1,104 @@
+{
+  "colors": [
+    {
+      "id": "almond",
+      "colorName": "Almond",
+      "hexCode": "#efdecd"
+    },
+    {
+      "id": "antique_brass",
+      "colorName": "Antique Brass",
+      "hexCode": "#cd9575"
+    },
+    {
+      "id": "apricot",
+      "colorName": "Apricot",
+      "hexCode": "#fdd9b5"
+    },
+    {
+      "id": "aquamarine",
+      "colorName": "Aquamarine",
+      "hexCode": "#78dbe2"
+    },
+    {
+      "id": "asparagus",
+      "colorName": "Asparagus",
+      "hexCode": "#87a96b"
+    },
+    {
+      "id": "atomic_tangerine",
+      "colorName": "Atomic Tangerine",
+      "hexCode": "#ffa474"
+    },
+    {
+      "id": "banana_mania",
+      "colorName": "Banana Mania",
+      "hexCode": "#fae7b5"
+    },
+    {
+      "id": "beaver",
+      "colorName": "Beaver",
+      "hexCode": "#9f8170"
+    },
+    {
+      "id": "bittersweet",
+      "colorName": "Bittersweet",
+      "hexCode": "#fd7c6e"
+    },
+    {
+      "id": "black",
+      "colorName": "Black",
+      "hexCode": "#000000"
+    },
+    {
+      "id": "blizzard_blue",
+      "colorName": "Blizzard Blue",
+      "hexCode": "#ace5ee"
+    },
+    {
+      "id": "blue_bell",
+      "colorName": "Blue Bell",
+      "hexCode": "#a2a2d0"
+    },
+    {
+      "id": "blue_gray",
+      "colorName": "Blue Gray",
+      "hexCode": "#6699cc"
+    },
+    {
+      "id": "blue_green",
+      "colorName": "Blue Green",
+      "hexCode": "#0d98ba"
+    },
+    {
+      "id": "blue_violet",
+      "colorName": "Blue Violet",
+      "hexCode": "#7366bd"
+    },
+    {
+      "id": "blush",
+      "colorName": "Blush",
+      "hexCode": "#de5d83"
+    },
+    {
+      "id": "brick_red",
+      "colorName": "Brick Red",
+      "hexCode": "#cb4154"
+    },
+    {
+      "id": "brown",
+      "colorName": "Brown",
+      "hexCode": "#b4674d"
+    },
+    {
+      "id": "burnt_orange",
+      "colorName": "Burnt Orange",
+      "hexCode": "#ff7f49"
+    },
+    {
+      "id": "burnt_sienna",
+      "colorName": "Burnt Sienna",
+      "hexCode": "#ea7e5d"
+    }
+  ]
+}
