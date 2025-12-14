@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "rainbow:block/cyan_800_glass_slab"
+    },
+    "type=top": {
+      "model": "rainbow:block/cyan_800_glass_slab_top"
+    },
+    "type=double": {
+      "model": "rainbow:block/cyan_800_glass"
+    }
+  }
+}

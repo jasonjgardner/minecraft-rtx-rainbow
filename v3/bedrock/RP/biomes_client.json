@@ -1,0 +1,844 @@
+{
+  "biomes": {
+    "rainbow:red_50": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:red_100": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:red_200": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:red_300": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:red_400": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:red_500": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:red_600": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:red_700": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:red_800": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:red_900": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:orange_50": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:orange_100": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:orange_200": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:orange_300": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:orange_400": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:orange_500": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:orange_600": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:orange_700": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:orange_800": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:orange_900": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:yellow_50": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:yellow_100": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:yellow_200": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:yellow_300": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:yellow_400": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:yellow_500": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:yellow_600": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:yellow_700": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:yellow_800": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:yellow_900": {
+      "sky_color": "#FFE4B5",
+      "water_surface_color": "#40E0D0",
+      "water_fog_color": "#20B2AA",
+      "fog_color": "#FFDAB9"
+    },
+    "rainbow:lime_50": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:lime_100": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:lime_200": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:lime_300": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:lime_400": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:lime_500": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:lime_600": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:lime_700": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:lime_800": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:lime_900": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:green_50": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:green_100": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:green_200": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:green_300": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:green_400": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:green_500": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:green_600": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:green_700": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:green_800": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:green_900": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:cyan_50": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:cyan_100": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:cyan_200": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:cyan_300": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:cyan_400": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:cyan_500": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:cyan_600": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:cyan_700": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:cyan_800": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:cyan_900": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:light_blue_50": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:light_blue_100": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:light_blue_200": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:light_blue_300": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:light_blue_400": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:light_blue_500": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:light_blue_600": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:light_blue_700": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:light_blue_800": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:light_blue_900": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:blue_50": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:blue_100": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:blue_200": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:blue_300": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:blue_400": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:blue_500": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:blue_600": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:blue_700": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:blue_800": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:blue_900": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:purple_50": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:purple_100": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:purple_200": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:purple_300": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:purple_400": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:purple_500": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:purple_600": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:purple_700": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:purple_800": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:purple_900": {
+      "sky_color": "#B0E0E6",
+      "water_surface_color": "#4169E1",
+      "water_fog_color": "#191970",
+      "fog_color": "#ADD8E6"
+    },
+    "rainbow:magenta_50": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:magenta_100": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:magenta_200": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:magenta_300": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:magenta_400": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:magenta_500": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:magenta_600": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:magenta_700": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:magenta_800": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:magenta_900": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:pink_50": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:pink_100": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:pink_200": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:pink_300": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:pink_400": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:pink_500": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:pink_600": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:pink_700": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:pink_800": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:pink_900": {
+      "sky_color": "#E6E6FA",
+      "water_surface_color": "#00CED1",
+      "water_fog_color": "#008B8B",
+      "fog_color": "#DDA0DD"
+    },
+    "rainbow:brown_50": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:brown_100": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:brown_200": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:brown_300": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:brown_400": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:brown_500": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:brown_600": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:brown_700": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:brown_800": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:brown_900": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:gray_50": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:gray_100": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:gray_200": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:gray_300": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:gray_400": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:gray_500": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:gray_600": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:gray_700": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:gray_800": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:gray_900": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:light_gray_50": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:light_gray_100": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:light_gray_200": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:light_gray_300": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:light_gray_400": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:light_gray_500": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:light_gray_600": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:light_gray_700": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:light_gray_800": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    },
+    "rainbow:light_gray_900": {
+      "sky_color": "#D3D3D3",
+      "water_surface_color": "#708090",
+      "water_fog_color": "#2F4F4F",
+      "fog_color": "#C0C0C0"
+    }
+  }
+}

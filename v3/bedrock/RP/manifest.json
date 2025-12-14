@@ -5,13 +5,13 @@
     "description": "RAINBOW resource pack for Minecraft Bedrock Edition",
     "version": [
       3,
-      0,
+      1,
       0
     ],
     "min_engine_version": [
       1,
-      20,
-      20
+      21,
+      0
     ],
     "uuid": "cc095f90-d2c1-474a-a03f-df0c53f3ca44"
   },
@@ -21,19 +21,15 @@
       "uuid": "194c593a-8702-425c-9fd7-7b852ae23c67",
       "version": [
         3,
-        0,
+        1,
         0
       ]
     }
   ],
   "dependencies": [
     {
-      "uuid": "5bd99162-b504-4904-a9af-66ba27c96f19",
-      "version": [
-        3,
-        0,
-        0
-      ]
+      "uuid": "d36907e6-2389-482b-81fa-f46eeced86b0",
+      "version": [3, 1, 0]
     }
   ],
   "capabilities": [

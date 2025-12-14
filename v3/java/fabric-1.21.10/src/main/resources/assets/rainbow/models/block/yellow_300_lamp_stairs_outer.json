@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "rainbow:block/yellow_300_lamp",
+    "top": "rainbow:block/yellow_300_lamp",
+    "side": "rainbow:block/yellow_300_lamp"
+  }
+}

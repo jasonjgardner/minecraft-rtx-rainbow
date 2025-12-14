@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "rainbow:block/magenta_800_glass",
+    "top": "rainbow:block/magenta_800_glass",
+    "side": "rainbow:block/magenta_800_glass"
+  }
+}

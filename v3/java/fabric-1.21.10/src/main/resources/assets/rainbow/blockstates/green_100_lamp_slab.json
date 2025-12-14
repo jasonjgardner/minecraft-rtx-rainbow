@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "rainbow:block/green_100_lamp_slab"
+    },
+    "type=top": {
+      "model": "rainbow:block/green_100_lamp_slab_top"
+    },
+    "type=double": {
+      "model": "rainbow:block/green_100_lamp"
+    }
+  }
+}

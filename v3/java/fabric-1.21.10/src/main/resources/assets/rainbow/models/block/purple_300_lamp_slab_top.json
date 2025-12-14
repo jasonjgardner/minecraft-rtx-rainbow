@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "rainbow:block/purple_300_lamp",
+    "top": "rainbow:block/purple_300_lamp",
+    "side": "rainbow:block/purple_300_lamp"
+  }
+}

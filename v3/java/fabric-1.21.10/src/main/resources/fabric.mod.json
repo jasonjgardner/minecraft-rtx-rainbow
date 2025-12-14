@@ -1,0 +1,36 @@
+{
+    "schemaVersion": 1,
+    "id": "rainbow",
+    "version": "${version}",
+    "name": "Rainbow III",
+    "description": "Over 980 colored decorative blocks with RTX support, interactive proximity detection, morph blocks, and cellular automata simulation.",
+    "authors": [
+        "Jason Gardner"
+    ],
+    "contact": {
+        "homepage": "https://github.com/jasongardner/rainbow",
+        "sources": "https://github.com/jasongardner/rainbow"
+    },
+    "license": "MIT",
+    "icon": "assets/rainbow/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "co.jasongardner.rainbow.RainbowMod"
+        ],
+        "client": [
+            "co.jasongardner.rainbow.RainbowModClient"
+        ],
+        "fabric-datagen": [
+            "co.jasongardner.rainbow.datagen.RainbowDataGenerator"
+        ]
+    },
+    "mixins": [],
+    "depends": {
+        "fabricloader": ">=${loader_version}",
+        "minecraft": "~1.21",
+        "java": ">=21",
+        "fabric-api": "*"
+    },
+    "suggests": {}
+}

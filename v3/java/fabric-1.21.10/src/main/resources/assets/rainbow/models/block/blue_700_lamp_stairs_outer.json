@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "rainbow:block/blue_700_lamp",
+    "top": "rainbow:block/blue_700_lamp",
+    "side": "rainbow:block/blue_700_lamp"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "rainbow:block/orange_500_lamp"
+  }
+}

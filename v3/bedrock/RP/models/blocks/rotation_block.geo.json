@@ -1,0 +1,1101 @@
+{
+    "format_version": "1.12.0",
+    "minecraft:geometry": [
+        {
+            "description": {
+                "identifier": "geometry.rotation_block",
+                "texture_width": 16,
+                "texture_height": 16,
+                "visible_bounds_width": 2,
+                "visible_bounds_height": 2.5,
+                "visible_bounds_offset": [
+                    0,
+                    0.75,
+                    0
+                ]
+            },
+            "bones": [
+                {
+                    "name": "1",
+                    "pivot": [
+                        0,
+                        7,
+                        0
+                    ],
+                    "cubes": [
+                        {
+                            "origin": [
+                                -8,
+                                0,
+                                -8
+                            ],
+                            "size": [
+                                16,
+                                16,
+                                16
+                            ],
+                            "uv": {
+                                "north": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "one"
+                                },
+                                "east": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "one"
+                                },
+                                "south": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "one"
+                                },
+                                "west": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "one"
+                                },
+                                "up": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "one"
+                                },
+                                "down": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "one"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "2",
+                    "pivot": [
+                        0,
+                        7,
+                        0
+                    ],
+                    "cubes": [
+                        {
+                            "origin": [
+                                -8,
+                                0,
+                                -8
+                            ],
+                            "size": [
+                                16,
+                                16,
+                                16
+                            ],
+                            "uv": {
+                                "north": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "two"
+                                },
+                                "east": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "two"
+                                },
+                                "south": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "two"
+                                },
+                                "west": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "two"
+                                },
+                                "up": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "two"
+                                },
+                                "down": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "two"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "3",
+                    "pivot": [
+                        0,
+                        7,
+                        0
+                    ],
+                    "cubes": [
+                        {
+                            "origin": [
+                                -8,
+                                0,
+                                -8
+                            ],
+                            "size": [
+                                16,
+                                16,
+                                16
+                            ],
+                            "uv": {
+                                "north": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "three"
+                                },
+                                "east": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "three"
+                                },
+                                "south": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "three"
+                                },
+                                "west": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "three"
+                                },
+                                "up": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "three"
+                                },
+                                "down": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "three"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "4",
+                    "pivot": [
+                        0,
+                        7,
+                        0
+                    ],
+                    "cubes": [
+                        {
+                            "origin": [
+                                -8,
+                                0,
+                                -8
+                            ],
+                            "size": [
+                                16,
+                                16,
+                                16
+                            ],
+                            "uv": {
+                                "north": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "four"
+                                },
+                                "east": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "four"
+                                },
+                                "south": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "four"
+                                },
+                                "west": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "four"
+                                },
+                                "up": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "four"
+                                },
+                                "down": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "four"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "5",
+                    "pivot": [
+                        0,
+                        7,
+                        0
+                    ],
+                    "cubes": [
+                        {
+                            "origin": [
+                                -8,
+                                0,
+                                -8
+                            ],
+                            "size": [
+                                16,
+                                16,
+                                16
+                            ],
+                            "uv": {
+                                "north": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "five"
+                                },
+                                "east": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "five"
+                                },
+                                "south": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "five"
+                                },
+                                "west": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "five"
+                                },
+                                "up": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "five"
+                                },
+                                "down": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "five"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "6",
+                    "pivot": [
+                        0,
+                        7,
+                        0
+                    ],
+                    "cubes": [
+                        {
+                            "origin": [
+                                -8,
+                                0,
+                                -8
+                            ],
+                            "size": [
+                                16,
+                                16,
+                                16
+                            ],
+                            "uv": {
+                                "north": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "six"
+                                },
+                                "east": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "six"
+                                },
+                                "south": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "six"
+                                },
+                                "west": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "six"
+                                },
+                                "up": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "six"
+                                },
+                                "down": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "six"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "7",
+                    "pivot": [
+                        0,
+                        7,
+                        0
+                    ],
+                    "cubes": [
+                        {
+                            "origin": [
+                                -8,
+                                0,
+                                -8
+                            ],
+                            "size": [
+                                16,
+                                16,
+                                16
+                            ],
+                            "uv": {
+                                "north": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "seven"
+                                },
+                                "east": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "seven"
+                                },
+                                "south": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "seven"
+                                },
+                                "west": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "seven"
+                                },
+                                "up": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "seven"
+                                },
+                                "down": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "seven"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "8",
+                    "pivot": [
+                        0,
+                        7,
+                        0
+                    ],
+                    "cubes": [
+                        {
+                            "origin": [
+                                -8,
+                                0,
+                                -8
+                            ],
+                            "size": [
+                                16,
+                                16,
+                                16
+                            ],
+                            "uv": {
+                                "north": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "eight"
+                                },
+                                "east": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "eight"
+                                },
+                                "south": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "eight"
+                                },
+                                "west": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "eight"
+                                },
+                                "up": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "eight"
+                                },
+                                "down": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "eight"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "9",
+                    "pivot": [
+                        0,
+                        7,
+                        0
+                    ],
+                    "cubes": [
+                        {
+                            "origin": [
+                                -8,
+                                0,
+                                -8
+                            ],
+                            "size": [
+                                16,
+                                16,
+                                16
+                            ],
+                            "uv": {
+                                "north": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "nine"
+                                },
+                                "east": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "nine"
+                                },
+                                "south": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "nine"
+                                },
+                                "west": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "nine"
+                                },
+                                "up": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "nine"
+                                },
+                                "down": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "nine"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "10",
+                    "pivot": [
+                        0,
+                        7,
+                        0
+                    ],
+                    "cubes": [
+                        {
+                            "origin": [
+                                -8,
+                                0,
+                                -8
+                            ],
+                            "size": [
+                                16,
+                                16,
+                                16
+                            ],
+                            "uv": {
+                                "north": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "ten"
+                                },
+                                "east": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "ten"
+                                },
+                                "south": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "ten"
+                                },
+                                "west": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "ten"
+                                },
+                                "up": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "ten"
+                                },
+                                "down": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "ten"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "11",
+                    "pivot": [
+                        0,
+                        7,
+                        0
+                    ],
+                    "cubes": [
+                        {
+                            "origin": [
+                                -8,
+                                0,
+                                -8
+                            ],
+                            "size": [
+                                16,
+                                16,
+                                16
+                            ],
+                            "uv": {
+                                "north": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "eleven"
+                                },
+                                "east": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "eleven"
+                                },
+                                "south": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "eleven"
+                                },
+                                "west": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "eleven"
+                                },
+                                "up": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "eleven"
+                                },
+                                "down": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "eleven"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "12",
+                    "pivot": [
+                        0,
+                        7,
+                        0
+                    ],
+                    "cubes": [
+                        {
+                            "origin": [
+                                -8,
+                                0,
+                                -8
+                            ],
+                            "size": [
+                                16,
+                                16,
+                                16
+                            ],
+                            "uv": {
+                                "north": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "twelve"
+                                },
+                                "east": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "twelve"
+                                },
+                                "south": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "twelve"
+                                },
+                                "west": {
+                                    "uv": [
+                                        0,
+                                        0
+                                    ],
+                                    "uv_size": [
+                                        16,
+                                        16
+                                    ],
+                                    "material_instance": "twelve"
+                                },
+                                "up": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "twelve"
+                                },
+                                "down": {
+                                    "uv": [
+                                        16,
+                                        16
+                                    ],
+                                    "uv_size": [
+                                        -16,
+                                        -16
+                                    ],
+                                    "material_instance": "twelve"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

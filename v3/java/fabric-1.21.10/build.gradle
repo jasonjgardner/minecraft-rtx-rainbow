@@ -1,0 +1,163 @@
+plugins {
+    id 'fabric-loom' version '1.9-SNAPSHOT'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    // Add repositories for dependencies here
+    // Fabric maven is added by loom
+}
+
+// Add generated sources to main sourceSet for datagen output
+sourceSets {
+    main {
+        resources {
+            srcDir "src/main/generated"
+        }
+    }
+}
+
+loom {
+    splitEnvironmentSourceSets()
+
+    mods {
+        "rainbowiii" {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
+
+    runs {
+        // Data generation run configuration
+        datagen {
+            inherit server
+            name "Data Generation"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+            vmArg "-Dfabric-api.datagen.modid=rainbow"
+
+            runDir "build/datagen"
+        }
+    }
+}
+
+dependencies {
+    // Minecraft and mappings
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+
+    // Fabric Loader
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+    // Fabric API
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "minecraft_version", project.minecraft_version
+    inputs.property "loader_version", project.loader_version
+    filteringCharset "UTF-8"
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version,
+                "minecraft_version": project.minecraft_version,
+                "loader_version": project.loader_version
+    }
+}
+
+def targetJavaVersion = 21
+tasks.withType(JavaCompile).configureEach {
+    it.options.encoding = "UTF-8"
+    it.options.release = targetJavaVersion
+}
+
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+
+    withSourcesJar()
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.archivesBaseName}" }
+    }
+}
+
+// Configure the maven publication
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+
+    repositories {
+        // Add repositories to publish to here
+    }
+}
+
+// PBR Texture Conversion and Resource Pack Generation
+// Uses TypeScript script to convert Bedrock RTX textures to Java LabPBR format:
+// - MER (Metalness/Emissive/Roughness) -> LabPBR _s (Specular)
+// - DirectX normal maps -> OpenGL _n format
+// Run: npm run convert-pbr (or bun run convert-pbr) from project root
+
+def hdSizes = [32, 64, 128, 256]
+def pbrConvertedDir = file("${buildDir}/pbr-converted")
+
+// Task to run the PBR conversion script
+tasks.register('convertPbrTextures', Exec) {
+    group = 'resource packs'
+    description = 'Convert Bedrock RTX PBR textures to Java LabPBR format'
+    workingDir = file("${rootDir}/../..")
+    commandLine 'cmd', '/c', 'bun', 'run', 'convert-pbr'
+}
+
+// HD Resource Pack generation tasks using pre-converted LabPBR textures
+hdSizes.each { size ->
+    tasks.register("generateResourcePack${size}x", Zip) {
+        group = 'resource packs'
+        description = "Generate ${size}x HD resource pack with LabPBR textures"
+        dependsOn 'convertPbrTextures'
+
+        archiveFileName = "rainbowiii-${project.version}-${size}x.zip"
+        destinationDirectory = file("${buildDir}/resourcepacks")
+
+        // Copy all converted textures (basecolor, _n, _s)
+        from("${pbrConvertedDir}/${size}x/assets/rainbow/textures/block") {
+            into "assets/rainbow/textures/block"
+        }
+
+        // Add pack.mcmeta
+        from(resources.text.fromString("""{
+    "pack": {
+        "pack_format": 34,
+        "description": "Rainbow III ${size}x HD Textures with LabPBR"
+    }
+}
+""")) {
+            rename { 'pack.mcmeta' }
+        }
+    }
+}
+
+tasks.register('generateAllResourcePacks') {
+    group = 'resource packs'
+    description = 'Generate all HD resource packs with LabPBR textures'
+    dependsOn hdSizes.collect { "generateResourcePack${it}x" }
+}
+
+// Include resource pack generation in the build
+tasks.named('build') {
+    finalizedBy 'generateAllResourcePacks'
+}

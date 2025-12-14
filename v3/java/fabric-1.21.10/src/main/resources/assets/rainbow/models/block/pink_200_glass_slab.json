@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "rainbow:block/pink_200_glass",
+    "top": "rainbow:block/pink_200_glass",
+    "side": "rainbow:block/pink_200_glass"
+  }
+}

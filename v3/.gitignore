@@ -213,3 +213,6 @@ java/**/bin/
 java/**/out/
 java/**/*.jar
 !java/**/gradle/wrapper/*.jar
+
+# Compiled Java classes
+*.class

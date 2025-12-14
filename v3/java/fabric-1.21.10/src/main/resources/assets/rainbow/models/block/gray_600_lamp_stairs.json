@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "rainbow:block/gray_600_lamp",
+    "top": "rainbow:block/gray_600_lamp",
+    "side": "rainbow:block/gray_600_lamp"
+  }
+}
