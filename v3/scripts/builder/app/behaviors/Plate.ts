@@ -21,7 +21,7 @@ export class Plate extends DecorativeBlock {
     };
 
     this.name = "plate";
-    this.title = `${block.colorName} Plate`;
+    this.title = `${block.color} Plate`;
     this.blockId = `${this.block.id}_${this.name}`;
     this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
     this.hexColor = hexColor;
@@ -37,7 +37,7 @@ export class Plate extends DecorativeBlock {
           traits: {},
           menu_category: {
             category: "construction",
-            group: "itemGroup.name.copper",
+            group: "minecraft:itemGroup.name.copper",
           },
         },
         components: {

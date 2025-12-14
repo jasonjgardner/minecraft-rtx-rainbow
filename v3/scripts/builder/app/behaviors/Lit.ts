@@ -1,15 +1,12 @@
-import type { IBlock } from "../../types.ts";
+import type { IUsableBlock } from "../../types.ts";
 import DecorativeBlock from "./DecorativeBlock.ts";
 import { BLOCK_VERSION, NAMESPACE } from "../../_constants.ts";
 
 export class LitDecorativeBlock extends DecorativeBlock {
-  constructor(
-    block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string,
-  ) {
+  constructor(block: IUsableBlock, hexColor: string) {
     super(block, hexColor);
     this.name = "lit";
-    this.title = `${block.colorName} Lit`;
+    this.title = `${block.color} Lit`;
     this.blockId = `${this.block.id}_${this.name}`;
     this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
     this.hexColor = hexColor;
@@ -24,7 +21,7 @@ export class LitDecorativeBlock extends DecorativeBlock {
           identifier: `${NAMESPACE}:${this.blockId}`,
           menu_category: {
             category: "construction",
-            group: "itemGroup.name.glazedTerracotta",
+            group: "minecraft:itemGroup.name.glazedTerracotta",
           },
           traits: {},
         },

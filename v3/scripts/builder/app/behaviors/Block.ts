@@ -107,7 +107,7 @@ export default class Block {
     return {
       "minecraft:creative_category": {
         category: "construction",
-        group: "itemGroup.name.concrete",
+        group: "minecraft:itemGroup.name.concrete",
       },
       "minecraft:map_color": this.hexColor,
       "minecraft:material_instances": this.materialInstances,

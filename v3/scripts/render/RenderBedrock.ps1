@@ -13,7 +13,8 @@ function RenderBlock() {
     $processOptions = @{
         FilePath               = "sbsrender.exe"
         ArgumentList           = @(
-            "--input $sbar render"
+            "render"
+            "--input `"$sbar`""
             "--output-name $name`_{inputGraphUrl}_{outputUsages}"
             "--output-path ./pack/RP/subpacks/$size`x/textures/blocks"
             "--set-value '`$outputsize@$size,$size'"
@@ -55,18 +56,28 @@ function CreateTextureSet() {
     return $json
 }
 
-$sizes = @(16, 32, 64, 128, 256)
+$sizes = @(512, 1024)
 
-$sbsars = Get-ChildItem -Path "./" -File -Filter "*.sbsar"
-
+$sbsars = Get-ChildItem -Path "D:\Game Development\Minecraft\minecraft-rtx-rainbow\assets" -File -Filter "*.sbsar"
+$dir = "D:\Game Development\Minecraft\minecraft-rtx-rainbow\v3\bedrock\RP\subpacks";
+$src = "D:\Game Development\Minecraft\minecraft-rtx-rainbow\assets\colors";
 
 foreach ($size in $sizes) {
-    $files = Get-ChildItem -Path "./blocks/$size`x" -File -Recurse -Filter "*.png"
+    Write-Host "Rendering $size`x textures"
+
+    $files = Get-ChildItem -Path "$src" -File -Recurse -Filter "*.png"
+
+    $files = $files | Where-Object { $_.Name -notmatch "baseColor|normal|mer" }
+
+    Write-Host "Found $($files.Count) files to render"
 
     New-Item -ItemType Directory -Force -Path "./pack/RP/subpacks/$size`x/textures/blocks" | Out-Null
     foreach ($file in $files) {
         foreach ($sbar in $sbsars) {
-            RenderBlock -sbar $sbar -name "$($file.BaseName)" -size $size -color "./blocks/$size`x/$($file.BaseName).png"
+            Write-Host "Rendering $($file.BaseName) with $($sbar.Name)"
+            $sbarPath = Join-Path -Path $sbar.DirectoryName -ChildPath $sbar.Name
+            RenderBlock -sbar "$sbarPath" -name "$($file.BaseName)" -size $size -color "./blocks/$size`x/$($file.BaseName).png"
         }
     }
+    Write-Host "Finished rendering $size`x textures"
 }

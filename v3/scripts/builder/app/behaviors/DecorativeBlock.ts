@@ -1,9 +1,15 @@
-import type { IBlock } from "../../types.ts";
+import type { IBlock, Shades } from "../../types.ts";
 import { BLOCK_VERSION, BP_DIR, NAMESPACE } from "../../_constants.ts";
 import { join } from "node:path";
 import { writeFile } from "node:fs/promises";
 export default class DecorativeBlock {
-  block: IBlock;
+  block: IBlock & {
+    complimentary: string;
+    secondary: string;
+    tertiary: string;
+    nextShade: Shades;
+    nextColor: string;
+  };
   name: string;
   title: string;
   textId: string;
@@ -12,17 +18,24 @@ export default class DecorativeBlock {
   textureId: string;
 
   constructor(
-    block: Omit<IBlock, "sound" | "isotropic" | "shades">,
+    block: Omit<IBlock, "sound" | "isotropic" | "name"> & {
+      complimentary: string;
+      secondary: string;
+      tertiary: string;
+      nextShade: Shades;
+      nextColor: string;
+    },
     hexColor: string,
   ) {
     this.block = {
+      name: "block",
       isotropic: false,
       sound: "glass",
       ...block,
     };
 
     this.name = "block";
-    this.title = `${block.colorName} Block`;
+    this.title = `${block.color} Block`;
     this.blockId = `${this.block.id}_${this.name}`;
     this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
     this.hexColor = hexColor;
@@ -41,11 +54,8 @@ export default class DecorativeBlock {
       "minecraft:block": {
         description: {
           identifier: `${NAMESPACE}:${this.blockId}`,
-          menu_category: {
-            category: "construction",
-            group: "itemGroup.name.concrete",
-          },
           traits: {},
+          states: {},
         },
         components: {
           // "minecraft:creative_category": {
@@ -65,13 +75,14 @@ export default class DecorativeBlock {
           },
         },
         permutations: [],
+        events: {},
       },
     };
   }
 
-  async save() {
+  async save(dir: string) {
     await writeFile(
-      join(BP_DIR, `/blocks/${this.blockId}.json`),
+      join(dir, `/blocks/${this.blockId}.json`),
       JSON.stringify(this.toJsonObject(), null, 2),
     );
 

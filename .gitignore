@@ -18,3 +18,11 @@ out/*
 **/glass/main/resources/**/*lamp*
 **/glass/main/resources/**/*lit*
 **/glass/main/resources/**/*block*
+.idea/
+v3/mct
+v3/java/**/resourcepacks
+v3.5/
+*.jar
+*.pom
+*.zip
+*.log

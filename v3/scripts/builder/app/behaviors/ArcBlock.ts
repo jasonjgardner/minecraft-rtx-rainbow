@@ -15,6 +15,6 @@ export default class ArcBlock extends BevelBlock {
     };
 
     this.name = "arc_block";
-    this.title = `${block.colorName} Arc Block`;
+    this.title = `${block.color} Arc Block`;
   }
 }

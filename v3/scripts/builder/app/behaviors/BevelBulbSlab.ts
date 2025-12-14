@@ -10,7 +10,7 @@ export default class BeveledSlab extends BevelBulb {
     super(block);
 
     this.name = "beveled_bulb_slab";
-    this.title = `${block.colorName} Beveled Bulb Slab`;
+    this.title = `${block.color} Beveled Bulb Slab`;
   }
 
   toJsonObject() {
@@ -37,10 +37,7 @@ export default class BeveledSlab extends BevelBulb {
           // @ts-ignore
           ...parentJson["minecraft:block"].description,
           identifier: `rainbow:${this.block.id}_${this.name}`,
-          menu_category: {
-            category: "construction",
-            group: "itemGroup.name.glass",
-          },
+          states: {},
         },
         components: blockJson,
       },

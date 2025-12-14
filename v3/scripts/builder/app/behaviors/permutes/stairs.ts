@@ -30,4 +30,17 @@ for (const [direction, rotation] of Object.entries(directions)) {
   );
 }
 
+export const placementTrait = {
+  "minecraft:placement_direction": {
+    enabled_states: [
+      "minecraft:cardinal_direction",
+      "minecraft:facing_direction",
+    ],
+    y_rotation_offset: 90.0,
+  },
+  "minecraft:placement_position": {
+    enabled_states: ["minecraft:vertical_half"],
+  },
+};
+
 export default stairPermutations;

@@ -10,7 +10,7 @@ export default class BeveledSlab extends BevelBlock {
     super(block);
 
     this.name = "beveled_slab";
-    this.title = `${block.colorName} Beveled Slab`;
+    this.title = `${block.color} Beveled Slab`;
   }
 
   toJsonObject() {

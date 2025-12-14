@@ -1,6 +1,8 @@
 export type RGB = [number, number, number];
 
-export type PackSizes = 16 | 32 | 64 | 128 | 256;
+export type PackSizes = 16 | 32 | 64 | 128 | 256 | 512 | 1024;
+
+export type Shades = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 
 export type LanguageId = "en_US";
 
@@ -66,13 +68,21 @@ export type MultiLingual = {
 
 export type LanguagesContainer = Record<LanguageId, string[]>;
 
-export interface IBlock {
+export interface IBlock extends IColorShades {
   id: string;
-  name: string | MultiLingual;
+  name?: string | MultiLingual;
   enabled?: boolean;
   color: string;
   isotropic?: boolean;
   sound?: string;
+}
+
+export interface IUsableBlock extends IBlock {
+  complimentary: string;
+  secondary: string;
+  tertiary: string;
+  nextShade: Shades;
+  nextColor: string;
 }
 
 export type Axis = "x" | "y" | "z";
@@ -88,5 +98,5 @@ export type PackModule = {
 };
 
 export interface IColorShades {
-  shades: 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+  shades: Shades[];
 }

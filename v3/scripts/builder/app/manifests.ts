@@ -1,8 +1,9 @@
 import { writeFile } from "node:fs/promises";
-import { sizes, TARGET_VERSION } from "../_constants.ts";
+import { ROOT_DIR, RP_DIR, sizes, TARGET_VERSION } from "../_constants.ts";
+import { join } from "node:path";
 
-const RP_UUID = "cc095f90-d2c1-474a-a03f-df0c53f3ca44";
-const BP_UUID = "5bd99162-b504-4904-a9af-66ba27c96f19";
+export const RP_UUID = "cc095f90-d2c1-474a-a03f-df0c53f3ca44";
+export const BP_UUID = "5bd99162-b504-4904-a9af-66ba27c96f19";
 
 const bpManifest = {
   format_version: 2,
@@ -44,12 +45,12 @@ const rpManifest = {
       version: [3, 1, 0],
     },
   ],
-  dependencies: [
-    {
-      uuid: BP_UUID,
-      version: bpManifest.header.version,
-    },
-  ],
+  // dependencies: [
+  //   {
+  //     uuid: BP_UUID,
+  //     version: bpManifest.header.version,
+  //   },
+  // ],
   capabilities: ["raytraced", "pbr"],
   subpacks: sizes.map((size, idx) => ({
     folder_name: `${size}x`,
@@ -58,6 +59,10 @@ const rpManifest = {
   })),
 };
 
-await writeFile("pack/BP/manifest.json", JSON.stringify(bpManifest, null, 2));
-
-await writeFile("pack/RP/manifest.json", JSON.stringify(rpManifest, null, 2));
+// await writeFile("pack/BP/manifest.json", JSON.stringify(bpManifest, null, 2));
+if (import.meta.main) {
+  await writeFile(
+    join(RP_DIR, "manifest.json"),
+    JSON.stringify(rpManifest, null, 2),
+  );
+}

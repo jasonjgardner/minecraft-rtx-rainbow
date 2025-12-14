@@ -1,3 +1,4 @@
+import { BLOCK_VERSION } from "../../_constants.ts";
 import type { IBlock, IColorShades } from "../../types.ts";
 import DecorativeBlock from "./DecorativeBlock.ts";
 export default class BevelBulb extends DecorativeBlock {
@@ -15,20 +16,17 @@ export default class BevelBulb extends DecorativeBlock {
 
     // Should match sbsar name
     this.name = "beveled_bulb";
-    this.title = `${block.colorName} Beveled Bulb`;
+    this.title = `${block.color} Beveled Bulb`;
   }
 
   toJsonObject(): Record<string, unknown> {
     return {
-      format_version: "1.20.20",
+      format_version: BLOCK_VERSION,
       "minecraft:block": {
         description: {
           identifier: `rainbow:${this.block.id}_${this.name}`,
-          menu_category: {
-            category: "construction",
-            group: "itemGroup.name.glass",
-          },
           traits: {},
+          states: {},
         },
         components: {
           "minecraft:map_color": this.block.shades![400]!,
@@ -42,6 +40,7 @@ export default class BevelBulb extends DecorativeBlock {
           "minecraft:light_dampening": 3,
         },
         permutations: [],
+        events: {},
       },
     };
   }

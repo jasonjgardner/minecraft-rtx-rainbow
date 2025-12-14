@@ -6,8 +6,9 @@ export default class BevelBlock extends DecorativeBlock {
     block: Omit<IBlock, "sound" | "isotropic"> & {
       shades: Partial<IColorShades>;
     },
+    hexColor: string,
   ) {
-    super(block);
+    super(block, hexColor);
     this.block = {
       ...block,
       isotropic: false,
@@ -16,7 +17,7 @@ export default class BevelBlock extends DecorativeBlock {
 
     // Should match sbsar name
     this.name = "beveled_block";
-    this.title = `${block.colorName} Beveled Block`;
+    this.title = `${block.color} Beveled Block`;
   }
 
   toJsonObject(): Record<string, unknown> {
@@ -25,15 +26,12 @@ export default class BevelBlock extends DecorativeBlock {
       "minecraft:block": {
         description: {
           identifier: `rainbow:${this.block.id}_${this.name}`,
-          menu_category: {
-            category: "construction",
-            group: "itemGroup.name.concrete",
-          },
           traits: {},
+          states: {},
         },
         components: {
           "minecraft:geometry": "minecraft:geometry.full_block",
-          "minecraft:map_color": this.block.shades![400]!,
+          "minecraft:map_color": this.block.shades[400],
           "minecraft:material_instances": {
             "*": {
               texture: `rainbow_${this.block.id}_${this.name}`,
@@ -44,6 +42,7 @@ export default class BevelBlock extends DecorativeBlock {
           "minecraft:light_dampening": 5,
         },
         permutations: [],
+        events: {},
       },
     };
   }

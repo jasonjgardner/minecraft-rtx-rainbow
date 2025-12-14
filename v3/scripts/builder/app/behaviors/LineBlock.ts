@@ -19,7 +19,7 @@ export default class LineBlock extends Plate {
     };
 
     this.name = "line_lamp";
-    this.title = `${block.colorName} Line Lamp`;
+    this.title = `${block.color} Line Lamp`;
     this.blockId = `${this.block.id}_${this.name}`;
     this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
   }
@@ -37,7 +37,7 @@ export default class LineBlock extends Plate {
           },
           menu_category: {
             category: "construction",
-            group: "itemGroup.name.copper",
+            group: "minecraft:itemGroup.name.copper",
           },
         },
         components: {

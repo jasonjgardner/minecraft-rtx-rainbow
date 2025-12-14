@@ -1,7 +1,10 @@
 import { BLOCK_VERSION, NAMESPACE } from "../../_constants.ts";
-import type { IBlock } from "../../types.ts";
-import { BlockComponents } from "../../types.ts";
-import { BlockEvents } from "../../types.ts";
+import type {
+  IBlock,
+  IUsableBlock,
+  BlockComponents,
+  BlockEvents,
+} from "../../types.ts";
 import { Lamp } from "./Lamp.ts";
 
 const directions = {
@@ -87,13 +90,10 @@ const events: BlockEvents = {};
 // });
 
 export class LampCube extends Lamp {
-  constructor(
-    block: Omit<IBlock, "sound" | "isotropic" | "shades">,
-    hexColor: string,
-  ) {
+  constructor(block: IUsableBlock, hexColor: string) {
     super(block, hexColor);
     this.name = "lamp_cube";
-    this.title = `${block.colorName} Lamp Cube`;
+    this.title = `${block.color} Lamp Cube`;
     this.blockId = `${this.block.id}_${this.name}`;
     this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
   }
@@ -104,30 +104,13 @@ export class LampCube extends Lamp {
       "minecraft:block": {
         description: {
           identifier: `${NAMESPACE}:${this.blockId}`,
-          menu_category: {
-            category: "construction",
-            group: "itemGroup.name.glazedTerracotta",
-          },
           traits: {
             ...placementTrait,
           },
-          //   states,
+          states: {},
         },
         components: {
           "minecraft:geometry": "geometry.cube",
-          //   "minecraft:geometry": {
-          //     identifier: "geometry.cube",
-          //     bone_visibility: {
-          //       bone1: true,
-          //       bone2: false,
-          //       bone3: false,
-          //       bone4: false,
-          //       bone5: false,
-          //       bone6: false,
-          //       bone7: false,
-          //       bone8: false,
-          //     },
-          //   },
           "minecraft:map_color": this.hexColor,
           "minecraft:light_dampening": 6,
           "minecraft:material_instances": {
@@ -136,16 +119,9 @@ export class LampCube extends Lamp {
               render_method: "opaque",
             },
           },
-          "minecraft:on_interact": {
-            event: `${NAMESPACE}:on_interact_0`,
-          },
-          //   "minecraft:creative_category": {
-          //     category: "construction",
-          //     group: "itemGroup.name.glazedTerracotta",
-          //   },
         },
         permutations: [...permutes],
-        events,
+        events: {},
       },
     };
   }

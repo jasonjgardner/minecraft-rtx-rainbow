@@ -1,0 +1,119 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Bedrock: Full Distribution Build",
+            "type": "shell",
+            "command": "cd v3 && bun run dist",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "detail": "Format, build assets, compile scripts, and deploy to Minecraft",
+        },
+        {
+            "label": "Bedrock: Build Assets",
+            "type": "shell",
+            "command": "cd v3 && bun run build",
+            "group": "build",
+            "problemMatcher": [],
+            "detail": "Generate block JSONs, textures, manifests, and biomes"
+        },
+        {
+            "label": "Bedrock: Compile Scripts",
+            "type": "shell",
+            "command": "cd v3 && bun run compile",
+            "group": "build",
+            "problemMatcher": [],
+            "detail": "Bundle src/main.ts to Bedrock addon scripts"
+        },
+        {
+            "label": "Bedrock: Deploy to Dev",
+            "type": "shell",
+            "command": "cd v3 && bun run deploy",
+            "group": "build",
+            "problemMatcher": [],
+            "detail": "Copy packs to Minecraft Bedrock development folders"
+        },
+        {
+            "label": "Bedrock: Format Code",
+            "type": "shell",
+            "command": "cd v3 && bun run format",
+            "problemMatcher": [],
+            "detail": "Format TypeScript files with Prettier"
+        },
+        {
+            "label": "Fabric: Generate Assets",
+            "type": "shell",
+            "command": "bun run v3/scripts/builder/app/fabric.ts",
+            "group": "build",
+            "problemMatcher": [],
+            "detail": "Generate Fabric mod assets (blockstates, models, textures)"
+        },
+        {
+            "label": "Fabric: Build Mod",
+            "type": "shell",
+            "command": "./gradlew build",
+            "options": {
+                "cwd": "${workspaceFolder}/v3/java/fabric-1.21.10"
+            },
+            "group": "build",
+            "problemMatcher": "$gradle",
+            "detail": "Build the Fabric mod JAR"
+        },
+        {
+            "label": "Fabric: Run Client",
+            "type": "shell",
+            "command": "./gradlew runClient",
+            "options": {
+                "cwd": "${workspaceFolder}/v3/java/fabric-1.21.10"
+            },
+            "problemMatcher": "$gradle",
+            "detail": "Launch Minecraft client with the mod for testing"
+        },
+        {
+            "label": "Fabric: Run Data Generation",
+            "type": "shell",
+            "command": "./gradlew runDatagen",
+            "options": {
+                "cwd": "${workspaceFolder}/java/fabric-1.21.10"
+            },
+            "group": "build",
+            "problemMatcher": "$gradle",
+            "detail": "Generate loot tables, tags, and recipes"
+        },
+        {
+            "label": "Fabric: Clean Build",
+            "type": "shell",
+            "command": "./gradlew clean build",
+            "options": {
+                "cwd": "${workspaceFolder}/java/fabric-1.21.10"
+            },
+            "group": "build",
+            "problemMatcher": "$gradle",
+            "detail": "Clean and rebuild the Fabric mod"
+        },
+        {
+            "label": "Install Dependencies",
+            "type": "shell",
+            "command": "bun install",
+            "problemMatcher": [],
+            "detail": "Install Node.js dependencies with Bun"
+        },
+        {
+            "label": "Enable MC Loopback",
+            "type": "shell",
+            "command": "bun run enablemcloopback",
+            "problemMatcher": [],
+            "detail": "Enable loopback for Minecraft Bedrock (requires admin)"
+        },
+        {
+            "label": "Enable MC Preview Loopback",
+            "type": "shell",
+            "command": "bun run enablemcpreviewloopback",
+            "problemMatcher": [],
+            "detail": "Enable loopback for Minecraft Bedrock Preview (requires admin)"
+        }
+    ]
+}

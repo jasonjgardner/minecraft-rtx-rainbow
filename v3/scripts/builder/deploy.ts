@@ -1,9 +1,12 @@
 import { BP_DIR, NAMESPACE, RP_DIR, ADDON_DIR } from "./_constants.ts";
 import { emptyDir, copy, ensureDir } from "fs-extra";
-import { join } from "node:path";
+import { join, dirname } from "node:path";
 import { platform } from "node:os";
+import { $ } from "bun";
 
-const appData = process.env["LOCALAPPDATA"] || "%LocalAppData%";
+// New path: %appdata%\Minecraft Bedrock Preview\Users\Shared\games\com.mojang\
+
+const appData = process.env["APPDATA"] || "%AppData%";
 export async function deployToDev(preview = false) {
   if (platform() !== "win32") {
     throw Error(
@@ -11,13 +14,16 @@ export async function deployToDev(preview = false) {
     );
   }
 
+  // As of 1.21.120, regular Bedrock uses %APPDATA%\Minecraft Bedrock
+  // Preview uses %APPDATA%\Minecraft Bedrock Preview
+  const minecraftFolder = preview
+    ? "Minecraft Bedrock Preview"
+    : "Minecraft Bedrock";
   const comMojang = join(
     appData,
-    "Packages",
-    preview
-      ? "Microsoft.MinecraftWindowsBeta_8wekyb3d8bbwe"
-      : "Microsoft.MinecraftUWP_8wekyb3d8bbwe",
-    "LocalState",
+    minecraftFolder,
+    "Users",
+    "Shared",
     "games",
     "com.mojang",
   );
@@ -41,18 +47,23 @@ export async function deployToDev(preview = false) {
 
   await Promise.all(
     [devBehaviorPacks, devResourcePacks, addonPack].map(async (dir) => {
-      // await ensureDir(dir);
       await emptyDir(dir);
     }),
   );
 
-  return Promise.all([
-    copy(BP_DIR, devBehaviorPacks, { overwrite: true }),
+  await Promise.all([
+    copy(BP_DIR, dirname(devBehaviorPacks), {
+      overwrite: true,
+      filter: (src) => !src.includes("rainbow-addon"),
+    }),
     copy(RP_DIR, devResourcePacks, { overwrite: true }),
     copy(ADDON_DIR, addonPack, { overwrite: true }),
   ]);
 }
 
 if (import.meta.main) {
-  await Promise.all([deployToDev(), deployToDev(true)]);
+  // Deploy to both regular and preview
+  await Promise.all([deployToDev(false), deployToDev(true)]);
+  console.log("Deployed to development directories.");
+  process.exit(0);
 }

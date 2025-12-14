@@ -1,15 +1,16 @@
-import type { IBlock } from "../../types.ts";
+import type { IBlock, IUsableBlock } from "../../types.ts";
 import { DecorativeBlock } from "./index.ts";
 import { BLOCK_VERSION, NAMESPACE } from "../../_constants.ts";
-import stairsPermutations from "./permutes/stairs.ts";
+import stairsPermutations, { placementTrait } from "./permutes/stairs.ts";
+
 export class Lamp extends DecorativeBlock {
   constructor(
-    block: Omit<IBlock, "sound" | "isotropic" | "shades">,
+    block: Omit<IUsableBlock, "sound" | "isotropic">,
     hexColor: string,
   ) {
     super(block, hexColor);
     this.name = "lamp";
-    this.title = `${block.colorName} Lamp`;
+    this.title = `${block.color} Lamp`;
     this.blockId = `${this.block.id}_${this.name}`;
     this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
     this.hexColor = hexColor;
@@ -22,11 +23,8 @@ export class Lamp extends DecorativeBlock {
       "minecraft:block": {
         description: {
           identifier: `${NAMESPACE}:${this.blockId}`,
-          menu_category: {
-            category: "construction",
-            group: "itemGroup.name.glazedTerracotta",
-          },
           traits: {},
+          states: {},
         },
         components: {
           //   "minecraft:creative_category": {
@@ -43,6 +41,7 @@ export class Lamp extends DecorativeBlock {
             },
           },
         },
+        events: {},
       },
     };
   }
@@ -50,12 +49,12 @@ export class Lamp extends DecorativeBlock {
 
 export class LampSlab extends Lamp {
   constructor(
-    block: Omit<IBlock, "sound" | "isotropic" | "shades">,
+    block: Omit<IUsableBlock, "sound" | "isotropic">,
     hexColor: string,
   ) {
     super(block, hexColor);
     this.name = "lamp_slab";
-    this.title = `${block.colorName} Lamp Slab`;
+    this.title = `${block.color} Lamp Slab`;
     this.blockId = `${this.block.id}_${this.name}`;
     this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
   }
@@ -66,15 +65,12 @@ export class LampSlab extends Lamp {
       "minecraft:block": {
         description: {
           identifier: `${NAMESPACE}:${this.blockId}`,
-          menu_category: {
-            category: "construction",
-            group: "itemGroup.name.slab",
-          },
           traits: {
             "minecraft:placement_position": {
               enabled_states: ["minecraft:vertical_half"],
             },
           },
+          states: {},
         },
         components: {
           //   "minecraft:creative_category": {
@@ -109,32 +105,20 @@ export class LampSlab extends Lamp {
             },
           },
         ],
+        events: {},
       },
     };
   }
 }
 
-const placementTrait = {
-  "minecraft:placement_direction": {
-    enabled_states: [
-      "minecraft:cardinal_direction",
-      "minecraft:facing_direction",
-    ],
-    y_rotation_offset: 90.0,
-  },
-  "minecraft:placement_position": {
-    enabled_states: ["minecraft:vertical_half"],
-  },
-};
-
 export class LampStairs extends Lamp {
   constructor(
-    block: Omit<IBlock, "sound" | "isotropic" | "shades">,
+    block: Omit<IUsableBlock, "sound" | "isotropic">,
     hexColor: string,
   ) {
     super(block, hexColor);
     this.name = "lamp_stairs";
-    this.title = `${block.colorName} Lamp Stairs`;
+    this.title = `${block.color} Lamp Stairs`;
     this.blockId = `${this.block.id}_${this.name}`;
     this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
   }
@@ -145,13 +129,10 @@ export class LampStairs extends Lamp {
       "minecraft:block": {
         description: {
           identifier: `${NAMESPACE}:${this.blockId}`,
-          menu_category: {
-            category: "construction",
-            group: "itemGroup.name.stairs",
-          },
           traits: {
             ...placementTrait,
           },
+          states: {},
         },
         components: {
           //   "minecraft:creative_category": {
@@ -169,6 +150,7 @@ export class LampStairs extends Lamp {
           },
         },
         permutations: [...stairsPermutations],
+        events: {},
       },
     };
   }
@@ -176,12 +158,12 @@ export class LampStairs extends Lamp {
 
 export class LampCube extends Lamp {
   constructor(
-    block: Omit<IBlock, "sound" | "isotropic" | "shades">,
+    block: Omit<IUsableBlock, "sound" | "isotropic">,
     hexColor: string,
   ) {
     super(block, hexColor);
     this.name = "lamp_cube";
-    this.title = `${block.colorName} Lamp Cube`;
+    this.title = `${block.color} Lamp Cube`;
     this.blockId = `${this.block.id}_${this.name}`;
     this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
   }
@@ -192,13 +174,10 @@ export class LampCube extends Lamp {
       "minecraft:block": {
         description: {
           identifier: `${NAMESPACE}:${this.blockId}`,
-          menu_category: {
-            category: "construction",
-            group: "itemGroup.name.glazedTerracotta",
-          },
           traits: {
             ...placementTrait,
           },
+          states: {},
         },
         components: {
           //   "minecraft:creative_category": {
@@ -216,6 +195,281 @@ export class LampCube extends Lamp {
           },
         },
         permutations: [...stairsPermutations],
+        events: {},
+      },
+    };
+  }
+}
+
+export class CheckerLamp extends Lamp {
+  constructor(
+    block: Omit<IUsableBlock, "sound" | "isotropic">,
+    hexColor: string,
+  ) {
+    super(block, hexColor);
+    this.name = "checker_lamp";
+    this.title = `${block.color} Checker Lamp`;
+    this.blockId = `${this.block.id}_${this.name}`;
+    this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
+  }
+
+  toJsonObject(): Record<string, unknown> {
+    return {
+      format_version: BLOCK_VERSION,
+      "minecraft:block": {
+        description: {
+          identifier: `${NAMESPACE}:${this.blockId}`,
+          traits: {
+            ...placementTrait,
+          },
+          states: {},
+        },
+        components: {
+          //   "minecraft:creative_category": {
+          //     category: "construction",
+          //     group: "itemGroup.name.glazedTerracotta",
+          //   },
+          "minecraft:geometry": "geometry.checker",
+          "minecraft:map_color": this.hexColor,
+          "minecraft:light_emission": 15,
+          "minecraft:material_instances": {
+            secondary: {
+              texture: this.block.complimentary + "_lamp",
+              render_method: "opaque",
+            },
+            "1": "secondary",
+            "4": "secondary",
+            "6": "secondary",
+            "7": "secondary",
+            "*": {
+              texture: this.textureId,
+              render_method: "opaque",
+            },
+          },
+        },
+        events: {},
+      },
+    };
+  }
+}
+
+export class QuadColorLamp extends Lamp {
+  constructor(
+    block: Omit<IUsableBlock, "sound" | "isotropic">,
+    hexColor: string,
+  ) {
+    super(block, hexColor);
+    this.name = "palette_lamp";
+    this.title = `${block.color} Palette Lamp`;
+    this.blockId = `${this.block.id}_${this.name}`;
+    this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
+  }
+
+  toJsonObject(): Record<string, unknown> {
+    return {
+      format_version: BLOCK_VERSION,
+      "minecraft:block": {
+        description: {
+          identifier: `${NAMESPACE}:${this.blockId}`,
+          traits: {
+            ...placementTrait,
+          },
+          states: {
+            "rainbow:permute": [1, 2, 3],
+          },
+        },
+        components: {
+          //   "minecraft:creative_category": {
+          //     category: "construction",
+          //     group: "itemGroup.name.glazedTerracotta",
+          //   },
+          "minecraft:geometry": "geometry.checker",
+          "minecraft:map_color": this.hexColor,
+          "minecraft:light_emission": 15,
+          "minecraft:material_instances": {
+            complimentary: {
+              texture: this.block.complimentary + "_lamp",
+              render_method: "opaque",
+            },
+            secondary: {
+              texture: this.block.secondary + "_lamp",
+              render_method: "opaque",
+            },
+            tertiary: {
+              texture: this.block.tertiary + "_lamp",
+              render_method: "opaque",
+            },
+            "1": "complimentary",
+            "2": "secondary",
+            "4": "tertiary",
+            "6": "complimentary",
+            "8": "secondary",
+            "*": {
+              texture: this.textureId,
+              render_method: "opaque",
+            },
+          },
+          // "minecraft:on_player_placing": {
+          //   event: "rainbow:place_random",
+          // },
+        },
+        permutations: [
+          {
+            condition: "q.block_state('rainbow:permute') == 1",
+            components: {
+              "minecraft:material_instances": {
+                complimentary: {
+                  texture: this.block.complimentary + "_lamp",
+                  render_method: "opaque",
+                },
+                secondary: {
+                  texture: this.block.secondary + "_lamp",
+                  render_method: "opaque",
+                },
+                tertiary: {
+                  texture: this.block.tertiary + "_lamp",
+                  render_method: "opaque",
+                },
+                "1": "tertiary",
+                "2": "complimentary",
+                "4": "secondary",
+                "6": "tertiary",
+                "8": "complimentary",
+                "*": {
+                  texture: this.textureId,
+                  render_method: "opaque",
+                },
+              },
+            },
+          },
+          {
+            condition: "q.block_state('rainbow:permute') == 2",
+            components: {
+              "minecraft:material_instances": {
+                complimentary: {
+                  texture: this.block.complimentary + "_lamp",
+                  render_method: "opaque",
+                },
+                secondary: {
+                  texture: this.block.secondary + "_lamp",
+                  render_method: "opaque",
+                },
+                tertiary: {
+                  texture: this.block.tertiary + "_lamp",
+                  render_method: "opaque",
+                },
+                "1": "secondary",
+                "2": "tertiary",
+                "4": "complimentary",
+                "6": "secondary",
+                "8": "tertiary",
+                "*": {
+                  texture: this.textureId,
+                  render_method: "opaque",
+                },
+              },
+            },
+          },
+        ],
+        events: {},
+      },
+    };
+  }
+}
+
+export class CornerLamp extends Lamp {
+  constructor(
+    block: Omit<IUsableBlock, "sound" | "isotropic">,
+    hexColor: string,
+  ) {
+    super(block, hexColor);
+    this.name = "corner_lamp";
+    this.title = `${block.color} Directional Lamp`;
+    this.blockId = `${this.block.id}_${this.name}`;
+    this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
+  }
+
+  toJsonObject(): Record<string, unknown> {
+    return {
+      format_version: BLOCK_VERSION,
+      "minecraft:block": {
+        description: {
+          identifier: `${NAMESPACE}:${this.blockId}`,
+          traits: {
+            ...placementTrait,
+          },
+          states: {},
+        },
+        components: {
+          //   "minecraft:creative_category": {
+          //     category: "construction",
+          //     group: "itemGroup.name.stairs",
+          //   },
+          "minecraft:geometry": "geometry.corner_lamp",
+          "minecraft:map_color": this.hexColor,
+          "minecraft:light_dampening": 4,
+          "minecraft:material_instances": {
+            lamp: {
+              texture: `${NAMESPACE}_${this.block.id}_lamp`,
+              render_method: "opaque",
+            },
+            "*": {
+              texture: `${NAMESPACE}_light_gray_50_block`,
+              render_method: "opaque",
+            },
+          },
+        },
+        permutations: [
+          {
+            condition: "q.block_state('minecraft:facing_direction') == 'north'",
+            components: {
+              "minecraft:transformation": {
+                rotation: [0, 0, 0],
+              },
+            },
+          },
+          {
+            condition: "q.block_state('minecraft:facing_direction') == 'east'",
+            components: {
+              "minecraft:transformation": {
+                rotation: [0, 90, 0],
+              },
+            },
+          },
+          {
+            condition: "q.block_state('minecraft:facing_direction') == 'south'",
+            components: {
+              "minecraft:transformation": {
+                rotation: [0, 180, 0],
+              },
+            },
+          },
+          {
+            condition: "q.block_state('minecraft:facing_direction') == 'west'",
+            components: {
+              "minecraft:transformation": {
+                rotation: [0, 270, 0],
+              },
+            },
+          },
+          {
+            condition: "q.block_state('minecraft:facing_direction') == 'up'",
+            components: {
+              "minecraft:transformation": {
+                rotation: [-90, 0, 0],
+              },
+            },
+          },
+          {
+            condition: "q.block_state('minecraft:facing_direction') == 'down'",
+            components: {
+              "minecraft:transformation": {
+                rotation: [90, 0, 0],
+              },
+            },
+          },
+        ],
+        events: {},
       },
     };
   }

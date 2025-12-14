@@ -15,6 +15,6 @@ export default class BigBevelBlock extends BevelBlock {
     };
 
     this.name = "big_bevel_block";
-    this.title = `${block.colorName} Big-Beveled Block`;
+    this.title = `${block.color} Big-Beveled Block`;
   }
 }

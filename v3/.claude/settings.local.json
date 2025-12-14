@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs cat:*)",
+      "Bash(wc:*)",
+      "Bash(bun run:*)",
+      "Bash(gradle wrapper:*)",
+      "Bash(curl:*)",
+      "Bash(./gradlew.bat build:*)",
+      "WebSearch",
+      "WebFetch(domain:fabricmc.net)",
+      "WebFetch(domain:maven.fabricmc.net)",
+      "Bash(.gradlew.bat build:*)",
+      "Bash(cmd /c \"gradlew.bat build --no-daemon\")",
+      "Bash(powershell -Command \"Set-Location ''D:\\Game Development\\Minecraft\\minecraft-rtx-rainbow\\v3\\java\\fabric-1.21.10''; .\\gradlew.bat build --no-daemon\")",
+      "Bash(powershell -Command \"Get-ChildItem ''D:\\Game Development\\Minecraft\\minecraft-rtx-rainbow\\v3\\java\\fabric-1.21.10\\build\\libs\\'' | Select-Object Name, Length, LastWriteTime\")",
+      "Bash(powershell -Command \"Set-Location ''D:\\Game Development\\Minecraft\\minecraft-rtx-rainbow\\v3\\java\\fabric-1.21.10''; .\\gradlew.bat clean build --no-daemon --refresh-dependencies\")",
+      "Bash(powershell -Command \"Set-Location ''D:\\Game Development\\Minecraft\\minecraft-rtx-rainbow\\v3\\java\\fabric-1.21.10''; .\\gradlew.bat clean build --no-daemon\")",
+      "Bash(powershell:*)",
+      "WebFetch(domain:shaderlabs.org)",
+      "Bash(npm install:*)",
+      "Bash(dir:*)",
+      "WebFetch(domain:wiki.fabricmc.net)",
+      "WebFetch(domain:minecraft.wiki)",
+      "Bash(findstr:*)"
+    ]
+  }
+}

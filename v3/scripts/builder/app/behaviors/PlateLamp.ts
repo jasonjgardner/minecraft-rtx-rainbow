@@ -1,17 +1,10 @@
 import { Plate } from "./Plate";
-import type { IBlock, IColorShades } from "../../types";
+import type { IBlock, IColorShades, IUsableBlock } from "../../types";
 import { BLOCK_VERSION, NAMESPACE } from "../../_constants";
 
 export default class PlateLamp extends Plate {
-  constructor(
-    block: Omit<IBlock, "sound" | "isotropic"> & {
-      shades: Partial<IColorShades>;
-    },
-  ) {
-    super({
-      ...block,
-      geometry: "geometry.plate_lamp",
-    });
+  constructor(block: IUsableBlock, hexColor: string) {
+    super(block, hexColor);
     this.block = {
       ...block,
       isotropic: false,
@@ -19,7 +12,7 @@ export default class PlateLamp extends Plate {
     };
 
     this.name = "plate_lamp";
-    this.title = `${block.colorName} Plate Lamp`;
+    this.title = `${block.color} Plate Lamp`;
     this.blockId = `${this.block.id}_${this.name}`;
     this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
   }
@@ -35,10 +28,7 @@ export default class PlateLamp extends Plate {
               enabled_states: ["minecraft:facing_direction"],
             },
           },
-          menu_category: {
-            category: "construction",
-            group: "itemGroup.name.copper",
-          },
+          states: {},
         },
         components: {
           // "minecraft:creative_category": {
@@ -70,11 +60,18 @@ export default class PlateLamp extends Plate {
         },
         permutations: [
           {
-            condition:
-              "q.block_state('minecraft:facing_direction') == 'up' || q.block_state('minecraft:facing_direction') == 'down' ",
+            condition: "q.block_state('minecraft:facing_direction') == 'up'",
             components: {
               "minecraft:transformation": {
-                rotation: [90, 0, 90],
+                rotation: [90, 0, 0],
+              },
+            },
+          },
+          {
+            condition: "q.block_state('minecraft:facing_direction') == 'down'",
+            components: {
+              "minecraft:transformation": {
+                rotation: [-90, 0, 0],
               },
             },
           },
@@ -82,7 +79,7 @@ export default class PlateLamp extends Plate {
             condition: "q.block_state('minecraft:facing_direction') == 'east'",
             components: {
               "minecraft:transformation": {
-                rotation: [0, 0, 0],
+                rotation: [0, -90, 0],
               },
             },
           },
@@ -90,20 +87,28 @@ export default class PlateLamp extends Plate {
             condition: "q.block_state('minecraft:facing_direction') == 'west'",
             components: {
               "minecraft:transformation": {
-                rotation: [0, 180, 0],
+                rotation: [0, 90, 0],
               },
             },
           },
           {
-            condition:
-              "q.block_state('minecraft:facing_direction') == 'north' || q.block_state('minecraft:facing_direction') == 'south' ",
+            condition: "q.block_state('minecraft:facing_direction') == 'north'",
             components: {
               "minecraft:transformation": {
-                rotation: [180, 0, 0],
+                rotation: [0, 0, 0],
+              },
+            },
+          },
+          {
+            condition: "q.block_state('minecraft:facing_direction') == 'south'",
+            components: {
+              "minecraft:transformation": {
+                rotation: [0, 180, 0],
               },
             },
           },
         ],
+        events: {},
       },
     };
   }

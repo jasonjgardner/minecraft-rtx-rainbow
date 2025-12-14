@@ -10,7 +10,7 @@ export class Glass extends DecorativeBlock {
   ) {
     super(block, hexColor);
     this.name = "glass";
-    this.title = `${block.colorName} Glass`;
+    this.title = `${block.color} Glass`;
     this.blockId = `${this.block.id}_${this.name}`;
     this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
     this.hexColor = hexColor;
@@ -23,11 +23,8 @@ export class Glass extends DecorativeBlock {
       "minecraft:block": {
         description: {
           identifier: `${NAMESPACE}:${this.blockId}`,
-          menu_category: {
-            category: "construction",
-            group: "itemGroup.name.glass",
-          },
           traits: {},
+          states: {},
         },
         components: {
           "minecraft:geometry": "minecraft:geometry.full_block",
@@ -43,6 +40,7 @@ export class Glass extends DecorativeBlock {
             },
           },
         },
+        events: {},
       },
     };
   }
@@ -55,7 +53,7 @@ export class GlassSlab extends Glass {
   ) {
     super(block, hexColor);
     this.name = "glass_slab";
-    this.title = `${block.colorName} Glass Slab`;
+    this.title = `${block.color} Glass Slab`;
     this.blockId = `${this.block.id}_${this.name}`;
     this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
     this.hexColor = hexColor;
@@ -68,15 +66,12 @@ export class GlassSlab extends Glass {
       "minecraft:block": {
         description: {
           identifier: `${NAMESPACE}:${this.blockId}`,
-          menu_category: {
-            category: "construction",
-            group: "itemGroup.name.slab",
-          },
           traits: {
             "minecraft:placement_position": {
               enabled_states: ["minecraft:vertical_half"],
             },
           },
+          states: {},
         },
         components: {
           "minecraft:geometry": "geometry.slab",
@@ -108,6 +103,7 @@ export class GlassSlab extends Glass {
             },
           },
         ],
+        events: {},
       },
     };
   }
@@ -133,7 +129,7 @@ export class GlassStairs extends Glass {
   ) {
     super(block, hexColor);
     this.name = "glass_stairs";
-    this.title = `${block.colorName} Glass Stairs`;
+    this.title = `${block.color} Glass Stairs`;
     this.blockId = `${this.block.id}_${this.name}`;
     this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
     this.hexColor = hexColor;
@@ -146,13 +142,10 @@ export class GlassStairs extends Glass {
       "minecraft:block": {
         description: {
           identifier: `${NAMESPACE}:${this.blockId}`,
-          menu_category: {
-            category: "construction",
-            group: "itemGroup.name.stairs",
-          },
           traits: {
             ...placementTrait,
           },
+          states: {},
         },
         components: {
           //   "minecraft:creative_category": {
@@ -170,6 +163,7 @@ export class GlassStairs extends Glass {
           },
         },
         permutations: [...stairsPermutations],
+        events: {},
       },
     };
   }
@@ -182,7 +176,7 @@ export class GlassCarpet extends Glass {
   ) {
     super(block, hexColor);
     this.name = "glass_carpet";
-    this.title = `${block.colorName} Glass Panel`;
+    this.title = `${block.color} Glass Panel`;
     this.blockId = `${this.block.id}_${this.name}`;
     this.textId = `tile.${NAMESPACE}:${this.blockId}.name`;
     // this.textureId = `${NAMESPACE}_${this.blockId}`;
@@ -194,15 +188,12 @@ export class GlassCarpet extends Glass {
       "minecraft:block": {
         description: {
           identifier: `${NAMESPACE}:${this.blockId}`,
-          menu_category: {
-            category: "construction",
-            group: "itemGroup.name.carpets",
-          },
           traits: {
             "minecraft:placement_position": {
               enabled_states: ["minecraft:block_face"],
             },
           },
+          states: {},
         },
         components: {
           "minecraft:geometry": "geometry.carpet",
@@ -270,6 +261,7 @@ export class GlassCarpet extends Glass {
             },
           },
         ],
+        events: {},
       },
     };
   }
